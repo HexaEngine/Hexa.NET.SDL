@@ -17,7 +17,7 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// Data about a single finger in a multitouch event.<br/>
-	/// Each touch even is a collection of fingers that are simultaneously in<br/>
+	/// Each touch event is a collection of fingers that are simultaneously in<br/>
 	/// contact with the touch device (so a "touch" can be a "multitouch," in<br/>
 	/// reality), and this struct reports details of the specific fingers.<br/>
 	/// <br/>

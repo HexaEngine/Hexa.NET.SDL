@@ -19,14 +19,15 @@ namespace Hexa.NET.SDL3
 	/// It is recommended to query SDL_WindowSupportsGPUSwapchainComposition after<br/>
 	/// claiming the window if you wish to change the swapchain composition from<br/>
 	/// SDR.<br/>
-	/// - SDR: B8G8R8A8 or R8G8B8A8 swapchain. Pixel values are in nonlinear sRGB<br/>
-	/// encoding.<br/>
-	/// - SDR_LINEAR: B8G8R8A8_SRGB or R8G8B8A8_SRGB swapchain. Pixel values are in<br/>
-	/// nonlinear sRGB encoding.<br/>
-	/// - HDR_EXTENDED_LINEAR: R16G16B16A16_SFLOAT swapchain. Pixel values are in<br/>
-	/// extended linear encoding.<br/>
-	/// - HDR10_ST2048: A2R10G10B10 or A2B10G10R10 swapchain. Pixel values are in<br/>
-	/// PQ ST2048 encoding.<br/>
+	/// - SDR: B8G8R8A8 or R8G8B8A8 swapchain. Pixel values are in sRGB encoding.<br/>
+	/// - SDR_LINEAR: B8G8R8A8_SRGB or R8G8B8A8_SRGB swapchain. Pixel values are<br/>
+	/// stored in memory in sRGB encoding but accessed in shaders in "linear<br/>
+	/// sRGB" encoding which is sRGB but with a linear transfer function.<br/>
+	/// - HDR_EXTENDED_LINEAR: R16G16B16A16_FLOAT swapchain. Pixel values are in<br/>
+	/// extended linear sRGB encoding and permits values outside of the [0, 1]<br/>
+	/// range.<br/>
+	/// - HDR10_ST2084: A2R10G10B10 or A2B10G10R10 swapchain. Pixel values are in<br/>
+	/// BT.2020 ST2084 (PQ) encoding.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
@@ -43,8 +44,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SWAPCHAINCOMPOSITION_HDR_EXTENDED_LINEAR")]
 		[NativeName(NativeNameType.Value, "2")]
 		HdrExtendedLinear = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2048")]
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084")]
 		[NativeName(NativeNameType.Value, "3")]
-		Hdr10St2048 = unchecked(3),
+		Hdr10St2084 = unchecked(3),
 	}
 }

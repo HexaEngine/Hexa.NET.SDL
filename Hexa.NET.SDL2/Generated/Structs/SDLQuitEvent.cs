@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The "quit requested" event<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLQuitEvent
 	{
 		/// <summary>
-		/// ::SDL_QUIT <br/>
+		/// SDL_QUIT <br/>
 		/// </summary>
 		public uint Type;
 

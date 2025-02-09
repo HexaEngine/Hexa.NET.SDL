@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Game controller button event structure (event.cbutton.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLControllerButtonEvent
 	{
 		/// <summary>
-		/// ::SDL_CONTROLLERBUTTONDOWN or ::SDL_CONTROLLERBUTTONUP <br/>
+		/// SDL_CONTROLLERBUTTONDOWN or SDL_CONTROLLERBUTTONUP <br/>
 		/// </summary>
 		public uint Type;
 
@@ -42,7 +42,7 @@ namespace Hexa.NET.SDL2
 		public byte Button;
 
 		/// <summary>
-		/// ::SDL_PRESSED or ::SDL_RELEASED <br/>
+		/// SDL_PRESSED or SDL_RELEASED <br/>
 		/// </summary>
 		public byte State;
 

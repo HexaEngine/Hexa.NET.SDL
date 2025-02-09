@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Joystick trackball motion event structure (event.jball.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyBallEvent
 	{
 		/// <summary>
-		/// ::SDL_JOYBALLMOTION <br/>
+		/// SDL_JOYBALLMOTION <br/>
 		/// </summary>
 		public uint Type;
 

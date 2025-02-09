@@ -16,13 +16,15 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// An event used to request a file open by the system (event.drop.*)<br/>
+	/// This event is enabled by default, you can disable it with SDL_EventState().<br/>
+	/// If this event is enabled, you must free the filename in the event.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDropEvent
 	{
 		/// <summary>
-		/// ::SDL_DROPBEGIN or ::SDL_DROPFILE or ::SDL_DROPTEXT or ::SDL_DROPCOMPLETE <br/>
+		/// SDL_DROPBEGIN or SDL_DROPFILE or SDL_DROPTEXT or SDL_DROPCOMPLETE <br/>
 		/// </summary>
 		public uint Type;
 

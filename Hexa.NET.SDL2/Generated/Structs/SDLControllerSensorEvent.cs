@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Game controller sensor event structure (event.csensor.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLControllerSensorEvent
 	{
 		/// <summary>
-		/// ::SDL_CONTROLLERSENSORUPDATE <br/>
+		/// SDL_CONTROLLERSENSORUPDATE <br/>
 		/// </summary>
 		public uint Type;
 
@@ -37,7 +37,7 @@ namespace Hexa.NET.SDL2
 		public int Which;
 
 		/// <summary>
-		/// The type of the sensor, one of the values of ::SDL_SensorType <br/>
+		/// The type of the sensor, one of the values of SDL_SensorType <br/>
 		/// </summary>
 		public int Sensor;
 

@@ -15,7 +15,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Opaque EGL types.<br/>
+	/// Opaque type for an EGL display.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Typedef, "SDL_EGLDisplay")]

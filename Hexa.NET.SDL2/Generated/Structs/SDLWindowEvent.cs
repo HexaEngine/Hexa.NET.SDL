@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Window state change event data (event.window.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLWindowEvent
 	{
 		/// <summary>
-		/// ::SDL_WINDOWEVENT <br/>
+		/// SDL_WINDOWEVENT <br/>
 		/// </summary>
 		public uint Type;
 
@@ -37,7 +37,7 @@ namespace Hexa.NET.SDL2
 		public uint WindowID;
 
 		/// <summary>
-		/// ::SDL_WindowEventID <br/>
+		/// SDL_WindowEventID <br/>
 		/// </summary>
 		public byte Event;
 

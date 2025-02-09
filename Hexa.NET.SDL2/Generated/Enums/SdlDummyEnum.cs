@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// TODO: include/SDL_stdinc.h:174: error: size of array 'SDL_dummy_enum' is negative <br/>
+	/// TODO: include/SDL_stdinc.h:422: error: size of array 'SDL_dummy_enum' is negative <br/>
 	/// </summary>
 	[Flags]
 	public enum SdlDummyEnum : int

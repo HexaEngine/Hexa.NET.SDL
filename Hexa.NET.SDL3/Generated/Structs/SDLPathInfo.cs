@@ -15,6 +15,11 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	/// <summary>
+	/// Information about a path on the filesystem.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_PathInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPathInfo

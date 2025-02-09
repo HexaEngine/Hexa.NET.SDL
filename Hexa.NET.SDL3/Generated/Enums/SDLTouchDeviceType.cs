@@ -12,6 +12,10 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	/// <summary>
+	/// An enum that describes the type of a touch device.<br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_TouchDeviceType")]
 	[Flags]
 	public enum SDLTouchDeviceType : int

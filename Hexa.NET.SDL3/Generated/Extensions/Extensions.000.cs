@@ -33,16 +33,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -57,16 +62,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -84,16 +94,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -111,16 +126,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -141,16 +161,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -168,16 +193,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -198,16 +228,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -228,16 +263,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -261,16 +301,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -288,16 +333,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -318,16 +368,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -348,16 +403,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -381,16 +441,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -411,16 +476,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -444,16 +514,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -477,16 +552,21 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// This function converts text between encodings, reading from and writing to<br/>
 		/// a buffer.<br/>
-		/// It returns the number of succesful conversions.<br/>
-		/// <br/>
+		/// It returns the number of succesful conversions on success. On error,<br/>
+		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
+		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
+		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
+		/// encountered.<br/>
 		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte<br/>
-		/// sequence. On error, this is the location of the problematic<br/>
-		/// input sequence. On success, this is the end of the input<br/>
-		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
-		/// to convert, which will be 0 on success. - outbuf will point to<br/>
-		/// the location where to store the next output byte. - outbytesleft<br/>
-		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
+		/// error, this is the location of the problematic input sequence. On<br/>
+		/// success, this is the end of the input sequence.<br/>
+		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
+		/// will be 0 on success.<br/>
+		/// - outbuf will point to the location where to store the next output byte.<br/>
+		/// - outbytesleft will be set to the number of bytes left in the output<br/>
+		/// buffer.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -513,6 +593,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Delete an OpenGL context.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -739,6 +821,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Delete an OpenGL context.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>

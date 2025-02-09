@@ -788,6 +788,9 @@ namespace Hexa.NET.SDL3
 	/// A callback that fires when an SDL assertion fails.<br/>
 	/// <br/>
 	/// <br/>
+	/// This callback may be called from any thread that triggers an<br/>
+	/// assert at any time.<br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AssertionHandler")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -797,6 +800,9 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// A callback that fires when an SDL assertion fails.<br/>
 	/// <br/>
+	/// <br/>
+	/// This callback may be called from any thread that triggers an<br/>
+	/// assert at any time.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AssertionHandler")]
@@ -1230,11 +1236,14 @@ namespace Hexa.NET.SDL3
 	/// - A pointer to non-`NULL`, the user chose one or more files. The argument<br/>
 	/// is a null-terminated list of pointers to C strings, each containing a<br/>
 	/// path.<br/>
-	/// The filelist argument does not need to be freed; it will automatically be<br/>
-	/// freed when the callback returns.<br/>
+	/// The filelist argument should not be freed; it will automatically be freed<br/>
+	/// when the callback returns.<br/>
 	/// The filter argument is the index of the filter that was selected, or -1 if<br/>
 	/// no filter was selected or if the platform or method doesn't support<br/>
 	/// fetching the selected filter.<br/>
+	/// In Android, the `filelist` are `content://` URIs. They should be opened<br/>
+	/// using SDL_IOFromFile() with appropriate modes. This applies both to open<br/>
+	/// and save file dialog.<br/>
 	/// <br/>
 	/// <br/>
 	/// <br/>
@@ -1254,11 +1263,14 @@ namespace Hexa.NET.SDL3
 	/// - A pointer to non-`NULL`, the user chose one or more files. The argument<br/>
 	/// is a null-terminated list of pointers to C strings, each containing a<br/>
 	/// path.<br/>
-	/// The filelist argument does not need to be freed; it will automatically be<br/>
-	/// freed when the callback returns.<br/>
+	/// The filelist argument should not be freed; it will automatically be freed<br/>
+	/// when the callback returns.<br/>
 	/// The filter argument is the index of the filter that was selected, or -1 if<br/>
 	/// no filter was selected or if the platform or method doesn't support<br/>
 	/// fetching the selected filter.<br/>
+	/// In Android, the `filelist` are `content://` URIs. They should be opened<br/>
+	/// using SDL_IOFromFile() with appropriate modes. This applies both to open<br/>
+	/// and save file dialog.<br/>
 	/// <br/>
 	/// <br/>
 	/// <br/>
@@ -1311,6 +1323,10 @@ namespace Hexa.NET.SDL3
 	/// callback with further entries. SDL_ENUM_SUCCESS and SDL_ENUM_FAILURE will<br/>
 	/// terminate the enumeration early, and dictate the return value of the<br/>
 	/// enumeration function itself.<br/>
+	/// `dirname` is guaranteed to end with a path separator ('<br/>
+	/// \<br/>
+	/// ' on Windows, '/'<br/>
+	/// on most other platforms).<br/>
 	/// <br/>
 	/// <br/>
 	/// <br/>
@@ -1329,6 +1345,10 @@ namespace Hexa.NET.SDL3
 	/// callback with further entries. SDL_ENUM_SUCCESS and SDL_ENUM_FAILURE will<br/>
 	/// terminate the enumeration early, and dictate the return value of the<br/>
 	/// enumeration function itself.<br/>
+	/// `dirname` is guaranteed to end with a path separator ('<br/>
+	/// \<br/>
+	/// ' on Windows, '/'<br/>
+	/// on most other platforms).<br/>
 	/// <br/>
 	/// <br/>
 	/// <br/>
@@ -1376,11 +1396,27 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// Function pointer typedef for SDL_AppInit.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppInit directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] void** appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] byte** argv);
 
 	#else
+	/// <summary>
+	/// Function pointer typedef for SDL_AppInit.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppInit directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] nint appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] nint argv);
@@ -1388,11 +1424,27 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// Function pointer typedef for SDL_AppIterate.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppIterate directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate);
 
 	#else
+	/// <summary>
+	/// Function pointer typedef for SDL_AppIterate.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppIterate directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate);
@@ -1400,11 +1452,27 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// Function pointer typedef for SDL_AppEvent.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppEvent directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt);
 
 	#else
+	/// <summary>
+	/// Function pointer typedef for SDL_AppEvent.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppEvent directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] nint evnt);
@@ -1412,14 +1480,54 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// Function pointer typedef for SDL_AppQuit.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppEvent directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_AppResult")] SDLAppResult result);
 
 	#else
+	/// <summary>
+	/// Function pointer typedef for SDL_AppQuit.<br/>
+	/// These are used by SDL_EnterAppMainCallbacks. This mechanism operates behind<br/>
+	/// the scenes for apps using the optional main callbacks. Apps that want to<br/>
+	/// use this should just implement SDL_AppEvent directly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_AppResult")] SDLAppResult result);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// Callback run on the main thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_MainThreadCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLMainThreadCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
+
+	#else
+	/// <summary>
+	/// Callback run on the main thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_MainThreadCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLMainThreadCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
 	#endif
 
@@ -1490,11 +1598,37 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback to be used with SDL_SetX11EventHook.<br/>
+	/// This callback may modify the event, and should return true if the event<br/>
+	/// should continue to be processed, or false to prevent further processing.<br/>
+	/// As this is processing an event directly from the X11 event loop, this<br/>
+	/// callback should do the minimum required work and return quickly.<br/>
+	/// <br/>
+	/// <br/>
+	/// This may only be called (by SDL) from the thread handling the<br/>
+	/// X11 event loop.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_X11EventHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] XEvent* xevent);
 
 	#else
+	/// <summary>
+	/// A callback to be used with SDL_SetX11EventHook.<br/>
+	/// This callback may modify the event, and should return true if the event<br/>
+	/// should continue to be processed, or false to prevent further processing.<br/>
+	/// As this is processing an event directly from the X11 event loop, this<br/>
+	/// callback should do the minimum required work and return quickly.<br/>
+	/// <br/>
+	/// <br/>
+	/// This may only be called (by SDL) from the thread handling the<br/>
+	/// X11 event loop.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_X11EventHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] nint xevent);
@@ -1582,6 +1716,30 @@ namespace Hexa.NET.SDL3
 	[NativeName(NativeNameType.Delegate, "SDL_NSTimerCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong SDLNSTimerCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "timerID")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int timerID, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint64")] ulong interval);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback that is invoked when a tray entry is selected.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TrayCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLTrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry);
+
+	#else
+	/// <summary>
+	/// A callback that is invoked when a tray entry is selected.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TrayCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLTrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] nint entry);
 
 	#endif
 

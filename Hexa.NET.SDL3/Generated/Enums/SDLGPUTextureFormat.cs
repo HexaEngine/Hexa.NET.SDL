@@ -76,9 +76,8 @@ namespace Hexa.NET.SDL3
 	/// For DEPTH_STENCIL_TARGET usage, the following formats are universally<br/>
 	/// supported:<br/>
 	/// - D16_UNORM<br/>
-	/// - Either (but not necessarily both!) D24_UNORM or D32_SFLOAT<br/>
-	/// - Either (but not necessarily both!) D24_UNORM_S8_UINT or<br/>
-	/// D32_SFLOAT_S8_UINT<br/>
+	/// - Either (but not necessarily both!) D24_UNORM or D32_FLOAT<br/>
+	/// - Either (but not necessarily both!) D24_UNORM_S8_UINT or D32_FLOAT_S8_UINT<br/>
 	/// Unless D16_UNORM is sufficient for your purposes, always check which of<br/>
 	/// D24/D32 is supported before creating a depth-stencil texture!<br/>
 	/// <br/>
@@ -524,5 +523,299 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_D32_FLOAT_S8_UINT")]
 		[NativeName(NativeNameType.Value, "62")]
 		D32FloatS8Uint = unchecked(62),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM")]
+		[NativeName(NativeNameType.Value, "63")]
+		Astc4X4Unorm = unchecked(63),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM")]
+		[NativeName(NativeNameType.Value, "64")]
+		Astc5X4Unorm = unchecked(64),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM")]
+		[NativeName(NativeNameType.Value, "65")]
+		Astc5X5Unorm = unchecked(65),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM")]
+		[NativeName(NativeNameType.Value, "66")]
+		Astc6X5Unorm = unchecked(66),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM")]
+		[NativeName(NativeNameType.Value, "67")]
+		Astc6X6Unorm = unchecked(67),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM")]
+		[NativeName(NativeNameType.Value, "68")]
+		Astc8X5Unorm = unchecked(68),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM")]
+		[NativeName(NativeNameType.Value, "69")]
+		Astc8X6Unorm = unchecked(69),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM")]
+		[NativeName(NativeNameType.Value, "70")]
+		Astc8X8Unorm = unchecked(70),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM")]
+		[NativeName(NativeNameType.Value, "71")]
+		Astc10X5Unorm = unchecked(71),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM")]
+		[NativeName(NativeNameType.Value, "72")]
+		Astc10X6Unorm = unchecked(72),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM")]
+		[NativeName(NativeNameType.Value, "73")]
+		Astc10X8Unorm = unchecked(73),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM")]
+		[NativeName(NativeNameType.Value, "74")]
+		Astc10X10Unorm = unchecked(74),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM")]
+		[NativeName(NativeNameType.Value, "75")]
+		Astc12X10Unorm = unchecked(75),
+
+		/// <summary>
+		/// Compressed ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM")]
+		[NativeName(NativeNameType.Value, "76")]
+		Astc12X12Unorm = unchecked(76),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_4x4_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "77")]
+		Astc4X4UnormSrgb = unchecked(77),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_5x4_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "78")]
+		Astc5X4UnormSrgb = unchecked(78),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_5x5_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "79")]
+		Astc5X5UnormSrgb = unchecked(79),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_6x5_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "80")]
+		Astc6X5UnormSrgb = unchecked(80),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_6x6_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "81")]
+		Astc6X6UnormSrgb = unchecked(81),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x5_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "82")]
+		Astc8X5UnormSrgb = unchecked(82),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x6_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "83")]
+		Astc8X6UnormSrgb = unchecked(83),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x8_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "84")]
+		Astc8X8UnormSrgb = unchecked(84),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x5_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "85")]
+		Astc10X5UnormSrgb = unchecked(85),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x6_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "86")]
+		Astc10X6UnormSrgb = unchecked(86),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x8_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "87")]
+		Astc10X8UnormSrgb = unchecked(87),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x10_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "88")]
+		Astc10X10UnormSrgb = unchecked(88),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_12x10_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "89")]
+		Astc12X10UnormSrgb = unchecked(89),
+
+		/// <summary>
+		/// Compressed SRGB ASTC Normalized Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_12x12_UNORM_SRGB")]
+		[NativeName(NativeNameType.Value, "90")]
+		Astc12X12UnormSrgb = unchecked(90),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_4x4_FLOAT")]
+		[NativeName(NativeNameType.Value, "91")]
+		Astc4X4Float = unchecked(91),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_5x4_FLOAT")]
+		[NativeName(NativeNameType.Value, "92")]
+		Astc5X4Float = unchecked(92),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_5x5_FLOAT")]
+		[NativeName(NativeNameType.Value, "93")]
+		Astc5X5Float = unchecked(93),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_6x5_FLOAT")]
+		[NativeName(NativeNameType.Value, "94")]
+		Astc6X5Float = unchecked(94),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_6x6_FLOAT")]
+		[NativeName(NativeNameType.Value, "95")]
+		Astc6X6Float = unchecked(95),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x5_FLOAT")]
+		[NativeName(NativeNameType.Value, "96")]
+		Astc8X5Float = unchecked(96),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x6_FLOAT")]
+		[NativeName(NativeNameType.Value, "97")]
+		Astc8X6Float = unchecked(97),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_8x8_FLOAT")]
+		[NativeName(NativeNameType.Value, "98")]
+		Astc8X8Float = unchecked(98),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x5_FLOAT")]
+		[NativeName(NativeNameType.Value, "99")]
+		Astc10X5Float = unchecked(99),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x6_FLOAT")]
+		[NativeName(NativeNameType.Value, "100")]
+		Astc10X6Float = unchecked(100),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x8_FLOAT")]
+		[NativeName(NativeNameType.Value, "101")]
+		Astc10X8Float = unchecked(101),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_10x10_FLOAT")]
+		[NativeName(NativeNameType.Value, "102")]
+		Astc10X10Float = unchecked(102),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_12x10_FLOAT")]
+		[NativeName(NativeNameType.Value, "103")]
+		Astc12X10Float = unchecked(103),
+
+		/// <summary>
+		/// Compressed ASTC Signed Float Color Formats<br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTUREFORMAT_ASTC_12x12_FLOAT")]
+		[NativeName(NativeNameType.Value, "104")]
+		Astc12X12Float = unchecked(104),
 	}
 }

@@ -16,34 +16,134 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// A structure containing a template for a Periodic effect.<br/>
 	/// The struct handles the following effects:<br/>
-	/// - ::SDL_HAPTIC_SINE<br/>
-	/// - ::SDL_HAPTIC_LEFTRIGHT<br/>
-	/// - ::SDL_HAPTIC_TRIANGLE<br/>
-	/// - ::SDL_HAPTIC_SAWTOOTHUP<br/>
-	/// - ::SDL_HAPTIC_SAWTOOTHDOWN<br/>
-	/// A periodic effect consists in a wave-shaped effect that repeats itself<br/>
-	/// over time.  The type determines the shape of the wave and the parameters<br/>
+	/// - SDL_HAPTIC_SINE<br/>
+	/// - SDL_HAPTIC_SQUARE<br/>
+	/// - SDL_HAPTIC_TRIANGLE<br/>
+	/// - SDL_HAPTIC_SAWTOOTHUP<br/>
+	/// - SDL_HAPTIC_SAWTOOTHDOWN<br/>
+	/// A periodic effect consists in a wave-shaped effect that repeats itself over<br/>
+	/// time. The type determines the shape of the wave and the parameters<br/>
 	/// determine the dimensions of the wave.<br/>
-	/// Phase is given by hundredth of a degree meaning that giving the phase a value<br/>
-	/// of 9000 will displace it 25% of its period.  Here are sample values:<br/>
-	/// -     0: No phase displacement.<br/>
-	/// -  9000: Displaced 25% of its period.<br/>
+	/// Phase is given by hundredth of a degree meaning that giving the phase a<br/>
+	/// value of 9000 will displace it 25% of its period. Here are sample values:<br/>
+	/// - 0: No phase displacement.<br/>
+	/// - 9000: Displaced 25% of its period.<br/>
 	/// - 18000: Displaced 50% of its period.<br/>
 	/// - 27000: Displaced 75% of its period.<br/>
 	/// - 36000: Displaced 100% of its period, same as 0, but 0 is preferred.<br/>
 	/// Examples:<br/>
+	/// ```<br/>
+	/// SDL_HAPTIC_SINE<br/>
+	/// __      __      __      __<br/>
+	/// /  <br/>
+	/// \<br/>
+	/// /  <br/>
+	/// \<br/>
+	/// /  <br/>
+	/// \<br/>
+	/// /<br/>
+	/// /    <br/>
+	/// \<br/>
+	/// __/    <br/>
+	/// \<br/>
+	/// __/    <br/>
+	/// \<br/>
+	/// __/<br/>
+	/// SDL_HAPTIC_SQUARE<br/>
+	/// __    __    __    __    __<br/>
+	/// |  |  |  |  |  |  |  |  |  |<br/>
+	/// |  |__|  |__|  |__|  |__|  |<br/>
+	/// SDL_HAPTIC_TRIANGLE<br/>
+	/// /<br/>
+	/// \<br/>
+	/// /<br/>
+	/// \<br/>
+	/// /<br/>
+	/// \<br/>
+	/// /<br/>
+	/// \<br/>
+	/// /<br/>
+	/// \<br/>
+	/// /  <br/>
+	/// \<br/>
+	/// /  <br/>
+	/// \<br/>
+	/// /  <br/>
+	/// \<br/>
+	/// /  <br/>
+	/// \<br/>
+	/// /<br/>
+	/// /    <br/>
+	/// \<br/>
+	/// /    <br/>
+	/// \<br/>
+	/// /    <br/>
+	/// \<br/>
+	/// /    <br/>
+	/// \<br/>
+	/// /<br/>
+	/// SDL_HAPTIC_SAWTOOTHUP<br/>
+	/// /|  /|  /|  /|  /|  /|  /|<br/>
+	/// / | / | / | / | / | / | / |<br/>
+	/// /  |/  |/  |/  |/  |/  |/  |<br/>
+	/// SDL_HAPTIC_SAWTOOTHDOWN<br/>
 	/// <br/>
+	/// \<br/>
+	/// |<br/>
+	/// \<br/>
+	/// |<br/>
+	/// \<br/>
+	/// |<br/>
+	/// \<br/>
+	/// |<br/>
+	/// \<br/>
+	/// |<br/>
+	/// \<br/>
+	/// |<br/>
+	/// \<br/>
+	/// |<br/>
+	/// <br/>
+	/// \<br/>
+	/// | <br/>
+	/// \<br/>
+	/// | <br/>
+	/// \<br/>
+	/// | <br/>
+	/// \<br/>
+	/// | <br/>
+	/// \<br/>
+	/// | <br/>
+	/// \<br/>
+	/// | <br/>
+	/// \<br/>
+	/// |<br/>
+	/// <br/>
+	/// \<br/>
+	/// |  <br/>
+	/// \<br/>
+	/// |  <br/>
+	/// \<br/>
+	/// |  <br/>
+	/// \<br/>
+	/// |  <br/>
+	/// \<br/>
+	/// |  <br/>
+	/// \<br/>
+	/// |  <br/>
+	/// \<br/>
+	/// |<br/>
+	/// ```<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticPeriodic
 	{
 		/// <summary>
-		/// ::SDL_HAPTIC_SINE, ::SDL_HAPTIC_LEFTRIGHT,<br/>
-		/// ::SDL_HAPTIC_TRIANGLE, ::SDL_HAPTIC_SAWTOOTHUP or<br/>
-		/// ::SDL_HAPTIC_SAWTOOTHDOWN <br/>
+		/// SDL_HAPTIC_SINE, SDL_HAPTIC_LEFTRIGHT,<br/>
+		/// SDL_HAPTIC_TRIANGLE, SDL_HAPTIC_SAWTOOTHUP or<br/>
+		/// SDL_HAPTIC_SAWTOOTHDOWN <br/>
 		/// </summary>
 		public ushort Type;
 

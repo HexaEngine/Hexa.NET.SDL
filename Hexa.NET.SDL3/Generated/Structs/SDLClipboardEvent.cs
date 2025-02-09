@@ -41,12 +41,36 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
+		/// <summary>
+		/// are we owning the clipboard (internal update) <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "owner")]
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte Owner;
 
-		public unsafe SDLClipboardEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default)
+		/// <summary>
+		/// number of mime types <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "num_mime_types")]
+		[NativeName(NativeNameType.Type, "Sint32")]
+		public int NumMimeTypes;
+
+		/// <summary>
+		/// current mime types <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "mime_types")]
+		[NativeName(NativeNameType.Type, "char const * *")]
+		public unsafe byte** MimeTypes;
+
+
+		public unsafe SDLClipboardEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, bool owner = default, int numMimeTypes = default, byte** mimeTypes = default)
 		{
 			Type = type;
 			Reserved = reserved;
 			Timestamp = timestamp;
+			Owner = owner ? (byte)1 : (byte)0;
+			NumMimeTypes = numMimeTypes;
+			MimeTypes = mimeTypes;
 		}
 
 

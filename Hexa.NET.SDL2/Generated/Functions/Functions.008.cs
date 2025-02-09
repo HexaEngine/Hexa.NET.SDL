@@ -18,6 +18,29 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(ref int x, ref int y)
+		{
+			fixed (int* px = &x)
+			{
+				fixed (int* py = &y)
+				{
+					uint ret = GetMouseStateNative((int*)px, (int*)py);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Get the current state of the mouse in relation to the desktop.<br/>
 		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
 		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
@@ -911,7 +934,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given ::SDL_GUID.<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// You should supply at least 33 bytes for pszGUID.<br/>
 		/// <br/>
 		/// <br/>
@@ -928,7 +951,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given ::SDL_GUID.<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// You should supply at least 33 bytes for pszGUID.<br/>
 		/// <br/>
 		/// <br/>
@@ -940,7 +963,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given ::SDL_GUID.<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// You should supply at least 33 bytes for pszGUID.<br/>
 		/// <br/>
 		/// <br/>
@@ -955,7 +978,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given ::SDL_GUID.<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// You should supply at least 33 bytes for pszGUID.<br/>
 		/// <br/>
 		/// <br/>
@@ -989,7 +1012,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert a GUID string into a ::SDL_GUID structure.<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
 		/// Performs no error checking. If this function is given a string containing<br/>
 		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
 		/// will not be useful.<br/>
@@ -1008,7 +1031,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert a GUID string into a ::SDL_GUID structure.<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
 		/// Performs no error checking. If this function is given a string containing<br/>
 		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
 		/// will not be useful.<br/>
@@ -1023,7 +1046,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert a GUID string into a ::SDL_GUID structure.<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
 		/// Performs no error checking. If this function is given a string containing<br/>
 		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
 		/// will not be useful.<br/>
@@ -1041,7 +1064,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert a GUID string into a ::SDL_GUID structure.<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
 		/// Performs no error checking. If this function is given a string containing<br/>
 		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
 		/// will not be useful.<br/>
@@ -1059,7 +1082,7 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert a GUID string into a ::SDL_GUID structure.<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
 		/// Performs no error checking. If this function is given a string containing<br/>
 		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
 		/// will not be useful.<br/>
@@ -3210,8 +3233,8 @@ namespace Hexa.NET.SDL2
 		/// While `param` is meant to be one of `SDL_QUERY`, `SDL_IGNORE`, or<br/>
 		/// `SDL_ENABLE`, this function accepts any value, with any non-zero value that<br/>
 		/// isn't `SDL_QUERY` being treated as `SDL_ENABLE`.<br/>
-		/// If SDL was built with events disabled (extremely uncommon!), this will<br/>
-		/// do nothing and always return `SDL_IGNORE`.<br/>
+		/// If SDL was built with events disabled (extremely uncommon!), this will do<br/>
+		/// nothing and always return `SDL_IGNORE`.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -3237,8 +3260,8 @@ namespace Hexa.NET.SDL2
 		/// While `param` is meant to be one of `SDL_QUERY`, `SDL_IGNORE`, or<br/>
 		/// `SDL_ENABLE`, this function accepts any value, with any non-zero value that<br/>
 		/// isn't `SDL_QUERY` being treated as `SDL_ENABLE`.<br/>
-		/// If SDL was built with events disabled (extremely uncommon!), this will<br/>
-		/// do nothing and always return `SDL_IGNORE`.<br/>
+		/// If SDL was built with events disabled (extremely uncommon!), this will do<br/>
+		/// nothing and always return `SDL_IGNORE`.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -4831,6 +4854,9 @@ namespace Hexa.NET.SDL2
 		/// database files.<br/>
 		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
 		/// version will overwrite the one currently loaded.<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
 		/// Mappings not belonging to the current platform or with no platform field<br/>
 		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
 		/// Windows, etc).<br/>
@@ -4857,6 +4883,9 @@ namespace Hexa.NET.SDL2
 		/// database files.<br/>
 		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
 		/// version will overwrite the one currently loaded.<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
 		/// Mappings not belonging to the current platform or with no platform field<br/>
 		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
 		/// Windows, etc).<br/>
@@ -4879,6 +4908,9 @@ namespace Hexa.NET.SDL2
 		/// database files.<br/>
 		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
 		/// version will overwrite the one currently loaded.<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
 		/// Mappings not belonging to the current platform or with no platform field<br/>
 		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
 		/// Windows, etc).<br/>
@@ -4912,6 +4944,9 @@ namespace Hexa.NET.SDL2
 		/// ```c<br/>
 		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
 		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -4940,6 +4975,9 @@ namespace Hexa.NET.SDL2
 		/// ```c<br/>
 		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
 		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -4964,6 +5002,9 @@ namespace Hexa.NET.SDL2
 		/// ```c<br/>
 		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
 		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -4975,78 +5016,6 @@ namespace Hexa.NET.SDL2
 				int ret = GameControllerAddMappingNative((byte*)pmappingString);
 				return ret;
 			}
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(ReadOnlySpan<byte> mappingString)
-		{
-			fixed (byte* pmappingString = mappingString)
-			{
-				int ret = GameControllerAddMappingNative((byte*)pmappingString);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(string mappingString)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (mappingString != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(mappingString);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(mappingString, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GameControllerAddMappingNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 	}
 }

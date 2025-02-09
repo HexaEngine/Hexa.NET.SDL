@@ -68,6 +68,126 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		public static byte* GetPrefPath(ref byte org, byte* app)
+		{
+			fixed (byte* porg = &org)
+			{
+				byte* ret = GetPrefPathNative((byte*)porg, app);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(ref byte org, byte* app)
+		{
+			fixed (byte* porg = &org)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		public static byte* GetPrefPath(ReadOnlySpan<byte> org, byte* app)
 		{
 			fixed (byte* porg = org)
@@ -4902,130 +5022,6 @@ namespace Hexa.NET.SDL2
 			fixed (byte* pname = name)
 			{
 				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetHintNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GetHintBooleanNative(byte* name, SDLBool defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool, SDLBool>)funcTable[694])(name, defaultValue);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool, SDLBool>)funcTable[694])((nint)name, defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetHintBoolean(byte* name, SDLBool defaultValue)
-		{
-			SDLBool ret = GetHintBooleanNative(name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetHintBoolean(ref byte name, SDLBool defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = GetHintBooleanNative((byte*)pname, defaultValue);
 				return ret;
 			}
 		}

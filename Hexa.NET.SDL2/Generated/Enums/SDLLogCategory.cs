@@ -13,11 +13,10 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// By default the application category is enabled at the INFO level,<br/>
-	/// the assert category is enabled at the WARN level, test is enabled<br/>
-	/// at the VERBOSE level and all other categories are enabled at the<br/>
-	/// ERROR level.<br/>
+	/// The predefined log categories<br/>
+	/// By default the application category is enabled at the INFO level, the<br/>
+	/// assert category is enabled at the WARN level, test is enabled at the<br/>
+	/// VERBOSE level and all other categories are enabled at the ERROR level.<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLLogCategory : int

@@ -323,7 +323,7 @@ namespace Hexa.NET.SDL2
 		Pollsentinel = unchecked(32512),
 
 		/// <summary>
-		/// Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use,<br/>
+		/// Events SDL_USEREVENT through SDL_LASTEVENT are for your use,<br/>
 		/// and should be allocated with SDL_RegisterEvents()<br/>
 		/// </summary>
 		Userevent = unchecked(32768),

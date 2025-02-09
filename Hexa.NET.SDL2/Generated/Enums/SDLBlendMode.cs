@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The blend mode used in SDL_RenderCopy() and drawing operations.<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLBlendMode : int

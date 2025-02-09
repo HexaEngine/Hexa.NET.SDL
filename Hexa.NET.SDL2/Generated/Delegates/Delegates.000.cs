@@ -33,9 +33,7 @@ namespace Hexa.NET.SDL2
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
-	/// Seek to <br/>
-	/// relative to <br/>
-	/// one of stdio's whence values:<br/>
+	/// Seek to `offset` relative to `whence`, one of stdio's whence values:<br/>
 	/// RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END<br/>
 	/// <br/>
 	/// </summary>
@@ -44,9 +42,7 @@ namespace Hexa.NET.SDL2
 
 	#else
 	/// <summary>
-	/// Seek to <br/>
-	/// relative to <br/>
-	/// one of stdio's whence values:<br/>
+	/// Seek to `offset` relative to `whence`, one of stdio's whence values:<br/>
 	/// RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END<br/>
 	/// <br/>
 	/// </summary>
@@ -57,10 +53,8 @@ namespace Hexa.NET.SDL2
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
-	/// Read up to <br/>
-	/// objects each of size <br/>
-	/// from the data<br/>
-	/// stream to the area pointed at by <br/>
+	/// Read up to `maxnum` objects each of size `size` from the data<br/>
+	/// stream to the area pointed at by `ptr`.<br/>
 	/// <br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -68,10 +62,8 @@ namespace Hexa.NET.SDL2
 
 	#else
 	/// <summary>
-	/// Read up to <br/>
-	/// objects each of size <br/>
-	/// from the data<br/>
-	/// stream to the area pointed at by <br/>
+	/// Read up to `maxnum` objects each of size `size` from the data<br/>
+	/// stream to the area pointed at by `ptr`.<br/>
 	/// <br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -81,11 +73,8 @@ namespace Hexa.NET.SDL2
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
-	/// Write exactly <br/>
-	/// objects each of size <br/>
-	/// from the area<br/>
-	/// pointed at by <br/>
-	/// to data stream.<br/>
+	/// Write exactly `num` objects each of size `size` from the area<br/>
+	/// pointed at by `ptr` to data stream.<br/>
 	/// <br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -93,11 +82,8 @@ namespace Hexa.NET.SDL2
 
 	#else
 	/// <summary>
-	/// Write exactly <br/>
-	/// objects each of size <br/>
-	/// from the area<br/>
-	/// pointed at by <br/>
-	/// to data stream.<br/>
+	/// Write exactly `num` objects each of size `size` from the area<br/>
+	/// pointed at by `ptr` to data stream.<br/>
 	/// <br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -336,6 +322,16 @@ namespace Hexa.NET.SDL2
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int SDLCompareCallback([NativeName(NativeNameType.Param, "")] [NativeName(NativeNameType.Type, "void const *")] void* unknown0, [NativeName(NativeNameType.Param, "")] [NativeName(NativeNameType.Type, "void const *")] void* unknown1);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int SDLCompareCallback([NativeName(NativeNameType.Param, "")] [NativeName(NativeNameType.Type, "void const *")] nint unknown0, [NativeName(NativeNameType.Param, "")] [NativeName(NativeNameType.Type, "void const *")] nint unknown1);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// The prototype for the application's main() function<br/>
 	/// </summary>
@@ -408,13 +404,19 @@ namespace Hexa.NET.SDL2
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLTLSDestructorCallback([NativeName(NativeNameType.Param, "")] [NativeName(NativeNameType.Type, "void *")] void* unknown0);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLTLSDestructorCallback([NativeName(NativeNameType.Param, "")] [NativeName(NativeNameType.Type, "void *")] nint unknown0);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// This function is called when the audio device needs more data.<br/>
 	/// <br/>
-	/// Once the callback returns, the buffer will no longer be valid.<br/>
-	/// Stereo samples are stored in a LRLRLR ordering.<br/>
-	/// You can choose to avoid callbacks and use SDL_QueueAudio() instead, if<br/>
-	/// you like. Just open your audio device with a NULL callback.<br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAudioCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* stream, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len);
@@ -423,10 +425,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// This function is called when the audio device needs more data.<br/>
 	/// <br/>
-	/// Once the callback returns, the buffer will no longer be valid.<br/>
-	/// Stereo samples are stored in a LRLRLR ordering.<br/>
-	/// You can choose to avoid callbacks and use SDL_QueueAudio() instead, if<br/>
-	/// you like. Just open your audio device with a NULL callback.<br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAudioCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "Uint8 *")] nint stream, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len);
@@ -445,14 +443,14 @@ namespace Hexa.NET.SDL2
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
-	/// <br/>
+	/// The type of function used for surface blitting functions.<br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLBlit([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* dstrect);
 
 	#else
 	/// <summary>
-	/// <br/>
+	/// The type of function used for surface blitting functions.<br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLBlit([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] nint src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] nint srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] nint dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] nint dstrect);
@@ -550,10 +548,10 @@ namespace Hexa.NET.SDL2
 	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Function prototype for the timer callback function.<br/>
-	/// The callback function is passed the current timer interval and returns<br/>
-	/// the next timer interval. If the returned value is the same as the one<br/>
-	/// passed in, the periodic alarm continues, otherwise a new alarm is<br/>
-	/// scheduled. If the callback returns 0, the periodic alarm is cancelled.<br/>
+	/// The callback function is passed the current timer interval and returns the<br/>
+	/// next timer interval. If the returned value is the same as the one passed<br/>
+	/// in, the periodic alarm continues, otherwise a new alarm is scheduled. If<br/>
+	/// the callback returns 0, the periodic alarm is cancelled.<br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint SDLTimerCallback([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint32")] uint interval, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "void *")] void* param);
@@ -561,10 +559,10 @@ namespace Hexa.NET.SDL2
 	#else
 	/// <summary>
 	/// Function prototype for the timer callback function.<br/>
-	/// The callback function is passed the current timer interval and returns<br/>
-	/// the next timer interval. If the returned value is the same as the one<br/>
-	/// passed in, the periodic alarm continues, otherwise a new alarm is<br/>
-	/// scheduled. If the callback returns 0, the periodic alarm is cancelled.<br/>
+	/// The callback function is passed the current timer interval and returns the<br/>
+	/// next timer interval. If the returned value is the same as the one passed<br/>
+	/// in, the periodic alarm continues, otherwise a new alarm is scheduled. If<br/>
+	/// the callback returns 0, the periodic alarm is cancelled.<br/>
 	/// </summary>
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint SDLTimerCallback([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint32")] uint interval, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "void *")] nint param);

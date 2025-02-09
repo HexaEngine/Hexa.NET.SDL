@@ -17,8 +17,10 @@ namespace Hexa.NET.SDL2
 {
 	/// <summary>
 	/// The structure that defines an extended virtual joystick description<br/>
-	/// The caller must zero the structure and then initialize the version with `SDL_VIRTUAL_JOYSTICK_DESC_VERSION` before passing it to SDL_JoystickAttachVirtualEx()<br/>
-	/// All other elements of this structure are optional and can be left 0.<br/>
+	/// The caller must zero the structure and then initialize the version with<br/>
+	/// `SDL_VIRTUAL_JOYSTICK_DESC_VERSION` before passing it to<br/>
+	/// SDL_JoystickAttachVirtualEx() All other elements of this structure are<br/>
+	/// optional and can be left 0.<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]

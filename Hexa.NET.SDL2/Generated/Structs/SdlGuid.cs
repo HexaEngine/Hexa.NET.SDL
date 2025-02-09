@@ -16,17 +16,19 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// An SDL_GUID is a 128-bit identifier for an input device that<br/>
-	/// identifies that device across runs of SDL programs on the same<br/>
-	/// platform.  If the device is detached and then re-attached to a<br/>
-	/// different port, or if the base system is rebooted, the device<br/>
-	/// should still report the same GUID.<br/>
-	/// GUIDs are as precise as possible but are not guaranteed to<br/>
-	/// distinguish physically distinct but equivalent devices.  For<br/>
-	/// example, two game controllers from the same vendor with the same<br/>
-	/// product ID and revision may have the same GUID.<br/>
-	/// GUIDs may be platform-dependent (i.e., the same device may report<br/>
-	/// different GUIDs on different operating systems).<br/>
+	/// An SDL_GUID is a 128-bit identifier.<br/>
+	/// This is an acronym for "Globally Unique ID."<br/>
+	/// While a GUID can be used to assign a unique value to almost anything, in<br/>
+	/// SDL these are largely used to identify input devices across runs of SDL<br/>
+	/// programs on the same platform.If the device is detached and then<br/>
+	/// re-attached to a different port, or if the base system is rebooted, the<br/>
+	/// device should still report the same GUID.<br/>
+	/// GUIDs are as precise as possible but are not guaranteed to distinguish<br/>
+	/// physically distinct but equivalent devices. For example, two game<br/>
+	/// controllers from the same vendor with the same product ID and revision may<br/>
+	/// have the same GUID.<br/>
+	/// GUIDs may be platform-dependent (i.e., the same device may report different<br/>
+	/// GUIDs on different operating systems).<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SdlGuid

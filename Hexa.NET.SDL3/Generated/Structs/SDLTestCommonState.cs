@@ -207,6 +207,9 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Field, "gl_stereo")]
 		[NativeName(NativeNameType.Type, "int")]
 		public int GlStereo;
+		[NativeName(NativeNameType.Field, "gl_release_behavior")]
+		[NativeName(NativeNameType.Type, "int")]
+		public int GlReleaseBehavior;
 		[NativeName(NativeNameType.Field, "gl_multisamplebuffers")]
 		[NativeName(NativeNameType.Type, "int")]
 		public int GlMultisamplebuffers;
@@ -258,7 +261,7 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "SDLTest_ArgumentParser *")]
 		public unsafe SDLTestArgumentParser* Argparser;
 
-		public unsafe SDLTestCommonState(byte** argv = default, SDLInitFlags flags = default, SDLTestVerboseFlags verbose = default, byte* videodriver = default, int displayIndex = default, uint displayID = default, byte* windowTitle = default, byte* windowIcon = default, SDLWindowFlags windowFlags = default, bool flashOnFocusLoss = default, int windowX = default, int windowY = default, int windowW = default, int windowH = default, int windowMinw = default, int windowMinh = default, int windowMaxw = default, int windowMaxh = default, float windowMinAspect = default, float windowMaxAspect = default, int logicalW = default, int logicalH = default, bool autoScaleContent = default, SDLRendererLogicalPresentation logicalPresentation = default, float scale = default, int depth = default, float refreshRate = default, bool fillUsableBounds = default, bool fullscreenExclusive = default, SDLDisplayMode fullscreenMode = default, int numWindows = default, SDLWindow** windows = default, byte* gpudriver = default, byte* renderdriver = default, int renderVsync = default, bool skipRenderer = default, SDLRenderer** renderers = default, SDLTexture** targets = default, byte* audiodriver = default, SDLAudioFormat audioFormat = default, int audioChannels = default, int audioFreq = default, uint audioId = default, int glRedSize = default, int glGreenSize = default, int glBlueSize = default, int glAlphaSize = default, int glBufferSize = default, int glDepthSize = default, int glStencilSize = default, int glDoubleBuffer = default, int glAccumRedSize = default, int glAccumGreenSize = default, int glAccumBlueSize = default, int glAccumAlphaSize = default, int glStereo = default, int glMultisamplebuffers = default, int glMultisamplesamples = default, int glRetainedBacking = default, int glAccelerated = default, int glMajorVersion = default, int glMinorVersion = default, int glDebug = default, int glProfileMask = default, SDLRect confine = default, bool hideCursor = default, SDLTestArgumentParser commonArgparser = default, SDLTestArgumentParser videoArgparser = default, SDLTestArgumentParser audioArgparser = default, SDLTestArgumentParser* argparser = default)
+		public unsafe SDLTestCommonState(byte** argv = default, SDLInitFlags flags = default, SDLTestVerboseFlags verbose = default, byte* videodriver = default, int displayIndex = default, uint displayID = default, byte* windowTitle = default, byte* windowIcon = default, SDLWindowFlags windowFlags = default, bool flashOnFocusLoss = default, int windowX = default, int windowY = default, int windowW = default, int windowH = default, int windowMinw = default, int windowMinh = default, int windowMaxw = default, int windowMaxh = default, float windowMinAspect = default, float windowMaxAspect = default, int logicalW = default, int logicalH = default, bool autoScaleContent = default, SDLRendererLogicalPresentation logicalPresentation = default, float scale = default, int depth = default, float refreshRate = default, bool fillUsableBounds = default, bool fullscreenExclusive = default, SDLDisplayMode fullscreenMode = default, int numWindows = default, SDLWindow** windows = default, byte* gpudriver = default, byte* renderdriver = default, int renderVsync = default, bool skipRenderer = default, SDLRenderer** renderers = default, SDLTexture** targets = default, byte* audiodriver = default, SDLAudioFormat audioFormat = default, int audioChannels = default, int audioFreq = default, uint audioId = default, int glRedSize = default, int glGreenSize = default, int glBlueSize = default, int glAlphaSize = default, int glBufferSize = default, int glDepthSize = default, int glStencilSize = default, int glDoubleBuffer = default, int glAccumRedSize = default, int glAccumGreenSize = default, int glAccumBlueSize = default, int glAccumAlphaSize = default, int glStereo = default, int glReleaseBehavior = default, int glMultisamplebuffers = default, int glMultisamplesamples = default, int glRetainedBacking = default, int glAccelerated = default, int glMajorVersion = default, int glMinorVersion = default, int glDebug = default, int glProfileMask = default, SDLRect confine = default, bool hideCursor = default, SDLTestArgumentParser commonArgparser = default, SDLTestArgumentParser videoArgparser = default, SDLTestArgumentParser audioArgparser = default, SDLTestArgumentParser* argparser = default)
 		{
 			Argv = argv;
 			Flags = flags;
@@ -316,6 +319,7 @@ namespace Hexa.NET.SDL3
 			GlAccumBlueSize = glAccumBlueSize;
 			GlAccumAlphaSize = glAccumAlphaSize;
 			GlStereo = glStereo;
+			GlReleaseBehavior = glReleaseBehavior;
 			GlMultisamplebuffers = glMultisamplebuffers;
 			GlMultisamplesamples = glMultisamplesamples;
 			GlRetainedBacking = glRetainedBacking;

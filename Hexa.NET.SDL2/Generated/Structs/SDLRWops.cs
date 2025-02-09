@@ -113,29 +113,22 @@ namespace Hexa.NET.SDL2
 		public unsafe void* Size;
 
 		/// <summary>
-		/// Seek to <br/>
-		/// relative to <br/>
-		/// one of stdio's whence values:<br/>
+		/// Seek to `offset` relative to `whence`, one of stdio's whence values:<br/>
 		/// RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END<br/>
 		/// <br/>
 		/// </summary>
 		public unsafe void* Seek;
 
 		/// <summary>
-		/// Read up to <br/>
-		/// objects each of size <br/>
-		/// from the data<br/>
-		/// stream to the area pointed at by <br/>
+		/// Read up to `maxnum` objects each of size `size` from the data<br/>
+		/// stream to the area pointed at by `ptr`.<br/>
 		/// <br/>
 		/// </summary>
 		public unsafe void* Read;
 
 		/// <summary>
-		/// Write exactly <br/>
-		/// objects each of size <br/>
-		/// from the area<br/>
-		/// pointed at by <br/>
-		/// to data stream.<br/>
+		/// Write exactly `num` objects each of size `size` from the area<br/>
+		/// pointed at by `ptr` to data stream.<br/>
 		/// <br/>
 		/// </summary>
 		public unsafe void* Write;

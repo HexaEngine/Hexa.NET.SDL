@@ -15,8 +15,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// <br/>
+	/// A handle to a CAMetalLayer-backed NSView (macOS) or UIView (iOS/tvOS).<br/>
+	/// This can be cast directly to an NSView or UIView.<br/>
 	/// </summary>
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]

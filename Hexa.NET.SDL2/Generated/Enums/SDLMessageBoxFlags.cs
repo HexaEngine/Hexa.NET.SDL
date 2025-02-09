@@ -13,7 +13,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// SDL_MessageBox flags. If supported will display warning icon, etc.<br/>
+	/// SDL_MessageBox flags.<br/>
+	/// If supported will display warning icon, etc.<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLMessageBoxFlags : int

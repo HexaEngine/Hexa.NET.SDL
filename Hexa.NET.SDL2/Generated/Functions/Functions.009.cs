@@ -18,6 +18,84 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(ReadOnlySpan<byte> mappingString)
+		{
+			fixed (byte* pmappingString = mappingString)
+			{
+				int ret = GameControllerAddMappingNative((byte*)pmappingString);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(string mappingString)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mappingString != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(mappingString);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mappingString, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = GameControllerAddMappingNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
 		/// Get the number of mappings installed.<br/>
 		/// <br/>
 		/// <br/>
@@ -1035,8 +1113,8 @@ namespace Hexa.NET.SDL2
 
 		/// <summary>
 		/// Get the Steam Input handle of an opened controller, if available.<br/>
-		/// Returns an InputHandle_t for the controller that can be used with Steam Input API:<br/>
-		/// https://partner.steamgames.com/doc/api/ISteamInput<br/>
+		/// Returns an InputHandle_t for the controller that can be used with Steam<br/>
+		/// Input API: https://partner.steamgames.com/doc/api/ISteamInput<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -1052,8 +1130,8 @@ namespace Hexa.NET.SDL2
 
 		/// <summary>
 		/// Get the Steam Input handle of an opened controller, if available.<br/>
-		/// Returns an InputHandle_t for the controller that can be used with Steam Input API:<br/>
-		/// https://partner.steamgames.com/doc/api/ISteamInput<br/>
+		/// Returns an InputHandle_t for the controller that can be used with Steam<br/>
+		/// Input API: https://partner.steamgames.com/doc/api/ISteamInput<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -1065,8 +1143,8 @@ namespace Hexa.NET.SDL2
 
 		/// <summary>
 		/// Get the Steam Input handle of an opened controller, if available.<br/>
-		/// Returns an InputHandle_t for the controller that can be used with Steam Input API:<br/>
-		/// https://partner.steamgames.com/doc/api/ISteamInput<br/>
+		/// Returns an InputHandle_t for the controller that can be used with Steam<br/>
+		/// Input API: https://partner.steamgames.com/doc/api/ISteamInput<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -1514,12 +1592,11 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Get the current state of an axis control on a game controller.<br/>
 		/// The axis indices start at index 0.<br/>
-		/// For thumbsticks, the state is a value ranging from -32768 (up/left)<br/>
-		/// to 32767 (down/right).<br/>
-		/// Triggers range from 0 when released to 32767 when fully pressed, and<br/>
-		/// never return a negative value. Note that this differs from the value<br/>
-		/// reported by the lower-level SDL_GetJoystickAxis(), which normally uses<br/>
-		/// the full range.<br/>
+		/// For thumbsticks, the state is a value ranging from -32768 (up/left) to<br/>
+		/// 32767 (down/right).<br/>
+		/// Triggers range from 0 when released to 32767 when fully pressed, and never<br/>
+		/// return a negative value. Note that this differs from the value reported by<br/>
+		/// the lower-level SDL_JoystickGetAxis(), which normally uses the full range.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -1537,12 +1614,11 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Get the current state of an axis control on a game controller.<br/>
 		/// The axis indices start at index 0.<br/>
-		/// For thumbsticks, the state is a value ranging from -32768 (up/left)<br/>
-		/// to 32767 (down/right).<br/>
-		/// Triggers range from 0 when released to 32767 when fully pressed, and<br/>
-		/// never return a negative value. Note that this differs from the value<br/>
-		/// reported by the lower-level SDL_GetJoystickAxis(), which normally uses<br/>
-		/// the full range.<br/>
+		/// For thumbsticks, the state is a value ranging from -32768 (up/left) to<br/>
+		/// 32767 (down/right).<br/>
+		/// Triggers range from 0 when released to 32767 when fully pressed, and never<br/>
+		/// return a negative value. Note that this differs from the value reported by<br/>
+		/// the lower-level SDL_JoystickGetAxis(), which normally uses the full range.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -1556,12 +1632,11 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Get the current state of an axis control on a game controller.<br/>
 		/// The axis indices start at index 0.<br/>
-		/// For thumbsticks, the state is a value ranging from -32768 (up/left)<br/>
-		/// to 32767 (down/right).<br/>
-		/// Triggers range from 0 when released to 32767 when fully pressed, and<br/>
-		/// never return a negative value. Note that this differs from the value<br/>
-		/// reported by the lower-level SDL_GetJoystickAxis(), which normally uses<br/>
-		/// the full range.<br/>
+		/// For thumbsticks, the state is a value ranging from -32768 (up/left) to<br/>
+		/// 32767 (down/right).<br/>
+		/// Triggers range from 0 when released to 32767 when fully pressed, and never<br/>
+		/// return a negative value. Note that this differs from the value reported by<br/>
+		/// the lower-level SDL_JoystickGetAxis(), which normally uses the full range.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -4369,7 +4444,7 @@ namespace Hexa.NET.SDL2
 		/// On platforms that support it, if the quit event is generated by an<br/>
 		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
 		/// application at the next event poll.<br/>
-		/// There is one caveat when dealing with the ::SDL_QuitEvent event type. The<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
 		/// event filter is only called when the window manager desires to close the<br/>
 		/// application window. If the event filter returns 1, then the window will be<br/>
 		/// closed, otherwise the window will remain open if possible.<br/>
@@ -4406,7 +4481,7 @@ namespace Hexa.NET.SDL2
 		/// On platforms that support it, if the quit event is generated by an<br/>
 		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
 		/// application at the next event poll.<br/>
-		/// There is one caveat when dealing with the ::SDL_QuitEvent event type. The<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
 		/// event filter is only called when the window manager desires to close the<br/>
 		/// application window. If the event filter returns 1, then the window will be<br/>
 		/// closed, otherwise the window will remain open if possible.<br/>
@@ -4941,126 +5016,6 @@ namespace Hexa.NET.SDL2
 		{
 			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
 			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(ref byte org, byte* app)
-		{
-			fixed (byte* porg = &org)
-			{
-				byte* ret = GetPrefPathNative((byte*)porg, app);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPrefPathS(ref byte org, byte* app)
-		{
-			fixed (byte* porg = &org)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
-				return ret;
-			}
 		}
 	}
 }

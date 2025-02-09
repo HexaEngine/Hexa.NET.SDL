@@ -17,6 +17,145 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4DNative(uint target, double s, double t, double r, double q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4D(uint target, double s, double t, double r, double q)
+		{
+			GlMultiTexCoord4DNative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4DvNative(uint target, double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1290])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1290])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4Dv(uint target, double* v)
+		{
+			GlMultiTexCoord4DvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord4Dv(uint target, ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord4DvNative(target, (double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4FNative(uint target, float s, float t, float r, float q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4F(uint target, float s, float t, float r, float q)
+		{
+			GlMultiTexCoord4FNative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4FvNative(uint target, float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1292])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1292])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4Fv(uint target, float* v)
+		{
+			GlMultiTexCoord4FvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord4Fv(uint target, ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord4FvNative(target, (float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4INative(uint target, int s, int t, int r, int q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4I(uint target, int s, int t, int r, int q)
+		{
+			GlMultiTexCoord4INative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4IvNative(uint target, int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1294])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1294])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4Iv(uint target, int* v)
+		{
+			GlMultiTexCoord4IvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord4Iv(uint target, ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord4IvNative(target, (int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4SNative(uint target, short s, short t, short r, short q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4S(uint target, short s, short t, short r, short q)
+		{
+			GlMultiTexCoord4SNative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4SvNative(uint target, short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1296])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1296])(target, (nint)v);
+			#endif
+		}
+
 		public static void GlMultiTexCoord4Sv(uint target, short* v)
 		{
 			GlMultiTexCoord4SvNative(target, v);
@@ -4880,151 +5019,6 @@ namespace Hexa.NET.SDL2
 			fixed (byte* pfmt = &fmt)
 			{
 				TestLogErrorNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLogError(ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestLogErrorNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLogError(string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestLogErrorNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestMd5InitNative(SDLTestMd5Context* mdContext)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)funcTable[1409])(mdContext);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1409])((nint)mdContext);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		public static void TestMd5Init(SDLTestMd5Context* mdContext)
-		{
-			TestMd5InitNative(mdContext);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		public static void TestMd5Init(ref SDLTestMd5Context mdContext)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				TestMd5InitNative((SDLTestMd5Context*)pmdContext);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestMd5UpdateNative(SDLTestMd5Context* mdContext, byte* inBuf, uint inLen)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, byte*, uint, void>)funcTable[1410])(mdContext, inBuf, inLen);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[1410])((nint)mdContext, (nint)inBuf, inLen);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		public static void TestMd5Update(SDLTestMd5Context* mdContext, byte* inBuf, uint inLen)
-		{
-			TestMd5UpdateNative(mdContext, inBuf, inLen);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		public static void TestMd5Update(ref SDLTestMd5Context mdContext, byte* inBuf, uint inLen)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, inBuf, inLen);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		public static void TestMd5Update(SDLTestMd5Context* mdContext, ref byte inBuf, uint inLen)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				TestMd5UpdateNative(mdContext, (byte*)pinBuf, inLen);
 			}
 		}
 	}

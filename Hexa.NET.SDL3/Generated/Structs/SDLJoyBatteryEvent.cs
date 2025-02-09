@@ -16,7 +16,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Joysick battery level change event structure (event.jbattery.*)<br/>
+	/// Joystick battery level change event structure (event.jbattery.*)<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_JoyBatteryEvent")]

@@ -18,6 +18,128 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode scaleMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)funcTable[741])(texture, scaleMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)funcTable[741])((nint)texture, scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
+		{
+			int ret = SetTextureScaleModeNative(texture, scaleMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureScaleMode(ref SDLTexture texture, SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode* scaleMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)funcTable[742])(texture, scaleMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[742])((nint)texture, (nint)scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
+		{
+			int ret = GetTextureScaleModeNative(texture, scaleMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(ref SDLTexture texture, SDLScaleMode* scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLScaleMode* pscaleMode = &scaleMode)
+			{
+				int ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(ref SDLTexture texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLScaleMode* pscaleMode = &scaleMode)
+				{
+					int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Associate a user-specified pointer with a texture.<br/>
 		/// <br/>
 		/// <br/>
@@ -1887,7 +2009,10 @@ namespace Hexa.NET.SDL2
 		/// render targets are supported.<br/>
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
+		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
+		/// clipping rectangle, and scaling settings to the state they were in before<br/>
+		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
+		/// meantime.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -1909,7 +2034,10 @@ namespace Hexa.NET.SDL2
 		/// render targets are supported.<br/>
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
+		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
+		/// clipping rectangle, and scaling settings to the state they were in before<br/>
+		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
+		/// meantime.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -1927,7 +2055,10 @@ namespace Hexa.NET.SDL2
 		/// render targets are supported.<br/>
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
+		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
+		/// clipping rectangle, and scaling settings to the state they were in before<br/>
+		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
+		/// meantime.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -1948,7 +2079,10 @@ namespace Hexa.NET.SDL2
 		/// render targets are supported.<br/>
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
+		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
+		/// clipping rectangle, and scaling settings to the state they were in before<br/>
+		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
+		/// meantime.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -1969,7 +2103,10 @@ namespace Hexa.NET.SDL2
 		/// render targets are supported.<br/>
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
+		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
+		/// clipping rectangle, and scaling settings to the state they were in before<br/>
+		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
+		/// meantime.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -4885,153 +5022,6 @@ namespace Hexa.NET.SDL2
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
 					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLRect srcrect, SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = RenderCopyNative(renderer, texture, srcrect, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, SDLRect* srcrect, ref SDLRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(SDLRenderer* renderer, ref SDLTexture texture, SDLRect* srcrect, ref SDLRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, SDLRect* srcrect, ref SDLRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, ref SDLRect srcrect, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}

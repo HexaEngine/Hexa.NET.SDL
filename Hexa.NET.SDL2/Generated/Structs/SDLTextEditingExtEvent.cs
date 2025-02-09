@@ -16,13 +16,14 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Extended keyboard text editing event structure (event.editExt.*) when text<br/>
+	/// would be truncated if stored in the text buffer SDL_TextEditingEvent<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTextEditingExtEvent
 	{
 		/// <summary>
-		/// ::SDL_TEXTEDITING_EXT <br/>
+		/// SDL_TEXTEDITING_EXT <br/>
 		/// </summary>
 		public uint Type;
 

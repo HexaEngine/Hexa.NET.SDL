@@ -18,7 +18,7 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// In order to use these functions, SDL_Init() must have been called<br/>
-	/// with the ::SDL_INIT_SENSOR flag.  This causes SDL to scan the system<br/>
+	/// with the SDL_INIT_SENSOR flag.  This causes SDL to scan the system<br/>
 	/// for sensors, and load appropriate drivers.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]

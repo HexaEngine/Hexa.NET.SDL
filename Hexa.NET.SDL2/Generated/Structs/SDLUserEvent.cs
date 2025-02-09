@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// A user-defined event type (event.user.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLUserEvent
 	{
 		/// <summary>
-		/// ::SDL_USEREVENT through ::SDL_LASTEVENT-1 <br/>
+		/// SDL_USEREVENT through SDL_LASTEVENT-1 <br/>
 		/// </summary>
 		public uint Type;
 

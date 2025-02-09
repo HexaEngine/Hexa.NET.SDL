@@ -332,8 +332,6 @@ namespace Hexa.NET.SDL2
 
 		public const string SDL_HINT_ENABLE_SCREEN_KEYBOARD = "SDL_ENABLE_SCREEN_KEYBOARD";
 
-		public const string SDL_HINT_ENABLE_STEAM_CONTROLLERS = "SDL_ENABLE_STEAM_CONTROLLERS";
-
 		public const string SDL_HINT_EVENT_LOGGING = "SDL_EVENT_LOGGING";
 
 		public const string SDL_HINT_FORCE_RAISEWINDOW = "SDL_HINT_FORCE_RAISEWINDOW";
@@ -680,6 +678,8 @@ namespace Hexa.NET.SDL2
 
 		public const string SDL_HINT_SHUTDOWN_DBUS_ON_QUIT = "SDL_SHUTDOWN_DBUS_ON_QUIT";
 
+		public const string SDL_HINT_APPLE_RWFROMFILE_USE_RESOURCES = "SDL_APPLE_RWFROMFILE_USE_RESOURCES";
+
 		public const int SDL_MAX_LOG_MESSAGE = 4096;
 
 		public const int SDL_NONSHAPEABLE_WINDOW = -1;
@@ -690,9 +690,9 @@ namespace Hexa.NET.SDL2
 
 		public const int SDL_MAJOR_VERSION = 2;
 
-		public const int SDL_MINOR_VERSION = 30;
+		public const int SDL_MINOR_VERSION = 32;
 
-		public const int SDL_PATCHLEVEL = 10;
+		public const int SDL_PATCHLEVEL = 0;
 
 		public const uint SDL_INIT_TIMER = 0x00000001u;
 

@@ -16,19 +16,19 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// This struct is exclusively for the ::SDL_HAPTIC_RAMP effect.<br/>
-	/// The ramp effect starts at start strength and ends at end strength.<br/>
-	/// It augments in linear fashion.  If you use attack and fade with a ramp<br/>
-	/// the effects get added to the ramp effect making the effect become<br/>
-	/// quadratic instead of linear.<br/>
+	/// A structure containing a template for a Ramp effect.<br/>
+	/// This struct is exclusively for the SDL_HAPTIC_RAMP effect.<br/>
+	/// The ramp effect starts at start strength and ends at end strength. It<br/>
+	/// augments in linear fashion. If you use attack and fade with a ramp the<br/>
+	/// effects get added to the ramp effect making the effect become quadratic<br/>
+	/// instead of linear.<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticRamp
 	{
 		/// <summary>
-		/// ::SDL_HAPTIC_RAMP <br/>
+		/// SDL_HAPTIC_RAMP <br/>
 		/// </summary>
 		public ushort Type;
 

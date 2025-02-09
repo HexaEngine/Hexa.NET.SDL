@@ -13,7 +13,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The blend operation used when combining source and destination pixel<br/>
+	/// components<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLBlendOperation : int

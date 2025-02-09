@@ -186,6 +186,50 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "0x2FFF0000u")]
 		public const uint SDL_WINDOWPOS_CENTERED_MASK = 0x2FFF0000u;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_PROFILE_CORE")]
+		[NativeName(NativeNameType.Value, "0x0001")]
+		public const int SDL_GL_CONTEXT_PROFILE_CORE = 0x0001;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_PROFILE_COMPATIBILITY")]
+		[NativeName(NativeNameType.Value, "0x0002")]
+		public const int SDL_GL_CONTEXT_PROFILE_COMPATIBILITY = 0x0002;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_PROFILE_ES")]
+		[NativeName(NativeNameType.Value, "0x0004")]
+		public const int SDL_GL_CONTEXT_PROFILE_ES = 0x0004;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_DEBUG_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0001")]
+		public const int SDL_GL_CONTEXT_DEBUG_FLAG = 0x0001;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0002")]
+		public const int SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0004")]
+		public const int SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG = 0x0004;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RESET_ISOLATION_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0008")]
+		public const int SDL_GL_CONTEXT_RESET_ISOLATION_FLAG = 0x0008;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE")]
+		[NativeName(NativeNameType.Value, "0x0000")]
+		public const int SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE = 0x0000;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH")]
+		[NativeName(NativeNameType.Value, "0x0001")]
+		public const int SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = 0x0001;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RESET_NO_NOTIFICATION")]
+		[NativeName(NativeNameType.Value, "0x0000")]
+		public const int SDL_GL_CONTEXT_RESET_NO_NOTIFICATION = 0x0000;
+
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RESET_LOSE_CONTEXT")]
+		[NativeName(NativeNameType.Value, "0x0001")]
+		public const int SDL_GL_CONTEXT_RESET_LOSE_CONTEXT = 0x0001;
+
 		[NativeName(NativeNameType.Const, "SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.display.HDR_enabled\"")]
 		public const string SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN = "SDL.display.HDR_enabled";
@@ -394,6 +438,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL.window.cocoa.metal_view_tag\"")]
 		public const string SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER = "SDL.window.cocoa.metal_view_tag";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_OPENVR_OVERLAY_ID")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.openvr.overlay_id\"")]
+		public const string SDL_PROP_WINDOW_OPENVR_OVERLAY_ID = "SDL.window.openvr.overlay_id";
+
 		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER")]
 		[NativeName(NativeNameType.Value, "\"SDL.window.vivante.display\"")]
 		public const string SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER = "SDL.window.vivante.display";
@@ -425,6 +473,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER")]
 		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.surface\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER = "SDL.window.wayland.surface";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.viewport\"")]
+		public const string SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER = "SDL.window.wayland.viewport";
 
 		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER")]
 		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.egl_window\"")]
@@ -469,6 +521,38 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE")]
 		[NativeName(NativeNameType.Value, "(-1)")]
 		public const int SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE = (-1);
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_FILTERS_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.filters\"")]
+		public const string SDL_PROP_FILE_DIALOG_FILTERS_POINTER = "SDL.filedialog.filters";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.nfilters\"")]
+		public const string SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER = "SDL.filedialog.nfilters";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.window\"")]
+		public const string SDL_PROP_FILE_DIALOG_WINDOW_POINTER = "SDL.filedialog.window";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_LOCATION_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.location\"")]
+		public const string SDL_PROP_FILE_DIALOG_LOCATION_STRING = "SDL.filedialog.location";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_MANY_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.many\"")]
+		public const string SDL_PROP_FILE_DIALOG_MANY_BOOLEAN = "SDL.filedialog.many";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_TITLE_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.title\"")]
+		public const string SDL_PROP_FILE_DIALOG_TITLE_STRING = "SDL.filedialog.title";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_ACCEPT_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.accept\"")]
+		public const string SDL_PROP_FILE_DIALOG_ACCEPT_STRING = "SDL.filedialog.accept";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_CANCEL_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.cancel\"")]
+		public const string SDL_PROP_FILE_DIALOG_CANCEL_STRING = "SDL.filedialog.cancel";
 
 		[NativeName(NativeNameType.Const, "SDL_STANDARD_GRAVITY")]
 		[NativeName(NativeNameType.Value, "9.80665f")]
@@ -1518,6 +1602,34 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "0x40000122u")]
 		public const uint SDLK_ENDCALL = 0x40000122u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LEFT_TAB")]
+		[NativeName(NativeNameType.Value, "0x20000001u")]
+		public const uint SDLK_LEFT_TAB = 0x20000001u;
+
+		[NativeName(NativeNameType.Const, "SDLK_LEVEL5_SHIFT")]
+		[NativeName(NativeNameType.Value, "0x20000002u")]
+		public const uint SDLK_LEVEL5_SHIFT = 0x20000002u;
+
+		[NativeName(NativeNameType.Const, "SDLK_MULTI_KEY_COMPOSE")]
+		[NativeName(NativeNameType.Value, "0x20000003u")]
+		public const uint SDLK_MULTI_KEY_COMPOSE = 0x20000003u;
+
+		[NativeName(NativeNameType.Const, "SDLK_LMETA")]
+		[NativeName(NativeNameType.Value, "0x20000004u")]
+		public const uint SDLK_LMETA = 0x20000004u;
+
+		[NativeName(NativeNameType.Const, "SDLK_RMETA")]
+		[NativeName(NativeNameType.Value, "0x20000005u")]
+		public const uint SDLK_RMETA = 0x20000005u;
+
+		[NativeName(NativeNameType.Const, "SDLK_LHYPER")]
+		[NativeName(NativeNameType.Value, "0x20000006u")]
+		public const uint SDLK_LHYPER = 0x20000006u;
+
+		[NativeName(NativeNameType.Const, "SDLK_RHYPER")]
+		[NativeName(NativeNameType.Value, "0x20000007u")]
+		public const uint SDLK_RHYPER = 0x20000007u;
+
 		[NativeName(NativeNameType.Const, "SDL_KMOD_NONE")]
 		[NativeName(NativeNameType.Value, "0x0000u")]
 		public const uint SDL_KMOD_NONE = 0x0000u;
@@ -1529,6 +1641,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_KMOD_RSHIFT")]
 		[NativeName(NativeNameType.Value, "0x0002u")]
 		public const uint SDL_KMOD_RSHIFT = 0x0002u;
+
+		[NativeName(NativeNameType.Const, "SDL_KMOD_LEVEL5")]
+		[NativeName(NativeNameType.Value, "0x0004u")]
+		public const uint SDL_KMOD_LEVEL5 = 0x0004u;
 
 		[NativeName(NativeNameType.Const, "SDL_KMOD_LCTRL")]
 		[NativeName(NativeNameType.Value, "0x0040u")]
@@ -1610,69 +1726,97 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "5")]
 		public const int SDL_BUTTON_X2 = 5;
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_R_FLOAT")]
-		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.r\"")]
-		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_R_FLOAT = "SDL.gpu.createtexture.d3d12.clear.r";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_G_FLOAT")]
-		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.g\"")]
-		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_G_FLOAT = "SDL.gpu.createtexture.d3d12.clear.g";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_B_FLOAT")]
-		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.b\"")]
-		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_B_FLOAT = "SDL.gpu.createtexture.d3d12.clear.b";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_A_FLOAT")]
-		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.a\"")]
-		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_A_FLOAT = "SDL.gpu.createtexture.d3d12.clear.a";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_DEPTH_FLOAT")]
-		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.depth\"")]
-		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_DEPTH_FLOAT = "SDL.gpu.createtexture.d3d12.clear.depth";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_STENCIL_UINT8")]
-		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.stencil\"")]
-		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_STENCIL_UINT8 = "SDL.gpu.createtexture.d3d12.clear.stencil";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.debugmode\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOL = "SDL.gpu.device.create.debugmode";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN = "SDL.gpu.device.create.debugmode";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.preferlowpower\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOL = "SDL.gpu.device.create.preferlowpower";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN = "SDL.gpu.device.create.preferlowpower";
 
 		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.name\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING = "SDL.gpu.device.create.name";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.private\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOL = "SDL.gpu.device.create.shaders.private";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN = "SDL.gpu.device.create.shaders.private";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.spirv\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOL = "SDL.gpu.device.create.shaders.spirv";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN = "SDL.gpu.device.create.shaders.spirv";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.dxbc\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOL = "SDL.gpu.device.create.shaders.dxbc";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN = "SDL.gpu.device.create.shaders.dxbc";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.dxil\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOL = "SDL.gpu.device.create.shaders.dxil";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN = "SDL.gpu.device.create.shaders.dxil";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.msl\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOL = "SDL.gpu.device.create.shaders.msl";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN = "SDL.gpu.device.create.shaders.msl";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOL")]
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.metallib\"")]
-		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOL = "SDL.gpu.device.create.shaders.metallib";
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN = "SDL.gpu.device.create.shaders.metallib";
 
 		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.d3d12.semantic\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING = "SDL.gpu.device.create.d3d12.semantic";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.computepipeline.create.name\"")]
+		public const string SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING = "SDL.gpu.computepipeline.create.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.graphicspipeline.create.name\"")]
+		public const string SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING = "SDL.gpu.graphicspipeline.create.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.sampler.create.name\"")]
+		public const string SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING = "SDL.gpu.sampler.create.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_SHADER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.shader.create.name\"")]
+		public const string SDL_PROP_GPU_SHADER_CREATE_NAME_STRING = "SDL.gpu.shader.create.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.r\"")]
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT = "SDL.gpu.texture.create.d3d12.clear.r";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.g\"")]
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT = "SDL.gpu.texture.create.d3d12.clear.g";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.b\"")]
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT = "SDL.gpu.texture.create.d3d12.clear.b";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.a\"")]
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT = "SDL.gpu.texture.create.d3d12.clear.a";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.depth\"")]
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT = "SDL.gpu.texture.create.d3d12.clear.depth";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.stencil\"")]
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8 = "SDL.gpu.texture.create.d3d12.clear.stencil";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.name\"")]
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING = "SDL.gpu.texture.create.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.buffer.create.name\"")]
+		public const string SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING = "SDL.gpu.buffer.create.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.transferbuffer.create.name\"")]
+		public const string SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING = "SDL.gpu.transferbuffer.create.name";
 
 		[NativeName(NativeNameType.Const, "SDL_HAPTIC_POLAR")]
 		[NativeName(NativeNameType.Value, "0")]
@@ -1706,6 +1850,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_ANDROID_BLOCK_ON_PAUSE\"")]
 		public const string SDL_HINT_ANDROID_BLOCK_ON_PAUSE = "SDL_ANDROID_BLOCK_ON_PAUSE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ANDROID_LOW_LATENCY_AUDIO")]
+		[NativeName(NativeNameType.Value, "\"SDL_ANDROID_LOW_LATENCY_AUDIO\"")]
+		public const string SDL_HINT_ANDROID_LOW_LATENCY_AUDIO = "SDL_ANDROID_LOW_LATENCY_AUDIO";
+
 		[NativeName(NativeNameType.Const, "SDL_HINT_ANDROID_TRAP_BACK_BUTTON")]
 		[NativeName(NativeNameType.Value, "\"SDL_ANDROID_TRAP_BACK_BUTTON\"")]
 		public const string SDL_HINT_ANDROID_TRAP_BACK_BUTTON = "SDL_ANDROID_TRAP_BACK_BUTTON";
@@ -1729,6 +1877,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE")]
 		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_ALSA_DEFAULT_DEVICE\"")]
 		public const string SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE = "SDL_AUDIO_ALSA_DEFAULT_DEVICE";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE\"")]
+		public const string SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE = "SDL_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE\"")]
+		public const string SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE = "SDL_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_CATEGORY")]
 		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_CATEGORY\"")]
@@ -1950,6 +2106,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_DEVICE\"")]
 		public const string SDL_HINT_JOYSTICK_DEVICE = "SDL_JOYSTICK_DEVICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_ENHANCED_REPORTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ENHANCED_REPORTS\"")]
+		public const string SDL_HINT_JOYSTICK_ENHANCED_REPORTS = "SDL_JOYSTICK_ENHANCED_REPORTS";
+
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES = "SDL_JOYSTICK_FLIGHTSTICK_DEVICES";
@@ -2018,10 +2178,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL = "SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL";
 
-		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE")]
-		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS4_RUMBLE\"")]
-		public const string SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE = "SDL_JOYSTICK_HIDAPI_PS4_RUMBLE";
-
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS5")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS5\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS5 = "SDL_JOYSTICK_HIDAPI_PS5";
@@ -2029,10 +2185,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED = "SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED";
-
-		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE")]
-		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS5_RUMBLE\"")]
-		public const string SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE = "SDL_JOYSTICK_HIDAPI_PS5_RUMBLE";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SHIELD")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SHIELD\"")]
@@ -2045,6 +2197,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAM")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAM\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAM = "SDL_JOYSTICK_HIDAPI_STEAM";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAM_HOME_LED\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED = "SDL_JOYSTICK_HIDAPI_STEAM_HOME_LED";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAMDECK\"")]
@@ -2194,6 +2350,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_MAC_OPENGL_ASYNC_DISPATCH\"")]
 		public const string SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH = "SDL_MAC_OPENGL_ASYNC_DISPATCH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_OPTION_AS_ALT")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_OPTION_AS_ALT\"")]
+		public const string SDL_HINT_MAC_OPTION_AS_ALT = "SDL_MAC_OPTION_AS_ALT";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_SCROLL_MOMENTUM")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_SCROLL_MOMENTUM\"")]
+		public const string SDL_HINT_MAC_SCROLL_MOMENTUM = "SDL_MAC_SCROLL_MOMENTUM";
+
 		[NativeName(NativeNameType.Const, "SDL_HINT_MAIN_CALLBACK_RATE")]
 		[NativeName(NativeNameType.Value, "\"SDL_MAIN_CALLBACK_RATE\"")]
 		public const string SDL_HINT_MAIN_CALLBACK_RATE = "SDL_MAIN_CALLBACK_RATE";
@@ -2209,6 +2373,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_DOUBLE_CLICK_TIME")]
 		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_DOUBLE_CLICK_TIME\"")]
 		public const string SDL_HINT_MOUSE_DOUBLE_CLICK_TIME = "SDL_MOUSE_DOUBLE_CLICK_TIME";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_DEFAULT_SYSTEM_CURSOR\"")]
+		public const string SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR = "SDL_MOUSE_DEFAULT_SYSTEM_CURSOR";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE")]
 		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE\"")]
@@ -2226,10 +2394,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_MODE_CENTER\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_MODE_CENTER = "SDL_MOUSE_RELATIVE_MODE_CENTER";
 
-		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_MODE_WARP")]
-		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_MODE_WARP\"")]
-		public const string SDL_HINT_MOUSE_RELATIVE_MODE_WARP = "SDL_MOUSE_RELATIVE_MODE_WARP";
-
 		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE")]
 		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_SPEED_SCALE\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE = "SDL_MOUSE_RELATIVE_SPEED_SCALE";
@@ -2245,10 +2409,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE")]
 		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_CURSOR_VISIBLE\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE = "SDL_MOUSE_RELATIVE_CURSOR_VISIBLE";
-
-		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_CLIP_INTERVAL")]
-		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_CLIP_INTERVAL\"")]
-		public const string SDL_HINT_MOUSE_RELATIVE_CLIP_INTERVAL = "SDL_MOUSE_RELATIVE_CLIP_INTERVAL";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_TOUCH_EVENTS")]
 		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_TOUCH_EVENTS\"")]
@@ -2266,9 +2426,17 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_OPENGL_LIBRARY\"")]
 		public const string SDL_HINT_OPENGL_LIBRARY = "SDL_OPENGL_LIBRARY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_EGL_LIBRARY")]
+		[NativeName(NativeNameType.Value, "\"SDL_EGL_LIBRARY\"")]
+		public const string SDL_HINT_EGL_LIBRARY = "SDL_EGL_LIBRARY";
+
 		[NativeName(NativeNameType.Const, "SDL_HINT_OPENGL_ES_DRIVER")]
 		[NativeName(NativeNameType.Value, "\"SDL_OPENGL_ES_DRIVER\"")]
 		public const string SDL_HINT_OPENGL_ES_DRIVER = "SDL_OPENGL_ES_DRIVER";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_OPENVR_LIBRARY")]
+		[NativeName(NativeNameType.Value, "\"SDL_OPENVR_LIBRARY\"")]
+		public const string SDL_HINT_OPENVR_LIBRARY = "SDL_OPENVR_LIBRARY";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_ORIENTATIONS")]
 		[NativeName(NativeNameType.Value, "\"SDL_ORIENTATIONS\"")]
@@ -2382,6 +2550,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_ALLOW_SCREENSAVER\"")]
 		public const string SDL_HINT_VIDEO_ALLOW_SCREENSAVER = "SDL_VIDEO_ALLOW_SCREENSAVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_DISPLAY_PRIORITY")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_DISPLAY_PRIORITY\"")]
+		public const string SDL_HINT_VIDEO_DISPLAY_PRIORITY = "SDL_VIDEO_DISPLAY_PRIORITY";
+
 		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_DOUBLE_BUFFER")]
 		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_DOUBLE_BUFFER\"")]
 		public const string SDL_HINT_VIDEO_DOUBLE_BUFFER = "SDL_VIDEO_DOUBLE_BUFFER";
@@ -2405,6 +2577,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES")]
 		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"")]
 		public const string SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES = "SDL_VIDEO_MAC_FULSCREEN_SPACES";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY\"")]
+		public const string SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY = "SDL_VIDEO_MAC_FULSCREEN_MENU_VISIBILITY";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS")]
 		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"")]
@@ -2597,6 +2773,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_ASSERT")]
 		[NativeName(NativeNameType.Value, "\"SDL_ASSERT\"")]
 		public const string SDL_HINT_ASSERT = "SDL_ASSERT";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_PEN_MOUSE_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_PEN_MOUSE_EVENTS\"")]
+		public const string SDL_HINT_PEN_MOUSE_EVENTS = "SDL_PEN_MOUSE_EVENTS";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_PEN_TOUCH_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_PEN_TOUCH_EVENTS\"")]
+		public const string SDL_HINT_PEN_TOUCH_EVENTS = "SDL_PEN_TOUCH_EVENTS";
 
 		[NativeName(NativeNameType.Const, "SDL_INIT_AUDIO")]
 		[NativeName(NativeNameType.Value, "0x00000010u")]
@@ -2878,6 +3062,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.swapchain_image_count\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER = "SDL.renderer.vulkan.swapchain_image_count";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_GPU_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.gpu.device\"")]
+		public const string SDL_PROP_RENDERER_GPU_DEVICE_POINTER = "SDL.renderer.gpu.device";
+
 		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER")]
 		[NativeName(NativeNameType.Value, "\"SDL.texture.create.colorspace\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER = "SDL.texture.create.colorspace";
@@ -3082,6 +3270,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "(-1)")]
 		public const int SDL_RENDERER_VSYNC_ADAPTIVE = (-1);
 
+		[NativeName(NativeNameType.Const, "SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE")]
+		[NativeName(NativeNameType.Value, "8")]
+		public const int SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE = 8;
+
 		[NativeName(NativeNameType.Const, "SDL_MS_PER_SECOND")]
 		[NativeName(NativeNameType.Value, "1000")]
 		public const int SDL_MS_PER_SECOND = 1000;
@@ -3103,12 +3295,12 @@ namespace Hexa.NET.SDL3
 		public const int SDL_MAJOR_VERSION = 3;
 
 		[NativeName(NativeNameType.Const, "SDL_MINOR_VERSION")]
-		[NativeName(NativeNameType.Value, "1")]
-		public const int SDL_MINOR_VERSION = 1;
+		[NativeName(NativeNameType.Value, "2")]
+		public const int SDL_MINOR_VERSION = 2;
 
 		[NativeName(NativeNameType.Const, "SDL_MICRO_VERSION")]
-		[NativeName(NativeNameType.Value, "3")]
-		public const int SDL_MICRO_VERSION = 3;
+		[NativeName(NativeNameType.Value, "4")]
+		public const int SDL_MICRO_VERSION = 4;
 
 		[NativeName(NativeNameType.Const, "KHRONOS_SUPPORT_INT64")]
 		[NativeName(NativeNameType.Value, "1")]
@@ -6079,8 +6271,8 @@ namespace Hexa.NET.SDL3
 		public const int SDL_SSE4_2_INTRINSICS = 1;
 
 		[NativeName(NativeNameType.Const, "SDL_REVISION")]
-		[NativeName(NativeNameType.Value, "\"\"")]
-		public const string SDL_REVISION = "";
+		[NativeName(NativeNameType.Value, "\"release-3.2.4-0-gb5c3eab6b\"")]
+		public const string SDL_REVISION = "release-3.2.4-0-gb5c3eab6b";
 
 		[NativeName(NativeNameType.Const, "ASSERT_FAIL")]
 		[NativeName(NativeNameType.Value, "0")]

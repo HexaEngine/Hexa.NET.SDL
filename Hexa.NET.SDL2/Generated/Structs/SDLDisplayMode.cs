@@ -16,7 +16,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The structure that defines a display mode<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]

@@ -517,6 +517,9 @@ namespace Hexa.NET.SDL2
 		/// `flags` may be `SDL_WINDOW_FULLSCREEN`, for "real" fullscreen with a<br/>
 		/// videomode change; `SDL_WINDOW_FULLSCREEN_DESKTOP` for "fake" fullscreen<br/>
 		/// that takes the size of the desktop; and 0 for windowed mode.<br/>
+		/// Note that for some renderers, this function may trigger an<br/>
+		/// SDL_RENDER_TARGETS_RESET event. Your application should be prepared to<br/>
+		/// handle this event by reuploading textures!<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -536,6 +539,9 @@ namespace Hexa.NET.SDL2
 		/// `flags` may be `SDL_WINDOW_FULLSCREEN`, for "real" fullscreen with a<br/>
 		/// videomode change; `SDL_WINDOW_FULLSCREEN_DESKTOP` for "fake" fullscreen<br/>
 		/// that takes the size of the desktop; and 0 for windowed mode.<br/>
+		/// Note that for some renderers, this function may trigger an<br/>
+		/// SDL_RENDER_TARGETS_RESET event. Your application should be prepared to<br/>
+		/// handle this event by reuploading textures!<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -551,6 +557,9 @@ namespace Hexa.NET.SDL2
 		/// `flags` may be `SDL_WINDOW_FULLSCREEN`, for "real" fullscreen with a<br/>
 		/// videomode change; `SDL_WINDOW_FULLSCREEN_DESKTOP` for "fake" fullscreen<br/>
 		/// that takes the size of the desktop; and 0 for windowed mode.<br/>
+		/// Note that for some renderers, this function may trigger an<br/>
+		/// SDL_RENDER_TARGETS_RESET event. Your application should be prepared to<br/>
+		/// handle this event by reuploading textures!<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -614,6 +623,9 @@ namespace Hexa.NET.SDL2
 		/// free this surface.<br/>
 		/// This surface will be invalidated if the window is resized. After resizing a<br/>
 		/// window this function must be called again to return a valid surface.<br/>
+		/// Note that on some platforms the pixels pointer of the surface may be<br/>
+		/// modified after each call to SDL_UpdateWindowSurface(), so that the platform<br/>
+		/// code can implement efficient double or triple buffering.<br/>
 		/// You may not combine this with 3D or the rendering API on this window.<br/>
 		/// This function is affected by `SDL_HINT_FRAMEBUFFER_ACCELERATION`.<br/>
 		/// <br/>
@@ -637,6 +649,9 @@ namespace Hexa.NET.SDL2
 		/// free this surface.<br/>
 		/// This surface will be invalidated if the window is resized. After resizing a<br/>
 		/// window this function must be called again to return a valid surface.<br/>
+		/// Note that on some platforms the pixels pointer of the surface may be<br/>
+		/// modified after each call to SDL_UpdateWindowSurface(), so that the platform<br/>
+		/// code can implement efficient double or triple buffering.<br/>
 		/// You may not combine this with 3D or the rendering API on this window.<br/>
 		/// This function is affected by `SDL_HINT_FRAMEBUFFER_ACCELERATION`.<br/>
 		/// <br/>
@@ -656,6 +671,9 @@ namespace Hexa.NET.SDL2
 		/// free this surface.<br/>
 		/// This surface will be invalidated if the window is resized. After resizing a<br/>
 		/// window this function must be called again to return a valid surface.<br/>
+		/// Note that on some platforms the pixels pointer of the surface may be<br/>
+		/// modified after each call to SDL_UpdateWindowSurface(), so that the platform<br/>
+		/// code can implement efficient double or triple buffering.<br/>
 		/// You may not combine this with 3D or the rendering API on this window.<br/>
 		/// This function is affected by `SDL_HINT_FRAMEBUFFER_ACCELERATION`.<br/>
 		/// <br/>
@@ -730,8 +748,8 @@ namespace Hexa.NET.SDL2
 		/// This function is equivalent to the SDL 1.2 API SDL_UpdateRects().<br/>
 		/// Note that this function will update _at least_ the rectangles specified,<br/>
 		/// but this is only intended as an optimization; in practice, this might<br/>
-		/// update more of the screen (or all of the screen!), depending on what<br/>
-		/// method SDL uses to send pixels to the system.<br/>
+		/// update more of the screen (or all of the screen!), depending on what method<br/>
+		/// SDL uses to send pixels to the system.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -753,8 +771,8 @@ namespace Hexa.NET.SDL2
 		/// This function is equivalent to the SDL 1.2 API SDL_UpdateRects().<br/>
 		/// Note that this function will update _at least_ the rectangles specified,<br/>
 		/// but this is only intended as an optimization; in practice, this might<br/>
-		/// update more of the screen (or all of the screen!), depending on what<br/>
-		/// method SDL uses to send pixels to the system.<br/>
+		/// update more of the screen (or all of the screen!), depending on what method<br/>
+		/// SDL uses to send pixels to the system.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -772,8 +790,8 @@ namespace Hexa.NET.SDL2
 		/// This function is equivalent to the SDL 1.2 API SDL_UpdateRects().<br/>
 		/// Note that this function will update _at least_ the rectangles specified,<br/>
 		/// but this is only intended as an optimization; in practice, this might<br/>
-		/// update more of the screen (or all of the screen!), depending on what<br/>
-		/// method SDL uses to send pixels to the system.<br/>
+		/// update more of the screen (or all of the screen!), depending on what method<br/>
+		/// SDL uses to send pixels to the system.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -794,8 +812,8 @@ namespace Hexa.NET.SDL2
 		/// This function is equivalent to the SDL 1.2 API SDL_UpdateRects().<br/>
 		/// Note that this function will update _at least_ the rectangles specified,<br/>
 		/// but this is only intended as an optimization; in practice, this might<br/>
-		/// update more of the screen (or all of the screen!), depending on what<br/>
-		/// method SDL uses to send pixels to the system.<br/>
+		/// update more of the screen (or all of the screen!), depending on what method<br/>
+		/// SDL uses to send pixels to the system.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -816,8 +834,8 @@ namespace Hexa.NET.SDL2
 		/// This function is equivalent to the SDL 1.2 API SDL_UpdateRects().<br/>
 		/// Note that this function will update _at least_ the rectangles specified,<br/>
 		/// but this is only intended as an optimization; in practice, this might<br/>
-		/// update more of the screen (or all of the screen!), depending on what<br/>
-		/// method SDL uses to send pixels to the system.<br/>
+		/// update more of the screen (or all of the screen!), depending on what method<br/>
+		/// SDL uses to send pixels to the system.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -4640,6 +4658,9 @@ namespace Hexa.NET.SDL2
 		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
 		/// pair with SDL_StopTextInput().<br/>
 		/// On some platforms using this function activates the screen keyboard.<br/>
+		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
+		/// window creation which will cause events SDL_TextInputEvent and<br/>
+		/// SDL_TextEditingEvent to begin emitting.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -4660,6 +4681,9 @@ namespace Hexa.NET.SDL2
 		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
 		/// pair with SDL_StopTextInput().<br/>
 		/// On some platforms using this function activates the screen keyboard.<br/>
+		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
+		/// window creation which will cause events SDL_TextInputEvent and<br/>
+		/// SDL_TextEditingEvent to begin emitting.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -4771,9 +4795,9 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
-		/// will place a window with word suggestions near it, without covering the<br/>
-		/// text being inputted.<br/>
+		/// Set the rectangle used to type Unicode text inputs.<br/>
+		/// Native input methods will place a window with word suggestions near it,<br/>
+		/// without covering the text being inputted.<br/>
 		/// To start text input in a given location, this function is intended to be<br/>
 		/// called before SDL_StartTextInput, although some platforms support moving<br/>
 		/// the rectangle even while text input (and a composition) is active.<br/>
@@ -4795,9 +4819,9 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
-		/// will place a window with word suggestions near it, without covering the<br/>
-		/// text being inputted.<br/>
+		/// Set the rectangle used to type Unicode text inputs.<br/>
+		/// Native input methods will place a window with word suggestions near it,<br/>
+		/// without covering the text being inputted.<br/>
 		/// To start text input in a given location, this function is intended to be<br/>
 		/// called before SDL_StartTextInput, although some platforms support moving<br/>
 		/// the rectangle even while text input (and a composition) is active.<br/>
@@ -4814,9 +4838,9 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
-		/// will place a window with word suggestions near it, without covering the<br/>
-		/// text being inputted.<br/>
+		/// Set the rectangle used to type Unicode text inputs.<br/>
+		/// Native input methods will place a window with word suggestions near it,<br/>
+		/// without covering the text being inputted.<br/>
 		/// To start text input in a given location, this function is intended to be<br/>
 		/// called before SDL_StartTextInput, although some platforms support moving<br/>
 		/// the rectangle even while text input (and a composition) is active.<br/>
@@ -5007,29 +5031,6 @@ namespace Hexa.NET.SDL2
 			{
 				uint ret = GetMouseStateNative(x, (int*)py);
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(ref int x, ref int y)
-		{
-			fixed (int* px = &x)
-			{
-				fixed (int* py = &y)
-				{
-					uint ret = GetMouseStateNative((int*)px, (int*)py);
-					return ret;
-				}
 			}
 		}
 	}

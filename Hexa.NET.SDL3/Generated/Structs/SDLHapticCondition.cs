@@ -45,7 +45,7 @@ namespace Hexa.NET.SDL3
 		public ushort Type;
 
 		/// <summary>
-		/// Direction of the effect - Not used ATM. <br/>
+		/// Direction of the effect. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "direction")]
 		[NativeName(NativeNameType.Type, "SDL_HapticDirection")]

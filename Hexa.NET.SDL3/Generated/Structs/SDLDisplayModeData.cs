@@ -16,7 +16,10 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Internal display mode data <br/>
+	/// Internal display mode data.<br/>
+	/// This lives as a field in SDL_DisplayMode, as opaque data.<br/>
+	/// <br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_DisplayModeData")]
 	[StructLayout(LayoutKind.Sequential)]

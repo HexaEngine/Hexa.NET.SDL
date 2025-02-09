@@ -20,6 +20,151 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// <br/>
 		/// <br/>
+		/// </summary>
+		public static void TestLogError(ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				TestLogErrorNative((byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogError(string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			TestLogErrorNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// Note: The function initializes the message-digest context<br/>
+		/// mdContext. Call before each new use of the context -<br/>
+		/// all fields are set to zero.<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestMd5InitNative(SDLTestMd5Context* mdContext)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)funcTable[1409])(mdContext);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1409])((nint)mdContext);
+			#endif
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// Note: The function initializes the message-digest context<br/>
+		/// mdContext. Call before each new use of the context -<br/>
+		/// all fields are set to zero.<br/>
+		/// </summary>
+		public static void TestMd5Init(SDLTestMd5Context* mdContext)
+		{
+			TestMd5InitNative(mdContext);
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// Note: The function initializes the message-digest context<br/>
+		/// mdContext. Call before each new use of the context -<br/>
+		/// all fields are set to zero.<br/>
+		/// </summary>
+		public static void TestMd5Init(ref SDLTestMd5Context mdContext)
+		{
+			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			{
+				TestMd5InitNative((SDLTestMd5Context*)pmdContext);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestMd5UpdateNative(SDLTestMd5Context* mdContext, byte* inBuf, uint inLen)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, byte*, uint, void>)funcTable[1410])(mdContext, inBuf, inLen);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[1410])((nint)mdContext, (nint)inBuf, inLen);
+			#endif
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		public static void TestMd5Update(SDLTestMd5Context* mdContext, byte* inBuf, uint inLen)
+		{
+			TestMd5UpdateNative(mdContext, inBuf, inLen);
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		public static void TestMd5Update(ref SDLTestMd5Context mdContext, byte* inBuf, uint inLen)
+		{
+			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			{
+				TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, inBuf, inLen);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		public static void TestMd5Update(SDLTestMd5Context* mdContext, ref byte inBuf, uint inLen)
+		{
+			fixed (byte* pinBuf = &inBuf)
+			{
+				TestMd5UpdateNative(mdContext, (byte*)pinBuf, inLen);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
 		/// Note: The function updates the message-digest context to account<br/>
 		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
 		/// in the message whose digest is being computed.<br/>

@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Keyboard button event structure (event.key.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLKeyboardEvent
 	{
 		/// <summary>
-		/// ::SDL_KEYDOWN or ::SDL_KEYUP <br/>
+		/// SDL_KEYDOWN or SDL_KEYUP <br/>
 		/// </summary>
 		public uint Type;
 
@@ -37,7 +37,7 @@ namespace Hexa.NET.SDL2
 		public uint WindowID;
 
 		/// <summary>
-		/// ::SDL_PRESSED or ::SDL_RELEASED <br/>
+		/// SDL_PRESSED or SDL_RELEASED <br/>
 		/// </summary>
 		public byte State;
 

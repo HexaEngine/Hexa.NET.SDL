@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The predefined log priorities<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLLogPriority : int

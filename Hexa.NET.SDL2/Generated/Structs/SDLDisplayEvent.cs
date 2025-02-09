@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Display state change event data (event.display.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDisplayEvent
 	{
 		/// <summary>
-		/// ::SDL_DISPLAYEVENT <br/>
+		/// SDL_DISPLAYEVENT <br/>
 		/// </summary>
 		public uint Type;
 
@@ -37,7 +37,7 @@ namespace Hexa.NET.SDL2
 		public uint Display;
 
 		/// <summary>
-		/// ::SDL_DisplayEventID <br/>
+		/// SDL_DisplayEventID <br/>
 		/// </summary>
 		public byte Event;
 

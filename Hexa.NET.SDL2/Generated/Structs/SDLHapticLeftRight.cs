@@ -16,8 +16,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// This struct is exclusively for the ::SDL_HAPTIC_LEFTRIGHT effect.<br/>
+	/// A structure containing a template for a Left/Right effect.<br/>
+	/// This struct is exclusively for the SDL_HAPTIC_LEFTRIGHT effect.<br/>
 	/// The Left/Right effect is used to explicitly control the large and small<br/>
 	/// motors, commonly found in modern game controllers. The small (right) motor<br/>
 	/// is high frequency, and the large (left) motor is low frequency.<br/>
@@ -27,7 +27,7 @@ namespace Hexa.NET.SDL2
 	public partial struct SDLHapticLeftRight
 	{
 		/// <summary>
-		/// ::SDL_HAPTIC_LEFTRIGHT <br/>
+		/// SDL_HAPTIC_LEFTRIGHT <br/>
 		/// </summary>
 		public ushort Type;
 

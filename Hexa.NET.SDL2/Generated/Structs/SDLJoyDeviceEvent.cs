@@ -16,13 +16,16 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
+	/// Joystick device event structure (event.jdevice.*)<br/>
+	/// SDL will send JOYSTICK_ADDED events for devices that are already plugged in<br/>
+	/// during SDL_Init.<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyDeviceEvent
 	{
 		/// <summary>
-		/// ::SDL_JOYDEVICEADDED or ::SDL_JOYDEVICEREMOVED <br/>
+		/// SDL_JOYDEVICEADDED or SDL_JOYDEVICEREMOVED <br/>
 		/// </summary>
 		public uint Type;
 

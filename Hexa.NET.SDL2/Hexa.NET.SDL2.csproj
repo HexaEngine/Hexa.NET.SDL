@@ -14,9 +14,9 @@
 		<IsAotCompatible>true</IsAotCompatible>
 
 		<PackageId>Hexa.NET.SDL2</PackageId>
-		<AssemblyVersion>2.30.10</AssemblyVersion>
-		<PackageVersion>1.2.10</PackageVersion>
-		<Description>A .NET Wrapper for SDL2 (v 2.30.10), generated with the HexaGen code generator. HexaGen allows users to access native libraries easily and with high performance.</Description>
+		<AssemblyVersion>2.32.0</AssemblyVersion>
+		<PackageVersion>1.2.11</PackageVersion>
+		<Description>A .NET Wrapper for SDL2 (v 2.32.0), generated with the HexaGen code generator. HexaGen allows users to access native libraries easily and with high performance.</Description>
 		<PackageTags>SDL SDL2 Hexa HexaGen Source Generator C# .NET DotNet Sharp Windows macOS Android Bindings Wrapper Native</PackageTags>
 		<Authors>Juna Meinhold</Authors>
 		<Copyright>Copyright (c) 2023 Juna Meinhold</Copyright>

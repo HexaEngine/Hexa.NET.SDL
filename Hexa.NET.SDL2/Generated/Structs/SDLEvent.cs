@@ -16,7 +16,9 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// General event structure<br/>
+	/// The SDL_Event structure is the core of all event handling in SDL. SDL_Event<br/>
+	/// is a union of all event structures used in SDL.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct SDLEvent

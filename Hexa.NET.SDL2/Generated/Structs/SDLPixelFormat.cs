@@ -16,6 +16,17 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
+	/// A structure that contains pixel format information.<br/>
+	/// Everything in the pixel format structure is read-only.<br/>
+	/// A pixel format has either a palette or masks. If a palette is used `Rmask`,<br/>
+	/// `Gmask`, `Bmask`, and `Amask` will be 0.<br/>
+	/// An SDL_PixelFormat describes the format of the pixel data stored at the<br/>
+	/// `pixels` field of an SDL_Surface. Every surface stores an SDL_PixelFormat<br/>
+	/// in the `format` field.<br/>
+	/// If you wish to do pixel level modifications on a surface, then<br/>
+	/// understanding how SDL stores its color information is essential.<br/>
+	/// For information on modern pixel color spaces, see the following Wikipedia<br/>
+	/// article: http://en.wikipedia.org/wiki/RGBA_color_space<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]

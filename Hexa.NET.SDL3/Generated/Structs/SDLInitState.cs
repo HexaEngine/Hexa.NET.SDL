@@ -55,7 +55,7 @@ namespace Hexa.NET.SDL3
 	/// &init<br/>
 	/// )) {<br/>
 	/// // The system is not initialized<br/>
-	/// return true;<br/>
+	/// return;<br/>
 	/// }<br/>
 	/// // At this point, you should not leave this function without calling SDL_SetInitialized()<br/>
 	/// DoQuitTasks();<br/>

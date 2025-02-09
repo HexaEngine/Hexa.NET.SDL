@@ -15,8 +15,8 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Description of where standard I/O should be directed when creating a<br/>
 	/// process.<br/>
-	/// If a standard I/O stream is set to SDL_PROCESS_STDIO_INHERIT, it will go to<br/>
-	/// the same place as the application's I/O stream. This is the default for<br/>
+	/// If a standard I/O stream is set to SDL_PROCESS_STDIO_INHERITED, it will go<br/>
+	/// to the same place as the application's I/O stream. This is the default for<br/>
 	/// standard output and standard error.<br/>
 	/// If a standard I/O stream is set to SDL_PROCESS_STDIO_NULL, it is connected<br/>
 	/// to `NUL:` on Windows and `/dev/null` on POSIX systems. This is the default<br/>

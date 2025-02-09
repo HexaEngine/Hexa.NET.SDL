@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Joysick battery level change event structure (event.jbattery.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyBatteryEvent
 	{
 		/// <summary>
-		/// ::SDL_JOYBATTERYUPDATED <br/>
+		/// SDL_JOYBATTERYUPDATED <br/>
 		/// </summary>
 		public uint Type;
 

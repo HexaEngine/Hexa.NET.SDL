@@ -16,23 +16,59 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// All values max at 32767 (0x7FFF).  Signed values also can be negative.<br/>
-	/// Time values unless specified otherwise are in milliseconds.<br/>
-	/// You can also pass ::SDL_HAPTIC_INFINITY to length instead of a 0-32767<br/>
-	/// value.  Neither delay, interval, attack_length nor fade_length support<br/>
-	/// ::SDL_HAPTIC_INFINITY.  Fade will also not be used since effect never ends.<br/>
-	/// Additionally, the ::SDL_HAPTIC_RAMP effect does not support a duration of<br/>
-	/// ::SDL_HAPTIC_INFINITY.<br/>
+	/// The generic template for any haptic effect.<br/>
+	/// All values max at 32767 (0x7FFF). Signed values also can be negative. Time<br/>
+	/// values unless specified otherwise are in milliseconds.<br/>
+	/// You can also pass SDL_HAPTIC_INFINITY to length instead of a 0-32767 value.<br/>
+	/// Neither delay, interval, attack_length nor fade_length support<br/>
+	/// SDL_HAPTIC_INFINITY. Fade will also not be used since effect never ends.<br/>
+	/// Additionally, the SDL_HAPTIC_RAMP effect does not support a duration of<br/>
+	/// SDL_HAPTIC_INFINITY.<br/>
 	/// Button triggers may not be supported on all devices, it is advised to not<br/>
-	/// use them if possible.  Buttons start at index 1 instead of index 0 like<br/>
-	/// the joystick.<br/>
+	/// use them if possible. Buttons start at index 1 instead of index 0 like the<br/>
+	/// joystick.<br/>
 	/// If both attack_length and fade_level are 0, the envelope is not used,<br/>
 	/// otherwise both values are used.<br/>
 	/// Common parts:<br/>
-	/// <br/>
+	/// ```c<br/>
+	/// // Replay - All effects have this<br/>
+	/// Uint32 length;        // Duration of effect (ms).<br/>
+	/// Uint16 delay;         // Delay before starting effect.<br/>
+	/// // Trigger - All effects have this<br/>
+	/// Uint16 button;        // Button that triggers effect.<br/>
+	/// Uint16 interval;      // How soon before effect can be triggered again.<br/>
+	/// // Envelope - All effects except condition effects have this<br/>
+	/// Uint16 attack_length; // Duration of the attack (ms).<br/>
+	/// Uint16 attack_level;  // Level at the start of the attack.<br/>
+	/// Uint16 fade_length;   // Duration of the fade out (ms).<br/>
+	/// Uint16 fade_level;    // Level at the end of the fade.<br/>
+	/// ```<br/>
 	/// Here we have an example of a constant effect evolution in time:<br/>
-	/// <br/>
+	/// ```<br/>
+	/// Strength<br/>
+	/// ^<br/>
+	/// |<br/>
+	/// |    effect level -->  _________________<br/>
+	/// |                     /                 <br/>
+	/// \<br/>
+	/// |                    /                   <br/>
+	/// \<br/>
+	/// |                   /                     <br/>
+	/// \<br/>
+	/// |                  /                       <br/>
+	/// \<br/>
+	/// | attack_level --> |                        <br/>
+	/// \<br/>
+	/// |                  |                        |  <br/>
+	/// <<br/>
+	/// ---  fade_level<br/>
+	/// |<br/>
+	/// +--------------------------------------------------> Time<br/>
+	/// [--]                 [---]<br/>
+	/// attack_length        fade_length<br/>
+	/// [------------------][-----------------------]<br/>
+	/// delay               length<br/>
+	/// ```<br/>
 	/// Note either the attack_level or the fade_level may be above the actual<br/>
 	/// effect level.<br/>
 	/// <br/>

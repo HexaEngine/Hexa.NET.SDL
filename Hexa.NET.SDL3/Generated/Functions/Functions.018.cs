@@ -18,2023 +18,2352 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Write-only storage textures, followed by write-only storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - u registers: Write-only storage textures, followed by write-only storage<br/>
-		/// buffers<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Write-only storage textures, followed by write-only<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by write-only storage buffers,<br/>
-		/// followed by write-only storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by write-only storage textures<br/>
+		/// Convert from an SDL_GamepadButton enum to a string.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadStringForButton")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGamepadStringForButton([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
 		{
-			SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, createinfo);
+			byte* ret = GetGamepadStringForButtonNative(button);
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Write-only storage textures, followed by write-only storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - u registers: Write-only storage textures, followed by write-only storage<br/>
-		/// buffers<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Write-only storage textures, followed by write-only<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by write-only storage buffers,<br/>
-		/// followed by write-only storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by write-only storage textures<br/>
+		/// Convert from an SDL_GamepadButton enum to a string.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadStringForButton")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGamepadStringForButtonS([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Write-only storage textures, followed by write-only storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - u registers: Write-only storage textures, followed by write-only storage<br/>
-		/// buffers<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Write-only storage textures, followed by write-only<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by write-only storage buffers,<br/>
-		/// followed by write-only storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by write-only storage textures<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] ref SDLGPUComputePipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Write-only storage textures, followed by write-only storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - u registers: Write-only storage textures, followed by write-only storage<br/>
-		/// buffers<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Write-only storage textures, followed by write-only<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by write-only storage buffers,<br/>
-		/// followed by write-only storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by write-only storage textures<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] ref SDLGPUComputePipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] SDLGPUGraphicsPipelineCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipelineCreateInfo*, SDLGPUGraphicsPipeline*>)funcTable[819])(device, createinfo);
-			#else
-			return (SDLGPUGraphicsPipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[819])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] SDLGPUGraphicsPipelineCreateInfo* createinfo)
-		{
-			SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, createinfo);
+			string ret = Utils.DecodeStringUTF8(GetGamepadStringForButtonNative(button));
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
+		/// Query whether a gamepad has a given button.<br/>
+		/// This merely reports whether the gamepad's mapping defined this button, as<br/>
+		/// that is all the information SDL has about the physical device.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] SDLGPUGraphicsPipelineCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] ref SDLGPUGraphicsPipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] ref SDLGPUGraphicsPipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
+		[NativeName(NativeNameType.Func, "SDL_GamepadHasButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUSampler* CreateGPUSamplerNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] SDLGPUSamplerCreateInfo* createinfo)
+		internal static byte GamepadHasButtonNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSamplerCreateInfo*, SDLGPUSampler*>)funcTable[820])(device, createinfo);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, byte>)funcTable[732])(gamepad, button);
 			#else
-			return (SDLGPUSampler*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[820])((nint)device, (nint)createinfo);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, byte>)funcTable[732])((nint)gamepad, button);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
+		/// Query whether a gamepad has a given button.<br/>
+		/// This merely reports whether the gamepad's mapping defined this button, as<br/>
+		/// that is all the information SDL has about the physical device.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] SDLGPUSamplerCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GamepadHasButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GamepadHasButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
 		{
-			SDLGPUSampler* ret = CreateGPUSamplerNative(device, createinfo);
+			byte ret = GamepadHasButtonNative(gamepad, button);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query whether a gamepad has a given button.<br/>
+		/// This merely reports whether the gamepad's mapping defined this button, as<br/>
+		/// that is all the information SDL has about the physical device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GamepadHasButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GamepadHasButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = GamepadHasButtonNative((SDLGamepad*)pgamepad, button);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetGamepadButtonNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, byte>)funcTable[733])(gamepad, button);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, byte>)funcTable[733])((nint)gamepad, button);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			byte ret = GetGamepadButtonNative(gamepad, button);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = GetGamepadButtonNative((SDLGamepad*)pgamepad, button);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the label of a button on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabelForType")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGamepadButtonLabel GetGamepadButtonLabelForTypeNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GamepadType")] SDLGamepadType type, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepadType, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[734])(type, button);
+			#else
+			return (SDLGamepadButtonLabel)((delegate* unmanaged[Cdecl]<SDLGamepadType, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[734])(type, button);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the label of a button on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabelForType")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
+		public static SDLGamepadButtonLabel GetGamepadButtonLabelForType([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GamepadType")] SDLGamepadType type, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			SDLGamepadButtonLabel ret = GetGamepadButtonLabelForTypeNative(type, button);
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
+		/// Get the label of a button on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] SDLGPUSamplerCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] ref SDLGPUSamplerCreateInfo createinfo)
-		{
-			fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUSampler* ret = CreateGPUSamplerNative(device, (SDLGPUSamplerCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] ref SDLGPUSamplerCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSamplerCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by storage textures, followed by<br/>
-		/// storage buffers<br/>
-		/// - s registers: Samplers with indices corresponding to the sampled textures<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUPipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabel")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUShader* CreateGPUShaderNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] SDLGPUShaderCreateInfo* createinfo)
+		internal static SDLGamepadButtonLabel GetGamepadButtonLabelNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderCreateInfo*, SDLGPUShader*>)funcTable[821])(device, createinfo);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[735])(gamepad, button);
 			#else
-			return (SDLGPUShader*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[821])((nint)device, (nint)createinfo);
+			return (SDLGamepadButtonLabel)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[735])((nint)gamepad, button);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by storage textures, followed by<br/>
-		/// storage buffers<br/>
-		/// - s registers: Samplers with indices corresponding to the sampled textures<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUPipeline.<br/>
+		/// Get the label of a button on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] SDLGPUShaderCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabel")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
+		public static SDLGamepadButtonLabel GetGamepadButtonLabel([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
 		{
-			SDLGPUShader* ret = CreateGPUShaderNative(device, createinfo);
+			SDLGamepadButtonLabel ret = GetGamepadButtonLabelNative(gamepad, button);
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by storage textures, followed by<br/>
-		/// storage buffers<br/>
-		/// - s registers: Samplers with indices corresponding to the sampled textures<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUPipeline.<br/>
+		/// Get the label of a button on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] SDLGPUShaderCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabel")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
+		public static SDLGamepadButtonLabel GetGamepadButtonLabel([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, createinfo);
+				SDLGamepadButtonLabel ret = GetGamepadButtonLabelNative((SDLGamepad*)pgamepad, button);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by storage textures, followed by<br/>
-		/// storage buffers<br/>
-		/// - s registers: Samplers with indices corresponding to the sampled textures<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUPipeline.<br/>
+		/// Get the number of touchpads on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] ref SDLGPUShaderCreateInfo createinfo)
-		{
-			fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUShader* ret = CreateGPUShaderNative(device, (SDLGPUShaderCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
-		/// - t registers: Sampled textures, followed by storage textures, followed by<br/>
-		/// storage buffers<br/>
-		/// - s registers: Samplers with indices corresponding to the sampled textures<br/>
-		/// - b registers: Uniform buffers<br/>
-		/// For DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUPipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] ref SDLGPUShaderCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShaderCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
+		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpads")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUTexture* CreateGPUTextureNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] SDLGPUTextureCreateInfo* createinfo)
+		internal static int GetNumGamepadTouchpadsNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureCreateInfo*, SDLGPUTexture*>)funcTable[822])(device, createinfo);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int>)funcTable[736])(gamepad);
 			#else
-			return (SDLGPUTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[822])((nint)device, (nint)createinfo);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[736])((nint)gamepad);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
+		/// Get the number of touchpads on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] SDLGPUTextureCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpads")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumGamepadTouchpads([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
 		{
-			SDLGPUTexture* ret = CreateGPUTextureNative(device, createinfo);
+			int ret = GetNumGamepadTouchpadsNative(gamepad);
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
+		/// Get the number of touchpads on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] SDLGPUTextureCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpads")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumGamepadTouchpads([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, createinfo);
+				int ret = GetNumGamepadTouchpadsNative((SDLGamepad*)pgamepad);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
+		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
+		/// gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] ref SDLGPUTextureCreateInfo createinfo)
-		{
-			fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUTexture* ret = CreateGPUTextureNative(device, (SDLGPUTextureCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] ref SDLGPUTextureCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTextureCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
+		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpadFingers")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUBuffer* CreateGPUBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] SDLGPUBufferCreateInfo* createinfo)
+		internal static int GetNumGamepadTouchpadFingersNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBufferCreateInfo*, SDLGPUBuffer*>)funcTable[823])(device, createinfo);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int, int>)funcTable[737])(gamepad, touchpad);
 			#else
-			return (SDLGPUBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[823])((nint)device, (nint)createinfo);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[737])((nint)gamepad, touchpad);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
+		/// gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] SDLGPUBufferCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpadFingers")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumGamepadTouchpadFingers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
 		{
-			SDLGPUBuffer* ret = CreateGPUBufferNative(device, createinfo);
+			int ret = GetNumGamepadTouchpadFingersNative(gamepad, touchpad);
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
+		/// gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] SDLGPUBufferCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpadFingers")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumGamepadTouchpadFingers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, createinfo);
+				int ret = GetNumGamepadTouchpadFingersNative((SDLGamepad*)pgamepad, touchpad);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] ref SDLGPUBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUBuffer* ret = CreateGPUBufferNative(device, (SDLGPUBufferCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] ref SDLGPUBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBufferCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUTransferBuffer* CreateGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] SDLGPUTransferBufferCreateInfo* createinfo)
+		internal static byte GetGamepadTouchpadFingerNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBufferCreateInfo*, SDLGPUTransferBuffer*>)funcTable[824])(device, createinfo);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int, int, bool*, float*, float*, float*, byte>)funcTable[738])(gamepad, touchpad, finger, down, x, y, pressure);
 			#else
-			return (SDLGPUTransferBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[824])((nint)device, (nint)createinfo);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, nint, nint, byte>)funcTable[738])((nint)gamepad, touchpad, finger, (nint)down, (nint)x, (nint)y, (nint)pressure);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] SDLGPUTransferBufferCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, createinfo);
-			return ret;
+			byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, y, pressure);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] SDLGPUTransferBufferCreateInfo* createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
+				byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, y, pressure);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] ref SDLGPUTransferBufferCreateInfo createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
+			fixed (bool* pdown = &down)
 			{
-				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
-				return ret;
+				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, y, pressure);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] ref SDLGPUTransferBufferCreateInfo createinfo)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
+				fixed (bool* pdown = &down)
 				{
-					SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
-					return ret;
+					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, y, pressure);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUBufferNameNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, byte*, void>)funcTable[825])(device, buffer, text);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[825])((nint)device, (nint)buffer, (nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			SetGPUBufferNameNative(device, buffer, text);
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (float* px = &x)
 			{
-				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, text);
+				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, y, pressure);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				fixed (float* px = &x)
 				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, text);
+					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, y, pressure);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (byte* ptext = text)
+			fixed (bool* pdown = &down)
 			{
-				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (float* px = &x)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetGPUBufferNameNative(device, buffer, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
+					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, y, pressure);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
+				fixed (bool* pdown = &down)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (float* px = &x)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					fixed (byte* ptext = &text)
-					{
-						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, y, pressure);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (float* py = &y)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, (float*)py, pressure);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (float* py = &y)
 				{
-					fixed (byte* ptext = text)
+					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, (float*)py, pressure);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		{
+			fixed (bool* pdown = &down)
+			{
+				fixed (float* py = &y)
+				{
+					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, (float*)py, pressure);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (bool* pdown = &down)
+				{
+					fixed (float* py = &y)
 					{
-						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, (float*)py, pressure);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// Useful for debugging.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (float* px = &x)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				fixed (float* py = &y)
 				{
-					byte* pStr0 = null;
-					int pStrSize0 = 0;
-					if (text != null)
+					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, (float*)py, pressure);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
 					{
-						pStrSize0 = Utils.GetByteCountUTF8(text);
-						if (pStrSize0 >= Utils.MaxStackallocSize)
+						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, (float*)py, pressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		{
+			fixed (bool* pdown = &down)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, pressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (bool* pdown = &down)
+				{
+					fixed (float* px = &x)
+					{
+						fixed (float* py = &y)
 						{
-							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, pressure);
+							return ret != 0;
 						}
-						else
-						{
-							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-							pStr0 = pStrStack0;
-						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-						pStr0[pStrOffset0] = 0;
-					}
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, pStr0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (float* ppressure = &pressure)
+			{
+				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, y, (float*)ppressure);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, y, (float*)ppressure);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (bool* pdown = &down)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, y, (float*)ppressure);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (bool* pdown = &down)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, y, (float*)ppressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, y, (float*)ppressure);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, y, (float*)ppressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (bool* pdown = &down)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, y, (float*)ppressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (bool* pdown = &down)
+				{
+					fixed (float* px = &x)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, y, (float*)ppressure);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (float* py = &y)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, (float*)py, (float*)ppressure);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (float* py = &y)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, (float*)py, (float*)ppressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (bool* pdown = &down)
+			{
+				fixed (float* py = &y)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, (float*)py, (float*)ppressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (bool* pdown = &down)
+				{
+					fixed (float* py = &y)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, (float*)py, (float*)ppressure);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, (float*)py, (float*)ppressure);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, (float*)py, (float*)ppressure);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (bool* pdown = &down)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, (float*)ppressure);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (bool* pdown = &down)
+				{
+					fixed (float* px = &x)
+					{
+						fixed (float* py = &y)
+						{
+							fixed (float* ppressure = &pressure)
+							{
+								byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, (float*)ppressure);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return whether a gamepad has a particular sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUTextureNameNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		internal static byte GamepadHasSensorNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, byte*, void>)funcTable[826])(device, texture, text);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte>)funcTable[739])(gamepad, type);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[826])((nint)device, (nint)texture, (nint)text);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte>)funcTable[739])((nint)gamepad, type);
 			#endif
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
+		/// Return whether a gamepad has a particular sensor.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GamepadHasSensor([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
-			SetGPUTextureNameNative(device, texture, text);
+			byte ret = GamepadHasSensorNative(gamepad, type);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
+		/// Return whether a gamepad has a particular sensor.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GamepadHasSensor([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, text);
+				byte ret = GamepadHasSensorNative((SDLGamepad*)pgamepad, type);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
+		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
-				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, text);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				SetGPUTextureNameNative(device, texture, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				SetGPUTextureNameNative(device, texture, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetGPUTextureNameNative(device, texture, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
-				{
-					fixed (byte* ptext = &text)
-					{
-						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
-				{
-					fixed (byte* ptext = text)
-					{
-						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
-				{
-					byte* pStr0 = null;
-					int pStrSize0 = 0;
-					if (text != null)
-					{
-						pStrSize0 = Utils.GetByteCountUTF8(text);
-						if (pStrSize0 >= Utils.MaxStackallocSize)
-						{
-							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-						}
-						else
-						{
-							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-							pStr0 = pStrStack0;
-						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-						pStr0[pStrOffset0] = 0;
-					}
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, pStr0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void InsertGPUDebugLabelNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		internal static byte SetGamepadSensorEnabledNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[827])(commandBuffer, text);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte, byte>)funcTable[740])(gamepad, type, enabled);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[827])((nint)commandBuffer, (nint)text);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte, byte>)funcTable[740])((nint)gamepad, type, enabled);
 			#endif
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
 		{
-			InsertGPUDebugLabelNative(commandBuffer, text);
+			byte ret = SetGamepadSensorEnabledNative(gamepad, type, enabled ? (byte)1 : (byte)0);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, text);
+				byte ret = SetGamepadSensorEnabledNative((SDLGamepad*)pgamepad, type, enabled ? (byte)1 : (byte)0);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			InsertGPUDebugLabelNative(commandBuffer, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (byte* ptext = &text)
-				{
-					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (byte* ptext = text)
-				{
-					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUDebugGroupNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static byte GamepadSensorEnabledNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[828])(commandBuffer, name);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte>)funcTable[741])(gamepad, type);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[828])((nint)commandBuffer, (nint)name);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte>)funcTable[741])((nint)gamepad, type);
 			#endif
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
-			PushGPUDebugGroupNative(commandBuffer, name);
+			byte ret = GamepadSensorEnabledNative(gamepad, type);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, name);
+				byte ret = GamepadSensorEnabledNative((SDLGamepad*)pgamepad, type);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static float GetGamepadSensorDataRateNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, float>)funcTable[742])(gamepad, type);
+			#else
+			return (float)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, float>)funcTable[742])((nint)gamepad, type);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetGamepadSensorDataRate([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		{
+			float ret = GetGamepadSensorDataRateNative(gamepad, type);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetGamepadSensorDataRate([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				float ret = GetGamepadSensorDataRateNative((SDLGamepad*)pgamepad, type);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a gamepad sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetGamepadSensorDataNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, float*, int, byte>)funcTable[743])(gamepad, type, data, numValues);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, nint, int, byte>)funcTable[743])((nint)gamepad, type, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a gamepad sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			byte ret = GetGamepadSensorDataNative(gamepad, type, data, numValues);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the current state of a gamepad sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = GetGamepadSensorDataNative((SDLGamepad*)pgamepad, type, data, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a gamepad sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				byte ret = GetGamepadSensorDataNative(gamepad, type, (float*)pdata, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a gamepad sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				fixed (float* pdata = &data)
+				{
+					byte ret = GetGamepadSensorDataNative((SDLGamepad*)pgamepad, type, (float*)pdata, numValues);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect on a gamepad.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RumbleGamepadNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, ushort, ushort, uint, byte>)funcTable[744])(gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[744])((nint)gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect on a gamepad.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			byte ret = RumbleGamepadNative(gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Start a rumble effect on a gamepad.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = RumbleGamepadNative((SDLGamepad*)pgamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the gamepad's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
+		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
+		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
+		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RumbleGamepadTriggersNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, ushort, ushort, uint, byte>)funcTable[745])(gamepad, leftRumble, rightRumble, durationMs);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[745])((nint)gamepad, leftRumble, rightRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the gamepad's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
+		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
+		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleGamepadTriggers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			byte ret = RumbleGamepadTriggersNative(gamepad, leftRumble, rightRumble, durationMs);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the gamepad's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
+		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
+		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleGamepadTriggers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = RumbleGamepadTriggersNative((SDLGamepad*)pgamepad, leftRumble, rightRumble, durationMs);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a gamepad's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
+		/// used as the LED brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetGamepadLEDNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, byte, byte, byte, byte>)funcTable[746])(gamepad, red, green, blue);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[746])((nint)gamepad, red, green, blue);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a gamepad's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
+		/// used as the LED brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadLED([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		{
+			byte ret = SetGamepadLEDNative(gamepad, red, green, blue);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update a gamepad's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
+		/// used as the LED brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadLED([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = SetGamepadLEDNative((SDLGamepad*)pgamepad, red, green, blue);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a gamepad specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SendGamepadEffectNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, void*, int, byte>)funcTable[747])(gamepad, data, size);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[747])((nint)gamepad, (nint)data, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a gamepad specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendGamepadEffect([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			byte ret = SendGamepadEffectNative(gamepad, data, size);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Send a gamepad specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendGamepadEffect([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = SendGamepadEffectNative((SDLGamepad*)pgamepad, data, size);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseGamepadNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGamepad*, void>)funcTable[748])(gamepad);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[748])((nint)gamepad);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
+		{
+			CloseGamepadNative(gamepad);
+		}
+
+		/// <summary>
+		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				CloseGamepadNative((SDLGamepad*)pgamepad);
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGamepadAppleSFSymbolsNameForButtonNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, byte*>)funcTable[749])(gamepad, button);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, nint>)funcTable[749])((nint)gamepad, button);
+			#endif
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGamepadAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			byte* ret = GetGamepadAppleSFSymbolsNameForButtonNative(gamepad, button);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGamepadAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForButtonNative(gamepad, button));
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGamepadAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte* ret = GetGamepadAppleSFSymbolsNameForButtonNative((SDLGamepad*)pgamepad, button);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGamepadAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForButtonNative((SDLGamepad*)pgamepad, button));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGamepadAppleSFSymbolsNameForAxisNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadAxis, byte*>)funcTable[750])(gamepad, axis);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGamepadAxis, nint>)funcTable[750])((nint)gamepad, axis);
+			#endif
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGamepadAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		{
+			byte* ret = GetGamepadAppleSFSymbolsNameForAxisNative(gamepad, axis);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGamepadAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForAxisNative(gamepad, axis));
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGamepadAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte* ret = GetGamepadAppleSFSymbolsNameForAxisNative((SDLGamepad*)pgamepad, axis);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGamepadAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForAxisNative((SDLGamepad*)pgamepad, axis));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Return whether a keyboard is currently connected.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasKeyboard")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HasKeyboardNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[751])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[751])();
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether a keyboard is currently connected.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasKeyboard")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasKeyboard()
+		{
+			byte ret = HasKeyboardNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected keyboards.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
+		/// power buttons, etc. You should wait for input from a device before you<br/>
+		/// consider it actively in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
+		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint* GetKeyboardsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[752])(count);
+			#else
+			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[752])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of currently connected keyboards.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
+		/// power buttons, etc. You should wait for input from a device before you<br/>
+		/// consider it actively in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
+		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
+		public static uint* GetKeyboards([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			uint* ret = GetKeyboardsNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected keyboards.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
+		/// power buttons, etc. You should wait for input from a device before you<br/>
+		/// consider it actively in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
+		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
+		public static uint* GetKeyboards([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				uint* ret = GetKeyboardsNative((int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the name of a keyboard.<br/>
+		/// This function returns "" if the keyboard doesn't have a name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetKeyboardNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[753])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[753])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the name of a keyboard.<br/>
+		/// This function returns "" if the keyboard doesn't have a name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetKeyboardNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
+		{
+			byte* ret = GetKeyboardNameForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a keyboard.<br/>
+		/// This function returns "" if the keyboard doesn't have a name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetKeyboardNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetKeyboardNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Query the window which currently has keyboard focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardFocus")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetKeyboardFocusNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[754])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[754])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query the window which currently has keyboard focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardFocus")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindow* GetKeyboardFocus()
+		{
+			SDLWindow* ret = GetKeyboardFocusNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of true means that the key is pressed and a<br/>
+		/// value of false means that it is not. Indexes into this array are obtained<br/>
+		/// by using SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
+		[return: NativeName(NativeNameType.Type, "bool const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static bool* GetKeyboardStateNative([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] int* numkeys)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, bool*>)funcTable[755])(numkeys);
+			#else
+			return (bool*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[755])((nint)numkeys);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of true means that the key is pressed and a<br/>
+		/// value of false means that it is not. Indexes into this array are obtained<br/>
+		/// by using SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
+		[return: NativeName(NativeNameType.Type, "bool const *")]
+		public static bool* GetKeyboardState([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] int* numkeys)
+		{
+			bool* ret = GetKeyboardStateNative(numkeys);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of true means that the key is pressed and a<br/>
+		/// value of false means that it is not. Indexes into this array are obtained<br/>
+		/// by using SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
+		[return: NativeName(NativeNameType.Type, "bool const *")]
+		public static bool* GetKeyboardState([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] ref int numkeys)
+		{
+			fixed (int* pnumkeys = &numkeys)
+			{
+				bool* ret = GetKeyboardStateNative((int*)pnumkeys);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Clear the state of the keyboard.<br/>
+		/// This function will generate key up events for all pressed keys.<br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResetKeyboard")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ResetKeyboardNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[756])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[756])();
+			#endif
+		}
+
+		/// <summary>
+		/// Clear the state of the keyboard.<br/>
+		/// This function will generate key up events for all pressed keys.<br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResetKeyboard")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ResetKeyboard()
+		{
+			ResetKeyboardNative();
+		}
+
+		/// <summary>
+		/// Get the current key modifier state for the keyboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetModState")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keymod")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLKeymod GetModStateNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[757])();
+			#else
+			return (SDLKeymod)((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[757])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current key modifier state for the keyboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetModState")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keymod")]
+		public static SDLKeymod GetModState()
+		{
+			SDLKeymod ret = GetModStateNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the current key modifier state for the keyboard.<br/>
+		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
+		/// modifier key states on your application. Simply pass your desired modifier<br/>
+		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
+		/// SDL_Keymod values.<br/>
+		/// This does not change the keyboard state, only the key modifier flags that<br/>
+		/// SDL reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetModState")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetModStateNative([NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[758])(modstate);
+			#else
+			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[758])(modstate);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the current key modifier state for the keyboard.<br/>
+		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
+		/// modifier key states on your application. Simply pass your desired modifier<br/>
+		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
+		/// SDL_Keymod values.<br/>
+		/// This does not change the keyboard state, only the key modifier flags that<br/>
+		/// SDL reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetModState")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetModState([NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate)
+		{
+			SetModStateNative(modstate);
+		}
+
+		/// <summary>
+		/// Get the key code corresponding to the given scancode according to the<br/>
+		/// current keyboard layout.<br/>
+		/// If you want to get the keycode as it would be delivered in key events,<br/>
+		/// including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should<br/>
+		/// pass `key_event` as true. Otherwise this function simply translates the<br/>
+		/// scancode based on the given modifier state.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyFromScancode")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetKeyFromScancodeNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate, [NativeName(NativeNameType.Param, "key_event")] [NativeName(NativeNameType.Type, "bool")] byte keyEvent)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLScancode, SDLKeymod, byte, int>)funcTable[759])(scancode, modstate, keyEvent);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<SDLScancode, SDLKeymod, byte, int>)funcTable[759])(scancode, modstate, keyEvent);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the key code corresponding to the given scancode according to the<br/>
+		/// current keyboard layout.<br/>
+		/// If you want to get the keycode as it would be delivered in key events,<br/>
+		/// including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should<br/>
+		/// pass `key_event` as true. Otherwise this function simply translates the<br/>
+		/// scancode based on the given modifier state.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyFromScancode")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		public static int GetKeyFromScancode([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate, [NativeName(NativeNameType.Param, "key_event")] [NativeName(NativeNameType.Type, "bool")] bool keyEvent)
+		{
+			int ret = GetKeyFromScancodeNative(scancode, modstate, keyEvent ? (byte)1 : (byte)0);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the scancode corresponding to the given key code according to the<br/>
+		/// current keyboard layout.<br/>
+		/// Note that there may be multiple scancode+modifier states that can generate<br/>
+		/// this keycode, this will just return the first one found.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLScancode GetScancodeFromKeyNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] SDLKeymod* modstate)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLKeymod*, SDLScancode>)funcTable[760])(key, modstate);
+			#else
+			return (SDLScancode)((delegate* unmanaged[Cdecl]<int, nint, SDLScancode>)funcTable[760])(key, (nint)modstate);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the scancode corresponding to the given key code according to the<br/>
+		/// current keyboard layout.<br/>
+		/// Note that there may be multiple scancode+modifier states that can generate<br/>
+		/// this keycode, this will just return the first one found.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		public static SDLScancode GetScancodeFromKey([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] SDLKeymod* modstate)
+		{
+			SDLScancode ret = GetScancodeFromKeyNative(key, modstate);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the scancode corresponding to the given key code according to the<br/>
+		/// current keyboard layout.<br/>
+		/// Note that there may be multiple scancode+modifier states that can generate<br/>
+		/// this keycode, this will just return the first one found.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		public static SDLScancode GetScancodeFromKey([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] ref SDLKeymod modstate)
+		{
+			fixed (SDLKeymod* pmodstate = &modstate)
+			{
+				SDLScancode ret = GetScancodeFromKeyNative(key, (SDLKeymod*)pmodstate);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a human-readable name for a scancode.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetScancodeNameNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*, byte>)funcTable[761])(scancode, name);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLScancode, nint, byte>)funcTable[761])(scancode, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a human-readable name for a scancode.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			byte ret = SetScancodeNameNative(scancode, name);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a human-readable name for a scancode.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
-				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
+				byte ret = SetScancodeNameNative(scancode, (byte*)pname);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Set a human-readable name for a scancode.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
-				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
+				byte ret = SetScancodeNameNative(scancode, (byte*)pname);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Set a human-readable name for a scancode.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2053,2973 +2382,2644 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			PushGPUDebugGroupNative(commandBuffer, pStr0);
+			byte ret = SetScancodeNameNative(scancode, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Get a human-readable name for a scancode.<br/>
+		/// **Warning**: The returned name is by design not stable across platforms,<br/>
+		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
+		/// Windows" under Microsoft Windows, and some scancodes like<br/>
+		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
+		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
+		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
+		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
+		/// strings and scancodes.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetScancodeNameNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*>)funcTable[762])(scancode);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLScancode, nint>)funcTable[762])(scancode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a scancode.<br/>
+		/// **Warning**: The returned name is by design not stable across platforms,<br/>
+		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
+		/// Windows" under Microsoft Windows, and some scancodes like<br/>
+		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
+		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
+		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
+		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
+		/// strings and scancodes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
+		{
+			byte* ret = GetScancodeNameNative(scancode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a scancode.<br/>
+		/// **Warning**: The returned name is by design not stable across platforms,<br/>
+		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
+		/// Windows" under Microsoft Windows, and some scancodes like<br/>
+		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
+		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
+		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
+		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
+		/// strings and scancodes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetScancodeNameS([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
+		{
+			string ret = Utils.DecodeStringUTF8(GetScancodeNameNative(scancode));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLScancode GetScancodeFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLScancode>)funcTable[763])(name);
+			#else
+			return (SDLScancode)((delegate* unmanaged[Cdecl]<nint, SDLScancode>)funcTable[763])((nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			SDLScancode ret = GetScancodeFromNameNative(name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		{
+			fixed (byte* pname = &name)
 			{
-				fixed (byte* pname = &name)
-				{
-					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
-				}
+				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Get a scancode from a human-readable name.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (byte* pname = name)
 			{
-				fixed (byte* pname = name)
-				{
-					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
-				}
+				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Get a scancode from a human-readable name.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
 			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					Utils.Free(pStr0);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
-			}
-		}
-
-		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PopGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PopGPUDebugGroupNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, void>)funcTable[829])(commandBuffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[829])((nint)commandBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PopGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PopGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
-		{
-			PopGPUDebugGroupNative(commandBuffer);
-		}
-
-		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PopGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PopGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PopGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUTextureNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, void>)funcTable[830])(device, texture);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[830])((nint)device, (nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
-		{
-			ReleaseGPUTextureNative(device, texture);
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, texture);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				ReleaseGPUTextureNative(device, (SDLGPUTexture*)ptexture);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				else
 				{
-					ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture);
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
 				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUSamplerNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] SDLGPUSampler* sampler)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSampler*, void>)funcTable[831])(device, sampler);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[831])((nint)device, (nint)sampler);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] SDLGPUSampler* sampler)
-		{
-			ReleaseGPUSamplerNative(device, sampler);
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] SDLGPUSampler* sampler)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			SDLScancode ret = GetScancodeFromNameNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, sampler);
+				Utils.Free(pStr0);
 			}
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] ref SDLGPUSampler sampler)
-		{
-			fixed (SDLGPUSampler* psampler = &sampler)
-			{
-				ReleaseGPUSamplerNative(device, (SDLGPUSampler*)psampler);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] ref SDLGPUSampler sampler)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUSampler* psampler = &sampler)
-				{
-					ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSampler*)psampler);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, void>)funcTable[832])(device, buffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[832])((nint)device, (nint)buffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer)
-		{
-			ReleaseGPUBufferNative(device, buffer);
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, buffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				ReleaseGPUBufferNative(device, (SDLGPUBuffer*)pbuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[833])(device, transferBuffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[833])((nint)device, (nint)transferBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
-		{
-			ReleaseGPUTransferBufferNative(device, transferBuffer);
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
-		{
-			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-			{
-				ReleaseGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-				{
-					ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUComputePipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipeline*, void>)funcTable[834])(device, computePipeline);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[834])((nint)device, (nint)computePipeline);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
-		{
-			ReleaseGPUComputePipelineNative(device, computePipeline);
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, computePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
-			{
-				ReleaseGPUComputePipelineNative(device, (SDLGPUComputePipeline*)pcomputePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
-				{
-					ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipeline*)pcomputePipeline);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUShaderNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] SDLGPUShader* shader)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShader*, void>)funcTable[835])(device, shader);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[835])((nint)device, (nint)shader);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] SDLGPUShader* shader)
-		{
-			ReleaseGPUShaderNative(device, shader);
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] SDLGPUShader* shader)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, shader);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] ref SDLGPUShader shader)
-		{
-			fixed (SDLGPUShader* pshader = &shader)
-			{
-				ReleaseGPUShaderNative(device, (SDLGPUShader*)pshader);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] ref SDLGPUShader shader)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUShader* pshader = &shader)
-				{
-					ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShader*)pshader);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUGraphicsPipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipeline*, void>)funcTable[836])(device, graphicsPipeline);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[836])((nint)device, (nint)graphicsPipeline);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			ReleaseGPUGraphicsPipelineNative(device, graphicsPipeline);
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, graphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-			{
-				ReleaseGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-				{
-					ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AcquireGPUCommandBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUCommandBuffer* AcquireGPUCommandBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUCommandBuffer*>)funcTable[837])(device);
-			#else
-			return (SDLGPUCommandBuffer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[837])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AcquireGPUCommandBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")]
-		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative(device);
 			return ret;
 		}
 
 		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
+		/// Get a human-readable name for a key.<br/>
+		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
+		/// Letters will be presented in their uppercase form, if applicable.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AcquireGPUCommandBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")]
-		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative((SDLGPUDevice*)pdevice);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUVertexUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUVertexUniformDataNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		internal static byte* GetKeyNameNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[838])(commandBuffer, slotIndex, data, length);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[764])(key);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[838])((nint)commandBuffer, slotIndex, (nint)data, length);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[764])(key);
 			#endif
 		}
 
 		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
+		/// Get a human-readable name for a key.<br/>
+		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
+		/// Letters will be presented in their uppercase form, if applicable.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUVertexUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUVertexUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetKeyName([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
 		{
-			PushGPUVertexUniformDataNative(commandBuffer, slotIndex, data, length);
-		}
-
-		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUVertexUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUVertexUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PushGPUVertexUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
-			}
-		}
-
-		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUFragmentUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUFragmentUniformDataNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[839])(commandBuffer, slotIndex, data, length);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[839])((nint)commandBuffer, slotIndex, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUFragmentUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUFragmentUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			PushGPUFragmentUniformDataNative(commandBuffer, slotIndex, data, length);
-		}
-
-		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUFragmentUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUFragmentUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PushGPUFragmentUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
-			}
-		}
-
-		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUComputeUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUComputeUniformDataNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[840])(commandBuffer, slotIndex, data, length);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[840])((nint)commandBuffer, slotIndex, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUComputeUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUComputeUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			PushGPUComputeUniformDataNative(commandBuffer, slotIndex, data, length);
-		}
-
-		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUComputeUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUComputeUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PushGPUComputeUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPURenderPass* BeginGPURenderPassNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUColorTargetInfo*, uint, SDLGPUDepthStencilTargetInfo*, SDLGPURenderPass*>)funcTable[841])(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
-			#else
-			return (SDLGPURenderPass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, nint>)funcTable[841])((nint)commandBuffer, (nint)colorTargetInfos, numColorTargets, (nint)depthStencilTargetInfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
-		{
-			SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+			byte* ret = GetKeyNameNative(key);
 			return ret;
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get a human-readable name for a key.<br/>
+		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
+		/// Letters will be presented in their uppercase form, if applicable.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetKeyNameS([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			string ret = Utils.DecodeStringUTF8(GetKeyNameNative(key));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetKeyFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[765])(name);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[765])((nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			int ret = GetKeyFromNameNative(name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		{
+			fixed (byte* pname = &name)
 			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+				int ret = GetKeyFromNameNative((byte*)pname);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get a key code from a human-readable name.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
 		{
-			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+			fixed (byte* pname = name)
 			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
+				int ret = GetKeyFromNameNative((byte*)pname);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get a key code from a human-readable name.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
+		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
 			{
-				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
-					return ret;
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = GetKeyFromNameNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events in a window.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StartTextInputNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[766])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[766])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events in a window.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StartTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = StartTextInputNative(window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events in a window.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StartTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = StartTextInputNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events in a window, with properties<br/>
+		/// describing the input.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
+		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
+		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
+		/// that describes how text should be capitalized, defaults to<br/>
+		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
+		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
+		/// addresses, usernames, and passwords.<br/>
+		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
+		/// and auto correction, defaults to true.<br/>
+		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
+		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
+		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
+		/// is "1".<br/>
+		/// On Android you can directly specify the input type:<br/>
+		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
+		/// use, overriding other properties. This is documented at<br/>
+		/// https://developer.android.com/reference/android/text/InputType<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StartTextInputWithPropertiesNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint, byte>)funcTable[767])(window, props);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[767])((nint)window, props);
+			#endif
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events in a window, with properties<br/>
+		/// describing the input.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
+		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
+		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
+		/// that describes how text should be capitalized, defaults to<br/>
+		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
+		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
+		/// addresses, usernames, and passwords.<br/>
+		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
+		/// and auto correction, defaults to true.<br/>
+		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
+		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
+		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
+		/// is "1".<br/>
+		/// On Android you can directly specify the input type:<br/>
+		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
+		/// use, overriding other properties. This is documented at<br/>
+		/// https://developer.android.com/reference/android/text/InputType<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			byte ret = StartTextInputWithPropertiesNative(window, props);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events in a window, with properties<br/>
+		/// describing the input.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
+		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
+		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
+		/// that describes how text should be capitalized, defaults to<br/>
+		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
+		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
+		/// addresses, usernames, and passwords.<br/>
+		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
+		/// and auto correction, defaults to true.<br/>
+		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
+		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
+		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
+		/// is "1".<br/>
+		/// On Android you can directly specify the input type:<br/>
+		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
+		/// use, overriding other properties. This is documented at<br/>
+		/// https://developer.android.com/reference/android/text/InputType<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = StartTextInputWithPropertiesNative((SDLWindow*)pwindow, props);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check whether or not Unicode text input events are enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TextInputActiveNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[768])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[768])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether or not Unicode text input events are enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = TextInputActiveNative(window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check whether or not Unicode text input events are enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = TextInputActiveNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Stop receiving any text input events in a window.<br/>
+		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
+		/// it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopTextInputNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[769])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[769])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Stop receiving any text input events in a window.<br/>
+		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
+		/// it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = StopTextInputNative(window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Stop receiving any text input events in a window.<br/>
+		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
+		/// it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = StopTextInputNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ClearCompositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[770])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[770])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = ClearCompositionNative(window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = ClearCompositionNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int, byte>)funcTable[771])(window, rect, cursor);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[771])((nint)window, (nint)rect, cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			byte ret = SetTextInputAreaNative(window, rect, cursor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, rect, cursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = SetTextInputAreaNative(window, (SDLRect*)prect, cursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
 		{
-			fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int*, byte>)funcTable[772])(window, rect, cursor);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[772])((nint)window, (nint)rect, (nint)cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
+		{
+			byte ret = GetTextInputAreaNative(window, rect, cursor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-				return ret;
+				byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, rect, cursor);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+				byte ret = GetTextInputAreaNative(window, (SDLRect*)prect, cursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLRect* prect = &rect)
 				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-					return ret;
+					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
 		{
-			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+			fixed (int* pcursor = &cursor)
 			{
-				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+				byte ret = GetTextInputAreaNative(window, rect, (int*)pcursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pcursor = &cursor)
 				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-					return ret;
+					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, rect, (int*)pcursor);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+				fixed (int* pcursor = &cursor)
 				{
-					fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+					byte ret = GetTextInputAreaNative(window, (SDLRect*)prect, (int*)pcursor);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (int* pcursor = &cursor)
 					{
-						SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-						return ret;
+						byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, (int*)pcursor);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUGraphicsPipelineNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
+		internal static byte HasScreenKeyboardSupportNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUGraphicsPipeline*, void>)funcTable[842])(renderPass, graphicsPipeline);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[773])();
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[842])((nint)renderPass, (nint)graphicsPipeline);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[773])();
 			#endif
 		}
 
 		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
+		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasScreenKeyboardSupport()
 		{
-			BindGPUGraphicsPipelineNative(renderPass, graphicsPipeline);
+			byte ret = HasScreenKeyboardSupportNative();
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, graphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-			{
-				BindGPUGraphicsPipelineNative(renderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-				{
-					BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUViewportNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] SDLGPUViewport* viewport)
+		internal static byte ScreenKeyboardShownNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUViewport*, void>)funcTable[843])(renderPass, viewport);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[774])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[843])((nint)renderPass, (nint)viewport);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[774])((nint)window);
 			#endif
 		}
 
 		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] SDLGPUViewport* viewport)
+		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
-			SetGPUViewportNative(renderPass, viewport);
+			byte ret = ScreenKeyboardShownNative(window);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] SDLGPUViewport* viewport)
+		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SetGPUViewportNative((SDLGPURenderPass*)prenderPass, viewport);
+				byte ret = ScreenKeyboardShownNative((SDLWindow*)pwindow);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
+		/// Return whether a mouse is currently connected.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] ref SDLGPUViewport viewport)
-		{
-			fixed (SDLGPUViewport* pviewport = &viewport)
-			{
-				SetGPUViewportNative(renderPass, (SDLGPUViewport*)pviewport);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] ref SDLGPUViewport viewport)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUViewport* pviewport = &viewport)
-				{
-					SetGPUViewportNative((SDLGPURenderPass*)prenderPass, (SDLGPUViewport*)pviewport);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUScissorNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* scissor)
+		internal static byte HasMouseNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLRect*, void>)funcTable[844])(renderPass, scissor);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[775])();
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[844])((nint)renderPass, (nint)scissor);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[775])();
 			#endif
 		}
 
 		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
+		/// Return whether a mouse is currently connected.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* scissor)
+		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasMouse()
 		{
-			SetGPUScissorNative(renderPass, scissor);
+			byte ret = HasMouseNative();
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
+		/// Get a list of currently connected mice.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
+		/// You should wait for input from a device before you consider it actively in<br/>
+		/// use.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* scissor)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUScissorNative((SDLGPURenderPass*)prenderPass, scissor);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect scissor)
-		{
-			fixed (SDLRect* pscissor = &scissor)
-			{
-				SetGPUScissorNative(renderPass, (SDLRect*)pscissor);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect scissor)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLRect* pscissor = &scissor)
-				{
-					SetGPUScissorNative((SDLGPURenderPass*)prenderPass, (SDLRect*)pscissor);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBlendConstants")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_GetMice")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUBlendConstantsNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "blend_constants")] [NativeName(NativeNameType.Type, "SDL_FColor")] SDLFColor blendConstants)
+		internal static uint* GetMiceNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLFColor, void>)funcTable[845])(renderPass, blendConstants);
+			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[776])(count);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLFColor, void>)funcTable[845])((nint)renderPass, blendConstants);
+			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[776])((nint)count);
 			#endif
 		}
 
 		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
+		/// Get a list of currently connected mice.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
+		/// You should wait for input from a device before you consider it actively in<br/>
+		/// use.<br/>
 		/// <br/>
 		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBlendConstants")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBlendConstants([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "blend_constants")] [NativeName(NativeNameType.Type, "SDL_FColor")] SDLFColor blendConstants)
-		{
-			SetGPUBlendConstantsNative(renderPass, blendConstants);
-		}
-
-		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBlendConstants")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBlendConstants([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "blend_constants")] [NativeName(NativeNameType.Type, "SDL_FColor")] SDLFColor blendConstants)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUBlendConstantsNative((SDLGPURenderPass*)prenderPass, blendConstants);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUStencilReference")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUStencilReferenceNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "Uint8")] byte reference)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, byte, void>)funcTable[846])(renderPass, reference);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, byte, void>)funcTable[846])((nint)renderPass, reference);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUStencilReference")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUStencilReference([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "Uint8")] byte reference)
-		{
-			SetGPUStencilReferenceNative(renderPass, reference);
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUStencilReference")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUStencilReference([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "Uint8")] byte reference)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUStencilReferenceNative((SDLGPURenderPass*)prenderPass, reference);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexBuffersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBufferBinding*, uint, void>)funcTable[847])(renderPass, firstSlot, bindings, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[847])((nint)renderPass, firstSlot, (nint)bindings, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUVertexBuffersNative(renderPass, firstSlot, bindings, numBindings);
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, bindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUBufferBinding* pbindings = &bindings)
-			{
-				BindGPUVertexBuffersNative(renderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBufferBinding* pbindings = &bindings)
-				{
-					BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUIndexBufferNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBufferBinding*, SDLGPUIndexElementSize, void>)funcTable[848])(renderPass, binding, indexElementSize);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUIndexElementSize, void>)funcTable[848])((nint)renderPass, (nint)binding, indexElementSize);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
-		{
-			BindGPUIndexBufferNative(renderPass, binding, indexElementSize);
-		}
-
-		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, binding, indexElementSize);
-			}
-		}
-
-		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
-		{
-			fixed (SDLGPUBufferBinding* pbinding = &binding)
-			{
-				BindGPUIndexBufferNative(renderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
-			}
-		}
-
-		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBufferBinding* pbinding = &binding)
-				{
-					BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexSamplersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[849])(renderPass, firstSlot, textureSamplerBindings, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[849])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUVertexSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-			{
-				BindGPUVertexSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-				{
-					BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexStorageTexturesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[850])(renderPass, firstSlot, storageTextures, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[850])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUVertexStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-			{
-				BindGPUVertexStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-				{
-					BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexStorageBuffersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[851])(renderPass, firstSlot, storageBuffers, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[851])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUVertexStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
-			{
-				BindGPUVertexStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
-				{
-					BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUFragmentSamplersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[852])(renderPass, firstSlot, textureSamplerBindings, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[852])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUFragmentSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-			{
-				BindGPUFragmentSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-				{
-					BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUFragmentStorageTexturesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[853])(renderPass, firstSlot, storageTextures, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[853])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-			{
-				BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-				{
-					BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUFragmentStorageBuffersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[854])(renderPass, firstSlot, storageBuffers, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[854])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
-			{
-				BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
-				{
-					BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer and instancing<br/>
-		/// enabled.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID). If your shader depends on these variables, the<br/>
-		/// correlating draw call parameter MUST be 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitives")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUIndexedPrimitivesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "Uint32")] uint numIndices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_index")] [NativeName(NativeNameType.Type, "Uint32")] uint firstIndex, [NativeName(NativeNameType.Param, "vertex_offset")] [NativeName(NativeNameType.Type, "Sint32")] int vertexOffset, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, int, uint, void>)funcTable[855])(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, int, uint, void>)funcTable[855])((nint)renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
-			#endif
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer and instancing<br/>
-		/// enabled.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID). If your shader depends on these variables, the<br/>
-		/// correlating draw call parameter MUST be 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitives")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUIndexedPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "Uint32")] uint numIndices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_index")] [NativeName(NativeNameType.Type, "Uint32")] uint firstIndex, [NativeName(NativeNameType.Param, "vertex_offset")] [NativeName(NativeNameType.Type, "Sint32")] int vertexOffset, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
-		{
-			DrawGPUIndexedPrimitivesNative(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer and instancing<br/>
-		/// enabled.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID). If your shader depends on these variables, the<br/>
-		/// correlating draw call parameter MUST be 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitives")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUIndexedPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "Uint32")] uint numIndices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_index")] [NativeName(NativeNameType.Type, "Uint32")] uint firstIndex, [NativeName(NativeNameType.Param, "vertex_offset")] [NativeName(NativeNameType.Type, "Sint32")] int vertexOffset, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUIndexedPrimitivesNative((SDLGPURenderPass*)prenderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID). If your shader depends on these variables, the<br/>
-		/// correlating draw call parameter MUST be 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUPrimitivesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, uint, void>)funcTable[856])(renderPass, numVertices, numInstances, firstVertex, firstInstance);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, void>)funcTable[856])((nint)renderPass, numVertices, numInstances, firstVertex, firstInstance);
-			#endif
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID). If your shader depends on these variables, the<br/>
-		/// correlating draw call parameter MUST be 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
-		{
-			DrawGPUPrimitivesNative(renderPass, numVertices, numInstances, firstVertex, firstInstance);
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID). If your shader depends on these variables, the<br/>
-		/// correlating draw call parameter MUST be 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUPrimitivesNative((SDLGPURenderPass*)prenderPass, numVertices, numInstances, firstVertex, firstInstance);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUPrimitivesIndirectNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[857])(renderPass, buffer, offset, drawCount);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[857])((nint)renderPass, (nint)buffer, offset, drawCount);
-			#endif
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			DrawGPUPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				DrawGPUPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUIndexedPrimitivesIndirectNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[858])(renderPass, buffer, offset, drawCount);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[858])((nint)renderPass, (nint)buffer, offset, drawCount);
-			#endif
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			DrawGPUIndexedPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				DrawGPUIndexedPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Ends the given render pass.<br/>
-		/// All bound graphics state on the render pass command buffer is unset. The<br/>
-		/// render pass handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void EndGPURenderPassNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, void>)funcTable[859])(renderPass);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[859])((nint)renderPass);
-			#endif
-		}
-
-		/// <summary>
-		/// Ends the given render pass.<br/>
-		/// All bound graphics state on the render pass command buffer is unset. The<br/>
-		/// render pass handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void EndGPURenderPass([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass)
-		{
-			EndGPURenderPassNative(renderPass);
-		}
-
-		/// <summary>
-		/// Ends the given render pass.<br/>
-		/// All bound graphics state on the render pass command buffer is unset. The<br/>
-		/// render pass handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void EndGPURenderPass([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				EndGPURenderPassNative((SDLGPURenderPass*)prenderPass);
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUComputePass* BeginGPUComputePassNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUStorageTextureReadWriteBinding*, uint, SDLGPUStorageBufferReadWriteBinding*, uint, SDLGPUComputePass*>)funcTable[860])(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
-			#else
-			return (SDLGPUComputePass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, uint, nint>)funcTable[860])((nint)commandBuffer, (nint)storageTextureBindings, numStorageTextureBindings, (nint)storageBufferBindings, numStorageBufferBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetMice")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
+		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
-			SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+			uint* ret = GetMiceNative(count);
 			return ret;
 		}
 
 		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
+		/// Get a list of currently connected mice.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
+		/// You should wait for input from a device before you consider it actively in<br/>
+		/// use.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetMice")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
+		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (int* pcount = &count)
 			{
-				SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+				uint* ret = GetMiceNative((int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
+		/// Get the name of a mouse.<br/>
+		/// This function returns "" if the mouse doesn't have a name.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-			{
-				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-				{
-					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-			{
-				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-				{
-					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-			{
-				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-				{
-					SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
-		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-				{
-					fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-					{
-						SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUComputePipelineNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		internal static byte* GetMouseNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUComputePipeline*, void>)funcTable[861])(computePass, computePipeline);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[777])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[861])((nint)computePass, (nint)computePipeline);
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[777])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// Get the name of a mouse.<br/>
+		/// This function returns "" if the mouse doesn't have a name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetMouseNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
 		{
-			BindGPUComputePipelineNative(computePass, computePipeline);
+			byte* ret = GetMouseNameForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// Get the name of a mouse.<br/>
+		/// This function returns "" if the mouse doesn't have a name.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetMouseNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
 		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			string ret = Utils.DecodeStringUTF8(GetMouseNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetMouseFocusNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[778])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[778])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindow* GetMouseFocus()
+		{
+			SDLWindow* ret = GetMouseFocusNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLMouseButtonFlags GetMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[779])(x, y);
+			#else
+			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[779])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			SDLMouseButtonFlags ret = GetMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			fixed (float* px = &x)
 			{
-				BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, computePipeline);
+				SDLMouseButtonFlags ret = GetMouseStateNative((float*)px, y);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
 		{
-			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+			fixed (float* py = &y)
 			{
-				BindGPUComputePipelineNative(computePass, (SDLGPUComputePipeline*)pcomputePipeline);
+				SDLMouseButtonFlags ret = GetMouseStateNative(x, (float*)py);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
 		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			fixed (float* px = &x)
 			{
-				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+				fixed (float* py = &y)
 				{
-					BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, (SDLGPUComputePipeline*)pcomputePipeline);
+					SDLMouseButtonFlags ret = GetMouseStateNative((float*)px, (float*)py);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUComputeSamplersNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		internal static SDLMouseButtonFlags GetGlobalMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[862])(computePass, firstSlot, textureSamplerBindings, numBindings);
+			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[780])(x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[862])((nint)computePass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[780])((nint)x, (nint)y);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
 		{
-			BindGPUComputeSamplersNative(computePass, firstSlot, textureSamplerBindings, numBindings);
+			SDLMouseButtonFlags ret = GetGlobalMouseStateNative(x, y);
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
 		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			fixed (float* px = &x)
 			{
-				BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, textureSamplerBindings, numBindings);
+				SDLMouseButtonFlags ret = GetGlobalMouseStateNative((float*)px, y);
+				return ret;
 			}
+		}
+
+		/// <summary>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* py = &y)
+			{
+				SDLMouseButtonFlags ret = GetGlobalMouseStateNative(x, (float*)py);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
+				{
+					SDLMouseButtonFlags ret = GetGlobalMouseStateNative((float*)px, (float*)py);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLMouseButtonFlags GetRelativeMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[781])(x, y);
+			#else
+			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[781])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			SDLMouseButtonFlags ret = GetRelativeMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			fixed (float* px = &x)
+			{
+				SDLMouseButtonFlags ret = GetRelativeMouseStateNative((float*)px, y);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* py = &y)
+			{
+				SDLMouseButtonFlags ret = GetRelativeMouseStateNative(x, (float*)py);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
+				{
+					SDLMouseButtonFlags ret = GetRelativeMouseStateNative((float*)px, (float*)py);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Move the mouse cursor to the given position within the window.<br/>
+		/// This function generates a mouse motion event if relative mode is not<br/>
+		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
+		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void WarpMouseInWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, float, float, void>)funcTable[782])(window, x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, float, float, void>)funcTable[782])((nint)window, x, y);
+			#endif
+		}
+
+		/// <summary>
+		/// Move the mouse cursor to the given position within the window.<br/>
+		/// This function generates a mouse motion event if relative mode is not<br/>
+		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
+		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			WarpMouseInWindowNative(window, x, y);
+		}
+
+		/// <summary>
+		/// Move the mouse cursor to the given position within the window.<br/>
+		/// This function generates a mouse motion event if relative mode is not<br/>
+		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
+		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				WarpMouseInWindowNative((SDLWindow*)pwindow, x, y);
+			}
+		}
+
+		/// <summary>
+		/// Move the mouse to the given position in global screen space.<br/>
+		/// This function generates a mouse motion event.<br/>
+		/// A failure of this function usually means that it is unsupported by a<br/>
+		/// platform.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WarpMouseGlobalNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[783])(x, y);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[783])(x, y);
+			#endif
+		}
+
+		/// <summary>
+		/// Move the mouse to the given position in global screen space.<br/>
+		/// This function generates a mouse motion event.<br/>
+		/// A failure of this function usually means that it is unsupported by a<br/>
+		/// platform.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WarpMouseGlobal([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			byte ret = WarpMouseGlobalNative(x, y);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set relative mouse mode for a window.<br/>
+		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
+		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
+		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
+		/// the window.<br/>
+		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
+		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
+		/// specific location when relative mode ends, you should use<br/>
+		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
+		/// This function will flush any pending mouse motion for this window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte, byte>)funcTable[784])(window, enabled);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[784])((nint)window, enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Set relative mouse mode for a window.<br/>
+		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
+		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
+		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
+		/// the window.<br/>
+		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
+		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
+		/// specific location when relative mode ends, you should use<br/>
+		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
+		/// This function will flush any pending mouse motion for this window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			byte ret = SetWindowRelativeMouseModeNative(window, enabled ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set relative mouse mode for a window.<br/>
+		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
+		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
+		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
+		/// the window.<br/>
+		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
+		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
+		/// specific location when relative mode ends, you should use<br/>
+		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
+		/// This function will flush any pending mouse motion for this window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetWindowRelativeMouseModeNative((SDLWindow*)pwindow, enabled ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Query whether relative mouse mode is enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[785])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[785])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether relative mouse mode is enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = GetWindowRelativeMouseModeNative(window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query whether relative mouse mode is enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = GetWindowRelativeMouseModeNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Capture the mouse and to track input outside an SDL window.<br/>
+		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
+		/// within your window. Not all video targets support this function. When<br/>
+		/// capturing is enabled, the current window will get all mouse events, but<br/>
+		/// unlike relative mode, no change is made to the cursor and it is not<br/>
+		/// restrained to your window.<br/>
+		/// This function may also deny mouse input to other windows--both those in<br/>
+		/// your application and others on the system--so you should use this function<br/>
+		/// sparingly, and in small bursts. For example, you might want to track the<br/>
+		/// mouse while the user is dragging something, until the user releases a mouse<br/>
+		/// button. It is not recommended that you capture the mouse for long periods<br/>
+		/// of time, such as the entire time your app is running. For that, you should<br/>
+		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
+		/// depending on your goals.<br/>
+		/// While captured, mouse events still report coordinates relative to the<br/>
+		/// current (foreground) window, but those coordinates may be outside the<br/>
+		/// bounds of the window (including negative values). Capturing is only allowed<br/>
+		/// for the foreground window. If the window loses focus while capturing, the<br/>
+		/// capture will be disabled automatically.<br/>
+		/// While capturing is enabled, the current window will have the<br/>
+		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
+		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
+		/// user is pressing a button; this is to try and make mouse behavior more<br/>
+		/// consistent between platforms, and deal with the common case of a user<br/>
+		/// dragging the mouse outside of the window. This means that if you are<br/>
+		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
+		/// have to (although it is safe to do so). If this causes problems for your<br/>
+		/// app, you can disable auto capture by setting the<br/>
+		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CaptureMouseNative([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[786])(enabled);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[786])(enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Capture the mouse and to track input outside an SDL window.<br/>
+		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
+		/// within your window. Not all video targets support this function. When<br/>
+		/// capturing is enabled, the current window will get all mouse events, but<br/>
+		/// unlike relative mode, no change is made to the cursor and it is not<br/>
+		/// restrained to your window.<br/>
+		/// This function may also deny mouse input to other windows--both those in<br/>
+		/// your application and others on the system--so you should use this function<br/>
+		/// sparingly, and in small bursts. For example, you might want to track the<br/>
+		/// mouse while the user is dragging something, until the user releases a mouse<br/>
+		/// button. It is not recommended that you capture the mouse for long periods<br/>
+		/// of time, such as the entire time your app is running. For that, you should<br/>
+		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
+		/// depending on your goals.<br/>
+		/// While captured, mouse events still report coordinates relative to the<br/>
+		/// current (foreground) window, but those coordinates may be outside the<br/>
+		/// bounds of the window (including negative values). Capturing is only allowed<br/>
+		/// for the foreground window. If the window loses focus while capturing, the<br/>
+		/// capture will be disabled automatically.<br/>
+		/// While capturing is enabled, the current window will have the<br/>
+		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
+		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
+		/// user is pressing a button; this is to try and make mouse behavior more<br/>
+		/// consistent between platforms, and deal with the common case of a user<br/>
+		/// dragging the mouse outside of the window. This means that if you are<br/>
+		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
+		/// have to (although it is safe to do so). If this causes problems for your<br/>
+		/// app, you can disable auto capture by setting the<br/>
+		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CaptureMouse([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			byte ret = CaptureMouseNative(enabled ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* CreateCursorNative([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int, int, int, SDLCursor*>)funcTable[787])(data, mask, w, h, hotX, hotY);
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int, int, nint>)funcTable[787])((nint)data, (nint)mask, w, h, hotX, hotY);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			SDLCursor* ret = CreateCursorNative(data, mask, w, h, hotX, hotY);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (byte* pdata = &data)
+			{
+				SDLCursor* ret = CreateCursorNative((byte*)pdata, mask, w, h, hotX, hotY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (byte* pmask = &mask)
+			{
+				SDLCursor* ret = CreateCursorNative(data, (byte*)pmask, w, h, hotX, hotY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (byte* pdata = &data)
+			{
+				fixed (byte* pmask = &mask)
+				{
+					SDLCursor* ret = CreateCursorNative((byte*)pdata, (byte*)pmask, w, h, hotX, hotY);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a color cursor.<br/>
+		/// If this function is passed a surface with alternate representations, the<br/>
+		/// surface will be interpreted as the content to be used for 100% display<br/>
+		/// scale, and the alternate representations will be used for high DPI<br/>
+		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
+		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
+		/// image will be used, if available. If a matching version of the image isn't<br/>
+		/// available, the closest larger size image will be downscaled to the<br/>
+		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
+		/// smaller image will be upscaled and be used instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* CreateColorCursorNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLCursor*>)funcTable[788])(surface, hotX, hotY);
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)funcTable[788])((nint)surface, hotX, hotY);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a color cursor.<br/>
+		/// If this function is passed a surface with alternate representations, the<br/>
+		/// surface will be interpreted as the content to be used for 100% display<br/>
+		/// scale, and the alternate representations will be used for high DPI<br/>
+		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
+		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
+		/// image will be used, if available. If a matching version of the image isn't<br/>
+		/// available, the closest larger size image will be downscaled to the<br/>
+		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
+		/// smaller image will be upscaled and be used instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			SDLCursor* ret = CreateColorCursorNative(surface, hotX, hotY);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a color cursor.<br/>
+		/// If this function is passed a surface with alternate representations, the<br/>
+		/// surface will be interpreted as the content to be used for 100% display<br/>
+		/// scale, and the alternate representations will be used for high DPI<br/>
+		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
+		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
+		/// image will be used, if available. If a matching version of the image isn't<br/>
+		/// available, the closest larger size image will be downscaled to the<br/>
+		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
+		/// smaller image will be upscaled and be used instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLCursor* ret = CreateColorCursorNative((SDLSurface*)psurface, hotX, hotY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a system cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* CreateSystemCursorNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSystemCursor, SDLCursor*>)funcTable[789])(id);
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<SDLSystemCursor, nint>)funcTable[789])(id);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a system cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* CreateSystemCursor([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
+		{
+			SDLCursor* ret = CreateSystemCursorNative(id);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the active cursor.<br/>
+		/// This function sets the currently active cursor to the specified one. If the<br/>
+		/// cursor is currently visible, the change will be immediately represented on<br/>
+		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
+		/// this is desired for any reason.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*, byte>)funcTable[790])(cursor);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[790])((nint)cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the active cursor.<br/>
+		/// This function sets the currently active cursor to the specified one. If the<br/>
+		/// cursor is currently visible, the change will be immediately represented on<br/>
+		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
+		/// this is desired for any reason.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
+		{
+			byte ret = SetCursorNative(cursor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the active cursor.<br/>
+		/// This function sets the currently active cursor to the specified one. If the<br/>
+		/// cursor is currently visible, the change will be immediately represented on<br/>
+		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
+		/// this is desired for any reason.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
+		{
+			fixed (SDLCursor* pcursor = &cursor)
+			{
+				byte ret = SetCursorNative((SDLCursor*)pcursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the active cursor.<br/>
+		/// This function returns a pointer to the current cursor which is owned by the<br/>
+		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* GetCursorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[791])();
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[791])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the active cursor.<br/>
+		/// This function returns a pointer to the current cursor which is owned by the<br/>
+		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* GetCursor()
+		{
+			SDLCursor* ret = GetCursorNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the default cursor.<br/>
+		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
+		/// safe to do so.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* GetDefaultCursorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[792])();
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[792])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the default cursor.<br/>
+		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
+		/// safe to do so.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursor* GetDefaultCursor()
+		{
+			SDLCursor* ret = GetDefaultCursorNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Free a previously-created cursor.<br/>
+		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
+		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)funcTable[793])(cursor);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[793])((nint)cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Free a previously-created cursor.<br/>
+		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
+		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
+		{
+			DestroyCursorNative(cursor);
+		}
+
+		/// <summary>
+		/// Free a previously-created cursor.<br/>
+		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
+		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
+		{
+			fixed (SDLCursor* pcursor = &cursor)
+			{
+				DestroyCursorNative((SDLCursor*)pcursor);
+			}
+		}
+
+		/// <summary>
+		/// Show the cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ShowCursorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[794])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[794])();
+			#endif
 		}
 	}
 }

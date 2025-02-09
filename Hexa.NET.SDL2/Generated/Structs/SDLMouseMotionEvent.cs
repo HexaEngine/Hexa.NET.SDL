@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Mouse motion event structure (event.motion.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMouseMotionEvent
 	{
 		/// <summary>
-		/// ::SDL_MOUSEMOTION <br/>
+		/// SDL_MOUSEMOTION <br/>
 		/// </summary>
 		public uint Type;
 

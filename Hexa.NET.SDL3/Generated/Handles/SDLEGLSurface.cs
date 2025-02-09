@@ -14,6 +14,10 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	/// <summary>
+	/// Opaque type for an EGL surface.<br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Typedef, "SDL_EGLSurface")]
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]

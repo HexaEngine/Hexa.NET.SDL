@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Window flash operation<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLFlashOperation : int

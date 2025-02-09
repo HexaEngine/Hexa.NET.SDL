@@ -13,7 +13,12 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Abstract filesystem interface <br/>
+	/// Types of filesystem entries.<br/>
+	/// Note that there may be other sorts of items on a filesystem: devices,<br/>
+	/// symlinks, named pipes, etc. They are currently reported as<br/>
+	/// SDL_PATHTYPE_OTHER.<br/>
+	/// <br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PathType")]
 	[Flags]

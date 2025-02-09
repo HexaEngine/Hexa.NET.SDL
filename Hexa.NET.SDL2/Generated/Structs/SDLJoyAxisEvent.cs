@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Joystick axis motion event structure (event.jaxis.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyAxisEvent
 	{
 		/// <summary>
-		/// ::SDL_JOYAXISMOTION <br/>
+		/// SDL_JOYAXISMOTION <br/>
 		/// </summary>
 		public uint Type;
 

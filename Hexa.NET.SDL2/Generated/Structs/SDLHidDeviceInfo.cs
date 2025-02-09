@@ -16,8 +16,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// hidapi info structure <br/>
-	/// <br/>
+	/// Information about a connected HID device<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHidDeviceInfo

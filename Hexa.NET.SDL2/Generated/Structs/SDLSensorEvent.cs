@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Sensor event structure (event.sensor.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensorEvent
 	{
 		/// <summary>
-		/// ::SDL_SENSORUPDATE <br/>
+		/// SDL_SENSORUPDATE <br/>
 		/// </summary>
 		public uint Type;
 

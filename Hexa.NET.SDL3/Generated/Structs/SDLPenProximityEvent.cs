@@ -49,7 +49,7 @@ namespace Hexa.NET.SDL3
 		public ulong Timestamp;
 
 		/// <summary>
-		/// The window with mouse focus, if any <br/>
+		/// The window with pen focus, if any <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "windowID")]
 		[NativeName(NativeNameType.Type, "SDL_WindowID")]

@@ -16,32 +16,32 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// A structure containing a template for a Condition effect.<br/>
 	/// The struct handles the following effects:<br/>
-	/// - ::SDL_HAPTIC_SPRING: Effect based on axes position.<br/>
-	/// - ::SDL_HAPTIC_DAMPER: Effect based on axes velocity.<br/>
-	/// - ::SDL_HAPTIC_INERTIA: Effect based on axes acceleration.<br/>
-	/// - ::SDL_HAPTIC_FRICTION: Effect based on axes movement.<br/>
+	/// - SDL_HAPTIC_SPRING: Effect based on axes position.<br/>
+	/// - SDL_HAPTIC_DAMPER: Effect based on axes velocity.<br/>
+	/// - SDL_HAPTIC_INERTIA: Effect based on axes acceleration.<br/>
+	/// - SDL_HAPTIC_FRICTION: Effect based on axes movement.<br/>
 	/// Direction is handled by condition internals instead of a direction member.<br/>
-	/// The condition effect specific members have three parameters.  The first<br/>
-	/// refers to the X axis, the second refers to the Y axis and the third<br/>
-	/// refers to the Z axis.  The right terms refer to the positive side of the<br/>
-	/// axis and the left terms refer to the negative side of the axis.  Please<br/>
-	/// refer to the ::SDL_HapticDirection diagram for which side is positive and<br/>
-	/// which is negative.<br/>
+	/// The condition effect specific members have three parameters. The first<br/>
+	/// refers to the X axis, the second refers to the Y axis and the third refers<br/>
+	/// to the Z axis. The right terms refer to the positive side of the axis and<br/>
+	/// the left terms refer to the negative side of the axis. Please refer to the<br/>
+	/// SDL_HapticDirection diagram for which side is positive and which is<br/>
+	/// negative.<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticCondition
 	{
 		/// <summary>
-		/// ::SDL_HAPTIC_SPRING, ::SDL_HAPTIC_DAMPER,<br/>
-		/// ::SDL_HAPTIC_INERTIA or ::SDL_HAPTIC_FRICTION <br/>
+		/// SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER,<br/>
+		/// SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION <br/>
 		/// </summary>
 		public ushort Type;
 
 		/// <summary>
-		/// Direction of the effect - Not used ATM. <br/>
+		/// Direction of the effect. <br/>
 		/// </summary>
 		public SDLHapticDirection Direction;
 

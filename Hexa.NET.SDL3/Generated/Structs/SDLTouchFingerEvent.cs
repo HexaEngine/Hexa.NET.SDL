@@ -17,6 +17,18 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// Touch finger event structure (event.tfinger.*)<br/>
+	/// Coordinates in this event are normalized. `x` and `y` are normalized to a<br/>
+	/// range between 0.0f and 1.0f, relative to the window, so (0,0) is the top<br/>
+	/// left and (1,1) is the bottom right. Delta coordinates `dx` and `dy` are<br/>
+	/// normalized in the ranges of -1.0f (traversed all the way from the bottom or<br/>
+	/// right to all the way up or left) to 1.0f (traversed all the way from the<br/>
+	/// top or left to all the way down or right).<br/>
+	/// Note that while the coordinates are _normalized_, they are not _clamped_,<br/>
+	/// which means in some circumstances you can get a value outside of this<br/>
+	/// range. For example, a renderer using logical presentation might give a<br/>
+	/// negative value when the touch is in the letterboxing. Some platforms might<br/>
+	/// report a touch outside of the window, which will also be outside of the<br/>
+	/// range.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_TouchFingerEvent")]
@@ -24,7 +36,7 @@ namespace Hexa.NET.SDL3
 	public partial struct SDLTouchFingerEvent
 	{
 		/// <summary>
-		/// SDL_EVENT_FINGER_MOTION or SDL_EVENT_FINGER_DOWN or SDL_EVENT_FINGER_UP <br/>
+		/// SDL_EVENT_FINGER_DOWN, SDL_EVENT_FINGER_UP, SDL_EVENT_FINGER_MOTION, or SDL_EVENT_FINGER_CANCELED <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "type")]
 		[NativeName(NativeNameType.Type, "SDL_EventType")]

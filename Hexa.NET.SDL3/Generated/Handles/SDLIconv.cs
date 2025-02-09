@@ -14,6 +14,11 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	/// <summary>
+	/// An opaque handle representing string encoding conversion state.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Typedef, "SDL_iconv_t")]
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]

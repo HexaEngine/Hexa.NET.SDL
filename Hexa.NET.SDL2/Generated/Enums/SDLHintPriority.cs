@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// An enumeration of hint priorities<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLHintPriority : int

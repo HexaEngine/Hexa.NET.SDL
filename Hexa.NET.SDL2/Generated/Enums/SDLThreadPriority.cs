@@ -14,11 +14,13 @@ namespace Hexa.NET.SDL2
 {
 	/// <summary>
 	/// The SDL thread priority.<br/>
-	/// SDL will make system changes as necessary in order to apply the thread priority.<br/>
-	/// Code which attempts to control thread state related to priority should be aware<br/>
-	/// that calling SDL_SetThreadPriority may alter such state.<br/>
-	/// SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of this behavior.<br/>
-	/// <br/>
+	/// SDL will make system changes as necessary in order to apply the thread<br/>
+	/// priority. Code which attempts to control thread state related to priority<br/>
+	/// should be aware that calling SDL_SetThreadPriority may alter such state.<br/>
+	/// SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of this<br/>
+	/// behavior.<br/>
+	/// On many systems you require special privileges to set high or time critical<br/>
+	/// priority.<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLThreadPriority : int

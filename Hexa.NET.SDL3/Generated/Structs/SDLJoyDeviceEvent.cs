@@ -17,6 +17,9 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// Joystick device event structure (event.jdevice.*)<br/>
+	/// SDL will send JOYSTICK_ADDED events for devices that are already plugged in<br/>
+	/// during SDL_Init.<br/>
+	/// <br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_JoyDeviceEvent")]

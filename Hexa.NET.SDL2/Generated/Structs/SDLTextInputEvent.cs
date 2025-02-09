@@ -16,13 +16,24 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
+	/// Keyboard text input event structure (event.text.*)<br/>
+	/// `text` is limited to SDL_TEXTINPUTEVENT_TEXT_SIZE bytes. If the incoming<br/>
+	/// string is larger than this, SDL will split it and send it in pieces, across<br/>
+	/// multiple events. The string is in UTF-8 format, and if split, SDL<br/>
+	/// guarantees that it will not split in the middle of a UTF-8 sequence, so any<br/>
+	/// event will only contain complete codepoints. However, if there are several<br/>
+	/// codepoints that go together into a single glyph (like an emoji "thumbs up"<br/>
+	/// followed by a skin color), they may be split between events.<br/>
+	/// This event will never be delivered unless text input is enabled by calling<br/>
+	/// SDL_StartTextInput(). Text input is enabled by default on desktop<br/>
+	/// platforms, and disabled by default on mobile platforms!<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTextInputEvent
 	{
 		/// <summary>
-		/// ::SDL_TEXTINPUT <br/>
+		/// SDL_TEXTINPUT <br/>
 		/// </summary>
 		public uint Type;
 
@@ -37,7 +48,7 @@ namespace Hexa.NET.SDL2
 		public uint WindowID;
 
 		/// <summary>
-		/// The input text <br/>
+		/// The input text; UTF-8 encoded. <br/>
 		/// </summary>
 		public byte Text_0;
 		public byte Text_1;

@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The normalized factor used to multiply pixel components<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLBlendFactor : int

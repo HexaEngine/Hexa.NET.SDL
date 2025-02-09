@@ -15,24 +15,18 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Specifies the timing that will be used to present swapchain textures to the<br/>
 	/// OS.<br/>
-	/// Note that this value affects the behavior of<br/>
-	/// SDL_AcquireGPUSwapchainTexture. VSYNC mode will always be supported.<br/>
-	/// IMMEDIATE and MAILBOX modes may not be supported on certain systems.<br/>
+	/// VSYNC mode will always be supported. IMMEDIATE and MAILBOX modes may not be<br/>
+	/// supported on certain systems.<br/>
 	/// It is recommended to query SDL_WindowSupportsGPUPresentMode after claiming<br/>
 	/// the window if you wish to change the present mode to IMMEDIATE or MAILBOX.<br/>
 	/// - VSYNC: Waits for vblank before presenting. No tearing is possible. If<br/>
 	/// there is a pending image to present, the new image is enqueued for<br/>
-	/// presentation. Disallows tearing at the cost of visual latency. When using<br/>
-	/// this present mode, AcquireGPUSwapchainTexture will block if too many<br/>
-	/// frames are in flight.<br/>
+	/// presentation. Disallows tearing at the cost of visual latency.<br/>
 	/// - IMMEDIATE: Immediately presents. Lowest latency option, but tearing may<br/>
-	/// occur. When using this mode, AcquireGPUSwapchainTexture will return NULL<br/>
-	/// if too many frames are in flight.<br/>
+	/// occur.<br/>
 	/// - MAILBOX: Waits for vblank before presenting. No tearing is possible. If<br/>
 	/// there is a pending image to present, the pending image is replaced by the<br/>
-	/// new image. Similar to VSYNC, but with reduced visual latency. When using<br/>
-	/// this mode, AcquireGPUSwapchainTexture will return NULL if too many frames<br/>
-	/// are in flight.<br/>
+	/// new image. Similar to VSYNC, but with reduced visual latency.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

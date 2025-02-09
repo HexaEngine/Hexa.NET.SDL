@@ -16,46 +16,80 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// This is the direction where the force comes from,<br/>
-	/// instead of the direction in which the force is exerted.<br/>
+	/// Structure that represents a haptic direction.<br/>
+	/// This is the direction where the force comes from, instead of the direction<br/>
+	/// in which the force is exerted.<br/>
 	/// Directions can be specified by:<br/>
-	/// - ::SDL_HAPTIC_POLAR : Specified by polar coordinates.<br/>
-	/// - ::SDL_HAPTIC_CARTESIAN : Specified by cartesian coordinates.<br/>
-	/// - ::SDL_HAPTIC_SPHERICAL : Specified by spherical coordinates.<br/>
-	/// Cardinal directions of the haptic device are relative to the positioning<br/>
-	/// of the device.  North is considered to be away from the user.<br/>
+	/// - SDL_HAPTIC_POLAR : Specified by polar coordinates.<br/>
+	/// - SDL_HAPTIC_CARTESIAN : Specified by cartesian coordinates.<br/>
+	/// - SDL_HAPTIC_SPHERICAL : Specified by spherical coordinates.<br/>
+	/// Cardinal directions of the haptic device are relative to the positioning of<br/>
+	/// the device. North is considered to be away from the user.<br/>
 	/// The following diagram represents the cardinal directions:<br/>
+	/// ```<br/>
+	/// .--.<br/>
+	/// |__| .-------.<br/>
+	/// |=.| |.-----.|<br/>
+	/// |--| ||     ||<br/>
+	/// |  | |'-----'|<br/>
+	/// |__|~')_____('<br/>
+	/// [ COMPUTER ]<br/>
+	/// North (0,-1)<br/>
+	/// ^<br/>
+	/// |<br/>
+	/// |<br/>
+	/// (-1,0)  West <br/>
+	/// <<br/>
+	/// ----[ HAPTIC ]----> East (1,0)<br/>
+	/// |<br/>
+	/// |<br/>
+	/// v<br/>
+	/// South (0,1)<br/>
+	/// [ USER ]<br/>
 	/// <br/>
-	/// If type is ::SDL_HAPTIC_POLAR, direction is encoded by hundredths of a<br/>
-	/// degree starting north and turning clockwise.  ::SDL_HAPTIC_POLAR only uses<br/>
-	/// the first <br/>
-	/// parameter.  The cardinal directions would be:<br/>
+	/// \<br/>
+	/// |||/<br/>
+	/// (o o)<br/>
+	/// ---ooO-(_)-Ooo---<br/>
+	/// ```<br/>
+	/// If type is SDL_HAPTIC_POLAR, direction is encoded by hundredths of a degree<br/>
+	/// starting north and turning clockwise. SDL_HAPTIC_POLAR only uses the first<br/>
+	/// `dir` parameter. The cardinal directions would be:<br/>
 	/// - North: 0 (0 degrees)<br/>
 	/// - East: 9000 (90 degrees)<br/>
 	/// - South: 18000 (180 degrees)<br/>
 	/// - West: 27000 (270 degrees)<br/>
-	/// If type is ::SDL_HAPTIC_CARTESIAN, direction is encoded by three positions<br/>
-	/// (X axis, Y axis and Z axis (with 3 axes)).  ::SDL_HAPTIC_CARTESIAN uses<br/>
-	/// the first three <br/>
-	/// parameters.  The cardinal directions would be:<br/>
-	/// - North:  0,-1, 0<br/>
-	/// - East:   1, 0, 0<br/>
-	/// - South:  0, 1, 0<br/>
-	/// - West:  -1, 0, 0<br/>
-	/// The Z axis represents the height of the effect if supported, otherwise<br/>
-	/// it's unused.  In cartesian encoding (1, 2) would be the same as (2, 4), you<br/>
-	/// can use any multiple you want, only the direction matters.<br/>
-	/// If type is ::SDL_HAPTIC_SPHERICAL, direction is encoded by two rotations.<br/>
-	/// The first two <br/>
-	/// parameters are used.  The <br/>
-	/// parameters are as<br/>
-	/// follows (all values are in hundredths of degrees):<br/>
+	/// If type is SDL_HAPTIC_CARTESIAN, direction is encoded by three positions (X<br/>
+	/// axis, Y axis and Z axis (with 3 axes)). SDL_HAPTIC_CARTESIAN uses the first<br/>
+	/// three `dir` parameters. The cardinal directions would be:<br/>
+	/// - North: 0,-1, 0<br/>
+	/// - East: 1, 0, 0<br/>
+	/// - South: 0, 1, 0<br/>
+	/// - West: -1, 0, 0<br/>
+	/// The Z axis represents the height of the effect if supported, otherwise it's<br/>
+	/// unused. In cartesian encoding (1, 2) would be the same as (2, 4), you can<br/>
+	/// use any multiple you want, only the direction matters.<br/>
+	/// If type is SDL_HAPTIC_SPHERICAL, direction is encoded by two rotations. The<br/>
+	/// first two `dir` parameters are used. The `dir` parameters are as follows<br/>
+	/// (all values are in hundredths of degrees):<br/>
 	/// - Degrees from (1, 0) rotated towards (0, 1).<br/>
 	/// - Degrees towards (0, 0, 1) (device needs at least 3 axes).<br/>
 	/// Example of force coming from the south with all encodings (force coming<br/>
 	/// from the south means the user will have to pull the stick to counteract):<br/>
-	/// <br/>
+	/// ```c<br/>
+	/// SDL_HapticDirection direction;<br/>
+	/// // Cartesian directions<br/>
+	/// direction.type = SDL_HAPTIC_CARTESIAN; // Using cartesian direction encoding.<br/>
+	/// direction.dir[0] = 0; // X position<br/>
+	/// direction.dir[1] = 1; // Y position<br/>
+	/// // Assuming the device has 2 axes, we don't need to specify third parameter.<br/>
+	/// // Polar directions<br/>
+	/// direction.type = SDL_HAPTIC_POLAR; // We'll be using polar direction encoding.<br/>
+	/// direction.dir[0] = 18000; // Polar only uses first parameter<br/>
+	/// // Spherical coordinates<br/>
+	/// direction.type = SDL_HAPTIC_SPHERICAL; // Spherical encoding<br/>
+	/// direction.dir[0] = 9000; // Since we only have two axes we don't need more parameters.<br/>
+	/// ```<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]

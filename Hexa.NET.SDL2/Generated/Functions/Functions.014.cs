@@ -18,6 +18,144 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Get the D3D9 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static IDirect3DDevice9* RenderGetD3D9DeviceNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, IDirect3DDevice9*>)funcTable[810])(renderer);
+			#else
+			return (IDirect3DDevice9*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[810])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the D3D9 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static IDirect3DDevice9* RenderGetD3D9Device(SDLRenderer* renderer)
+		{
+			IDirect3DDevice9* ret = RenderGetD3D9DeviceNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the D3D9 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static IDirect3DDevice9* RenderGetD3D9Device(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				IDirect3DDevice9* ret = RenderGetD3D9DeviceNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the D3D11 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ID3D11Device* RenderGetD3D11DeviceNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D11Device*>)funcTable[811])(renderer);
+			#else
+			return (ID3D11Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[811])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the D3D11 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D11Device* RenderGetD3D11Device(SDLRenderer* renderer)
+		{
+			ID3D11Device* ret = RenderGetD3D11DeviceNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the D3D11 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D11Device* RenderGetD3D11Device(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				ID3D11Device* ret = RenderGetD3D11DeviceNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the D3D12 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ID3D12Device* RenderGetD3D12DeviceNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D12Device*>)funcTable[812])(renderer);
+			#else
+			return (ID3D12Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[812])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the D3D12 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D12Device* RenderGetD3D12Device(SDLRenderer* renderer)
+		{
+			ID3D12Device* ret = RenderGetD3D12DeviceNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the D3D12 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D12Device* RenderGetD3D12Device(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				ID3D12Device* ret = RenderGetD3D12DeviceNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
 		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
 		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
@@ -4883,144 +5021,6 @@ namespace Hexa.NET.SDL2
 			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1028])(v);
 			#else
 			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1028])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Fv(float* v)
-		{
-			GlColor4FvNative(v);
-		}
-
-		public static void GlColor4Fv(ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlColor4FvNative((float*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4IvNative(int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1029])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1029])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Iv(int* v)
-		{
-			GlColor4IvNative(v);
-		}
-
-		public static void GlColor4Iv(ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlColor4IvNative((int*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4SvNative(short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1030])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1030])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Sv(short* v)
-		{
-			GlColor4SvNative(v);
-		}
-
-		public static void GlColor4Sv(ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlColor4SvNative((short*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UbvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1031])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Ubv(byte* v)
-		{
-			GlColor4UbvNative(v);
-		}
-
-		public static void GlColor4Ubv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor4UbvNative((byte*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UivNative(uint* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1032])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1032])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Uiv(uint* v)
-		{
-			GlColor4UivNative(v);
-		}
-
-		public static void GlColor4Uiv(ref uint v)
-		{
-			fixed (uint* pv = &v)
-			{
-				GlColor4UivNative((uint*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UsvNative(ushort* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1033])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1033])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Usv(ushort* v)
-		{
-			GlColor4UsvNative(v);
-		}
-
-		public static void GlColor4Usv(ref ushort v)
-		{
-			fixed (ushort* pv = &v)
-			{
-				GlColor4UsvNative((ushort*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlTexCoord1DNative(double s)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
-			#else
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
 			#endif
 		}
 	}

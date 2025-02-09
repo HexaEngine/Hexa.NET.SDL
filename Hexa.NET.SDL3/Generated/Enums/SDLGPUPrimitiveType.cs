@@ -14,6 +14,17 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// Specifies the primitive topology of a graphics pipeline.<br/>
+	/// If you are using POINTLIST you must include a point size output in the<br/>
+	/// vertex shader.<br/>
+	/// - For HLSL compiling to SPIRV you must decorate a float output with<br/>
+	/// [[vk::builtin("PointSize")]].<br/>
+	/// - For GLSL you must set the gl_PointSize builtin.<br/>
+	/// - For MSL you must include a float output with the [[point_size]]<br/>
+	/// decorator.<br/>
+	/// Note that sized point topology is totally unsupported on D3D12. Any size<br/>
+	/// other than 1 will be ignored. In general, you should avoid using point<br/>
+	/// topology for both compatibility and performance reasons. You WILL regret<br/>
+	/// using it.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

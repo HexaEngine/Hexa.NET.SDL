@@ -27,6 +27,10 @@ namespace Hexa.NET.SDL3
 	/// and a byte order given by the format. After encoding all pixels, any<br/>
 	/// remaining bytes to reach the pitch are used as padding to reach a desired<br/>
 	/// alignment, and have undefined contents.<br/>
+	/// When a surface holds YUV format data, the planes are assumed to be<br/>
+	/// contiguous without padding between them, e.g. a 32x32 surface in NV12<br/>
+	/// format with a pitch of 32 would consist of 32x32 bytes of Y plane followed<br/>
+	/// by 32x16 bytes of UV plane.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

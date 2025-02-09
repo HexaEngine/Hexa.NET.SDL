@@ -15,6 +15,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
+	/// An opaque handle to an OpenGL context.<br/>
 	/// <br/>
 	/// </summary>
 	#if NET5_0_OR_GREATER

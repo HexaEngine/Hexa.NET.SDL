@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Event subtype for display events<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLDisplayEventID : int

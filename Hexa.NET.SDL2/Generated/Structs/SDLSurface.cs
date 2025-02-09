@@ -16,8 +16,9 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// <br/>
+	/// A collection of pixels used in software blitting.<br/>
+	/// This structure should be treated as read-only, except for `pixels`, which,<br/>
+	/// if not NULL, contains the raw pixel data for the surface.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSurface

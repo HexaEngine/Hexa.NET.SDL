@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Scroll direction types for the Scroll event<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLMouseWheelDirection : int

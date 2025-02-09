@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The flags on a window<br/>
 	/// <br/>
 	/// </summary>
 	[Flags]

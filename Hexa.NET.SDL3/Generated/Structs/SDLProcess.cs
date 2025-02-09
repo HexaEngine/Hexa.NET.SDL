@@ -15,6 +15,11 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	/// <summary>
+	/// An opaque handle representing a system process.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Process")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLProcess

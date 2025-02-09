@@ -14,12 +14,14 @@ namespace Hexa.NET.SDL2
 {
 	/// <summary>
 	/// The list of axes available from a controller<br/>
-	/// Thumbstick axis values range from SDL_JOYSTICK_AXIS_MIN to SDL_JOYSTICK_AXIS_MAX,<br/>
-	/// and are centered within ~8000 of zero, though advanced UI will allow users to set<br/>
-	/// or autodetect the dead zone, which varies between controllers.<br/>
-	/// Trigger axis values range from 0 (released) to SDL_JOYSTICK_AXIS_MAX<br/>
-	/// (fully pressed) when reported by SDL_GameControllerGetAxis(). Note that this is not the<br/>
-	/// same range that will be reported by the lower-level SDL_GetJoystickAxis().<br/>
+	/// Thumbstick axis values range from SDL_JOYSTICK_AXIS_MIN to<br/>
+	/// SDL_JOYSTICK_AXIS_MAX, and are centered within ~8000 of zero, though<br/>
+	/// advanced UI will allow users to set or autodetect the dead zone, which<br/>
+	/// varies between controllers.<br/>
+	/// Trigger axis values range from 0 (released) to SDL_JOYSTICK_AXIS_MAX (fully<br/>
+	/// pressed) when reported by SDL_GameControllerGetAxis(). Note that this is<br/>
+	/// not the same range that will be reported by the lower-level<br/>
+	/// SDL_GetJoystickAxis().<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLGameControllerAxis : int

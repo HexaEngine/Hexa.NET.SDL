@@ -48,7 +48,7 @@ namespace Hexa.NET.SDL3
 		public uint WindowID;
 
 		/// <summary>
-		/// The mouse instance id, SDL_TOUCH_MOUSEID <br/>
+		/// The mouse instance id in relative mode or 0 <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "which")]
 		[NativeName(NativeNameType.Type, "SDL_MouseID")]

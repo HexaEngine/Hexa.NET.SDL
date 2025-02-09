@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Mouse button event structure (event.button.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMouseButtonEvent
 	{
 		/// <summary>
-		/// ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP <br/>
+		/// SDL_MOUSEBUTTONDOWN or SDL_MOUSEBUTTONUP <br/>
 		/// </summary>
 		public uint Type;
 
@@ -47,7 +47,7 @@ namespace Hexa.NET.SDL2
 		public byte Button;
 
 		/// <summary>
-		/// ::SDL_PRESSED or ::SDL_RELEASED <br/>
+		/// SDL_PRESSED or SDL_RELEASED <br/>
 		/// </summary>
 		public byte State;
 

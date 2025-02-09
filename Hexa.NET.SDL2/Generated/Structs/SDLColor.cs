@@ -16,9 +16,10 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// The bits of this structure can be directly reinterpreted as an integer-packed<br/>
-	/// color which uses the SDL_PIXELFORMAT_RGBA32 format (SDL_PIXELFORMAT_ABGR8888<br/>
-	/// on little-endian systems and SDL_PIXELFORMAT_RGBA8888 on big-endian systems).<br/>
+	/// The bits of this structure can be directly reinterpreted as an<br/>
+	/// integer-packed color which uses the SDL_PIXELFORMAT_RGBA32 format<br/>
+	/// (SDL_PIXELFORMAT_ABGR8888 on little-endian systems and<br/>
+	/// SDL_PIXELFORMAT_RGBA8888 on big-endian systems).<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLColor

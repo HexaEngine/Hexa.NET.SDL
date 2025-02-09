@@ -18,10 +18,9 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Information about the version of SDL in use.<br/>
 	/// Represents the library's version as three levels: major revision<br/>
-	/// (increments with massive changes, additions, and enhancements),<br/>
-	/// minor revision (increments with backwards-compatible changes to the<br/>
-	/// major revision), and patchlevel (increments with fixes to the minor<br/>
-	/// revision).<br/>
+	/// (increments with massive changes, additions, and enhancements), minor<br/>
+	/// revision (increments with backwards-compatible changes to the major<br/>
+	/// revision), and patchlevel (increments with fixes to the minor revision).<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]

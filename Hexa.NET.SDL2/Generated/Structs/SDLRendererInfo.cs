@@ -27,7 +27,7 @@ namespace Hexa.NET.SDL2
 		public unsafe byte* Name;
 
 		/// <summary>
-		/// Supported ::SDL_RendererFlags <br/>
+		/// Supported SDL_RendererFlags <br/>
 		/// </summary>
 		public uint Flags;
 

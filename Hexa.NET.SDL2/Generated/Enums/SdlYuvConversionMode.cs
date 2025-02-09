@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The formula used for converting between YUV and RGB<br/>
 	/// </summary>
 	[Flags]
 	public enum SdlYuvConversionMode : int

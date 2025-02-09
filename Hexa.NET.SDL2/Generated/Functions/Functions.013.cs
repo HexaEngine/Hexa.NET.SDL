@@ -29,6 +29,153 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLRect srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = RenderCopyNative(renderer, texture, srcrect, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, ref SDLTexture texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, ref SDLRect srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, ref SDLRect srcrect, ref SDLRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
@@ -4879,144 +5026,6 @@ namespace Hexa.NET.SDL2
 		{
 			int ret = Direct3D9GetAdapterIndexNative(displayIndex);
 			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static IDirect3DDevice9* RenderGetD3D9DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, IDirect3DDevice9*>)funcTable[810])(renderer);
-			#else
-			return (IDirect3DDevice9*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[810])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static IDirect3DDevice9* RenderGetD3D9Device(SDLRenderer* renderer)
-		{
-			IDirect3DDevice9* ret = RenderGetD3D9DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static IDirect3DDevice9* RenderGetD3D9Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				IDirect3DDevice9* ret = RenderGetD3D9DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ID3D11Device* RenderGetD3D11DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D11Device*>)funcTable[811])(renderer);
-			#else
-			return (ID3D11Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[811])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D11Device* RenderGetD3D11Device(SDLRenderer* renderer)
-		{
-			ID3D11Device* ret = RenderGetD3D11DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D11Device* RenderGetD3D11Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				ID3D11Device* ret = RenderGetD3D11DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ID3D12Device* RenderGetD3D12DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D12Device*>)funcTable[812])(renderer);
-			#else
-			return (ID3D12Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[812])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D12Device* RenderGetD3D12Device(SDLRenderer* renderer)
-		{
-			ID3D12Device* ret = RenderGetD3D12DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D12Device* RenderGetD3D12Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				ID3D12Device* ret = RenderGetD3D12DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
 		}
 	}
 }

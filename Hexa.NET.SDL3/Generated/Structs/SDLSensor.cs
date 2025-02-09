@@ -15,6 +15,10 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	/// <summary>
+	/// The opaque structure used to identify an opened SDL sensor.<br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Sensor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensor

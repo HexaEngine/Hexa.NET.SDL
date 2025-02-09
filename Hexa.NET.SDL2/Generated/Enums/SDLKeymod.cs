@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Enumeration of valid key mods (possibly OR'd together).<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLKeymod : int

@@ -18,5009 +18,5009 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// Get the actual value for an attribute from the current context.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[NativeName(NativeNameType.Func, "SDL_GL_GetAttribute")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetGamepadTouchpadFingerNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		internal static byte GLGetAttributeNative([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int *")] int* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int, int, bool*, float*, float*, float*, byte>)funcTable[717])(gamepad, touchpad, finger, down, x, y, pressure);
+			return ((delegate* unmanaged[Cdecl]<SDLGLAttr, int*, byte>)funcTable[586])(attr, value);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, nint, nint, byte>)funcTable[717])((nint)gamepad, touchpad, finger, (nint)down, (nint)x, (nint)y, (nint)pressure);
+			return (byte)((delegate* unmanaged[Cdecl]<SDLGLAttr, nint, byte>)funcTable[586])(attr, (nint)value);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// Get the actual value for an attribute from the current context.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[NativeName(NativeNameType.Func, "SDL_GL_GetAttribute")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		public static bool GLGetAttribute([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int *")] int* value)
 		{
-			byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, y, pressure);
+			byte ret = GLGetAttributeNative(attr, value);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// Get the actual value for an attribute from the current context.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
+		[NativeName(NativeNameType.Func, "SDL_GL_GetAttribute")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		public static bool GLGetAttribute([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int *")] ref int value)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (int* pvalue = &value)
 			{
-				byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, y, pressure);
+				byte ret = GLGetAttributeNative(attr, (int*)pvalue);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is opaque to the application.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, y, pressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, y, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (float* px = &x)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, y, pressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, y, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, y, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, y, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (float* py = &y)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, (float*)py, pressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* py = &y)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, (float*)py, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* py = &y)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, (float*)py, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* py = &y)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, (float*)py, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, (float*)py, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, (float*)py, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* py = &y)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, pressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* ppressure = &pressure)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, y, (float*)ppressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, y, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, y, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, y, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, y, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, y, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, y, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, y, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* py = &y)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, (float*)py, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, (float*)py, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, (float*)py, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, (float*)py, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, (float*)py, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, (float*)py, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* py = &y)
-						{
-							fixed (float* ppressure = &pressure)
-							{
-								byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, (float*)ppressure);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Return whether a gamepad has a particular sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		[NativeName(NativeNameType.Func, "SDL_GL_CreateContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GamepadHasSensorNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		internal static SDLGLContext GLCreateContextNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte>)funcTable[718])(gamepad, type);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext>)funcTable[587])(window);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte>)funcTable[718])((nint)gamepad, type);
+			return (SDLGLContext)((delegate* unmanaged[Cdecl]<nint, SDLGLContext>)funcTable[587])((nint)window);
 			#endif
 		}
 
 		/// <summary>
-		/// Return whether a gamepad has a particular sensor.<br/>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is opaque to the application.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadHasSensor([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			byte ret = GamepadHasSensorNative(gamepad, type);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Return whether a gamepad has a particular sensor.<br/>
-		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadHasSensor([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		[NativeName(NativeNameType.Func, "SDL_GL_CreateContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		public static SDLGLContext GLCreateContext([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = GamepadHasSensorNative((SDLGamepad*)pgamepad, type);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetGamepadSensorEnabledNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte, byte>)funcTable[719])(gamepad, type, enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte, byte>)funcTable[719])((nint)gamepad, type, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			byte ret = SetGamepadSensorEnabledNative(gamepad, type, enabled ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = SetGamepadSensorEnabledNative((SDLGamepad*)pgamepad, type, enabled ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GamepadSensorEnabledNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte>)funcTable[720])(gamepad, type);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte>)funcTable[720])((nint)gamepad, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			byte ret = GamepadSensorEnabledNative(gamepad, type);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = GamepadSensorEnabledNative((SDLGamepad*)pgamepad, type);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetGamepadSensorDataRateNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, float>)funcTable[721])(gamepad, type);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, float>)funcTable[721])((nint)gamepad, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetGamepadSensorDataRate([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			float ret = GetGamepadSensorDataRateNative(gamepad, type);
+			SDLGLContext ret = GLCreateContextNative(window);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is opaque to the application.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetGamepadSensorDataRate([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		[NativeName(NativeNameType.Func, "SDL_GL_CreateContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		public static SDLGLContext GLCreateContext([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				float ret = GetGamepadSensorDataRateNative((SDLGamepad*)pgamepad, type);
+				SDLGLContext ret = GLCreateContextNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[NativeName(NativeNameType.Func, "SDL_GL_MakeCurrent")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetGamepadSensorDataNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		internal static byte GLMakeCurrentNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, float*, int, byte>)funcTable[722])(gamepad, type, data, numValues);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext, byte>)funcTable[588])(window, context);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, nint, int, byte>)funcTable[722])((nint)gamepad, type, (nint)data, numValues);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGLContext, byte>)funcTable[588])((nint)window, context);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[NativeName(NativeNameType.Func, "SDL_GL_MakeCurrent")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static bool GLMakeCurrent([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
 		{
-			byte ret = GetGamepadSensorDataNative(gamepad, type, data, numValues);
+			byte ret = GLMakeCurrentNative(window, context);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[NativeName(NativeNameType.Func, "SDL_GL_MakeCurrent")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static bool GLMakeCurrent([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = GetGamepadSensorDataNative((SDLGamepad*)pgamepad, type, data, numValues);
+				byte ret = GLMakeCurrentNative((SDLWindow*)pwindow, context);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Get the currently active OpenGL window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentWindow")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GLGetCurrentWindowNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[589])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[589])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentWindow")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindow* GLGetCurrentWindow()
+		{
+			SDLWindow* ret = GLGetCurrentWindowNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGLContext GLGetCurrentContextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[590])();
+			#else
+			return (SDLGLContext)((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[590])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		public static SDLGLContext GLGetCurrentContext()
+		{
+			SDLGLContext ret = GLGetCurrentContextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the currently active EGL display.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentDisplay")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLDisplay")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLEGLDisplay EGLGetCurrentDisplayNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEGLDisplay>)funcTable[591])();
+			#else
+			return (SDLEGLDisplay)((delegate* unmanaged[Cdecl]<SDLEGLDisplay>)funcTable[591])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active EGL display.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentDisplay")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLDisplay")]
+		public static SDLEGLDisplay EGLGetCurrentDisplay()
+		{
+			SDLEGLDisplay ret = EGLGetCurrentDisplayNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the currently active EGL config.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentConfig")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLConfig")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLEGLConfig EGLGetCurrentConfigNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEGLConfig>)funcTable[592])();
+			#else
+			return (SDLEGLConfig)((delegate* unmanaged[Cdecl]<SDLEGLConfig>)funcTable[592])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active EGL config.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentConfig")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLConfig")]
+		public static SDLEGLConfig EGLGetCurrentConfig()
+		{
+			SDLEGLConfig ret = EGLGetCurrentConfigNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the EGL surface associated with the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetWindowSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLSurface")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLEGLSurface EGLGetWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLEGLSurface>)funcTable[593])(window);
+			#else
+			return (SDLEGLSurface)((delegate* unmanaged[Cdecl]<nint, SDLEGLSurface>)funcTable[593])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the EGL surface associated with the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetWindowSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLSurface")]
+		public static SDLEGLSurface EGLGetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			SDLEGLSurface ret = EGLGetWindowSurfaceNative(window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the EGL surface associated with the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetWindowSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLSurface")]
+		public static SDLEGLSurface EGLGetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLEGLSurface ret = EGLGetWindowSurfaceNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EGLSetAttributeCallbacksNative([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, nint*>, delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>, delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>, void*, void>)funcTable[594])((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, void>)funcTable[594])((nint)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (nint)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (nint)Utils.GetFunctionPointerForDelegate(contextAttribCallback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, contextAttribCallback, userdata);
+		}
+
+		/// <summary>
+		/// Set the swap interval for the current OpenGL context.<br/>
+		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
+		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
+		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
+		/// might be less jarring for the user during occasional framerate drops. If an<br/>
+		/// application requests adaptive vsync and the system does not support it,<br/>
+		/// this function will fail and return false. In such a case, you should<br/>
+		/// probably retry the call with 1 for the interval.<br/>
+		/// Adaptive vsync is implemented for some glX drivers with<br/>
+		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
+		/// WGL_EXT_swap_control_tear.<br/>
+		/// Read more on the Khronos wiki:<br/>
+		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SetSwapInterval")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLSetSwapIntervalNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int")] int interval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the swap interval for the current OpenGL context.<br/>
+		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
+		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
+		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
+		/// might be less jarring for the user during occasional framerate drops. If an<br/>
+		/// application requests adaptive vsync and the system does not support it,<br/>
+		/// this function will fail and return false. In such a case, you should<br/>
+		/// probably retry the call with 1 for the interval.<br/>
+		/// Adaptive vsync is implemented for some glX drivers with<br/>
+		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
+		/// WGL_EXT_swap_control_tear.<br/>
+		/// Read more on the Khronos wiki:<br/>
+		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLSetSwapInterval([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int")] int interval)
+		{
+			byte ret = GLSetSwapIntervalNative(interval);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will set *interval to 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLGetSwapIntervalNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int *")] int* interval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, byte>)funcTable[596])(interval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[596])((nint)interval);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will set *interval to 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLGetSwapInterval([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int *")] int* interval)
+		{
+			byte ret = GLGetSwapIntervalNative(interval);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will set *interval to 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLGetSwapInterval([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int *")] ref int interval)
+		{
+			fixed (int* pinterval = &interval)
+			{
+				byte ret = GLGetSwapIntervalNative((int*)pinterval);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SwapWindow")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLSwapWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[597])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[597])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SwapWindow")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLSwapWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = GLSwapWindowNative(window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SwapWindow")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLSwapWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = GLSwapWindowNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Delete an OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_DestroyContext")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLDestroyContextNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLContext, byte>)funcTable[598])(context);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLGLContext, byte>)funcTable[598])(context);
+			#endif
+		}
+
+		/// <summary>
+		/// Delete an OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_DestroyContext")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLDestroyContext([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
+		{
+			byte ret = GLDestroyContextNative(context);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ShowOpenFileDialogNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] byte allowMany)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, SDLDialogFileFilter*, int, byte*, byte, void>)funcTable[599])((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, window, filters, nfilters, defaultLocation, allowMany);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int, nint, byte, void>)funcTable[599])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, (nint)window, (nint)filters, nfilters, (nint)defaultLocation, allowMany);
+			#endif
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = defaultLocation)
+					{
+						ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ShowSaveFileDialogNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, SDLDialogFileFilter*, int, byte*, void>)funcTable[600])((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, window, filters, nfilters, defaultLocation);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int, nint, void>)funcTable[600])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, (nint)window, (nint)filters, nfilters, (nint)defaultLocation);
+			#endif
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
+		{
+			ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, defaultLocation);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, defaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = defaultLocation)
+					{
+						ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] ref SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ShowOpenFolderDialogNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] byte allowMany)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, byte*, byte, void>)funcTable[601])((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, window, defaultLocation, allowMany);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte, void>)funcTable[601])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, (nint)window, (nint)defaultLocation, allowMany);
+			#endif
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFolderDialogNative(callback, userdata, window, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowOpenFolderDialogNative(callback, userdata, window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFolderDialogNative(callback, userdata, window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowOpenFolderDialogNative(callback, userdata, window, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create and launch a file dialog with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
+		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
+		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
+		/// If non-NULL, the array of filters must remain valid at least until the<br/>
+		/// callback is invoked.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
+		/// array of filters, if it exists.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
+		/// be modal for.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
+		/// start the dialog at.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
+		/// more than one entry.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
+		/// should have.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
+		/// should have.<br/>
+		/// Note that each platform may or may not support any of the properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowFileDialogWithProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ShowFileDialogWithPropertiesNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_FileDialogType")] SDLFileDialogType type, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLFileDialogType, delegate*<void*, byte**, int, void>, void*, uint, void>)funcTable[602])(type, (delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, props);
+			#else
+			((delegate* unmanaged[Cdecl]<SDLFileDialogType, nint, nint, uint, void>)funcTable[602])(type, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, props);
+			#endif
+		}
+
+		/// <summary>
+		/// Create and launch a file dialog with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
+		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
+		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
+		/// If non-NULL, the array of filters must remain valid at least until the<br/>
+		/// callback is invoked.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
+		/// array of filters, if it exists.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
+		/// be modal for.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
+		/// start the dialog at.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
+		/// more than one entry.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
+		/// should have.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
+		/// should have.<br/>
+		/// Note that each platform may or may not support any of the properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowFileDialogWithProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowFileDialogWithProperties([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_FileDialogType")] SDLFileDialogType type, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			ShowFileDialogWithPropertiesNative(type, callback, userdata, props);
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GUIDToStringNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SdlGuid, byte*, int, void>)funcTable[603])(guid, pszGUID, cbGUID);
+			#else
+			((delegate* unmanaged[Cdecl]<SdlGuid, nint, int, void>)funcTable[603])(guid, (nint)pszGUID, cbGUID);
+			#endif
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GUIDToString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		{
+			GUIDToStringNative(guid, pszGUID, cbGUID);
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GUIDToString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] ref byte pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		{
+			fixed (byte* ppszGUID = &pszGUID)
+			{
+				GUIDToStringNative(guid, (byte*)ppszGUID, cbGUID);
+			}
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GUIDToString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] ref string pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pszGUID != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pszGUID);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pszGUID, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GUIDToStringNative(guid, pStr0, cbGUID);
+			pszGUID = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SdlGuid StringToGUIDNative([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] byte* pchGUID)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SdlGuid>)funcTable[604])(pchGUID);
+			#else
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)funcTable[604])((nint)pchGUID);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] byte* pchGUID)
+		{
+			SdlGuid ret = StringToGUIDNative(pchGUID);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] ref byte pchGUID)
+		{
+			fixed (byte* ppchGUID = &pchGUID)
+			{
+				SdlGuid ret = StringToGUIDNative((byte*)ppchGUID);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pchGUID)
+		{
+			fixed (byte* ppchGUID = pchGUID)
+			{
+				SdlGuid ret = StringToGUIDNative((byte*)ppchGUID);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] string pchGUID)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pchGUID != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pchGUID);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pchGUID, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SdlGuid ret = StringToGUIDNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPowerState GetPowerInfoNative([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*, SDLPowerState>)funcTable[605])(seconds, percent);
+			#else
+			return (SDLPowerState)((delegate* unmanaged[Cdecl]<nint, nint, SDLPowerState>)funcTable[605])((nint)seconds, (nint)percent);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
+		{
+			SDLPowerState ret = GetPowerInfoNative(seconds, percent);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
+		{
+			fixed (int* pseconds = &seconds)
+			{
+				SDLPowerState ret = GetPowerInfoNative((int*)pseconds, percent);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] ref int percent)
+		{
+			fixed (int* ppercent = &percent)
+			{
+				SDLPowerState ret = GetPowerInfoNative(seconds, (int*)ppercent);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] ref int percent)
+		{
+			fixed (int* pseconds = &seconds)
+			{
+				fixed (int* ppercent = &percent)
+				{
+					SDLPowerState ret = GetPowerInfoNative((int*)pseconds, (int*)ppercent);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a list of currently connected sensors.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensors")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int* GetSensorsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*>)funcTable[606])(count);
+			#else
+			return (int*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[606])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of currently connected sensors.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensors")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID *")]
+		public static int* GetSensors([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			int* ret = GetSensorsNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected sensors.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensors")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID *")]
+		public static int* GetSensors([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				int* ret = GetSensorsNative((int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetSensorNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[607])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[607])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetSensorNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			byte* ret = GetSensorNameForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetSensorNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetSensorNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensorType GetSensorTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[608])(instanceId);
+			#else
+			return (SDLSensorType)((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[608])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		public static SDLSensorType GetSensorTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			SDLSensorType ret = GetSensorTypeForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableTypeForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSensorNonPortableTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[609])(instanceId);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[609])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableTypeForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSensorNonPortableTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			int ret = GetSensorNonPortableTypeForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a sensor for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenSensor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensor* OpenSensorNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[610])(instanceId);
+			#else
+			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[610])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a sensor for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenSensor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		public static SDLSensor* OpenSensor([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			SDLSensor* ret = OpenSensorNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the SDL_Sensor associated with an instance ID.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensor* GetSensorFromIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[611])(instanceId);
+			#else
+			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[611])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Return the SDL_Sensor associated with an instance ID.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		public static SDLSensor* GetSensorFromID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			SDLSensor* ret = GetSensorFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetSensorPropertiesNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, uint>)funcTable[612])(sensor);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[612])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetSensorProperties([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			uint ret = GetSensorPropertiesNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetSensorProperties([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				uint ret = GetSensorPropertiesNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetSensorNameNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, byte*>)funcTable[613])(sensor);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[613])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetSensorName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			byte* ret = GetSensorNameNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetSensorNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			string ret = Utils.DecodeStringUTF8(GetSensorNameNative(sensor));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetSensorName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				byte* ret = GetSensorNameNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetSensorNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				string ret = Utils.DecodeStringUTF8(GetSensorNameNative((SDLSensor*)psensor));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorType")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensorType GetSensorTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, SDLSensorType>)funcTable[614])(sensor);
+			#else
+			return (SDLSensorType)((delegate* unmanaged[Cdecl]<nint, SDLSensorType>)funcTable[614])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorType")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		public static SDLSensorType GetSensorType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			SDLSensorType ret = GetSensorTypeNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorType")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		public static SDLSensorType GetSensorType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				SDLSensorType ret = GetSensorTypeNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableType")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSensorNonPortableTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[615])(sensor);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[615])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableType")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSensorNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			int ret = GetSensorNonPortableTypeNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableType")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSensorNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = GetSensorNonPortableTypeNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSensorIDNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[616])(sensor);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[616])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
+		public static int GetSensorID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			int ret = GetSensorIDNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
+		public static int GetSensorID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = GetSensorIDNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetSensorDataNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, byte>)funcTable[617])(sensor, data, numValues);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[617])((nint)sensor, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			byte ret = GetSensorDataNative(sensor, data, numValues);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				byte ret = GetSensorDataNative((SDLSensor*)psensor, data, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (float* pdata = &data)
 			{
-				byte ret = GetGamepadSensorDataNative(gamepad, type, (float*)pdata, numValues);
+				byte ret = GetSensorDataNative(sensor, (float*)pdata, numValues);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
+		/// Get the current state of an opened sensor.<br/>
 		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (SDLSensor* psensor = &sensor)
 			{
 				fixed (float* pdata = &data)
 				{
-					byte ret = GetGamepadSensorDataNative((SDLGamepad*)pgamepad, type, (float*)pdata, numValues);
+					byte ret = GetSensorDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Start a rumble effect on a gamepad.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RumbleGamepadNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, ushort, ushort, uint, byte>)funcTable[723])(gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[723])((nint)gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#endif
-		}
-
-		/// <summary>
-		/// Start a rumble effect on a gamepad.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			byte ret = RumbleGamepadNative(gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Start a rumble effect on a gamepad.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = RumbleGamepadNative((SDLGamepad*)pgamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the gamepad's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
-		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
-		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RumbleGamepadTriggersNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, ushort, ushort, uint, byte>)funcTable[724])(gamepad, leftRumble, rightRumble, durationMs);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[724])((nint)gamepad, leftRumble, rightRumble, durationMs);
-			#endif
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the gamepad's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
-		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
-		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepadTriggers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			byte ret = RumbleGamepadTriggersNative(gamepad, leftRumble, rightRumble, durationMs);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the gamepad's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
-		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
-		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepadTriggers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = RumbleGamepadTriggersNative((SDLGamepad*)pgamepad, leftRumble, rightRumble, durationMs);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update a gamepad's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
-		/// used as the LED brightness.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetGamepadLEDNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, byte, byte, byte, byte>)funcTable[725])(gamepad, red, green, blue);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[725])((nint)gamepad, red, green, blue);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a gamepad's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
-		/// used as the LED brightness.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadLED([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
-		{
-			byte ret = SetGamepadLEDNative(gamepad, red, green, blue);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Update a gamepad's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
-		/// used as the LED brightness.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadLED([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = SetGamepadLEDNative((SDLGamepad*)pgamepad, red, green, blue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SendGamepadEffectNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, void*, int, byte>)funcTable[726])(gamepad, data, size);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[726])((nint)gamepad, (nint)data, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SendGamepadEffect([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			byte ret = SendGamepadEffectNative(gamepad, data, size);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SendGamepadEffect([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = SendGamepadEffectNative((SDLGamepad*)pgamepad, data, size);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
+		[NativeName(NativeNameType.Func, "SDL_CloseSensor")]
 		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CloseGamepadNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
+		internal static void CloseSensorNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGamepad*, void>)funcTable[727])(gamepad);
+			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)funcTable[618])(sensor);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[727])((nint)gamepad);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[618])((nint)sensor);
 			#endif
 		}
 
 		/// <summary>
-		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
-		/// <br/>
+		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
+		[NativeName(NativeNameType.Func, "SDL_CloseSensor")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void CloseGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
+		public static void CloseSensor([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
 		{
-			CloseGamepadNative(gamepad);
+			CloseSensorNative(sensor);
 		}
 
 		/// <summary>
-		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
-		/// <br/>
+		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
+		[NativeName(NativeNameType.Func, "SDL_CloseSensor")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void CloseGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
+		public static void CloseSensor([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (SDLSensor* psensor = &sensor)
 			{
-				CloseGamepadNative((SDLGamepad*)pgamepad);
+				CloseSensorNative((SDLSensor*)psensor);
 			}
 		}
 
 		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
+		/// enabled.<br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
+		[NativeName(NativeNameType.Func, "SDL_UpdateSensors")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGamepadAppleSFSymbolsNameForButtonNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		internal static void UpdateSensorsNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, byte*>)funcTable[728])(gamepad, button);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[619])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, nint>)funcTable[728])((nint)gamepad, button);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[619])();
 			#endif
 		}
 
 		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
+		/// enabled.<br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		[NativeName(NativeNameType.Func, "SDL_UpdateSensors")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UpdateSensors()
 		{
-			byte* ret = GetGamepadAppleSFSymbolsNameForButtonNative(gamepad, button);
-			return ret;
+			UpdateSensorsNative();
 		}
 
 		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForButtonNative(gamepad, button));
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
+		/// Locking for atomic access to the joystick API.<br/>
+		/// The SDL joystick functions are thread-safe, however you can lock the<br/>
+		/// joysticks while processing to guarantee that the joystick list won't change<br/>
+		/// and joystick and gamepad events will not be delivered.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte* ret = GetGamepadAppleSFSymbolsNameForButtonNative((SDLGamepad*)pgamepad, button);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForButtonNative((SDLGamepad*)pgamepad, button));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
+		[NativeName(NativeNameType.Func, "SDL_LockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGamepadAppleSFSymbolsNameForAxisNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		internal static void LockJoysticksNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadAxis, byte*>)funcTable[729])(gamepad, axis);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[620])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGamepadAxis, nint>)funcTable[729])((nint)gamepad, axis);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[620])();
 			#endif
 		}
 
 		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
+		/// Locking for atomic access to the joystick API.<br/>
+		/// The SDL joystick functions are thread-safe, however you can lock the<br/>
+		/// joysticks while processing to guarantee that the joystick list won't change<br/>
+		/// and joystick and gamepad events will not be delivered.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		[NativeName(NativeNameType.Func, "SDL_LockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockJoysticks()
 		{
-			byte* ret = GetGamepadAppleSFSymbolsNameForAxisNative(gamepad, axis);
-			return ret;
+			LockJoysticksNative();
 		}
 
 		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
+		/// Unlocking for atomic access to the joystick API.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		[NativeName(NativeNameType.Func, "SDL_UnlockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockJoysticksNative()
 		{
-			string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForAxisNative(gamepad, axis));
-			return ret;
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
+			#endif
 		}
 
 		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
+		/// Unlocking for atomic access to the joystick API.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
+		[NativeName(NativeNameType.Func, "SDL_UnlockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockJoysticks()
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte* ret = GetGamepadAppleSFSymbolsNameForAxisNative((SDLGamepad*)pgamepad, axis);
-				return ret;
-			}
+			UnlockJoysticksNative();
 		}
 
 		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
+		/// Return whether a joystick is currently connected.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForAxisNative((SDLGamepad*)pgamepad, axis));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return whether a keyboard is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasKeyboard")]
+		[NativeName(NativeNameType.Func, "SDL_HasJoystick")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasKeyboardNative()
+		internal static byte HasJoystickNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[730])();
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[622])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[730])();
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[622])();
 			#endif
 		}
 
 		/// <summary>
-		/// Return whether a keyboard is currently connected.<br/>
+		/// Return whether a joystick is currently connected.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasKeyboard")]
+		[NativeName(NativeNameType.Func, "SDL_HasJoystick")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasKeyboard()
+		public static bool HasJoystick()
 		{
-			byte ret = HasKeyboardNative();
+			byte ret = HasJoystickNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected keyboards.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
-		/// power buttons, etc. You should wait for input from a device before you<br/>
-		/// consider it actively in use.<br/>
+		/// Get a list of currently connected joysticks.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
-		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoysticks")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetKeyboardsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		internal static int* GetJoysticksNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[731])(count);
+			return ((delegate* unmanaged[Cdecl]<int*, int*>)funcTable[623])(count);
 			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[731])((nint)count);
+			return (int*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[623])((nint)count);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a list of currently connected keyboards.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
-		/// power buttons, etc. You should wait for input from a device before you<br/>
-		/// consider it actively in use.<br/>
+		/// Get a list of currently connected joysticks.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
-		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
-		public static uint* GetKeyboards([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		[NativeName(NativeNameType.Func, "SDL_GetJoysticks")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
+		public static int* GetJoysticks([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
-			uint* ret = GetKeyboardsNative(count);
+			int* ret = GetJoysticksNative(count);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected keyboards.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
-		/// power buttons, etc. You should wait for input from a device before you<br/>
-		/// consider it actively in use.<br/>
+		/// Get a list of currently connected joysticks.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
-		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
-		public static uint* GetKeyboards([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		[NativeName(NativeNameType.Func, "SDL_GetJoysticks")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
+		public static int* GetJoysticks([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
 			fixed (int* pcount = &count)
 			{
-				uint* ret = GetKeyboardsNative((int*)pcount);
+				int* ret = GetJoysticksNative((int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the name of a keyboard.<br/>
-		/// This function returns "" if the keyboard doesn't have a name.<br/>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickNameForID")]
 		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetKeyboardNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
+		internal static byte* GetJoystickNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[732])(instanceId);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[624])(instanceId);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[732])(instanceId);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[624])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the name of a keyboard.<br/>
-		/// This function returns "" if the keyboard doesn't have a name.<br/>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickNameForID")]
 		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetKeyboardNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
+		public static byte* GetJoystickNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			byte* ret = GetKeyboardNameForIDNative(instanceId);
+			byte* ret = GetJoystickNameForIDNative(instanceId);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the name of a keyboard.<br/>
-		/// This function returns "" if the keyboard doesn't have a name.<br/>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickNameForID")]
 		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetKeyboardNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
+		public static string GetJoystickNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			string ret = Utils.DecodeStringUTF8(GetKeyboardNameForIDNative(instanceId));
+			string ret = Utils.DecodeStringUTF8(GetJoystickNameForIDNative(instanceId));
 			return ret;
 		}
 
 		/// <summary>
-		/// Query the window which currently has keyboard focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetKeyboardFocusNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[733])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[733])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query the window which currently has keyboard focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetKeyboardFocus()
-		{
-			SDLWindow* ret = GetKeyboardFocusNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of true means that the key is pressed and a<br/>
-		/// value of false means that it is not. Indexes into this array are obtained<br/>
-		/// by using SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
-		[return: NativeName(NativeNameType.Type, "bool const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static bool* GetKeyboardStateNative([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] int* numkeys)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, bool*>)funcTable[734])(numkeys);
-			#else
-			return (bool*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[734])((nint)numkeys);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of true means that the key is pressed and a<br/>
-		/// value of false means that it is not. Indexes into this array are obtained<br/>
-		/// by using SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
-		[return: NativeName(NativeNameType.Type, "bool const *")]
-		public static bool* GetKeyboardState([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] int* numkeys)
-		{
-			bool* ret = GetKeyboardStateNative(numkeys);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of true means that the key is pressed and a<br/>
-		/// value of false means that it is not. Indexes into this array are obtained<br/>
-		/// by using SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
-		[return: NativeName(NativeNameType.Type, "bool const *")]
-		public static bool* GetKeyboardState([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] ref int numkeys)
-		{
-			fixed (int* pnumkeys = &numkeys)
-			{
-				bool* ret = GetKeyboardStateNative((int*)pnumkeys);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Clear the state of the keyboard.<br/>
-		/// This function will generate key up events for all pressed keys.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetKeyboard")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetKeyboardNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[735])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[735])();
-			#endif
-		}
-
-		/// <summary>
-		/// Clear the state of the keyboard.<br/>
-		/// This function will generate key up events for all pressed keys.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetKeyboard")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ResetKeyboard()
-		{
-			ResetKeyboardNative();
-		}
-
-		/// <summary>
-		/// Get the current key modifier state for the keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetModState")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keymod")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLKeymod GetModStateNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[736])();
-			#else
-			return (SDLKeymod)((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[736])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current key modifier state for the keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetModState")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keymod")]
-		public static SDLKeymod GetModState()
-		{
-			SDLKeymod ret = GetModStateNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the current key modifier state for the keyboard.<br/>
-		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
-		/// modifier key states on your application. Simply pass your desired modifier<br/>
-		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
-		/// SDL_Keymod values.<br/>
-		/// This does not change the keyboard state, only the key modifier flags that<br/>
-		/// SDL reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetModState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetModStateNative([NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[737])(modstate);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[737])(modstate);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the current key modifier state for the keyboard.<br/>
-		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
-		/// modifier key states on your application. Simply pass your desired modifier<br/>
-		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
-		/// SDL_Keymod values.<br/>
-		/// This does not change the keyboard state, only the key modifier flags that<br/>
-		/// SDL reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetModState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetModState([NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate)
-		{
-			SetModStateNative(modstate);
-		}
-
-		/// <summary>
-		/// Get the key code corresponding to the given scancode according to the<br/>
-		/// current keyboard layout.<br/>
-		/// If you want to get the keycode as it would be delivered in key events,<br/>
-		/// including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should<br/>
-		/// pass `key_event` as true. Otherwise this function simply translates the<br/>
-		/// scancode based on the given modifier state.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromScancode")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetKeyFromScancodeNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate, [NativeName(NativeNameType.Param, "key_event")] [NativeName(NativeNameType.Type, "bool")] byte keyEvent)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, SDLKeymod, byte, int>)funcTable[738])(scancode, modstate, keyEvent);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLScancode, SDLKeymod, byte, int>)funcTable[738])(scancode, modstate, keyEvent);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the key code corresponding to the given scancode according to the<br/>
-		/// current keyboard layout.<br/>
-		/// If you want to get the keycode as it would be delivered in key events,<br/>
-		/// including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should<br/>
-		/// pass `key_event` as true. Otherwise this function simply translates the<br/>
-		/// scancode based on the given modifier state.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromScancode")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromScancode([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate, [NativeName(NativeNameType.Param, "key_event")] [NativeName(NativeNameType.Type, "bool")] bool keyEvent)
-		{
-			int ret = GetKeyFromScancodeNative(scancode, modstate, keyEvent ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// Note that there may be multiple scancode+modifier states that can generate<br/>
-		/// this keycode, this will just return the first one found.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLScancode GetScancodeFromKeyNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] SDLKeymod* modstate)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLKeymod*, SDLScancode>)funcTable[739])(key, modstate);
-			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<int, nint, SDLScancode>)funcTable[739])(key, (nint)modstate);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// Note that there may be multiple scancode+modifier states that can generate<br/>
-		/// this keycode, this will just return the first one found.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromKey([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] SDLKeymod* modstate)
-		{
-			SDLScancode ret = GetScancodeFromKeyNative(key, modstate);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// Note that there may be multiple scancode+modifier states that can generate<br/>
-		/// this keycode, this will just return the first one found.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromKey([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] ref SDLKeymod modstate)
-		{
-			fixed (SDLKeymod* pmodstate = &modstate)
-			{
-				SDLScancode ret = GetScancodeFromKeyNative(key, (SDLKeymod*)pmodstate);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetScancodeNameNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*, byte>)funcTable[740])(scancode, name);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLScancode, nint, byte>)funcTable[740])(scancode, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			byte ret = SetScancodeNameNative(scancode, name);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = SetScancodeNameNative(scancode, (byte*)pname);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = SetScancodeNameNative(scancode, (byte*)pname);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetScancodeNameNative(scancode, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPathForID")]
 		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetScancodeNameNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
+		internal static byte* GetJoystickPathForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*>)funcTable[741])(scancode);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[625])(instanceId);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<SDLScancode, nint>)funcTable[741])(scancode);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[625])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPathForID")]
 		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
+		public static byte* GetJoystickPathForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			byte* ret = GetScancodeNameNative(scancode);
+			byte* ret = GetJoystickPathForIDNative(instanceId);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPathForID")]
 		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetScancodeNameS([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
+		public static string GetJoystickPathForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			string ret = Utils.DecodeStringUTF8(GetScancodeNameNative(scancode));
+			string ret = Utils.DecodeStringUTF8(GetJoystickPathForIDNative(instanceId));
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
+		/// Get the player index of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLScancode GetScancodeFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLScancode>)funcTable[742])(name);
-			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<nint, SDLScancode>)funcTable[742])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			SDLScancode ret = GetScancodeFromNameNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLScancode ret = GetScancodeFromNameNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetKeyNameNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[743])(key);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[743])(key);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetKeyName([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
-		{
-			byte* ret = GetKeyNameNative(key);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetKeyNameS([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
-		{
-			string ret = Utils.DecodeStringUTF8(GetKeyNameNative(key));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetKeyFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[744])(name);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[744])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			int ret = GetKeyFromNameNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GetKeyFromNameNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StartTextInputNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[745])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[745])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = StartTextInputNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = StartTextInputNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window, with properties<br/>
-		/// describing the input.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
-		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
-		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
-		/// that describes how text should be capitalized, defaults to<br/>
-		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
-		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
-		/// addresses, usernames, and passwords.<br/>
-		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
-		/// and auto correction, defaults to true.<br/>
-		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
-		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
-		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
-		/// is "1".<br/>
-		/// On Android you can directly specify the input type:<br/>
-		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
-		/// use, overriding other properties. This is documented at<br/>
-		/// https://developer.android.com/reference/android/text/InputType<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StartTextInputWithPropertiesNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint, byte>)funcTable[746])(window, props);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[746])((nint)window, props);
-			#endif
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window, with properties<br/>
-		/// describing the input.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
-		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
-		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
-		/// that describes how text should be capitalized, defaults to<br/>
-		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
-		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
-		/// addresses, usernames, and passwords.<br/>
-		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
-		/// and auto correction, defaults to true.<br/>
-		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
-		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
-		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
-		/// is "1".<br/>
-		/// On Android you can directly specify the input type:<br/>
-		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
-		/// use, overriding other properties. This is documented at<br/>
-		/// https://developer.android.com/reference/android/text/InputType<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			byte ret = StartTextInputWithPropertiesNative(window, props);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window, with properties<br/>
-		/// describing the input.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
-		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
-		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
-		/// that describes how text should be capitalized, defaults to<br/>
-		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
-		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
-		/// addresses, usernames, and passwords.<br/>
-		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
-		/// and auto correction, defaults to true.<br/>
-		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
-		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
-		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
-		/// is "1".<br/>
-		/// On Android you can directly specify the input type:<br/>
-		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
-		/// use, overriding other properties. This is documented at<br/>
-		/// https://developer.android.com/reference/android/text/InputType<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = StartTextInputWithPropertiesNative((SDLWindow*)pwindow, props);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TextInputActiveNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[747])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[747])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = TextInputActiveNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = TextInputActiveNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events in a window.<br/>
-		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
-		/// it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StopTextInputNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[748])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[748])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events in a window.<br/>
-		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
-		/// it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = StopTextInputNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events in a window.<br/>
-		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
-		/// it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = StopTextInputNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ClearCompositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[749])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[749])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = ClearCompositionNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ClearCompositionNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int, byte>)funcTable[750])(window, rect, cursor);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[750])((nint)window, (nint)rect, cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			byte ret = SetTextInputAreaNative(window, rect, cursor);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, rect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = SetTextInputAreaNative(window, (SDLRect*)prect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int*, byte>)funcTable[751])(window, rect, cursor);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[751])((nint)window, (nint)rect, (nint)cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			byte ret = GetTextInputAreaNative(window, rect, cursor);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, rect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = GetTextInputAreaNative(window, (SDLRect*)prect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (int* pcursor = &cursor)
-			{
-				byte ret = GetTextInputAreaNative(window, rect, (int*)pcursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pcursor = &cursor)
-				{
-					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, rect, (int*)pcursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* pcursor = &cursor)
-				{
-					byte ret = GetTextInputAreaNative(window, (SDLRect*)prect, (int*)pcursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (int* pcursor = &cursor)
-					{
-						byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, (int*)pcursor);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasScreenKeyboardSupportNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[752])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[752])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasScreenKeyboardSupport()
-		{
-			byte ret = HasScreenKeyboardSupportNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ScreenKeyboardShownNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[753])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[753])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = ScreenKeyboardShownNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ScreenKeyboardShownNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Return whether a mouse is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasMouseNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[754])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[754])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether a mouse is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasMouse()
-		{
-			byte ret = HasMouseNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get a list of currently connected mice.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
-		/// You should wait for input from a device before you consider it actively in<br/>
-		/// use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMice")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetMiceNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[755])(count);
-			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[755])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of currently connected mice.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
-		/// You should wait for input from a device before you consider it actively in<br/>
-		/// use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMice")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
-		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			uint* ret = GetMiceNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of currently connected mice.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
-		/// You should wait for input from a device before you consider it actively in<br/>
-		/// use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMice")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
-		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				uint* ret = GetMiceNative((int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the name of a mouse.<br/>
-		/// This function returns "" if the mouse doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetMouseNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[756])(instanceId);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[756])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a mouse.<br/>
-		/// This function returns "" if the mouse doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetMouseNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
-		{
-			byte* ret = GetMouseNameForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a mouse.<br/>
-		/// This function returns "" if the mouse doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetMouseNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
-		{
-			string ret = Utils.DecodeStringUTF8(GetMouseNameForIDNative(instanceId));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetMouseFocusNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[757])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[757])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetMouseFocus()
-		{
-			SDLWindow* ret = GetMouseFocusNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the SDL_BUTTON_MASK(X) macro (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMouseButtonFlags GetMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[758])(x, y);
-			#else
-			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[758])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the SDL_BUTTON_MASK(X) macro (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			SDLMouseButtonFlags ret = GetMouseStateNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the SDL_BUTTON_MASK(X) macro (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			fixed (float* px = &x)
-			{
-				SDLMouseButtonFlags ret = GetMouseStateNative((float*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the SDL_BUTTON_MASK(X) macro (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* py = &y)
-			{
-				SDLMouseButtonFlags ret = GetMouseStateNative(x, (float*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the SDL_BUTTON_MASK(X) macro (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					SDLMouseButtonFlags ret = GetMouseStateNative((float*)px, (float*)py);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMouseButtonFlags GetGlobalMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[759])(x, y);
-			#else
-			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[759])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			SDLMouseButtonFlags ret = GetGlobalMouseStateNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			fixed (float* px = &x)
-			{
-				SDLMouseButtonFlags ret = GetGlobalMouseStateNative((float*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* py = &y)
-			{
-				SDLMouseButtonFlags ret = GetGlobalMouseStateNative(x, (float*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					SDLMouseButtonFlags ret = GetGlobalMouseStateNative((float*)px, (float*)py);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the relative state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON_MASK(X)` macros (where `X` is generally 1 for<br/>
-		/// the left, 2 for middle, 3 for the right button), and `x` and `y` are set to<br/>
-		/// the mouse deltas since the last call to SDL_GetRelativeMouseState() or<br/>
-		/// since event initialization. You can pass NULL for either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMouseButtonFlags GetRelativeMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[760])(x, y);
-			#else
-			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[760])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Retrieve the relative state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON_MASK(X)` macros (where `X` is generally 1 for<br/>
-		/// the left, 2 for middle, 3 for the right button), and `x` and `y` are set to<br/>
-		/// the mouse deltas since the last call to SDL_GetRelativeMouseState() or<br/>
-		/// since event initialization. You can pass NULL for either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			SDLMouseButtonFlags ret = GetRelativeMouseStateNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the relative state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON_MASK(X)` macros (where `X` is generally 1 for<br/>
-		/// the left, 2 for middle, 3 for the right button), and `x` and `y` are set to<br/>
-		/// the mouse deltas since the last call to SDL_GetRelativeMouseState() or<br/>
-		/// since event initialization. You can pass NULL for either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			fixed (float* px = &x)
-			{
-				SDLMouseButtonFlags ret = GetRelativeMouseStateNative((float*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the relative state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON_MASK(X)` macros (where `X` is generally 1 for<br/>
-		/// the left, 2 for middle, 3 for the right button), and `x` and `y` are set to<br/>
-		/// the mouse deltas since the last call to SDL_GetRelativeMouseState() or<br/>
-		/// since event initialization. You can pass NULL for either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* py = &y)
-			{
-				SDLMouseButtonFlags ret = GetRelativeMouseStateNative(x, (float*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the relative state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON_MASK(X)` macros (where `X` is generally 1 for<br/>
-		/// the left, 2 for middle, 3 for the right button), and `x` and `y` are set to<br/>
-		/// the mouse deltas since the last call to SDL_GetRelativeMouseState() or<br/>
-		/// since event initialization. You can pass NULL for either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					SDLMouseButtonFlags ret = GetRelativeMouseStateNative((float*)px, (float*)py);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Move the mouse cursor to the given position within the window.<br/>
-		/// This function generates a mouse motion event if relative mode is not<br/>
-		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
-		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void WarpMouseInWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, float, float, void>)funcTable[761])(window, x, y);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, float, float, void>)funcTable[761])((nint)window, x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Move the mouse cursor to the given position within the window.<br/>
-		/// This function generates a mouse motion event if relative mode is not<br/>
-		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
-		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			WarpMouseInWindowNative(window, x, y);
-		}
-
-		/// <summary>
-		/// Move the mouse cursor to the given position within the window.<br/>
-		/// This function generates a mouse motion event if relative mode is not<br/>
-		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
-		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				WarpMouseInWindowNative((SDLWindow*)pwindow, x, y);
-			}
-		}
-
-		/// <summary>
-		/// Move the mouse to the given position in global screen space.<br/>
-		/// This function generates a mouse motion event.<br/>
-		/// A failure of this function usually means that it is unsupported by a<br/>
-		/// platform.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WarpMouseGlobalNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[762])(x, y);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[762])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Move the mouse to the given position in global screen space.<br/>
-		/// This function generates a mouse motion event.<br/>
-		/// A failure of this function usually means that it is unsupported by a<br/>
-		/// platform.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WarpMouseGlobal([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			byte ret = WarpMouseGlobalNative(x, y);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set relative mouse mode for a window.<br/>
-		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
-		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
-		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
-		/// the window.<br/>
-		/// This function will flush any pending mouse motion for this window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte, byte>)funcTable[763])(window, enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[763])((nint)window, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set relative mouse mode for a window.<br/>
-		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
-		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
-		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
-		/// the window.<br/>
-		/// This function will flush any pending mouse motion for this window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			byte ret = SetWindowRelativeMouseModeNative(window, enabled ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set relative mouse mode for a window.<br/>
-		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
-		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
-		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
-		/// the window.<br/>
-		/// This function will flush any pending mouse motion for this window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = SetWindowRelativeMouseModeNative((SDLWindow*)pwindow, enabled ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query whether relative mouse mode is enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[764])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[764])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether relative mouse mode is enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = GetWindowRelativeMouseModeNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query whether relative mouse mode is enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = GetWindowRelativeMouseModeNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Capture the mouse and to track input outside an SDL window.<br/>
-		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
-		/// within your window. Not all video targets support this function. When<br/>
-		/// capturing is enabled, the current window will get all mouse events, but<br/>
-		/// unlike relative mode, no change is made to the cursor and it is not<br/>
-		/// restrained to your window.<br/>
-		/// This function may also deny mouse input to other windows--both those in<br/>
-		/// your application and others on the system--so you should use this function<br/>
-		/// sparingly, and in small bursts. For example, you might want to track the<br/>
-		/// mouse while the user is dragging something, until the user releases a mouse<br/>
-		/// button. It is not recommended that you capture the mouse for long periods<br/>
-		/// of time, such as the entire time your app is running. For that, you should<br/>
-		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
-		/// depending on your goals.<br/>
-		/// While captured, mouse events still report coordinates relative to the<br/>
-		/// current (foreground) window, but those coordinates may be outside the<br/>
-		/// bounds of the window (including negative values). Capturing is only allowed<br/>
-		/// for the foreground window. If the window loses focus while capturing, the<br/>
-		/// capture will be disabled automatically.<br/>
-		/// While capturing is enabled, the current window will have the<br/>
-		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
-		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
-		/// user is pressing a button; this is to try and make mouse behavior more<br/>
-		/// consistent between platforms, and deal with the common case of a user<br/>
-		/// dragging the mouse outside of the window. This means that if you are<br/>
-		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
-		/// have to (although it is safe to do so). If this causes problems for your<br/>
-		/// app, you can disable auto capture by setting the<br/>
-		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CaptureMouseNative([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[765])(enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[765])(enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Capture the mouse and to track input outside an SDL window.<br/>
-		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
-		/// within your window. Not all video targets support this function. When<br/>
-		/// capturing is enabled, the current window will get all mouse events, but<br/>
-		/// unlike relative mode, no change is made to the cursor and it is not<br/>
-		/// restrained to your window.<br/>
-		/// This function may also deny mouse input to other windows--both those in<br/>
-		/// your application and others on the system--so you should use this function<br/>
-		/// sparingly, and in small bursts. For example, you might want to track the<br/>
-		/// mouse while the user is dragging something, until the user releases a mouse<br/>
-		/// button. It is not recommended that you capture the mouse for long periods<br/>
-		/// of time, such as the entire time your app is running. For that, you should<br/>
-		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
-		/// depending on your goals.<br/>
-		/// While captured, mouse events still report coordinates relative to the<br/>
-		/// current (foreground) window, but those coordinates may be outside the<br/>
-		/// bounds of the window (including negative values). Capturing is only allowed<br/>
-		/// for the foreground window. If the window loses focus while capturing, the<br/>
-		/// capture will be disabled automatically.<br/>
-		/// While capturing is enabled, the current window will have the<br/>
-		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
-		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
-		/// user is pressing a button; this is to try and make mouse behavior more<br/>
-		/// consistent between platforms, and deal with the common case of a user<br/>
-		/// dragging the mouse outside of the window. This means that if you are<br/>
-		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
-		/// have to (although it is safe to do so). If this causes problems for your<br/>
-		/// app, you can disable auto capture by setting the<br/>
-		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CaptureMouse([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			byte ret = CaptureMouseNative(enabled ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* CreateCursorNative([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int, int, int, SDLCursor*>)funcTable[766])(data, mask, w, h, hotX, hotY);
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int, int, nint>)funcTable[766])((nint)data, (nint)mask, w, h, hotX, hotY);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			SDLCursor* ret = CreateCursorNative(data, mask, w, h, hotX, hotY);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			fixed (byte* pdata = &data)
-			{
-				SDLCursor* ret = CreateCursorNative((byte*)pdata, mask, w, h, hotX, hotY);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			fixed (byte* pmask = &mask)
-			{
-				SDLCursor* ret = CreateCursorNative(data, (byte*)pmask, w, h, hotX, hotY);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			fixed (byte* pdata = &data)
-			{
-				fixed (byte* pmask = &mask)
-				{
-					SDLCursor* ret = CreateCursorNative((byte*)pdata, (byte*)pmask, w, h, hotX, hotY);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a color cursor.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* CreateColorCursorNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLCursor*>)funcTable[767])(surface, hotX, hotY);
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)funcTable[767])((nint)surface, hotX, hotY);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a color cursor.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			SDLCursor* ret = CreateColorCursorNative(surface, hotX, hotY);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a color cursor.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLCursor* ret = CreateColorCursorNative((SDLSurface*)psurface, hotX, hotY);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a system cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* CreateSystemCursorNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSystemCursor, SDLCursor*>)funcTable[768])(id);
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<SDLSystemCursor, nint>)funcTable[768])(id);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a system cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateSystemCursor([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
-		{
-			SDLCursor* ret = CreateSystemCursorNative(id);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the active cursor.<br/>
-		/// This function sets the currently active cursor to the specified one. If the<br/>
-		/// cursor is currently visible, the change will be immediately represented on<br/>
-		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
-		/// this is desired for any reason.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*, byte>)funcTable[769])(cursor);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[769])((nint)cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the active cursor.<br/>
-		/// This function sets the currently active cursor to the specified one. If the<br/>
-		/// cursor is currently visible, the change will be immediately represented on<br/>
-		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
-		/// this is desired for any reason.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			byte ret = SetCursorNative(cursor);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the active cursor.<br/>
-		/// This function sets the currently active cursor to the specified one. If the<br/>
-		/// cursor is currently visible, the change will be immediately represented on<br/>
-		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
-		/// this is desired for any reason.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
-		{
-			fixed (SDLCursor* pcursor = &cursor)
-			{
-				byte ret = SetCursorNative((SDLCursor*)pcursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the active cursor.<br/>
-		/// This function returns a pointer to the current cursor which is owned by the<br/>
-		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* GetCursorNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[770])();
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[770])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the active cursor.<br/>
-		/// This function returns a pointer to the current cursor which is owned by the<br/>
-		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* GetCursor()
-		{
-			SDLCursor* ret = GetCursorNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the default cursor.<br/>
-		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
-		/// safe to do so.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* GetDefaultCursorNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[771])();
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[771])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the default cursor.<br/>
-		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
-		/// safe to do so.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* GetDefaultCursor()
-		{
-			SDLCursor* ret = GetDefaultCursorNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Free a previously-created cursor.<br/>
-		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
-		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)funcTable[772])(cursor);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[772])((nint)cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Free a previously-created cursor.<br/>
-		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
-		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			DestroyCursorNative(cursor);
-		}
-
-		/// <summary>
-		/// Free a previously-created cursor.<br/>
-		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
-		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
-		{
-			fixed (SDLCursor* pcursor = &cursor)
-			{
-				DestroyCursorNative((SDLCursor*)pcursor);
-			}
-		}
-
-		/// <summary>
-		/// Show the cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowCursorNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[773])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[773])();
-			#endif
-		}
-
-		/// <summary>
-		/// Show the cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowCursor()
-		{
-			byte ret = ShowCursorNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Hide the cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HideCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HideCursorNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[774])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[774])();
-			#endif
-		}
-
-		/// <summary>
-		/// Hide the cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HideCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HideCursor()
-		{
-			byte ret = HideCursorNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Return whether the cursor is currently being shown.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CursorVisible")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CursorVisibleNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[775])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[775])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether the cursor is currently being shown.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CursorVisible")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CursorVisible()
-		{
-			byte ret = CursorVisibleNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get a list of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore the returned list might be empty, although devices are available.<br/>
-		/// After using all devices at least once the number will be correct.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long* GetTouchDevicesNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, long*>)funcTable[776])(count);
-			#else
-			return (long*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[776])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore the returned list might be empty, although devices are available.<br/>
-		/// After using all devices at least once the number will be correct.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
-		public static long* GetTouchDevices([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			long* ret = GetTouchDevicesNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore the returned list might be empty, although devices are available.<br/>
-		/// After using all devices at least once the number will be correct.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
-		public static long* GetTouchDevices([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				long* ret = GetTouchDevicesNative((int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetTouchDeviceNameNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, byte*>)funcTable[777])(touchID);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<long, nint>)funcTable[777])(touchID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetTouchDeviceName([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			byte* ret = GetTouchDeviceNameNative(touchID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetTouchDeviceNameS([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			string ret = Utils.DecodeStringUTF8(GetTouchDeviceNameNative(touchID));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of the given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTouchDeviceType GetTouchDeviceTypeNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[778])(touchID);
-			#else
-			return (SDLTouchDeviceType)((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[778])(touchID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of the given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
-		public static SDLTouchDeviceType GetTouchDeviceType([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			SDLTouchDeviceType ret = GetTouchDeviceTypeNative(touchID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
-		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLFinger** GetTouchFingersNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, int*, SDLFinger**>)funcTable[779])(touchID, count);
-			#else
-			return (SDLFinger**)((delegate* unmanaged[Cdecl]<long, nint, nint>)funcTable[779])(touchID, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
-		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
-		public static SDLFinger** GetTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			SDLFinger** ret = GetTouchFingersNative(touchID, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
-		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
-		public static SDLFinger** GetTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				SDLFinger** ret = GetTouchFingersNative(touchID, (int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pump the event loop, gathering events from the input devices.<br/>
-		/// This function updates the event queue and internal input device state.<br/>
-		/// **WARNING**: This should only be run in the thread that initialized the<br/>
-		/// video subsystem, and for extra safety, you should consider only doing those<br/>
-		/// things on the main thread in any case.<br/>
-		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
-		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
-		/// would ever be placed on the queue. Often the need for calls to<br/>
-		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
-		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
-		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
-		/// call SDL_PumpEvents() to force an event queue update.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PumpEventsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[780])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[780])();
-			#endif
-		}
-
-		/// <summary>
-		/// Pump the event loop, gathering events from the input devices.<br/>
-		/// This function updates the event queue and internal input device state.<br/>
-		/// **WARNING**: This should only be run in the thread that initialized the<br/>
-		/// video subsystem, and for extra safety, you should consider only doing those<br/>
-		/// things on the main thread in any case.<br/>
-		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
-		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
-		/// would ever be placed on the queue. Often the need for calls to<br/>
-		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
-		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
-		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
-		/// call SDL_PumpEvents() to force an event queue update.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PumpEvents()
-		{
-			PumpEventsNative();
-		}
-
-		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
-		/// `events`, then `numevents` is ignored and the total number of matching<br/>
-		/// events will be returned.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// This function is thread-safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndexForID")]
 		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PeepEventsNative([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		internal static int GetJoystickPlayerIndexForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, SDLEventAction, uint, uint, int>)funcTable[781])(events, numevents, action, minType, maxType);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[626])(instanceId);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, SDLEventAction, uint, uint, int>)funcTable[781])((nint)events, numevents, action, minType, maxType);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[626])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
-		/// `events`, then `numevents` is ignored and the total number of matching<br/>
-		/// events will be returned.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// This function is thread-safe.<br/>
+		/// Get the player index of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndexForID")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		public static int GetJoystickPlayerIndexForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			int ret = PeepEventsNative(events, numevents, action, minType, maxType);
+			int ret = GetJoystickPlayerIndexForIDNative(instanceId);
 			return ret;
 		}
 
 		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
-		/// `events`, then `numevents` is ignored and the total number of matching<br/>
-		/// events will be returned.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// This function is thread-safe.<br/>
+		/// Get the implementation-dependent GUID of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SdlGuid GetJoystickGUIDForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLEvent* pevents = &events)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[627])(instanceId);
+			#else
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[627])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid GetJoystickGUIDForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SdlGuid ret = GetJoystickGUIDForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the vendor ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendorForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickVendorForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[628])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[628])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the vendor ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendorForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickVendorForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			ushort ret = GetJoystickVendorForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB product ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[629])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[629])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB product ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			ushort ret = GetJoystickProductForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the product version of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product version<br/>
+		/// isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersionForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductVersionForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[630])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[630])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the product version of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product version<br/>
+		/// isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersionForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductVersionForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			ushort ret = GetJoystickProductVersionForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystickType GetJoystickTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)funcTable[631])(instanceId);
+			#else
+			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)funcTable[631])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
+		public static SDLJoystickType GetJoystickTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLJoystickType ret = GetJoystickTypeForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a joystick for use.<br/>
+		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
+		/// for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystick* OpenJoystickNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[632])(instanceId);
+			#else
+			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[632])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a joystick for use.<br/>
+		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
+		/// for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		public static SDLJoystick* OpenJoystick([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLJoystick* ret = OpenJoystickNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystick* GetJoystickFromIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[633])(instanceId);
+			#else
+			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[633])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		public static SDLJoystick* GetJoystickFromID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLJoystick* ret = GetJoystickFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with a player index.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystick* GetJoystickFromPlayerIndexNative([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[634])(playerIndex);
+			#else
+			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[634])(playerIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with a player index.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		public static SDLJoystick* GetJoystickFromPlayerIndex([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			SDLJoystick* ret = GetJoystickFromPlayerIndexNative(playerIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Attach a new virtual joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AttachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AttachVirtualJoystickNative([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "SDL_VirtualJoystickDesc const *")] SDLVirtualJoystickDesc* desc)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLVirtualJoystickDesc*, int>)funcTable[635])(desc);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[635])((nint)desc);
+			#endif
+		}
+
+		/// <summary>
+		/// Attach a new virtual joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AttachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		public static int AttachVirtualJoystick([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "SDL_VirtualJoystickDesc const *")] SDLVirtualJoystickDesc* desc)
+		{
+			int ret = AttachVirtualJoystickNative(desc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Attach a new virtual joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AttachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		public static int AttachVirtualJoystick([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "SDL_VirtualJoystickDesc const *")] ref SDLVirtualJoystickDesc desc)
+		{
+			fixed (SDLVirtualJoystickDesc* pdesc = &desc)
 			{
-				int ret = PeepEventsNative((SDLEvent*)pevents, numevents, action, minType, maxType);
+				int ret = AttachVirtualJoystickNative((SDLVirtualJoystickDesc*)pdesc);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Check for the existence of a certain event type in the event queue.<br/>
-		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
-		/// instead.<br/>
+		/// Detach a virtual joystick.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
+		[NativeName(NativeNameType.Func, "SDL_DetachVirtualJoystick")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		internal static byte DetachVirtualJoystickNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[782])(type);
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[636])(instanceId);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[782])(type);
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[636])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Check for the existence of a certain event type in the event queue.<br/>
-		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
-		/// instead.<br/>
+		/// Detach a virtual joystick.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
+		[NativeName(NativeNameType.Func, "SDL_DetachVirtualJoystick")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		public static bool DetachVirtualJoystick([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			byte ret = HasEventNative(type);
+			byte ret = DetachVirtualJoystickNative(instanceId);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Check for the existence of certain event types in the event queue.<br/>
-		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
-		/// <br/>
+		/// Query whether or not a joystick is virtual.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickVirtual")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		internal static byte IsJoystickVirtualNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[783])(minType, maxType);
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[637])(instanceId);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[783])(minType, maxType);
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[637])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Check for the existence of certain event types in the event queue.<br/>
-		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
-		/// <br/>
+		/// Query whether or not a joystick is virtual.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickVirtual")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		public static bool IsJoystickVirtual([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			byte ret = HasEventsNative(minType, maxType);
+			byte ret = IsJoystickVirtualNative(instanceId);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Clear events of a specific type from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that match<br/>
-		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
-		/// instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// If you have user events with custom data that needs to be freed, you should<br/>
-		/// use SDL_PeepEvents() to remove and clean up those events before calling<br/>
-		/// this function.<br/>
-		/// <br/>
+		/// Set the state of an axis on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// Note that when sending trigger axes, you should scale the value to the full<br/>
+		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
+		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FlushEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[784])(type);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[784])(type);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear events of a specific type from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that match<br/>
-		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
-		/// instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// If you have user events with custom data that needs to be freed, you should<br/>
-		/// use SDL_PeepEvents() to remove and clean up those events before calling<br/>
-		/// this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FlushEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			FlushEventNative(type);
-		}
-
-		/// <summary>
-		/// Clear events of a range of types from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that are in the<br/>
-		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
-		/// event type, use SDL_FlushEvent() instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FlushEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[785])(minType, maxType);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[785])(minType, maxType);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear events of a range of types from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that are in the<br/>
-		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
-		/// event type, use SDL_FlushEvent() instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FlushEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			FlushEventsNative(minType, maxType);
-		}
-
-		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualAxis")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PollEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
+		internal static byte SetJoystickVirtualAxisNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[786])(evnt);
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short, byte>)funcTable[638])(joystick, axis, value);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[786])((nint)evnt);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, short, byte>)funcTable[638])((nint)joystick, axis, value);
 			#endif
 		}
 
 		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
+		/// Set the state of an axis on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// Note that when sending trigger axes, you should scale the value to the full<br/>
+		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
+		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualAxis")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
+		public static bool SetJoystickVirtualAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
 		{
-			byte ret = PollEventNative(evnt);
+			byte ret = SetJoystickVirtualAxisNative(joystick, axis, value);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
+		/// Set the state of an axis on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// Note that when sending trigger axes, you should scale the value to the full<br/>
+		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
+		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualAxis")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
+		public static bool SetJoystickVirtualAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
 		{
-			fixed (SDLEvent* pevnt = &evnt)
+			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				byte ret = PollEventNative((SDLEvent*)pevnt);
+				byte ret = SetJoystickVirtualAxisNative((SDLJoystick*)pjoystick, axis, value);
 				return ret != 0;
 			}
+		}
+
+		/// <summary>
+		/// Generate ball motion on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualBallNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "xrel")] [NativeName(NativeNameType.Type, "Sint16")] short xrel, [NativeName(NativeNameType.Param, "yrel")] [NativeName(NativeNameType.Type, "Sint16")] short yrel)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short, short, byte>)funcTable[639])(joystick, ball, xrel, yrel);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, short, short, byte>)funcTable[639])((nint)joystick, ball, xrel, yrel);
+			#endif
+		}
+
+		/// <summary>
+		/// Generate ball motion on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "xrel")] [NativeName(NativeNameType.Type, "Sint16")] short xrel, [NativeName(NativeNameType.Param, "yrel")] [NativeName(NativeNameType.Type, "Sint16")] short yrel)
+		{
+			byte ret = SetJoystickVirtualBallNative(joystick, ball, xrel, yrel);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Generate ball motion on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "xrel")] [NativeName(NativeNameType.Type, "Sint16")] short xrel, [NativeName(NativeNameType.Param, "yrel")] [NativeName(NativeNameType.Type, "Sint16")] short yrel)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickVirtualBallNative((SDLJoystick*)pjoystick, ball, xrel, yrel);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the state of a button on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualButtonNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] byte down)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, byte>)funcTable[640])(joystick, button, down);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte, byte>)funcTable[640])((nint)joystick, button, down);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of a button on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down)
+		{
+			byte ret = SetJoystickVirtualButtonNative(joystick, button, down ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the state of a button on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickVirtualButtonNative((SDLJoystick*)pjoystick, button, down ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the state of a hat on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualHat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualHatNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, byte>)funcTable[641])(joystick, hat, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte, byte>)funcTable[641])((nint)joystick, hat, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of a hat on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualHat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		{
+			byte ret = SetJoystickVirtualHatNative(joystick, hat, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the state of a hat on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualHat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickVirtualHatNative((SDLJoystick*)pjoystick, hat, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set touchpad finger state on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualTouchpad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualTouchpadNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] byte down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float")] float pressure)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, int, byte, float, float, float, byte>)funcTable[642])(joystick, touchpad, finger, down, x, y, pressure);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, byte, float, float, float, byte>)funcTable[642])((nint)joystick, touchpad, finger, down, x, y, pressure);
+			#endif
+		}
+
+		/// <summary>
+		/// Set touchpad finger state on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualTouchpad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualTouchpad([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float")] float pressure)
+		{
+			byte ret = SetJoystickVirtualTouchpadNative(joystick, touchpad, finger, down ? (byte)1 : (byte)0, x, y, pressure);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set touchpad finger state on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualTouchpad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualTouchpad([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float")] float pressure)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickVirtualTouchpadNative((SDLJoystick*)pjoystick, touchpad, finger, down ? (byte)1 : (byte)0, x, y, pressure);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SendJoystickVirtualSensorDataNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLSensorType, ulong, float*, int, byte>)funcTable[643])(joystick, type, sensorTimestamp, data, numValues);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, ulong, nint, int, byte>)funcTable[643])((nint)joystick, type, sensorTimestamp, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			byte ret = SendJoystickVirtualSensorDataNative(joystick, type, sensorTimestamp, data, numValues);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)pjoystick, type, sensorTimestamp, data, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				byte ret = SendJoystickVirtualSensorDataNative(joystick, type, sensorTimestamp, (float*)pdata, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (float* pdata = &data)
+				{
+					byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)pjoystick, type, sensorTimestamp, (float*)pdata, numValues);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the properties associated with a joystick.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
+		/// LED that has adjustable brightness<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetJoystickPropertiesNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, uint>)funcTable[644])(joystick);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[644])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with a joystick.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
+		/// LED that has adjustable brightness<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetJoystickProperties([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			uint ret = GetJoystickPropertiesNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a joystick.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
+		/// LED that has adjustable brightness<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetJoystickProperties([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				uint ret = GetJoystickPropertiesNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetJoystickNameNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[645])(joystick);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[645])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			byte* ret = GetJoystickNameNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			string ret = Utils.DecodeStringUTF8(GetJoystickNameNative(joystick));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = GetJoystickNameNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(GetJoystickNameNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetJoystickPathNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[646])(joystick);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[646])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			byte* ret = GetJoystickPathNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			string ret = Utils.DecodeStringUTF8(GetJoystickPathNative(joystick));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = GetJoystickPathNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(GetJoystickPathNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetJoystickPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[647])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[647])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			int ret = GetJoystickPlayerIndexNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = GetJoystickPlayerIndexNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[648])(joystick, playerIndex);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[648])((nint)joystick, playerIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			byte ret = SetJoystickPlayerIndexNative(joystick, playerIndex);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickPlayerIndexNative((SDLJoystick*)pjoystick, playerIndex);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SdlGuid GetJoystickGUIDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SdlGuid>)funcTable[649])(joystick);
+			#else
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)funcTable[649])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid GetJoystickGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			SdlGuid ret = GetJoystickGUIDNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid GetJoystickGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SdlGuid ret = GetJoystickGUIDNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendor")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickVendorNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[650])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[650])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendor")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			ushort ret = GetJoystickVendorNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendor")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = GetJoystickVendorNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProduct")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[651])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[651])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProduct")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			ushort ret = GetJoystickProductNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProduct")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = GetJoystickProductNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[652])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[652])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			ushort ret = GetJoystickProductVersionNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = GetJoystickProductVersionNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFirmwareVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickFirmwareVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[653])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[653])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFirmwareVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickFirmwareVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			ushort ret = GetJoystickFirmwareVersionNative(joystick);
+			return ret;
 		}
 	}
 }

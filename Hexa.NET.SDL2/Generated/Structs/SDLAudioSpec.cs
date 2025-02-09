@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The calculated values in this structure are calculated by SDL_OpenAudio().<br/>
 	/// For multi-channel audio, the default SDL channel mapping is:<br/>
+	/// ```<br/>
 	/// 2:  FL  FR                          (stereo)<br/>
 	/// 3:  FL  FR LFE                      (2.1 surround)<br/>
 	/// 4:  FL  FR  BL  BR                  (quad)<br/>
@@ -25,6 +26,7 @@ namespace Hexa.NET.SDL2
 	/// 6:  FL  FR  FC LFE  SL  SR          (5.1 surround - last two can also be BL BR)<br/>
 	/// 7:  FL  FR  FC LFE  BC  SL  SR      (6.1 surround)<br/>
 	/// 8:  FL  FR  FC LFE  BL  BR  SL  SR  (7.1 surround)<br/>
+	/// ```<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioSpec

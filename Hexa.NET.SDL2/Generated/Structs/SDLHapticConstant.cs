@@ -16,17 +16,17 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// This struct is exclusively for the ::SDL_HAPTIC_CONSTANT effect.<br/>
-	/// A constant effect applies a constant force in the specified direction<br/>
-	/// to the joystick.<br/>
+	/// A structure containing a template for a Constant effect.<br/>
+	/// This struct is exclusively for the SDL_HAPTIC_CONSTANT effect.<br/>
+	/// A constant effect applies a constant force in the specified direction to<br/>
+	/// the joystick.<br/>
 	/// <br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticConstant
 	{
 		/// <summary>
-		/// ::SDL_HAPTIC_CONSTANT <br/>
+		/// SDL_HAPTIC_CONSTANT <br/>
 		/// </summary>
 		public ushort Type;
 

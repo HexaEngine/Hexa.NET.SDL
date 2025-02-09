@@ -2808,12 +2808,12 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TLSSetNative(uint id, void* value, delegate*<void*, void> destructor)
+		internal static int TLSSetNative(uint id, void* value, SDLTLSDestructorCallback destructor)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, delegate*<void*, void>, int>)funcTable[182])(id, value, destructor);
+			return ((delegate* unmanaged[Cdecl]<uint, void*, delegate*<void*, void>, int>)funcTable[182])(id, value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[182])(id, (nint)value, (nint)destructor);
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[182])(id, (nint)value, (nint)Utils.GetFunctionPointerForDelegate(destructor));
 			#endif
 		}
 
@@ -2828,7 +2828,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int TLSSet(uint id, void* value, delegate*<void*, void> destructor)
+		public static int TLSSet(uint id, void* value, SDLTLSDestructorCallback destructor)
 		{
 			int ret = TLSSetNative(id, value, destructor);
 			return ret;

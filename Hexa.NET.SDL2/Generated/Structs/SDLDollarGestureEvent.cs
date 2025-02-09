@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Dollar Gesture Event (event.dgesture.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDollarGestureEvent
 	{
 		/// <summary>
-		/// ::SDL_DOLLARGESTURE or ::SDL_DOLLARRECORD <br/>
+		/// SDL_DOLLARGESTURE or SDL_DOLLARRECORD <br/>
 		/// </summary>
 		public uint Type;
 

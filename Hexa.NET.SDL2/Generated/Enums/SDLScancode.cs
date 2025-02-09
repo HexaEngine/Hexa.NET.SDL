@@ -13,9 +13,12 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// The SDL keyboard scancode representation.<br/>
 	/// Values of this type are used to represent keyboard keys, among other places<br/>
-	/// in the <br/>
+	/// in the SDL_Keysym::scancode key.keysym.scancode field of the SDL_Event<br/>
+	/// structure.<br/>
+	/// The values in this enumeration are based on the USB usage page standard:<br/>
+	/// https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLScancode : int

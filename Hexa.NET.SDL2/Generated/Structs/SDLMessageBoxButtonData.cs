@@ -22,7 +22,7 @@ namespace Hexa.NET.SDL2
 	public partial struct SDLMessageBoxButtonData
 	{
 		/// <summary>
-		/// ::SDL_MessageBoxButtonFlags <br/>
+		/// SDL_MessageBoxButtonFlags <br/>
 		/// </summary>
 		public uint Flags;
 

@@ -16,13 +16,17 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Controller device event structure (event.cdevice.*)<br/>
+	/// Joysticks that are supported game controllers receive both an<br/>
+	/// SDL_JoyDeviceEvent and an SDL_ControllerDeviceEvent.<br/>
+	/// SDL will send CONTROLLERDEVICEADDED events for joysticks that are already<br/>
+	/// plugged in during SDL_Init() and are recognized as game controllers.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLControllerDeviceEvent
 	{
 		/// <summary>
-		/// ::SDL_CONTROLLERDEVICEADDED, ::SDL_CONTROLLERDEVICEREMOVED, ::SDL_CONTROLLERDEVICEREMAPPED, or ::SDL_CONTROLLERSTEAMHANDLEUPDATED <br/>
+		/// SDL_CONTROLLERDEVICEADDED, SDL_CONTROLLERDEVICEREMOVED, SDL_CONTROLLERDEVICEREMAPPED, or SDL_CONTROLLERSTEAMHANDLEUPDATED <br/>
 		/// </summary>
 		public uint Type;
 

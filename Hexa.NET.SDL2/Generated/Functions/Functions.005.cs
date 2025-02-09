@@ -1816,7 +1816,7 @@ namespace Hexa.NET.SDL2
 		/// The new surface should be freed with SDL_FreeSurface(). Not doing so will<br/>
 		/// result in a memory leak.<br/>
 		/// src is an open SDL_RWops buffer, typically loaded with SDL_RWFromFile.<br/>
-		/// Alternitavely, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
+		/// Alternatively, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
 		/// from a file, convert it to an SDL_Surface and then close the file.<br/>
 		/// <br/>
 		/// <br/>
@@ -1837,7 +1837,7 @@ namespace Hexa.NET.SDL2
 		/// The new surface should be freed with SDL_FreeSurface(). Not doing so will<br/>
 		/// result in a memory leak.<br/>
 		/// src is an open SDL_RWops buffer, typically loaded with SDL_RWFromFile.<br/>
-		/// Alternitavely, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
+		/// Alternatively, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
 		/// from a file, convert it to an SDL_Surface and then close the file.<br/>
 		/// <br/>
 		/// <br/>
@@ -1854,7 +1854,7 @@ namespace Hexa.NET.SDL2
 		/// The new surface should be freed with SDL_FreeSurface(). Not doing so will<br/>
 		/// result in a memory leak.<br/>
 		/// src is an open SDL_RWops buffer, typically loaded with SDL_RWFromFile.<br/>
-		/// Alternitavely, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
+		/// Alternatively, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
 		/// from a file, convert it to an SDL_Surface and then close the file.<br/>
 		/// <br/>
 		/// <br/>

@@ -18,4038 +18,41 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetProcessPropertiesNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, uint>)funcTable[995])(process);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[995])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetProcessProperties([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			uint ret = GetProcessPropertiesNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetProcessProperties([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				uint ret = GetProcessPropertiesNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* ReadProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, nuint*, int*, void*>)funcTable[996])(process, datasize, exitcode);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)funcTable[996])((nint)process, (nint)datasize, (nint)exitcode);
-			#endif
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			void* ret = ReadProcessNative(process, datasize, exitcode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				void* ret = ReadProcessNative((SDLProcess*)pprocess, datasize, exitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = ReadProcessNative(process, (nuint*)pdatasize, exitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (nuint* pdatasize = &datasize)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					void* ret = ReadProcessNative((SDLProcess*)pprocess, (nuint*)pdatasize, exitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (int* pexitcode = &exitcode)
-			{
-				void* ret = ReadProcessNative(process, datasize, (int*)pexitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					void* ret = ReadProcessNative((SDLProcess*)pprocess, datasize, (int*)pexitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					void* ret = ReadProcessNative(process, (nuint*)pdatasize, (int*)pexitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					fixed (int* pexitcode = &exitcode)
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						void* ret = ReadProcessNative((SDLProcess*)pprocess, (nuint*)pdatasize, (int*)pexitcode);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// so if you may need to call SDL_GetOutputStream() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessInput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* GetProcessInputNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, SDLIOStream*>)funcTable[997])(process);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[997])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// so if you may need to call SDL_GetOutputStream() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessInput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessInput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			SDLIOStream* ret = GetProcessInputNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// so if you may need to call SDL_GetOutputStream() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessInput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessInput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				SDLIOStream* ret = GetProcessInputNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessOutput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* GetProcessOutputNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, SDLIOStream*>)funcTable[998])(process);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[998])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessOutput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessOutput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			SDLIOStream* ret = GetProcessOutputNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessOutput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessOutput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				SDLIOStream* ret = GetProcessOutputNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_KillProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte KillProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "force")] [NativeName(NativeNameType.Type, "bool")] byte force)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, byte, byte>)funcTable[999])(process, force);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[999])((nint)process, force);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_KillProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool KillProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "force")] [NativeName(NativeNameType.Type, "bool")] bool force)
-		{
-			byte ret = KillProcessNative(process, force ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_KillProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool KillProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "force")] [NativeName(NativeNameType.Type, "bool")] bool force)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				byte ret = KillProcessNative((SDLProcess*)pprocess, force ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] byte block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, byte, int*, byte>)funcTable[1000])(process, block, exitcode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, byte>)funcTable[1000])((nint)process, block, (nint)exitcode);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			byte ret = WaitProcessNative(process, block ? (byte)1 : (byte)0, exitcode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				byte ret = WaitProcessNative((SDLProcess*)pprocess, block ? (byte)1 : (byte)0, exitcode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (int* pexitcode = &exitcode)
-			{
-				byte ret = WaitProcessNative(process, block ? (byte)1 : (byte)0, (int*)pexitcode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					byte ret = WaitProcessNative((SDLProcess*)pprocess, block ? (byte)1 : (byte)0, (int*)pexitcode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProcess")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLProcess*, void>)funcTable[1001])(process);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1001])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProcess")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			DestroyProcessNative(process);
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProcess")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				DestroyProcessNative((SDLProcess*)pprocess);
-			}
-		}
-
-		/// <summary>
-		/// Get the number of 2D rendering drivers available for the current display.<br/>
-		/// A render driver is a set of code that handles rendering and texture<br/>
-		/// management on a particular display. Normally there is only one, but some<br/>
-		/// drivers may have several available with different capabilities.<br/>
-		/// There may be none if SDL was compiled without render support.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumRenderDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumRenderDriversNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1002])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1002])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of 2D rendering drivers available for the current display.<br/>
-		/// A render driver is a set of code that handles rendering and texture<br/>
-		/// management on a particular display. Normally there is only one, but some<br/>
-		/// drivers may have several available with different capabilities.<br/>
-		/// There may be none if SDL was compiled without render support.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumRenderDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumRenderDrivers()
-		{
-			int ret = GetNumRenderDriversNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetRenderDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1003])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1003])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetRenderDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			byte* ret = GetRenderDriverNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetRenderDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetRenderDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CreateWindowAndRendererNative([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, int, SDLWindowFlags, SDLWindow**, SDLRenderer**, byte>)funcTable[1004])(title, width, height, windowFlags, window, renderer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, SDLWindowFlags, nint, nint, byte>)funcTable[1004])((nint)title, width, height, windowFlags, (nint)window, (nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, renderer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, renderer);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (SDLWindow** pwindow = &window)
-			{
-				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow** pwindow = &window)
-			{
-				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (SDLRenderer** prenderer = &renderer)
-			{
-				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLRenderer** prenderer = &renderer)
-			{
-				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (SDLWindow** pwindow = &window)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					fixed (SDLRenderer** prenderer = &renderer)
-					{
-						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					fixed (SDLRenderer** prenderer = &renderer)
-					{
-						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow** pwindow = &window)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* CreateRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, SDLRenderer*>)funcTable[1005])(window, name);
-			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1005])((nint)window, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			SDLRenderer* ret = CreateRendererNative(window, name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, name);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLRenderer* ret = CreateRendererNative(window, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = &name)
-				{
-					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = name)
-				{
-					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver multiple<br/>
-		/// times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you don't<br/>
-		/// need a specific renderer, specify NULL and SDL will attempt to choose the<br/>
-		/// best option for you, based on what is available on the user's system.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window, with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_NAME_STRING`: the name of the rendering driver<br/>
-		/// to use, if a specific one is desired<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, required if this isn't a software renderer using a surface<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_SURFACE_POINTER`: the surface where rendering<br/>
-		/// is displayed, if you want a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER`: an SDL_ColorSpace<br/>
-		/// value describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB. The direct3d11, direct3d12, and metal renderers<br/>
-		/// support SDL_COLORSPACE_SRGB_LINEAR, which is a linear color space and<br/>
-		/// supports HDR output. If you select SDL_COLORSPACE_SRGB_LINEAR, drawing<br/>
-		/// still uses the sRGB colorspace, but values can go beyond 1.0 and float<br/>
-		/// (linear) format textures can be used for HDR content.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER`: non-zero if you want<br/>
-		/// present synchronized with the refresh rate. This property can take any<br/>
-		/// value that is supported by SDL_SetRenderVSync() for the renderer.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER`: the VkInstance to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER`: the<br/>
-		/// VkPhysicalDevice to use with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER`: the VkDevice to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for rendering.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRendererWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* CreateRendererWithPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLRenderer*>)funcTable[1006])(props);
-			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[1006])(props);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window, with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_NAME_STRING`: the name of the rendering driver<br/>
-		/// to use, if a specific one is desired<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, required if this isn't a software renderer using a surface<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_SURFACE_POINTER`: the surface where rendering<br/>
-		/// is displayed, if you want a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER`: an SDL_ColorSpace<br/>
-		/// value describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB. The direct3d11, direct3d12, and metal renderers<br/>
-		/// support SDL_COLORSPACE_SRGB_LINEAR, which is a linear color space and<br/>
-		/// supports HDR output. If you select SDL_COLORSPACE_SRGB_LINEAR, drawing<br/>
-		/// still uses the sRGB colorspace, but values can go beyond 1.0 and float<br/>
-		/// (linear) format textures can be used for HDR content.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER`: non-zero if you want<br/>
-		/// present synchronized with the refresh rate. This property can take any<br/>
-		/// value that is supported by SDL_SetRenderVSync() for the renderer.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER`: the VkInstance to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER`: the<br/>
-		/// VkPhysicalDevice to use with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER`: the VkDevice to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for rendering.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRendererWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRendererWithProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			SDLRenderer* ret = CreateRendererWithPropertiesNative(props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a 2D software rendering context for a surface.<br/>
-		/// Two other API which can be used to create SDL_Renderer:<br/>
-		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
-		/// create a software renderer, but they are intended to be used with an<br/>
-		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSoftwareRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* CreateSoftwareRendererNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRenderer*>)funcTable[1007])(surface);
-			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1007])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a 2D software rendering context for a surface.<br/>
-		/// Two other API which can be used to create SDL_Renderer:<br/>
-		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
-		/// create a software renderer, but they are intended to be used with an<br/>
-		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSoftwareRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateSoftwareRenderer([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			SDLRenderer* ret = CreateSoftwareRendererNative(surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a 2D software rendering context for a surface.<br/>
-		/// Two other API which can be used to create SDL_Renderer:<br/>
-		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
-		/// create a software renderer, but they are intended to be used with an<br/>
-		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSoftwareRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateSoftwareRenderer([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLRenderer* ret = CreateSoftwareRendererNative((SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the renderer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* GetRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRenderer*>)funcTable[1008])(window);
-			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1008])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the renderer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* GetRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			SDLRenderer* ret = GetRendererNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the renderer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* GetRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLRenderer* ret = GetRendererNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the window associated with a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderWindow")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetRenderWindowNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*>)funcTable[1009])(renderer);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1009])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window associated with a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderWindow")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetRenderWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			SDLWindow* ret = GetRenderWindowNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window associated with a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderWindow")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetRenderWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLWindow* ret = GetRenderWindowNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the name of a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetRendererNameNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*>)funcTable[1010])(renderer);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1010])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetRendererName([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			byte* ret = GetRendererNameNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetRendererNameS([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			string ret = Utils.DecodeStringUTF8(GetRendererNameNative(renderer));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetRendererName([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte* ret = GetRendererNameNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the name of a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetRendererNameS([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				string ret = Utils.DecodeStringUTF8(GetRendererNameNative((SDLRenderer*)prenderer));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with a renderer.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
-		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, if any<br/>
-		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
-		/// displayed, if this is a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
-		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
-		/// and height<br/>
-		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
-		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
-		/// representing the available texture formats for this renderer.<br/>
-		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_ColorSpace value<br/>
-		/// describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
-		/// HDR enabled. This property can change dynamically when<br/>
-		/// SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
-		/// automatically multiplied into the color scale. This property can change<br/>
-		/// dynamically when SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// With the direct3d renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
-		/// with the renderer<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
-		/// associated with the renderer. This may change when the window is resized.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
-		/// associated with the renderer.<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
-		/// associated with the renderer<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
-		/// associated with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
-		/// the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for rendering<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for presentation<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
-		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
-		/// renderer<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetRendererPropertiesNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint>)funcTable[1011])(renderer);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1011])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a renderer.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
-		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, if any<br/>
-		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
-		/// displayed, if this is a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
-		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
-		/// and height<br/>
-		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
-		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
-		/// representing the available texture formats for this renderer.<br/>
-		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_ColorSpace value<br/>
-		/// describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
-		/// HDR enabled. This property can change dynamically when<br/>
-		/// SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
-		/// automatically multiplied into the color scale. This property can change<br/>
-		/// dynamically when SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// With the direct3d renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
-		/// with the renderer<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
-		/// associated with the renderer. This may change when the window is resized.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
-		/// associated with the renderer.<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
-		/// associated with the renderer<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
-		/// associated with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
-		/// the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for rendering<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for presentation<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
-		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
-		/// renderer<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetRendererProperties([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			uint ret = GetRendererPropertiesNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a renderer.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
-		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, if any<br/>
-		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
-		/// displayed, if this is a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
-		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
-		/// and height<br/>
-		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
-		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
-		/// representing the available texture formats for this renderer.<br/>
-		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_ColorSpace value<br/>
-		/// describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
-		/// HDR enabled. This property can change dynamically when<br/>
-		/// SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
-		/// automatically multiplied into the color scale. This property can change<br/>
-		/// dynamically when SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_DISPLAY_HDR_STATE_CHANGED is sent.<br/>
-		/// With the direct3d renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
-		/// with the renderer<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
-		/// associated with the renderer. This may change when the window is resized.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
-		/// associated with the renderer.<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
-		/// associated with the renderer<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
-		/// associated with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
-		/// the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for rendering<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for presentation<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
-		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
-		/// renderer<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetRendererProperties([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				uint ret = GetRendererPropertiesNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRenderOutputSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, byte>)funcTable[1012])(renderer, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1012])((nint)renderer, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			byte ret = GetRenderOutputSizeNative(renderer, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, w, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				byte ret = GetRenderOutputSizeNative(renderer, (int*)pw, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				byte ret = GetRenderOutputSizeNative(renderer, w, (int*)ph);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetRenderOutputSizeNative(renderer, (int*)pw, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetCurrentRenderOutputSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, byte>)funcTable[1013])(renderer, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1013])((nint)renderer, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			byte ret = GetCurrentRenderOutputSizeNative(renderer, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, w, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				byte ret = GetCurrentRenderOutputSizeNative(renderer, (int*)pw, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				byte ret = GetCurrentRenderOutputSizeNative(renderer, w, (int*)ph);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetCurrentRenderOutputSizeNative(renderer, (int*)pw, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentRenderOutputSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentRenderOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int *")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int *")] ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context.<br/>
-		/// The contents of a texture when first created are not defined.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* CreateTextureNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "SDL_TextureAccess")] SDLTextureAccess access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPixelFormat, SDLTextureAccess, int, int, SDLTexture*>)funcTable[1014])(renderer, format, access, w, h);
-			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat, SDLTextureAccess, int, int, nint>)funcTable[1014])((nint)renderer, format, access, w, h);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context.<br/>
-		/// The contents of a texture when first created are not defined.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "SDL_TextureAccess")] SDLTextureAccess access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
-		{
-			SDLTexture* ret = CreateTextureNative(renderer, format, access, w, h);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context.<br/>
-		/// The contents of a texture when first created are not defined.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "SDL_TextureAccess")] SDLTextureAccess access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureNative((SDLRenderer*)prenderer, format, access, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* CreateTextureFromSurfaceNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLSurface*, SDLTexture*>)funcTable[1015])(renderer, surface);
-			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1015])((nint)renderer, (nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLSurface* psurface = &surface)
-				{
-					SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_ColorSpace value<br/>
-		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
-		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
-		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
-		/// YUV textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the maximum dynamic range used by the<br/>
-		/// content, in terms of the SDR white point. This would be equivalent to<br/>
-		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
-		/// If this is defined, any values outside the range supported by the display<br/>
-		/// will be scaled into the available HDR headroom, otherwise they are<br/>
-		/// clipped.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the metal renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
-		/// associated with the texture, if you want to create a texture from an<br/>
-		/// existing pixel buffer.<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
-		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
-		/// you want to wrap an existing texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* CreateTextureWithPropertiesNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, SDLTexture*>)funcTable[1016])(renderer, props);
-			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, uint, nint>)funcTable[1016])((nint)renderer, props);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_ColorSpace value<br/>
-		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
-		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
-		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
-		/// YUV textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the maximum dynamic range used by the<br/>
-		/// content, in terms of the SDR white point. This would be equivalent to<br/>
-		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
-		/// If this is defined, any values outside the range supported by the display<br/>
-		/// will be scaled into the available HDR headroom, otherwise they are<br/>
-		/// clipped.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the metal renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
-		/// associated with the texture, if you want to create a texture from an<br/>
-		/// existing pixel buffer.<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
-		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
-		/// you want to wrap an existing texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTextureWithProperties([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			SDLTexture* ret = CreateTextureWithPropertiesNative(renderer, props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_ColorSpace value<br/>
-		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
-		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
-		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
-		/// YUV textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the maximum dynamic range used by the<br/>
-		/// content, in terms of the SDR white point. This would be equivalent to<br/>
-		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
-		/// If this is defined, any values outside the range supported by the display<br/>
-		/// will be scaled into the available HDR headroom, otherwise they are<br/>
-		/// clipped.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the metal renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
-		/// associated with the texture, if you want to create a texture from an<br/>
-		/// existing pixel buffer.<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
-		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
-		/// you want to wrap an existing texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture *")]
-		public static SDLTexture* CreateTextureWithProperties([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureWithPropertiesNative((SDLRenderer*)prenderer, props);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with a texture.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_ColorSpace value describing<br/>
-		/// the texture colorspace.<br/>
-		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat.<br/>
-		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess.<br/>
-		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
-		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. If this is defined, any values outside the<br/>
-		/// range supported by the display will be scaled into the available HDR<br/>
-		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
-		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
-		/// textures.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_POINTER`: the VkImage associated with<br/>
-		/// the texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_U_POINTER`: the VkImage associated with<br/>
-		/// the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_V_POINTER`: the VkImage associated with<br/>
-		/// the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_UV_POINTER`: the VkImage associated with<br/>
-		/// the UV plane of a NV12/NV21 texture<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
-		/// texture<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetTexturePropertiesNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint>)funcTable[1017])(texture);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1017])((nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a texture.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_ColorSpace value describing<br/>
-		/// the texture colorspace.<br/>
-		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat.<br/>
-		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess.<br/>
-		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
-		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. If this is defined, any values outside the<br/>
-		/// range supported by the display will be scaled into the available HDR<br/>
-		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
-		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
-		/// textures.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_POINTER`: the VkImage associated with<br/>
-		/// the texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_U_POINTER`: the VkImage associated with<br/>
-		/// the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_V_POINTER`: the VkImage associated with<br/>
-		/// the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_UV_POINTER`: the VkImage associated with<br/>
-		/// the UV plane of a NV12/NV21 texture<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
-		/// texture<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetTextureProperties([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture)
-		{
-			uint ret = GetTexturePropertiesNative(texture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a texture.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_ColorSpace value describing<br/>
-		/// the texture colorspace.<br/>
-		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat.<br/>
-		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess.<br/>
-		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
-		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. If this is defined, any values outside the<br/>
-		/// range supported by the display will be scaled into the available HDR<br/>
-		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
-		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
-		/// textures.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_POINTER`: the VkImage associated with<br/>
-		/// the texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_U_POINTER`: the VkImage associated with<br/>
-		/// the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_V_POINTER`: the VkImage associated with<br/>
-		/// the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_UV_POINTER`: the VkImage associated with<br/>
-		/// the UV plane of a NV12/NV21 texture<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
-		/// texture<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetTextureProperties([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				uint ret = GetTexturePropertiesNative((SDLTexture*)ptexture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the renderer that created an SDL_Texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererFromTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* GetRendererFromTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRenderer*>)funcTable[1018])(texture);
-			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1018])((nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the renderer that created an SDL_Texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererFromTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* GetRendererFromTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture)
-		{
-			SDLRenderer* ret = GetRendererFromTextureNative(texture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the renderer that created an SDL_Texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRendererFromTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* GetRendererFromTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				SDLRenderer* ret = GetRendererFromTextureNative((SDLTexture*)ptexture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureSizeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] float* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] float* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, byte>)funcTable[1019])(texture, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1019])((nint)texture, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] float* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] float* h)
-		{
-			byte ret = GetTextureSizeNative(texture, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] float* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] float* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureSizeNative((SDLTexture*)ptexture, w, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] ref float w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] float* h)
-		{
-			fixed (float* pw = &w)
-			{
-				byte ret = GetTextureSizeNative(texture, (float*)pw, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] ref float w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] float* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pw = &w)
-				{
-					byte ret = GetTextureSizeNative((SDLTexture*)ptexture, (float*)pw, h);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] float* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] ref float h)
-		{
-			fixed (float* ph = &h)
-			{
-				byte ret = GetTextureSizeNative(texture, w, (float*)ph);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] float* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] ref float h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* ph = &h)
-				{
-					byte ret = GetTextureSizeNative((SDLTexture*)ptexture, w, (float*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] ref float w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] ref float h)
-		{
-			fixed (float* pw = &w)
-			{
-				fixed (float* ph = &h)
-				{
-					byte ret = GetTextureSizeNative(texture, (float*)pw, (float*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureSize")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureSize([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float *")] ref float w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float *")] ref float h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pw = &w)
-				{
-					fixed (float* ph = &h)
-					{
-						byte ret = GetTextureSizeNative((SDLTexture*)ptexture, (float*)pw, (float*)ph);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureColorModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte, byte, byte>)funcTable[1020])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[1020])((nint)texture, r, g, b);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			byte ret = SetTextureColorModNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * color`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureColorModFloatNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float, float, float, byte>)funcTable[1021])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, byte>)funcTable[1021])((nint)texture, r, g, b);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * color`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b)
-		{
-			byte ret = SetTextureColorModFloatNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * color`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureColorModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte*, byte*, byte>)funcTable[1022])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1022])((nint)texture, (nint)r, (nint)g, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			byte ret = GetTextureColorModNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				byte ret = GetTextureColorModNative(texture, (byte*)pr, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (byte* pg = &g)
-			{
-				byte ret = GetTextureColorModNative(texture, r, (byte*)pg, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pg = &g)
-				{
-					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					byte ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (byte* pb = &b)
-			{
-				byte ret = GetTextureColorModNative(texture, r, g, (byte*)pb);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pb = &b)
-				{
-					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					byte ret = GetTextureColorModNative(texture, (byte*)pr, g, (byte*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					byte ret = GetTextureColorModNative(texture, r, (byte*)pg, (byte*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						byte ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, (byte*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -4058,183 +61,76 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureColorModFloatNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, float*, byte>)funcTable[1023])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1023])((nint)texture, (nint)r, (nint)g, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			byte ret = GetTextureColorModFloatNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
-		{
-			fixed (float* pr = &r)
-			{
-				byte ret = GetTextureColorModFloatNative(texture, (float*)pr, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, g, b);
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
-		{
-			fixed (float* pg = &g)
-			{
-				byte ret = GetTextureColorModFloatNative(texture, r, (float*)pg, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (float* pg = &g)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, (float*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
-		{
-			fixed (float* pr = &r)
-			{
-				fixed (float* pg = &g)
-				{
-					byte ret = GetTextureColorModFloatNative(texture, (float*)pr, (float*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
-				{
-					fixed (float* pg = &g)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, (float*)pg, b);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -4242,87 +138,39 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
-		{
-			fixed (float* pb = &b)
-			{
-				byte ret = GetTextureColorModFloatNative(texture, r, g, (float*)pb);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (float* pb = &b)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, (float*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
-		{
-			fixed (float* pr = &r)
-			{
-				fixed (float* pb = &b)
-				{
-					byte ret = GetTextureColorModFloatNative(texture, (float*)pr, g, (float*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
-				{
-					fixed (float* pb = &b)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, g, (float*)pb);
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -4330,98 +178,41 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
-		{
-			fixed (float* pg = &g)
-			{
-				fixed (float* pb = &b)
-				{
-					byte ret = GetTextureColorModFloatNative(texture, r, (float*)pg, (float*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (float* pg = &g)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (float* pb = &b)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, (float*)pg, (float*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
-		{
-			fixed (float* pr = &r)
-			{
-				fixed (float* pg = &g)
-				{
-					fixed (float* pb = &b)
-					{
-						byte ret = GetTextureColorModFloatNative(texture, (float*)pr, (float*)pg, (float*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureColorModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
-				{
-					fixed (float* pg = &g)
-					{
-						fixed (float* pb = &b)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, (float*)pg, (float*)pb);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -4430,607 +221,4808 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureAlphaModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte>)funcTable[1024])(texture, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[1024])((nint)texture, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaMod")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			byte ret = SetTextureAlphaModNative(texture, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				byte ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * alpha`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureAlphaModFloatNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float")] float alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float, byte>)funcTable[1025])(texture, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, byte>)funcTable[1025])((nint)texture, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * alpha`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureAlphaModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float")] float alpha)
-		{
-			byte ret = SetTextureAlphaModFloatNative(texture, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * alpha`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaModFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureAlphaModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float")] float alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureAlphaModFloatNative((SDLTexture*)ptexture, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureAlphaModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte>)funcTable[1026])(texture, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1026])((nint)texture, (nint)alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
-		{
-			byte ret = GetTextureAlphaModNative(texture, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte alpha)
-		{
-			fixed (byte* palpha = &alpha)
-			{
-				byte ret = GetTextureAlphaModNative(texture, (byte*)palpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* palpha = &alpha)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+							{
+								byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitForGPUSwapchainNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[910])(device, window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[910])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = WaitForGPUSwapchainNative(device, window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, window);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WaitForGPUSwapchainNative(device, (SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureAlphaModFloatNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float *")] float* alpha)
+		internal static byte WaitAndAcquireGPUSwapchainTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, byte>)funcTable[1027])(texture, alpha);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[911])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1027])((nint)texture, (nint)alpha);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[911])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float *")] float* alpha)
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			byte ret = GetTextureAlphaModFloatNative(texture, alpha);
+			byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float *")] float* alpha)
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = GetTextureAlphaModFloatNative((SDLTexture*)ptexture, alpha);
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float *")] ref float alpha)
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (float* palpha = &alpha)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = GetTextureAlphaModFloatNative(texture, (float*)palpha);
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaModFloat")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureAlphaModFloat([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "float *")] ref float alpha)
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (float* palpha = &alpha)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					byte ret = GetTextureAlphaModFloatNative((SDLTexture*)ptexture, (float*)palpha);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns false.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureBlendModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, byte>)funcTable[1028])(texture, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, byte>)funcTable[1028])((nint)texture, blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureBlendMode")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			byte ret = SetTextureBlendModeNative(texture, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				byte ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureBlendModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, byte>)funcTable[1029])(texture, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1029])((nint)texture, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			byte ret = GetTextureBlendModeNative(texture, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				byte ret = GetTextureBlendModeNative(texture, (SDLBlendMode*)pblendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					byte ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureScaleModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, byte>)funcTable[1030])(texture, scaleMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, byte>)funcTable[1030])((nint)texture, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureScaleMode")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			byte ret = SetTextureScaleModeNative(texture, scaleMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+			{
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+			{
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+							{
+								byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBuffer")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureScaleModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode *")] SDLScaleMode* scaleMode)
+		internal static byte SubmitGPUCommandBufferNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, byte>)funcTable[1031])(texture, scaleMode);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[912])(commandBuffer);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1031])((nint)texture, (nint)scaleMode);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[912])((nint)commandBuffer);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBuffer")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode *")] SDLScaleMode* scaleMode)
+		public static bool SubmitGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
 		{
-			byte ret = GetTextureScaleModeNative(texture, scaleMode);
+			byte ret = SubmitGPUCommandBufferNative(commandBuffer);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBuffer")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode *")] SDLScaleMode* scaleMode)
+		public static bool SubmitGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				byte ret = SubmitGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
 				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBufferAndAcquireFence")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUFence *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFenceNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUFence*>)funcTable[913])(commandBuffer);
+			#else
+			return (SDLGPUFence*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[913])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBufferAndAcquireFence")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUFence *")]
+		public static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFence([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
+		{
+			SDLGPUFence* ret = SubmitGPUCommandBufferAndAcquireFenceNative(commandBuffer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBufferAndAcquireFence")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUFence *")]
+		public static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFence([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				SDLGPUFence* ret = SubmitGPUCommandBufferAndAcquireFenceNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CancelGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CancelGPUCommandBufferNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[914])(commandBuffer);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[914])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CancelGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CancelGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
+		{
+			byte ret = CancelGPUCommandBufferNative(commandBuffer);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CancelGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CancelGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte ret = CancelGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUIdle")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitForGPUIdleNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte>)funcTable[915])(device);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[915])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUIdle")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUIdle([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			byte ret = WaitForGPUIdleNative(device);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUIdle")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUIdle([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WaitForGPUIdleNative((SDLGPUDevice*)pdevice);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitForGPUFencesNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] byte waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] SDLGPUFence** fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte, SDLGPUFence**, uint, byte>)funcTable[916])(device, waitAll, fences, numFences);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, uint, byte>)funcTable[916])((nint)device, waitAll, (nint)fences, numFences);
+			#endif
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] SDLGPUFence** fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			byte ret = WaitForGPUFencesNative(device, waitAll ? (byte)1 : (byte)0, fences, numFences);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] SDLGPUFence** fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, fences, numFences);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] ref SDLGPUFence* fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			fixed (SDLGPUFence** pfences = &fences)
+			{
+				byte ret = WaitForGPUFencesNative(device, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] ref SDLGPUFence* fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence** pfences = &fences)
+				{
+					byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte QueryGPUFenceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, byte>)funcTable[917])(device, fence);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[917])((nint)device, (nint)fence);
+			#endif
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
+		{
+			byte ret = QueryGPUFenceNative(device, fence);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, fence);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUFence* pfence = &fence)
+			{
+				byte ret = QueryGPUFenceNative(device, (SDLGPUFence*)pfence);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence* pfence = &fence)
+				{
+					byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUFenceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, void>)funcTable[918])(device, fence);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[918])((nint)device, (nint)fence);
+			#endif
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
+		{
+			ReleaseGPUFenceNative(device, fence);
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, fence);
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUFence* pfence = &fence)
+			{
+				ReleaseGPUFenceNative(device, (SDLGPUFence*)pfence);
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence* pfence = &fence)
+				{
+					ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texel block size for a texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureFormatTexelBlockSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GPUTextureFormatTexelBlockSizeNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[919])(format);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[919])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Obtains the texel block size for a texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureFormatTexelBlockSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GPUTextureFormatTexelBlockSize([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format)
+		{
+			uint ret = GPUTextureFormatTexelBlockSizeNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUTextureSupportsFormatNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GPUTextureType")] SDLGPUTextureType type, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")] SDLGPUTextureUsageFlags usage)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUTextureType, SDLGPUTextureUsageFlags, byte>)funcTable[920])(device, format, type, usage);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUTextureType, SDLGPUTextureUsageFlags, byte>)funcTable[920])((nint)device, format, type, usage);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GPUTextureType")] SDLGPUTextureType type, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")] SDLGPUTextureUsageFlags usage)
+		{
+			byte ret = GPUTextureSupportsFormatNative(device, format, type, usage);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GPUTextureType")] SDLGPUTextureType type, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")] SDLGPUTextureUsageFlags usage)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = GPUTextureSupportsFormatNative((SDLGPUDevice*)pdevice, format, type, usage);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsSampleCount")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUTextureSupportsSampleCountNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "sample_count")] [NativeName(NativeNameType.Type, "SDL_GPUSampleCount")] SDLGPUSampleCount sampleCount)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[921])(device, format, sampleCount);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[921])((nint)device, format, sampleCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsSampleCount")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsSampleCount([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "sample_count")] [NativeName(NativeNameType.Type, "SDL_GPUSampleCount")] SDLGPUSampleCount sampleCount)
+		{
+			byte ret = GPUTextureSupportsSampleCountNative(device, format, sampleCount);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsSampleCount")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsSampleCount([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "sample_count")] [NativeName(NativeNameType.Type, "SDL_GPUSampleCount")] SDLGPUSampleCount sampleCount)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = GPUTextureSupportsSampleCountNative((SDLGPUDevice*)pdevice, format, sampleCount);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the size in bytes of a texture format with dimensions.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CalculateGPUTextureFormatSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint CalculateGPUTextureFormatSizeNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "Uint32")] uint width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "Uint32")] uint height, [NativeName(NativeNameType.Param, "depth_or_layer_count")] [NativeName(NativeNameType.Type, "Uint32")] uint depthOrLayerCount)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[922])(format, width, height, depthOrLayerCount);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[922])(format, width, height, depthOrLayerCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the size in bytes of a texture format with dimensions.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CalculateGPUTextureFormatSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint CalculateGPUTextureFormatSize([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "Uint32")] uint width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "Uint32")] uint height, [NativeName(NativeNameType.Param, "depth_or_layer_count")] [NativeName(NativeNameType.Type, "Uint32")] uint depthOrLayerCount)
+		{
+			uint ret = CalculateGPUTextureFormatSizeNative(format, width, height, depthOrLayerCount);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHaptics")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint* GetHapticsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[923])(count);
+			#else
+			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[923])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHaptics")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID *")]
+		public static uint* GetHaptics([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			uint* ret = GetHapticsNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHaptics")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID *")]
+		public static uint* GetHaptics([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				uint* ret = GetHapticsNative((int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetHapticNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[924])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[924])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetHapticNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			byte* ret = GetHapticNameForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetHapticNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetHapticNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a haptic device for use.<br/>
+		/// The index passed as an argument refers to the N'th haptic device on this<br/>
+		/// system.<br/>
+		/// When opening a haptic device, its gain will be set to maximum and<br/>
+		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
+		/// and SDL_SetHapticAutocenter().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHaptic")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[925])(instanceId);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[925])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a haptic device for use.<br/>
+		/// The index passed as an argument refers to the N'th haptic device on this<br/>
+		/// system.<br/>
+		/// When opening a haptic device, its gain will be set to maximum and<br/>
+		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
+		/// and SDL_SetHapticAutocenter().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHaptic")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHaptic* OpenHaptic([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			SDLHaptic* ret = OpenHapticNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* GetHapticFromIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[926])(instanceId);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[926])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHaptic* GetHapticFromID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			SDLHaptic* ret = GetHapticFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticID")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetHapticIDNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[927])(haptic);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[927])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticID")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID")]
+		public static uint GetHapticID([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			uint ret = GetHapticIDNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticID")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID")]
+		public static uint GetHapticID([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				uint ret = GetHapticIDNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetHapticNameNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte*>)funcTable[928])(haptic);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[928])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetHapticName([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			byte* ret = GetHapticNameNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetHapticNameS([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			string ret = Utils.DecodeStringUTF8(GetHapticNameNative(haptic));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetHapticName([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte* ret = GetHapticNameNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetHapticNameS([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				string ret = Utils.DecodeStringUTF8(GetHapticNameNative((SDLHaptic*)phaptic));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether or not the current mouse has haptic capabilities.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsMouseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsMouseHapticNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[929])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[929])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether or not the current mouse has haptic capabilities.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsMouseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsMouseHaptic()
+		{
+			byte ret = IsMouseHapticNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Try to open a haptic device from the current mouse.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromMouse")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticFromMouseNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)funcTable[930])();
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint>)funcTable[930])();
+			#endif
+		}
+
+		/// <summary>
+		/// Try to open a haptic device from the current mouse.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromMouse")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHaptic* OpenHapticFromMouse()
+		{
+			SDLHaptic* ret = OpenHapticFromMouseNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsJoystickHapticNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte>)funcTable[931])(joystick);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[931])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsJoystickHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			byte ret = IsJoystickHapticNative(joystick);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsJoystickHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = IsJoystickHapticNative((SDLJoystick*)pjoystick);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticFromJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)funcTable[932])(joystick);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[932])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHaptic* OpenHapticFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			SDLHaptic* ret = OpenHapticFromJoystickNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHaptic* OpenHapticFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLHaptic* ret = OpenHapticFromJoystickNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseHaptic")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)funcTable[933])(haptic);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[933])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseHaptic")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			CloseHapticNative(haptic);
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseHaptic")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				CloseHapticNative((SDLHaptic*)phaptic);
+			}
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetMaxHapticEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[934])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[934])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			int ret = GetMaxHapticEffectsNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetMaxHapticEffectsNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffectsPlaying")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetMaxHapticEffectsPlayingNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[935])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[935])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffectsPlaying")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			int ret = GetMaxHapticEffectsPlayingNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffectsPlaying")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetMaxHapticEffectsPlayingNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFeatures")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetHapticFeaturesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[936])(haptic);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[936])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFeatures")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetHapticFeatures([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			uint ret = GetHapticFeaturesNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFeatures")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetHapticFeatures([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				uint ret = GetHapticFeaturesNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumHapticAxesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[937])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[937])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumHapticAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			int ret = GetNumHapticAxesNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumHapticAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetNumHapticAxesNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HapticEffectSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, byte>)funcTable[938])(haptic, effect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[938])((nint)haptic, (nint)effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			byte ret = HapticEffectSupportedNative(haptic, effect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
+		{
+			fixed (SDLHapticEffect* peffect = &effect)
+			{
+				byte ret = HapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				fixed (SDLHapticEffect* peffect = &effect)
+				{
+					byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int CreateHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[939])(haptic, effect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[939])((nint)haptic, (nint)effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			int ret = CreateHapticEffectNative(haptic, effect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = CreateHapticEffectNative((SDLHaptic*)phaptic, effect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
+		{
+			fixed (SDLHapticEffect* peffect = &effect)
+			{
+				int ret = CreateHapticEffectNative(haptic, (SDLHapticEffect*)peffect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				fixed (SDLHapticEffect* peffect = &effect)
+				{
+					int ret = CreateHapticEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte UpdateHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* data)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, byte>)funcTable[940])(haptic, effect, data);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, byte>)funcTable[940])((nint)haptic, effect, (nint)data);
+			#endif
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* data)
+		{
+			byte ret = UpdateHapticEffectNative(haptic, effect, data);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* data)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = UpdateHapticEffectNative((SDLHaptic*)phaptic, effect, data);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect data)
+		{
+			fixed (SDLHapticEffect* pdata = &data)
+			{
+				byte ret = UpdateHapticEffectNative(haptic, effect, (SDLHapticEffect*)pdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect data)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				fixed (SDLHapticEffect* pdata = &data)
+				{
+					byte ret = UpdateHapticEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)pdata);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Run the haptic effect on its associated haptic device.<br/>
+		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
+		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
+		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
+		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RunHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, byte>)funcTable[941])(haptic, effect, iterations);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, uint, byte>)funcTable[941])((nint)haptic, effect, iterations);
+			#endif
+		}
+
+		/// <summary>
+		/// Run the haptic effect on its associated haptic device.<br/>
+		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
+		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
+		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
+		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RunHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		{
+			byte ret = RunHapticEffectNative(haptic, effect, iterations);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Run the haptic effect on its associated haptic device.<br/>
+		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
+		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
+		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
+		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RunHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = RunHapticEffectNative((SDLHaptic*)phaptic, effect, iterations);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Stop the haptic effect on its associated haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[942])(haptic, effect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[942])((nint)haptic, effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Stop the haptic effect on its associated haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			byte ret = StopHapticEffectNative(haptic, effect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Stop the haptic effect on its associated haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = StopHapticEffectNative((SDLHaptic*)phaptic, effect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Destroy a haptic effect on the device.<br/>
+		/// This will stop the effect if it's running. Effects are automatically<br/>
+		/// destroyed when the device is closed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)funcTable[943])(haptic, effect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[943])((nint)haptic, effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a haptic effect on the device.<br/>
+		/// This will stop the effect if it's running. Effects are automatically<br/>
+		/// destroyed when the device is closed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			DestroyHapticEffectNative(haptic, effect);
+		}
+
+		/// <summary>
+		/// Destroy a haptic effect on the device.<br/>
+		/// This will stop the effect if it's running. Effects are automatically<br/>
+		/// destroyed when the device is closed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				DestroyHapticEffectNative((SDLHaptic*)phaptic, effect);
+			}
+		}
+
+		/// <summary>
+		/// Get the status of the current effect on the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetHapticEffectStatusNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[944])(haptic, effect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[944])((nint)haptic, effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the status of the current effect on the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetHapticEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			byte ret = GetHapticEffectStatusNative(haptic, effect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the status of the current effect on the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetHapticEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = GetHapticEffectStatusNative((SDLHaptic*)phaptic, effect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the global gain of the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
+		/// The user may specify the maximum gain by setting the environment variable<br/>
+		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
+		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
+		/// maximum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetHapticGainNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[945])(haptic, gain);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[945])((nint)haptic, gain);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the global gain of the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
+		/// The user may specify the maximum gain by setting the environment variable<br/>
+		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
+		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
+		/// maximum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		{
+			byte ret = SetHapticGainNative(haptic, gain);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the global gain of the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
+		/// The user may specify the maximum gain by setting the environment variable<br/>
+		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
+		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
+		/// maximum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = SetHapticGainNative((SDLHaptic*)phaptic, gain);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the global autocenter of the device.<br/>
+		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
+		/// autocentering.<br/>
+		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetHapticAutocenterNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[946])(haptic, autocenter);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[946])((nint)haptic, autocenter);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the global autocenter of the device.<br/>
+		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
+		/// autocentering.<br/>
+		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		{
+			byte ret = SetHapticAutocenterNative(haptic, autocenter);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the global autocenter of the device.<br/>
+		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
+		/// autocentering.<br/>
+		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = SetHapticAutocenterNative((SDLHaptic*)phaptic, autocenter);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Pause a haptic device.<br/>
+		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
+		/// to resume playback.<br/>
+		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
+		/// can cause all sorts of weird errors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte PauseHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[947])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[947])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Pause a haptic device.<br/>
+		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
+		/// to resume playback.<br/>
+		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
+		/// can cause all sorts of weird errors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PauseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			byte ret = PauseHapticNative(haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Pause a haptic device.<br/>
+		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
+		/// to resume playback.<br/>
+		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
+		/// can cause all sorts of weird errors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PauseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = PauseHapticNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Resume a haptic device.<br/>
+		/// Call to unpause after SDL_PauseHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ResumeHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[948])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[948])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Resume a haptic device.<br/>
+		/// Call to unpause after SDL_PauseHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ResumeHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			byte ret = ResumeHapticNative(haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Resume a haptic device.<br/>
+		/// Call to unpause after SDL_PauseHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ResumeHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = ResumeHapticNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Stop all the currently playing effects on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopHapticEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[949])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[949])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Stop all the currently playing effects on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			byte ret = StopHapticEffectsNative(haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Stop all the currently playing effects on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = StopHapticEffectsNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check whether rumble is supported on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HapticRumbleSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[950])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[950])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether rumble is supported on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			byte ret = HapticRumbleSupportedNative(haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check whether rumble is supported on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = HapticRumbleSupportedNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Initialize a haptic device for simple rumble playback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte InitHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[951])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[951])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Initialize a haptic device for simple rumble playback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool InitHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			byte ret = InitHapticRumbleNative(haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Initialize a haptic device for simple rumble playback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool InitHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = InitHapticRumbleNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Run a simple rumble effect on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte PlayHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, byte>)funcTable[952])(haptic, strength, length);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, uint, byte>)funcTable[952])((nint)haptic, strength, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Run a simple rumble effect on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PlayHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		{
+			byte ret = PlayHapticRumbleNative(haptic, strength, length);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Run a simple rumble effect on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PlayHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = PlayHapticRumbleNative((SDLHaptic*)phaptic, strength, length);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Stop the simple rumble on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[953])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[953])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Stop the simple rumble on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			byte ret = StopHapticRumbleNative(haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Stop the simple rumble on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = StopHapticRumbleNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Initialize the HIDAPI library.<br/>
+		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
+		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
+		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
+		/// be called at the beginning of execution however, if there is a chance of<br/>
+		/// HIDAPI handles being opened by different threads simultaneously.<br/>
+		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_init")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidInitNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[954])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[954])();
+			#endif
+		}
+
+		/// <summary>
+		/// Initialize the HIDAPI library.<br/>
+		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
+		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
+		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
+		/// be called at the beginning of execution however, if there is a chance of<br/>
+		/// HIDAPI handles being opened by different threads simultaneously.<br/>
+		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_init")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidInit()
+		{
+			int ret = HidInitNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Finalize the HIDAPI library.<br/>
+		/// This function frees all of the static data associated with HIDAPI. It<br/>
+		/// should be called at the end of execution to avoid memory leaks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidExitNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[955])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[955])();
+			#endif
+		}
+
+		/// <summary>
+		/// Finalize the HIDAPI library.<br/>
+		/// This function frees all of the static data associated with HIDAPI. It<br/>
+		/// should be called at the end of execution to avoid memory leaks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidExit()
+		{
+			int ret = HidExitNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Check to see if devices may have been added or removed.<br/>
+		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
+		/// to see if there have been any system device changes since the last call to<br/>
+		/// this function. A change in the counter returned doesn't necessarily mean<br/>
+		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
+		/// updated device list.<br/>
+		/// Calling this function for the first time may cause a thread or other system<br/>
+		/// resource to be allocated to track device change notifications.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint HidDeviceChangeCountNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[956])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[956])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check to see if devices may have been added or removed.<br/>
+		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
+		/// to see if there have been any system device changes since the last call to<br/>
+		/// this function. A change in the counter returned doesn't necessarily mean<br/>
+		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
+		/// updated device list.<br/>
+		/// Calling this function for the first time may cause a thread or other system<br/>
+		/// resource to be allocated to track device change notifications.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint HidDeviceChangeCount()
+		{
+			uint ret = HidDeviceChangeCountNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate the HID Devices.<br/>
+		/// This function returns a linked list of all the HID devices attached to the<br/>
+		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
+		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
+		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
+		/// devices will be returned.<br/>
+		/// By default SDL will only enumerate controllers, to reduce risk of hanging<br/>
+		/// or crashing on bad drivers, but SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS<br/>
+		/// can be set to "0" to enumerate all HID devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHidDeviceInfo* HidEnumerateNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)funcTable[957])(vendorId, productId);
+			#else
+			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint>)funcTable[957])(vendorId, productId);
+			#endif
+		}
+
+		/// <summary>
+		/// Enumerate the HID Devices.<br/>
+		/// This function returns a linked list of all the HID devices attached to the<br/>
+		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
+		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
+		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
+		/// devices will be returned.<br/>
+		/// By default SDL will only enumerate controllers, to reduce risk of hanging<br/>
+		/// or crashing on bad drivers, but SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS<br/>
+		/// can be set to "0" to enumerate all HID devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
+		public static SDLHidDeviceInfo* HidEnumerate([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		{
+			SDLHidDeviceInfo* ret = HidEnumerateNative(vendorId, productId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Free an enumeration linked list.<br/>
+		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void HidFreeEnumerationNative([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] SDLHidDeviceInfo* devs)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)funcTable[958])(devs);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[958])((nint)devs);
+			#endif
+		}
+
+		/// <summary>
+		/// Free an enumeration linked list.<br/>
+		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] SDLHidDeviceInfo* devs)
+		{
+			HidFreeEnumerationNative(devs);
+		}
+
+		/// <summary>
+		/// Free an enumeration linked list.<br/>
+		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] ref SDLHidDeviceInfo devs)
+		{
+			fixed (SDLHidDeviceInfo* pdevs = &devs)
+			{
+				HidFreeEnumerationNative((SDLHidDeviceInfo*)pdevs);
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHidDevice* HidOpenNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] char* serialNumber)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)funcTable[959])(vendorId, productId, serialNumber);
+			#else
+			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint, nint>)funcTable[959])(vendorId, productId, (nint)serialNumber);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] char* serialNumber)
+		{
+			SDLHidDevice* ret = HidOpenNative(vendorId, productId, serialNumber);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] ref char serialNumber)
+		{
+			fixed (char* pserialNumber = &serialNumber)
+			{
+				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> serialNumber)
+		{
+			fixed (char* pserialNumber = serialNumber)
+			{
+				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] string serialNumber)
+		{
+			fixed (char* pserialNumber = serialNumber)
+			{
+				SDLHidDevice* ret = HidOpenNative(vendorId, productId, pserialNumber);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHidDevice* HidOpenPathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLHidDevice*>)funcTable[960])(path);
+			#else
+			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[960])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			SDLHidDevice* ret = HidOpenPathNative(path);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path)
+		{
+			fixed (byte* ppath = &path)
+			{
+				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
+		{
+			fixed (byte* ppath = path)
+			{
+				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLHidDevice* ret = HidOpenPathNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidWriteNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[961])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[961])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidWriteNative(dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidWriteNative(dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidReadTimeoutNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int, int>)funcTable[962])(dev, data, length, milliseconds);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int, int>)funcTable[962])((nint)dev, (nint)data, length, milliseconds);
+			#endif
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			int ret = HidReadTimeoutNative(dev, data, length, milliseconds);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidReadNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[963])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[963])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidReadNative(dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidReadNative(dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the device handle to be non-blocking.<br/>
+		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
+		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
+		/// will wait (block) until there is data to read before returning.<br/>
+		/// Nonblocking can be turned on and off at any time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidSetNonblockingNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)funcTable[964])(dev, nonblock);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[964])((nint)dev, nonblock);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the device handle to be non-blocking.<br/>
+		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
+		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
+		/// will wait (block) until there is data to read before returning.<br/>
+		/// Nonblocking can be turned on and off at any time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		{
+			int ret = HidSetNonblockingNative(dev, nonblock);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the device handle to be non-blocking.<br/>
+		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
+		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
+		/// will wait (block) until there is data to read before returning.<br/>
+		/// Nonblocking can be turned on and off at any time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidSetNonblockingNative((SDLHidDevice*)pdev, nonblock);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidSendFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[965])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[965])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidSendFeatureReportNative(dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
 			}
 		}
 	}

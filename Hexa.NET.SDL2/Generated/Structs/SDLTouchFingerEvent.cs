@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Touch finger event structure (event.tfinger.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTouchFingerEvent
 	{
 		/// <summary>
-		/// ::SDL_FINGERMOTION or ::SDL_FINGERDOWN or ::SDL_FINGERUP <br/>
+		/// SDL_FINGERMOTION or SDL_FINGERDOWN or SDL_FINGERUP <br/>
 		/// </summary>
 		public uint Type;
 

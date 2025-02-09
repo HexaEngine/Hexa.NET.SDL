@@ -22,7 +22,7 @@ namespace Hexa.NET.SDL2
 	public partial struct SDLMessageBoxData
 	{
 		/// <summary>
-		/// ::SDL_MessageBoxFlags <br/>
+		/// SDL_MessageBoxFlags <br/>
 		/// </summary>
 		public uint Flags;
 
@@ -44,7 +44,7 @@ namespace Hexa.NET.SDL2
 		public int Numbuttons;
 		public unsafe SDLMessageBoxButtonData* Buttons;
 		/// <summary>
-		/// ::SDL_MessageBoxColorScheme, can be NULL to use system settings <br/>
+		/// SDL_MessageBoxColorScheme, can be NULL to use system settings <br/>
 		/// </summary>
 		public unsafe SDLMessageBoxColorScheme* ColorScheme;
 

@@ -18,5012 +18,5008 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Set the current input channel map of an audio stream.<br/>
+		/// Channel maps are optional; most things do not need them, instead passing<br/>
+		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
+		/// The input channel map reorders data that is added to a stream via<br/>
+		/// SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide<br/>
+		/// data in the new channel order.<br/>
+		/// Each item in the array represents an input channel, and its value is the<br/>
+		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
+		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
+		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
+		/// right channel to both channels of a stereo signal. An element in the<br/>
+		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
+		/// setting it to a silence value.<br/>
+		/// You cannot change the number of channels through a channel map, just<br/>
+		/// reorder/mute them.<br/>
+		/// Data that was previously queued in the stream will still be operated on in<br/>
+		/// the order that was current when it was added, which is to say you can put<br/>
+		/// the end of a sound file in one order to a stream, change orders for the<br/>
+		/// next sound file, and start putting that new data while the previous sound<br/>
+		/// file is still queued, and everything will still play back correctly.<br/>
+		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
+		/// is legal, and turns off remapping.<br/>
+		/// SDL will copy the channel map; the caller does not have to save this array<br/>
+		/// after this call.<br/>
+		/// If `count` is not equal to the current number of channels in the audio<br/>
+		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
+		/// race condition hasn't changed the format while this call is setting the<br/>
+		/// channel map.<br/>
+		/// Unlike attempting to change the stream's format, the input channel map on a<br/>
+		/// stream bound to a recording device is permitted to change at any time; any<br/>
+		/// data added to the stream from the device after this call will have the new<br/>
+		/// mapping, but previously-added data will still have the prior mapping.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
+		/// It is safe to call this function from any thread, as it holds<br/>
+		/// a stream-specific mutex while running. Don't change the<br/>
+		/// stream's format to have a different number of channels from a<br/>
+		/// a different thread at the same time, though!<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamInputChannelMap")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioStreamInputChannelMap([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "chmap")] [NativeName(NativeNameType.Type, "int const *")] ref int chmap, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (SDLPalette* ppalette = &palette)
+			fixed (int* pchmap = &chmap)
 			{
-				fixed (byte* pr = &r)
+				byte ret = SetAudioStreamInputChannelMapNative(stream, (int*)pchmap, count);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the current input channel map of an audio stream.<br/>
+		/// Channel maps are optional; most things do not need them, instead passing<br/>
+		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
+		/// The input channel map reorders data that is added to a stream via<br/>
+		/// SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide<br/>
+		/// data in the new channel order.<br/>
+		/// Each item in the array represents an input channel, and its value is the<br/>
+		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
+		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
+		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
+		/// right channel to both channels of a stereo signal. An element in the<br/>
+		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
+		/// setting it to a silence value.<br/>
+		/// You cannot change the number of channels through a channel map, just<br/>
+		/// reorder/mute them.<br/>
+		/// Data that was previously queued in the stream will still be operated on in<br/>
+		/// the order that was current when it was added, which is to say you can put<br/>
+		/// the end of a sound file in one order to a stream, change orders for the<br/>
+		/// next sound file, and start putting that new data while the previous sound<br/>
+		/// file is still queued, and everything will still play back correctly.<br/>
+		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
+		/// is legal, and turns off remapping.<br/>
+		/// SDL will copy the channel map; the caller does not have to save this array<br/>
+		/// after this call.<br/>
+		/// If `count` is not equal to the current number of channels in the audio<br/>
+		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
+		/// race condition hasn't changed the format while this call is setting the<br/>
+		/// channel map.<br/>
+		/// Unlike attempting to change the stream's format, the input channel map on a<br/>
+		/// stream bound to a recording device is permitted to change at any time; any<br/>
+		/// data added to the stream from the device after this call will have the new<br/>
+		/// mapping, but previously-added data will still have the prior mapping.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as it holds<br/>
+		/// a stream-specific mutex while running. Don't change the<br/>
+		/// stream's format to have a different number of channels from a<br/>
+		/// a different thread at the same time, though!<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamInputChannelMap")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioStreamInputChannelMap([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "chmap")] [NativeName(NativeNameType.Type, "int const *")] ref int chmap, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				fixed (int* pchmap = &chmap)
 				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, a);
-					}
+					byte ret = SetAudioStreamInputChannelMapNative((SDLAudioStream*)pstream, (int*)pchmap, count);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Set the current output channel map of an audio stream.<br/>
+		/// Channel maps are optional; most things do not need them, instead passing<br/>
+		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
+		/// The output channel map reorders data that leaving a stream via<br/>
+		/// SDL_GetAudioStreamData.<br/>
+		/// Each item in the array represents an input channel, and its value is the<br/>
+		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
+		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
+		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
+		/// right channel to both channels of a stereo signal. An element in the<br/>
+		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
+		/// setting it to a silence value.<br/>
+		/// You cannot change the number of channels through a channel map, just<br/>
+		/// reorder/mute them.<br/>
+		/// The output channel map can be changed at any time, as output remapping is<br/>
+		/// applied during SDL_GetAudioStreamData.<br/>
+		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
+		/// is legal, and turns off remapping.<br/>
+		/// SDL will copy the channel map; the caller does not have to save this array<br/>
+		/// after this call.<br/>
+		/// If `count` is not equal to the current number of channels in the audio<br/>
+		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
+		/// race condition hasn't changed the format while this call is setting the<br/>
+		/// channel map.<br/>
+		/// Unlike attempting to change the stream's format, the output channel map on<br/>
+		/// a stream bound to a recording device is permitted to change at any time;<br/>
+		/// any data added to the stream after this call will have the new mapping, but<br/>
+		/// previously-added data will still have the prior mapping. When the channel<br/>
+		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
+		/// before feeding it to the device for playback.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pr = &r)
-					{
-						fixed (byte* pb = &b)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, a);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
+		/// It is safe to call this function from any thread, as it holds<br/>
+		/// a stream-specific mutex while running. Don't change the<br/>
+		/// stream's format to have a different number of channels from a<br/>
+		/// a different thread at the same time, though!<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					GetRGBANative(pixel, format, palette, r, (byte*)pg, (byte*)pb, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, a);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, format, palette, (byte*)pr, (byte*)pg, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, (byte*)pb, a);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, a);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pr = &r)
-					{
-						fixed (byte* pg = &g)
-						{
-							fixed (byte* pb = &b)
-							{
-								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, a);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pa = &a)
-			{
-				GetRGBANative(pixel, format, palette, r, g, b, (byte*)pa);
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, g, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, palette, (byte*)pr, g, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pr = &r)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, b, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, palette, r, (byte*)pg, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, b, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, palette, (byte*)pr, (byte*)pg, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, b, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pr = &r)
-					{
-						fixed (byte* pg = &g)
-						{
-							fixed (byte* pa = &a)
-							{
-								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b, (byte*)pa);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pb = &b)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, palette, r, g, (byte*)pb, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, (byte*)pb, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, g, (byte*)pb, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, palette, (byte*)pr, g, (byte*)pb, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pr = &r)
-					{
-						fixed (byte* pb = &b)
-						{
-							fixed (byte* pa = &a)
-							{
-								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, (byte*)pa);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, palette, r, (byte*)pg, (byte*)pb, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							fixed (byte* pa = &a)
-							{
-								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, (byte*)pa);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, format, palette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							fixed (byte* pa = &a)
-							{
-								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPalette* ppalette = &palette)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							fixed (byte* pa = &a)
-							{
-								GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as long as<br/>
-		/// the palette is not modified.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
-		{
-			fixed (SDLPixelFormatDetails* pformat = &format)
-			{
-				fixed (SDLPalette* ppalette = &palette)
-				{
-					fixed (byte* pr = &r)
-					{
-						fixed (byte* pg = &g)
-						{
-							fixed (byte* pb = &b)
-							{
-								fixed (byte* pa = &a)
-								{
-									GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamOutputChannelMap")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasRectIntersectionNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b)
+		internal static byte SetAudioStreamOutputChannelMapNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "chmap")] [NativeName(NativeNameType.Type, "int const *")] int* chmap, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, byte>)funcTable[359])(a, b);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int*, int, byte>)funcTable[343])(stream, chmap, count);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[359])((nint)a, (nint)b);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[343])((nint)stream, (nint)chmap, count);
 			#endif
 		}
 
 		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
+		/// Set the current output channel map of an audio stream.<br/>
+		/// Channel maps are optional; most things do not need them, instead passing<br/>
+		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
+		/// The output channel map reorders data that leaving a stream via<br/>
+		/// SDL_GetAudioStreamData.<br/>
+		/// Each item in the array represents an input channel, and its value is the<br/>
+		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
+		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
+		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
+		/// right channel to both channels of a stereo signal. An element in the<br/>
+		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
+		/// setting it to a silence value.<br/>
+		/// You cannot change the number of channels through a channel map, just<br/>
+		/// reorder/mute them.<br/>
+		/// The output channel map can be changed at any time, as output remapping is<br/>
+		/// applied during SDL_GetAudioStreamData.<br/>
+		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
+		/// is legal, and turns off remapping.<br/>
+		/// SDL will copy the channel map; the caller does not have to save this array<br/>
+		/// after this call.<br/>
+		/// If `count` is not equal to the current number of channels in the audio<br/>
+		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
+		/// race condition hasn't changed the format while this call is setting the<br/>
+		/// channel map.<br/>
+		/// Unlike attempting to change the stream's format, the output channel map on<br/>
+		/// a stream bound to a recording device is permitted to change at any time;<br/>
+		/// any data added to the stream after this call will have the new mapping, but<br/>
+		/// previously-added data will still have the prior mapping. When the channel<br/>
+		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
+		/// before feeding it to the device for playback.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// It is safe to call this function from any thread, as it holds<br/>
+		/// a stream-specific mutex while running. Don't change the<br/>
+		/// stream's format to have a different number of channels from a<br/>
+		/// a different thread at the same time, though!<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamOutputChannelMap")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b)
+		public static bool SetAudioStreamOutputChannelMap([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "chmap")] [NativeName(NativeNameType.Type, "int const *")] int* chmap, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			byte ret = HasRectIntersectionNative(a, b);
+			byte ret = SetAudioStreamOutputChannelMapNative(stream, chmap, count);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
+		/// Set the current output channel map of an audio stream.<br/>
+		/// Channel maps are optional; most things do not need them, instead passing<br/>
+		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
+		/// The output channel map reorders data that leaving a stream via<br/>
+		/// SDL_GetAudioStreamData.<br/>
+		/// Each item in the array represents an input channel, and its value is the<br/>
+		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
+		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
+		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
+		/// right channel to both channels of a stereo signal. An element in the<br/>
+		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
+		/// setting it to a silence value.<br/>
+		/// You cannot change the number of channels through a channel map, just<br/>
+		/// reorder/mute them.<br/>
+		/// The output channel map can be changed at any time, as output remapping is<br/>
+		/// applied during SDL_GetAudioStreamData.<br/>
+		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
+		/// is legal, and turns off remapping.<br/>
+		/// SDL will copy the channel map; the caller does not have to save this array<br/>
+		/// after this call.<br/>
+		/// If `count` is not equal to the current number of channels in the audio<br/>
+		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
+		/// race condition hasn't changed the format while this call is setting the<br/>
+		/// channel map.<br/>
+		/// Unlike attempting to change the stream's format, the output channel map on<br/>
+		/// a stream bound to a recording device is permitted to change at any time;<br/>
+		/// any data added to the stream after this call will have the new mapping, but<br/>
+		/// previously-added data will still have the prior mapping. When the channel<br/>
+		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
+		/// before feeding it to the device for playback.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// It is safe to call this function from any thread, as it holds<br/>
+		/// a stream-specific mutex while running. Don't change the<br/>
+		/// stream's format to have a different number of channels from a<br/>
+		/// a different thread at the same time, though!<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamOutputChannelMap")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b)
+		public static bool SetAudioStreamOutputChannelMap([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "chmap")] [NativeName(NativeNameType.Type, "int const *")] int* chmap, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (SDLRect* pa = &a)
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				byte ret = HasRectIntersectionNative((SDLRect*)pa, b);
+				byte ret = SetAudioStreamOutputChannelMapNative((SDLAudioStream*)pstream, chmap, count);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
+		/// Set the current output channel map of an audio stream.<br/>
+		/// Channel maps are optional; most things do not need them, instead passing<br/>
+		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
+		/// The output channel map reorders data that leaving a stream via<br/>
+		/// SDL_GetAudioStreamData.<br/>
+		/// Each item in the array represents an input channel, and its value is the<br/>
+		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
+		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
+		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
+		/// right channel to both channels of a stereo signal. An element in the<br/>
+		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
+		/// setting it to a silence value.<br/>
+		/// You cannot change the number of channels through a channel map, just<br/>
+		/// reorder/mute them.<br/>
+		/// The output channel map can be changed at any time, as output remapping is<br/>
+		/// applied during SDL_GetAudioStreamData.<br/>
+		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
+		/// is legal, and turns off remapping.<br/>
+		/// SDL will copy the channel map; the caller does not have to save this array<br/>
+		/// after this call.<br/>
+		/// If `count` is not equal to the current number of channels in the audio<br/>
+		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
+		/// race condition hasn't changed the format while this call is setting the<br/>
+		/// channel map.<br/>
+		/// Unlike attempting to change the stream's format, the output channel map on<br/>
+		/// a stream bound to a recording device is permitted to change at any time;<br/>
+		/// any data added to the stream after this call will have the new mapping, but<br/>
+		/// previously-added data will still have the prior mapping. When the channel<br/>
+		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
+		/// before feeding it to the device for playback.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// It is safe to call this function from any thread, as it holds<br/>
+		/// a stream-specific mutex while running. Don't change the<br/>
+		/// stream's format to have a different number of channels from a<br/>
+		/// a different thread at the same time, though!<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamOutputChannelMap")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b)
+		public static bool SetAudioStreamOutputChannelMap([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "chmap")] [NativeName(NativeNameType.Type, "int const *")] ref int chmap, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (SDLRect* pb = &b)
+			fixed (int* pchmap = &chmap)
 			{
-				byte ret = HasRectIntersectionNative(a, (SDLRect*)pb);
+				byte ret = SetAudioStreamOutputChannelMapNative(stream, (int*)pchmap, count);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
+		/// Set the current output channel map of an audio stream.<br/>
+		/// Channel maps are optional; most things do not need them, instead passing<br/>
+		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
+		/// The output channel map reorders data that leaving a stream via<br/>
+		/// SDL_GetAudioStreamData.<br/>
+		/// Each item in the array represents an input channel, and its value is the<br/>
+		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
+		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
+		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
+		/// right channel to both channels of a stereo signal. An element in the<br/>
+		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
+		/// setting it to a silence value.<br/>
+		/// You cannot change the number of channels through a channel map, just<br/>
+		/// reorder/mute them.<br/>
+		/// The output channel map can be changed at any time, as output remapping is<br/>
+		/// applied during SDL_GetAudioStreamData.<br/>
+		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
+		/// is legal, and turns off remapping.<br/>
+		/// SDL will copy the channel map; the caller does not have to save this array<br/>
+		/// after this call.<br/>
+		/// If `count` is not equal to the current number of channels in the audio<br/>
+		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
+		/// race condition hasn't changed the format while this call is setting the<br/>
+		/// channel map.<br/>
+		/// Unlike attempting to change the stream's format, the output channel map on<br/>
+		/// a stream bound to a recording device is permitted to change at any time;<br/>
+		/// any data added to the stream after this call will have the new mapping, but<br/>
+		/// previously-added data will still have the prior mapping. When the channel<br/>
+		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
+		/// before feeding it to the device for playback.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// It is safe to call this function from any thread, as it holds<br/>
+		/// a stream-specific mutex while running. Don't change the<br/>
+		/// stream's format to have a different number of channels from a<br/>
+		/// a different thread at the same time, though!<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamOutputChannelMap")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b)
+		public static bool SetAudioStreamOutputChannelMap([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "chmap")] [NativeName(NativeNameType.Type, "int const *")] ref int chmap, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (SDLRect* pa = &a)
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				fixed (SDLRect* pb = &b)
+				fixed (int* pchmap = &chmap)
 				{
-					byte ret = HasRectIntersectionNative((SDLRect*)pa, (SDLRect*)pb);
+					byte ret = SetAudioStreamOutputChannelMapNative((SDLAudioStream*)pstream, (int*)pchmap, count);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
+		/// Add data to the stream.<br/>
+		/// This data must match the format/channels/samplerate specified in the latest<br/>
+		/// call to SDL_SetAudioStreamFormat, or the format specified when creating the<br/>
+		/// stream if it hasn't been changed.<br/>
+		/// Note that this call simply copies the unconverted data for later. This is<br/>
+		/// different than SDL2, where data was converted during the Put call and the<br/>
+		/// Get call would just dequeue the previously-converted data.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but if the<br/>
+		/// stream has a callback set, the caller might need to manage<br/>
+		/// extra locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_PutAudioStreamData")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectIntersectionNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
+		internal static byte PutAudioStreamDataNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void const *")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, byte>)funcTable[360])(a, b, result);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, byte>)funcTable[344])(stream, buf, len);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[360])((nint)a, (nint)b, (nint)result);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[344])((nint)stream, (nint)buf, len);
 			#endif
 		}
 
 		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
+		/// Add data to the stream.<br/>
+		/// This data must match the format/channels/samplerate specified in the latest<br/>
+		/// call to SDL_SetAudioStreamFormat, or the format specified when creating the<br/>
+		/// stream if it hasn't been changed.<br/>
+		/// Note that this call simply copies the unconverted data for later. This is<br/>
+		/// different than SDL2, where data was converted during the Put call and the<br/>
+		/// Get call would just dequeue the previously-converted data.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but if the<br/>
+		/// stream has a callback set, the caller might need to manage<br/>
+		/// extra locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_PutAudioStreamData")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
+		public static bool PutAudioStreamData([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void const *")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
-			byte ret = GetRectIntersectionNative(a, b, result);
+			byte ret = PutAudioStreamDataNative(stream, buf, len);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
+		/// Add data to the stream.<br/>
+		/// This data must match the format/channels/samplerate specified in the latest<br/>
+		/// call to SDL_SetAudioStreamFormat, or the format specified when creating the<br/>
+		/// stream if it hasn't been changed.<br/>
+		/// Note that this call simply copies the unconverted data for later. This is<br/>
+		/// different than SDL2, where data was converted during the Put call and the<br/>
+		/// Get call would just dequeue the previously-converted data.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but if the<br/>
+		/// stream has a callback set, the caller might need to manage<br/>
+		/// extra locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
+		[NativeName(NativeNameType.Func, "SDL_PutAudioStreamData")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
+		public static bool PutAudioStreamData([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void const *")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
-			fixed (SDLRect* pa = &a)
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				byte ret = GetRectIntersectionNative((SDLRect*)pa, b, result);
+				byte ret = PutAudioStreamDataNative((SDLAudioStream*)pstream, buf, len);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
+		/// Get converted/resampled data from the stream.<br/>
+		/// The input/output data format/channels/samplerate is specified when creating<br/>
+		/// the stream, and can be changed after creation by calling<br/>
+		/// SDL_SetAudioStreamFormat.<br/>
+		/// Note that any conversion and resampling necessary is done during this call,<br/>
+		/// and SDL_PutAudioStreamData simply queues unconverted data for later. This<br/>
+		/// is different than SDL2, where that work was done while inputting new data<br/>
+		/// to the stream and requesting the output just copied the converted data.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				byte ret = GetRectIntersectionNative(a, (SDLRect*)pb, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, but if the<br/>
+		/// stream has a callback set, the caller might need to manage<br/>
+		/// extra locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					byte ret = GetRectIntersectionNative((SDLRect*)pa, (SDLRect*)pb, result);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* presult = &result)
-			{
-				byte ret = GetRectIntersectionNative(a, b, (SDLRect*)presult);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					byte ret = GetRectIntersectionNative((SDLRect*)pa, b, (SDLRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					byte ret = GetRectIntersectionNative(a, (SDLRect*)pb, (SDLRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					fixed (SDLRect* presult = &result)
-					{
-						byte ret = GetRectIntersectionNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamData")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectUnionNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
+		internal static int GetAudioStreamDataNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void *")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, byte>)funcTable[361])(a, b, result);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[345])(stream, buf, len);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[361])((nint)a, (nint)b, (nint)result);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[345])((nint)stream, (nint)buf, len);
 			#endif
 		}
 
 		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
+		/// Get converted/resampled data from the stream.<br/>
+		/// The input/output data format/channels/samplerate is specified when creating<br/>
+		/// the stream, and can be changed after creation by calling<br/>
+		/// SDL_SetAudioStreamFormat.<br/>
+		/// Note that any conversion and resampling necessary is done during this call,<br/>
+		/// and SDL_PutAudioStreamData simply queues unconverted data for later. This<br/>
+		/// is different than SDL2, where that work was done while inputting new data<br/>
+		/// to the stream and requesting the output just copied the converted data.<br/>
 		/// <br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			byte ret = GetRectUnionNative(a, b, result);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				byte ret = GetRectUnionNative((SDLRect*)pa, b, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				byte ret = GetRectUnionNative(a, (SDLRect*)pb, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					byte ret = GetRectUnionNative((SDLRect*)pa, (SDLRect*)pb, result);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* presult = &result)
-			{
-				byte ret = GetRectUnionNative(a, b, (SDLRect*)presult);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					byte ret = GetRectUnionNative((SDLRect*)pa, b, (SDLRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					byte ret = GetRectUnionNative(a, (SDLRect*)pb, (SDLRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnion")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnion([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					fixed (SDLRect* presult = &result)
-					{
-						byte ret = GetRectUnionNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectEnclosingPointsNative([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPoint*, int, SDLRect*, SDLRect*, byte>)funcTable[362])(points, count, clip, result);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, byte>)funcTable[362])((nint)points, count, (nint)clip, (nint)result);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			byte ret = GetRectEnclosingPointsNative(points, count, clip, result);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				byte ret = GetRectEnclosingPointsNative((SDLPoint*)ppoints, count, clip, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLRect* pclip = &clip)
-			{
-				byte ret = GetRectEnclosingPointsNative(points, count, (SDLRect*)pclip, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				fixed (SDLRect* pclip = &clip)
-				{
-					byte ret = GetRectEnclosingPointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, result);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* presult = &result)
-			{
-				byte ret = GetRectEnclosingPointsNative(points, count, clip, (SDLRect*)presult);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					byte ret = GetRectEnclosingPointsNative((SDLPoint*)ppoints, count, clip, (SDLRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLRect* pclip = &clip)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					byte ret = GetRectEnclosingPointsNative(points, count, (SDLRect*)pclip, (SDLRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_Point const *")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				fixed (SDLRect* pclip = &clip)
-				{
-					fixed (SDLRect* presult = &result)
-					{
-						byte ret = GetRectEnclosingPointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, (SDLRect*)presult);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectAndLineIntersectionNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, int*, int*, int*, int*, byte>)funcTable[363])(rect, x1, y1, x2, y2);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[363])((nint)rect, (nint)x1, (nint)y1, (nint)x2, (nint)y2);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			byte ret = GetRectAndLineIntersectionNative(rect, x1, y1, x2, y2);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, y1, x2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, y1, x2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, y1, x2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				byte ret = GetRectAndLineIntersectionNative(rect, x1, (int*)py1, x2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, (int*)py1, x2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, (int*)py1, x2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (int* px2 = &x2)
-			{
-				byte ret = GetRectAndLineIntersectionNative(rect, x1, y1, (int*)px2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px2 = &x2)
-				{
-					byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, y1, (int*)px2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, y1, (int*)px2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					byte ret = GetRectAndLineIntersectionNative(rect, x1, (int*)py1, (int*)px2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, (int*)py1, (int*)px2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* px2 = &x2)
-						{
-							byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* py2 = &y2)
-			{
-				byte ret = GetRectAndLineIntersectionNative(rect, x1, y1, x2, (int*)py2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, y1, x2, (int*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionNative(rect, x1, (int*)py1, x2, (int*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, (int*)py1, x2, (int*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* px2 = &x2)
-			{
-				fixed (int* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionNative(rect, x1, y1, (int*)px2, (int*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, y1, (int*)px2, (int*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionNative(rect, x1, (int*)py1, (int*)px2, (int*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionNative(rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersection")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersection([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int *")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int *")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int *")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int *")] ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* px2 = &x2)
-						{
-							fixed (int* py2 = &y2)
-							{
-								byte ret = GetRectAndLineIntersectionNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasRectIntersectionFloatNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, byte>)funcTable[364])(a, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[364])((nint)a, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b)
-		{
-			byte ret = HasRectIntersectionFloatNative(a, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				byte ret = HasRectIntersectionFloatNative((SDLFRect*)pa, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b)
-		{
-			fixed (SDLFRect* pb = &b)
-			{
-				byte ret = HasRectIntersectionFloatNative(a, (SDLFRect*)pb);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* pb = &b)
-				{
-					byte ret = HasRectIntersectionFloatNative((SDLFRect*)pa, (SDLFRect*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectIntersectionFloatNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, byte>)funcTable[365])(a, b, result);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[365])((nint)a, (nint)b, (nint)result);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			byte ret = GetRectIntersectionFloatNative(a, b, result);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, b, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFRect* pb = &b)
-			{
-				byte ret = GetRectIntersectionFloatNative(a, (SDLFRect*)pb, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* pb = &b)
-				{
-					byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, result);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* presult = &result)
-			{
-				byte ret = GetRectIntersectionFloatNative(a, b, (SDLFRect*)presult);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* presult = &result)
-				{
-					byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, b, (SDLFRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* pb = &b)
-			{
-				fixed (SDLFRect* presult = &result)
-				{
-					byte ret = GetRectIntersectionFloatNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles with float precision.<br/>
-		/// If `result` is NULL then this function will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* pb = &b)
-				{
-					fixed (SDLFRect* presult = &result)
-					{
-						byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectUnionFloatNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, byte>)funcTable[366])(a, b, result);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[366])((nint)a, (nint)b, (nint)result);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			byte ret = GetRectUnionFloatNative(a, b, result);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				byte ret = GetRectUnionFloatNative((SDLFRect*)pa, b, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFRect* pb = &b)
-			{
-				byte ret = GetRectUnionFloatNative(a, (SDLFRect*)pb, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* pb = &b)
-				{
-					byte ret = GetRectUnionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, result);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* presult = &result)
-			{
-				byte ret = GetRectUnionFloatNative(a, b, (SDLFRect*)presult);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* presult = &result)
-				{
-					byte ret = GetRectUnionFloatNative((SDLFRect*)pa, b, (SDLFRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* pb = &b)
-			{
-				fixed (SDLFRect* presult = &result)
-				{
-					byte ret = GetRectUnionFloatNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles with float precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* pb = &b)
-				{
-					fixed (SDLFRect* presult = &result)
-					{
-						byte ret = GetRectUnionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectEnclosingPointsFloatNative([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFPoint*, int, SDLFRect*, SDLFRect*, byte>)funcTable[367])(points, count, clip, result);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, byte>)funcTable[367])((nint)points, count, (nint)clip, (nint)result);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			byte ret = GetRectEnclosingPointsFloatNative(points, count, clip, result);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, clip, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFRect* pclip = &clip)
-			{
-				byte ret = GetRectEnclosingPointsFloatNative(points, count, (SDLFRect*)pclip, result);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				fixed (SDLFRect* pclip = &clip)
-				{
-					byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, result);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* presult = &result)
-			{
-				byte ret = GetRectEnclosingPointsFloatNative(points, count, clip, (SDLFRect*)presult);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				fixed (SDLFRect* presult = &result)
-				{
-					byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, clip, (SDLFRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFRect* pclip = &clip)
-			{
-				fixed (SDLFRect* presult = &result)
-				{
-					byte ret = GetRectEnclosingPointsFloatNative(points, count, (SDLFRect*)pclip, (SDLFRect*)presult);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
-		/// precision.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				fixed (SDLFRect* pclip = &clip)
-				{
-					fixed (SDLFRect* presult = &result)
-					{
-						byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, (SDLFRect*)presult);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRectAndLineIntersectionFloatNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFRect*, float*, float*, float*, float*, byte>)funcTable[368])(rect, x1, y1, x2, y2);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[368])((nint)rect, (nint)x1, (nint)y1, (nint)x2, (nint)y2);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, y1, x2, y2);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, x2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, y1, x2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, x2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (float* py1 = &y1)
-			{
-				byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, (float*)py1, x2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* py1 = &y1)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, x2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				fixed (float* py1 = &y1)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, (float*)py1, x2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					fixed (float* py1 = &y1)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (float* px2 = &x2)
-			{
-				byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, y1, (float*)px2, y2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px2 = &x2)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, (float*)px2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				fixed (float* px2 = &x2)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, y1, (float*)px2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					fixed (float* px2 = &x2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (float* py1 = &y1)
-			{
-				fixed (float* px2 = &x2)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, (float*)py1, (float*)px2, y2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* py1 = &y1)
-				{
-					fixed (float* px2 = &x2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				fixed (float* py1 = &y1)
-				{
-					fixed (float* px2 = &x2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, (float*)py1, (float*)px2, y2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					fixed (float* py1 = &y1)
-					{
-						fixed (float* px2 = &x2)
-						{
-							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, y2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* py2 = &y2)
-			{
-				byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, y1, x2, (float*)py2);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, x2, (float*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				fixed (float* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, y1, x2, (float*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					fixed (float* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, x2, (float*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* py1 = &y1)
-			{
-				fixed (float* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, (float*)py1, x2, (float*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* py1 = &y1)
-				{
-					fixed (float* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, x2, (float*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				fixed (float* py1 = &y1)
-				{
-					fixed (float* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, (float*)py1, x2, (float*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					fixed (float* py1 = &y1)
-					{
-						fixed (float* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, (float*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* px2 = &x2)
-			{
-				fixed (float* py2 = &y2)
-				{
-					byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, y1, (float*)px2, (float*)py2);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px2 = &x2)
-				{
-					fixed (float* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, (float*)px2, (float*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				fixed (float* px2 = &x2)
-				{
-					fixed (float* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, y1, (float*)px2, (float*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					fixed (float* px2 = &x2)
-					{
-						fixed (float* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, (float*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* py1 = &y1)
-			{
-				fixed (float* px2 = &x2)
-				{
-					fixed (float* py2 = &y2)
-					{
-						byte ret = GetRectAndLineIntersectionFloatNative(rect, x1, (float*)py1, (float*)px2, (float*)py2);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* py1 = &y1)
-				{
-					fixed (float* px2 = &x2)
-					{
-						fixed (float* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, (float*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (float* px1 = &x1)
-			{
-				fixed (float* py1 = &y1)
-				{
-					fixed (float* px2 = &x2)
-					{
-						fixed (float* py2 = &y2)
-						{
-							byte ret = GetRectAndLineIntersectionFloatNative(rect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment with float<br/>
-		/// precision.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				fixed (float* px1 = &x1)
-				{
-					fixed (float* py1 = &y1)
-					{
-						fixed (float* px2 = &x2)
-						{
-							fixed (float* py2 = &y2)
-							{
-								byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Allocate a new surface with a specific pixel format.<br/>
-		/// The pixels of the new surface are initialized to zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* CreateSurfaceNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, SDLSurface*>)funcTable[369])(width, height, format);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint>)funcTable[369])(width, height, format);
-			#endif
-		}
-
-		/// <summary>
-		/// Allocate a new surface with a specific pixel format.<br/>
-		/// The pixels of the new surface are initialized to zero.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, but if the<br/>
+		/// stream has a callback set, the caller might need to manage<br/>
+		/// extra locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* CreateSurface([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamData")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAudioStreamData([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void *")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
-			SDLSurface* ret = CreateSurfaceNative(width, height, format);
+			int ret = GetAudioStreamDataNative(stream, buf, len);
 			return ret;
 		}
 
 		/// <summary>
-		/// Allocate a new surface with a specific pixel format and existing pixel<br/>
-		/// data.<br/>
-		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
-		/// you must free the surface before you free the pixel data.<br/>
-		/// Pitch is the offset in bytes from one row of pixels to the next, e.g.<br/>
-		/// `width*4` for `SDL_PIXELFORMAT_RGBA8888`.<br/>
-		/// You may pass NULL for pixels and 0 for pitch to create a surface that you<br/>
-		/// will fill in with valid values later.<br/>
+		/// Get converted/resampled data from the stream.<br/>
+		/// The input/output data format/channels/samplerate is specified when creating<br/>
+		/// the stream, and can be changed after creation by calling<br/>
+		/// SDL_SetAudioStreamFormat.<br/>
+		/// Note that any conversion and resampling necessary is done during this call,<br/>
+		/// and SDL_PutAudioStreamData simply queues unconverted data for later. This<br/>
+		/// is different than SDL2, where that work was done while inputting new data<br/>
+		/// to the stream and requesting the output just copied the converted data.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSurfaceFrom")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* CreateSurfaceFromNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void *")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, void*, int, SDLSurface*>)funcTable[370])(width, height, format, pixels, pitch);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint, int, nint>)funcTable[370])(width, height, format, (nint)pixels, pitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Allocate a new surface with a specific pixel format and existing pixel<br/>
-		/// data.<br/>
-		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
-		/// you must free the surface before you free the pixel data.<br/>
-		/// Pitch is the offset in bytes from one row of pixels to the next, e.g.<br/>
-		/// `width*4` for `SDL_PIXELFORMAT_RGBA8888`.<br/>
-		/// You may pass NULL for pixels and 0 for pitch to create a surface that you<br/>
-		/// will fill in with valid values later.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, but if the<br/>
+		/// stream has a callback set, the caller might need to manage<br/>
+		/// extra locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSurfaceFrom")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* CreateSurfaceFrom([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void *")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamData")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAudioStreamData([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void *")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
-			SDLSurface* ret = CreateSurfaceFromNative(width, height, format, pixels, pitch);
-			return ret;
-		}
-
-		/// <summary>
-		/// Free a surface.<br/>
-		/// It is safe to pass NULL to this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroySurface")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroySurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[371])(surface);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[371])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Free a surface.<br/>
-		/// It is safe to pass NULL to this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroySurface")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroySurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			DestroySurfaceNative(surface);
-		}
-
-		/// <summary>
-		/// Free a surface.<br/>
-		/// It is safe to pass NULL to this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroySurface")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroySurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				DestroySurfaceNative((SDLSurface*)psurface);
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with a surface.<br/>
-		/// The following properties are understood by SDL:<br/>
-		/// - `SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// surfaces, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 203 for HDR10 surfaces and 1.0 for floating point surfaces.<br/>
-		/// - `SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// surfaces, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. This defaults to 0.0, which disables tone<br/>
-		/// mapping.<br/>
-		/// - `SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING`: the tone mapping operator<br/>
-		/// used when compressing from a surface with high dynamic range to another<br/>
-		/// with lower dynamic range. Currently this supports "chrome", which uses<br/>
-		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
-		/// where N is a floating point scale factor applied in linear space, and<br/>
-		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetSurfacePropertiesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint>)funcTable[372])(surface);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[372])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a surface.<br/>
-		/// The following properties are understood by SDL:<br/>
-		/// - `SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// surfaces, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 203 for HDR10 surfaces and 1.0 for floating point surfaces.<br/>
-		/// - `SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// surfaces, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. This defaults to 0.0, which disables tone<br/>
-		/// mapping.<br/>
-		/// - `SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING`: the tone mapping operator<br/>
-		/// used when compressing from a surface with high dynamic range to another<br/>
-		/// with lower dynamic range. Currently this supports "chrome", which uses<br/>
-		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
-		/// where N is a floating point scale factor applied in linear space, and<br/>
-		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetSurfaceProperties([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			uint ret = GetSurfacePropertiesNative(surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a surface.<br/>
-		/// The following properties are understood by SDL:<br/>
-		/// - `SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// surfaces, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 203 for HDR10 surfaces and 1.0 for floating point surfaces.<br/>
-		/// - `SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// surfaces, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. This defaults to 0.0, which disables tone<br/>
-		/// mapping.<br/>
-		/// - `SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING`: the tone mapping operator<br/>
-		/// used when compressing from a surface with high dynamic range to another<br/>
-		/// with lower dynamic range. Currently this supports "chrome", which uses<br/>
-		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
-		/// where N is a floating point scale factor applied in linear space, and<br/>
-		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetSurfaceProperties([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				uint ret = GetSurfacePropertiesNative((SDLSurface*)psurface);
+				int ret = GetAudioStreamDataNative((SDLAudioStream*)pstream, buf, len);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set the colorspace used by a surface.<br/>
-		/// Setting the colorspace doesn't change the pixels, only how they are<br/>
-		/// interpreted in color operations.<br/>
+		/// Get the number of converted/resampled bytes available.<br/>
+		/// The stream may be buffering data behind the scenes until it has enough to<br/>
+		/// resample correctly, so this number might be lower than what you expect, or<br/>
+		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
+		/// If the stream has so much data that it would overflow an int, the return<br/>
+		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
+		/// are gigabytes of data queued, the app might need to read some of it with<br/>
+		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
+		/// clamped.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorspace")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamAvailable")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceColorspaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace)
+		internal static int GetAudioStreamAvailableNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLColorspace, byte>)funcTable[373])(surface, colorspace);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[346])(stream);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLColorspace, byte>)funcTable[373])((nint)surface, colorspace);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[346])((nint)stream);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the colorspace used by a surface.<br/>
-		/// Setting the colorspace doesn't change the pixels, only how they are<br/>
-		/// interpreted in color operations.<br/>
+		/// Get the number of converted/resampled bytes available.<br/>
+		/// The stream may be buffering data behind the scenes until it has enough to<br/>
+		/// resample correctly, so this number might be lower than what you expect, or<br/>
+		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
+		/// If the stream has so much data that it would overflow an int, the return<br/>
+		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
+		/// are gigabytes of data queued, the app might need to read some of it with<br/>
+		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
+		/// clamped.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorspace")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace)
-		{
-			byte ret = SetSurfaceColorspaceNative(surface, colorspace);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the colorspace used by a surface.<br/>
-		/// Setting the colorspace doesn't change the pixels, only how they are<br/>
-		/// interpreted in color operations.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorspace")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamAvailable")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceColorspaceNative((SDLSurface*)psurface, colorspace);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the colorspace used by a surface.<br/>
-		/// The colorspace defaults to SDL_COLORSPACE_SRGB_LINEAR for floating point<br/>
-		/// formats, SDL_COLORSPACE_HDR10 for 10-bit formats, SDL_COLORSPACE_SRGB for<br/>
-		/// other RGB surfaces and SDL_COLORSPACE_BT709_FULL for YUV textures.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Colorspace")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLColorspace GetSurfaceColorspaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLColorspace>)funcTable[374])(surface);
-			#else
-			return (SDLColorspace)((delegate* unmanaged[Cdecl]<nint, SDLColorspace>)funcTable[374])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the colorspace used by a surface.<br/>
-		/// The colorspace defaults to SDL_COLORSPACE_SRGB_LINEAR for floating point<br/>
-		/// formats, SDL_COLORSPACE_HDR10 for 10-bit formats, SDL_COLORSPACE_SRGB for<br/>
-		/// other RGB surfaces and SDL_COLORSPACE_BT709_FULL for YUV textures.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Colorspace")]
-		public static SDLColorspace GetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			SDLColorspace ret = GetSurfaceColorspaceNative(surface);
+			int ret = GetAudioStreamAvailableNative(stream);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the colorspace used by a surface.<br/>
-		/// The colorspace defaults to SDL_COLORSPACE_SRGB_LINEAR for floating point<br/>
-		/// formats, SDL_COLORSPACE_HDR10 for 10-bit formats, SDL_COLORSPACE_SRGB for<br/>
-		/// other RGB surfaces and SDL_COLORSPACE_BT709_FULL for YUV textures.<br/>
+		/// Get the number of converted/resampled bytes available.<br/>
+		/// The stream may be buffering data behind the scenes until it has enough to<br/>
+		/// resample correctly, so this number might be lower than what you expect, or<br/>
+		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
+		/// If the stream has so much data that it would overflow an int, the return<br/>
+		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
+		/// are gigabytes of data queued, the app might need to read some of it with<br/>
+		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
+		/// clamped.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Colorspace")]
-		public static SDLColorspace GetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamAvailable")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				SDLColorspace ret = GetSurfaceColorspaceNative((SDLSurface*)psurface);
+				int ret = GetAudioStreamAvailableNative((SDLAudioStream*)pstream);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a palette and associate it with a surface.<br/>
-		/// This function creates a palette compatible with the provided surface. The<br/>
-		/// palette is then returned for you to modify, and the surface will<br/>
-		/// automatically use the new palette in future operations. You do not need to<br/>
-		/// destroy the returned palette, it will be freed when the reference count<br/>
-		/// reaches 0, usually when the surface is destroyed.<br/>
-		/// Bitmap surfaces (with format SDL_PIXELFORMAT_INDEX1LSB or<br/>
-		/// SDL_PIXELFORMAT_INDEX1MSB) will have the palette initialized with 0 as<br/>
-		/// white and 1 as black. Other surfaces will get a palette initialized with<br/>
-		/// white in every entry.<br/>
-		/// If this function is called for a surface that already has a palette, a new<br/>
-		/// palette will be created to replace it.<br/>
+		/// Get the number of bytes currently queued.<br/>
+		/// This is the number of bytes put into a stream as input, not the number that<br/>
+		/// can be retrieved as output. Because of several details, it's not possible<br/>
+		/// to calculate one number directly from the other. If you need to know how<br/>
+		/// much usable data can be retrieved right now, you should use<br/>
+		/// SDL_GetAudioStreamAvailable() and not this function.<br/>
+		/// Note that audio streams can change their input format at any time, even if<br/>
+		/// there is still data queued in a different format, so the returned byte<br/>
+		/// count will not necessarily match the number of _sample frames_ available.<br/>
+		/// Users of this API should be aware of format changes they make when feeding<br/>
+		/// a stream and plan accordingly.<br/>
+		/// Queued data is not converted until it is consumed by<br/>
+		/// SDL_GetAudioStreamData, so this value should be representative of the exact<br/>
+		/// data that was put into the stream.<br/>
+		/// If the stream has so much data that it would overflow an int, the return<br/>
+		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
+		/// are gigabytes of data queued, the app might need to read some of it with<br/>
+		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
+		/// clamped.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSurfacePalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamQueued")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLPalette* CreateSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		internal static int GetAudioStreamQueuedNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*>)funcTable[375])(surface);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[347])(stream);
 			#else
-			return (SDLPalette*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[375])((nint)surface);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[347])((nint)stream);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a palette and associate it with a surface.<br/>
-		/// This function creates a palette compatible with the provided surface. The<br/>
-		/// palette is then returned for you to modify, and the surface will<br/>
-		/// automatically use the new palette in future operations. You do not need to<br/>
-		/// destroy the returned palette, it will be freed when the reference count<br/>
-		/// reaches 0, usually when the surface is destroyed.<br/>
-		/// Bitmap surfaces (with format SDL_PIXELFORMAT_INDEX1LSB or<br/>
-		/// SDL_PIXELFORMAT_INDEX1MSB) will have the palette initialized with 0 as<br/>
-		/// white and 1 as black. Other surfaces will get a palette initialized with<br/>
-		/// white in every entry.<br/>
-		/// If this function is called for a surface that already has a palette, a new<br/>
-		/// palette will be created to replace it.<br/>
+		/// Get the number of bytes currently queued.<br/>
+		/// This is the number of bytes put into a stream as input, not the number that<br/>
+		/// can be retrieved as output. Because of several details, it's not possible<br/>
+		/// to calculate one number directly from the other. If you need to know how<br/>
+		/// much usable data can be retrieved right now, you should use<br/>
+		/// SDL_GetAudioStreamAvailable() and not this function.<br/>
+		/// Note that audio streams can change their input format at any time, even if<br/>
+		/// there is still data queued in a different format, so the returned byte<br/>
+		/// count will not necessarily match the number of _sample frames_ available.<br/>
+		/// Users of this API should be aware of format changes they make when feeding<br/>
+		/// a stream and plan accordingly.<br/>
+		/// Queued data is not converted until it is consumed by<br/>
+		/// SDL_GetAudioStreamData, so this value should be representative of the exact<br/>
+		/// data that was put into the stream.<br/>
+		/// If the stream has so much data that it would overflow an int, the return<br/>
+		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
+		/// are gigabytes of data queued, the app might need to read some of it with<br/>
+		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
+		/// clamped.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSurfacePalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
-		public static SDLPalette* CreateSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamQueued")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAudioStreamQueued([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
-			SDLPalette* ret = CreateSurfacePaletteNative(surface);
+			int ret = GetAudioStreamQueuedNative(stream);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a palette and associate it with a surface.<br/>
-		/// This function creates a palette compatible with the provided surface. The<br/>
-		/// palette is then returned for you to modify, and the surface will<br/>
-		/// automatically use the new palette in future operations. You do not need to<br/>
-		/// destroy the returned palette, it will be freed when the reference count<br/>
-		/// reaches 0, usually when the surface is destroyed.<br/>
-		/// Bitmap surfaces (with format SDL_PIXELFORMAT_INDEX1LSB or<br/>
-		/// SDL_PIXELFORMAT_INDEX1MSB) will have the palette initialized with 0 as<br/>
-		/// white and 1 as black. Other surfaces will get a palette initialized with<br/>
-		/// white in every entry.<br/>
-		/// If this function is called for a surface that already has a palette, a new<br/>
-		/// palette will be created to replace it.<br/>
+		/// Get the number of bytes currently queued.<br/>
+		/// This is the number of bytes put into a stream as input, not the number that<br/>
+		/// can be retrieved as output. Because of several details, it's not possible<br/>
+		/// to calculate one number directly from the other. If you need to know how<br/>
+		/// much usable data can be retrieved right now, you should use<br/>
+		/// SDL_GetAudioStreamAvailable() and not this function.<br/>
+		/// Note that audio streams can change their input format at any time, even if<br/>
+		/// there is still data queued in a different format, so the returned byte<br/>
+		/// count will not necessarily match the number of _sample frames_ available.<br/>
+		/// Users of this API should be aware of format changes they make when feeding<br/>
+		/// a stream and plan accordingly.<br/>
+		/// Queued data is not converted until it is consumed by<br/>
+		/// SDL_GetAudioStreamData, so this value should be representative of the exact<br/>
+		/// data that was put into the stream.<br/>
+		/// If the stream has so much data that it would overflow an int, the return<br/>
+		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
+		/// are gigabytes of data queued, the app might need to read some of it with<br/>
+		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
+		/// clamped.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSurfacePalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
-		public static SDLPalette* CreateSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioStreamQueued")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAudioStreamQueued([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				SDLPalette* ret = CreateSurfacePaletteNative((SDLSurface*)psurface);
+				int ret = GetAudioStreamQueuedNative((SDLAudioStream*)pstream);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set the palette used by a surface.<br/>
-		/// A single palette can be shared with many surfaces.<br/>
+		/// Tell the stream that you're done sending data, and anything being buffered<br/>
+		/// should be converted/resampled and made available immediately.<br/>
+		/// It is legal to add more data to a stream after flushing, but there may be<br/>
+		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
+		/// input, so the complete output becomes available.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[NativeName(NativeNameType.Func, "SDL_FlushAudioStream")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette)
+		internal static byte FlushAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*, byte>)funcTable[376])(surface, palette);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[348])(stream);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[376])((nint)surface, (nint)palette);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[348])((nint)stream);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the palette used by a surface.<br/>
-		/// A single palette can be shared with many surfaces.<br/>
+		/// Tell the stream that you're done sending data, and anything being buffered<br/>
+		/// should be converted/resampled and made available immediately.<br/>
+		/// It is legal to add more data to a stream after flushing, but there may be<br/>
+		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
+		/// input, so the complete output becomes available.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[NativeName(NativeNameType.Func, "SDL_FlushAudioStream")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette)
+		public static bool FlushAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
-			byte ret = SetSurfacePaletteNative(surface, palette);
+			byte ret = FlushAudioStreamNative(stream);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set the palette used by a surface.<br/>
-		/// A single palette can be shared with many surfaces.<br/>
+		/// Tell the stream that you're done sending data, and anything being buffered<br/>
+		/// should be converted/resampled and made available immediately.<br/>
+		/// It is legal to add more data to a stream after flushing, but there may be<br/>
+		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
+		/// input, so the complete output becomes available.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[NativeName(NativeNameType.Func, "SDL_FlushAudioStream")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette)
+		public static bool FlushAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				byte ret = SetSurfacePaletteNative((SDLSurface*)psurface, palette);
+				byte ret = FlushAudioStreamNative((SDLAudioStream*)pstream);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set the palette used by a surface.<br/>
-		/// A single palette can be shared with many surfaces.<br/>
+		/// Clear any pending data in the stream.<br/>
+		/// This drops any queued data, so there will be nothing to read from the<br/>
+		/// stream until more is added.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[NativeName(NativeNameType.Func, "SDL_ClearAudioStream")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ClearAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
-			fixed (SDLPalette* ppalette = &palette)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[349])(stream);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[349])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Clear any pending data in the stream.<br/>
+		/// This drops any queued data, so there will be nothing to read from the<br/>
+		/// stream until more is added.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			byte ret = ClearAudioStreamNative(stream);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Clear any pending data in the stream.<br/>
+		/// This drops any queued data, so there will be nothing to read from the<br/>
+		/// stream until more is added.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				byte ret = SetSurfacePaletteNative(surface, (SDLPalette*)ppalette);
+				byte ret = ClearAudioStreamNative((SDLAudioStream*)pstream);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set the palette used by a surface.<br/>
-		/// A single palette can be shared with many surfaces.<br/>
+		/// Use this function to pause audio playback on the audio device associated<br/>
+		/// with an audio stream.<br/>
+		/// This function pauses audio processing for a given device. Any bound audio<br/>
+		/// streams will not progress, and no audio will be generated. Pausing one<br/>
+		/// device does not prevent other unpaused devices from running.<br/>
+		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
+		/// audio streams. This might be useful while a game is paused, or a level is<br/>
+		/// loading, etc.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[NativeName(NativeNameType.Func, "SDL_PauseAudioStreamDevice")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte PauseAudioStreamDeviceNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[350])(stream);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[350])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to pause audio playback on the audio device associated<br/>
+		/// with an audio stream.<br/>
+		/// This function pauses audio processing for a given device. Any bound audio<br/>
+		/// streams will not progress, and no audio will be generated. Pausing one<br/>
+		/// device does not prevent other unpaused devices from running.<br/>
+		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
+		/// audio streams. This might be useful while a game is paused, or a level is<br/>
+		/// loading, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseAudioStreamDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PauseAudioStreamDevice([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			byte ret = PauseAudioStreamDeviceNative(stream);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Use this function to pause audio playback on the audio device associated<br/>
+		/// with an audio stream.<br/>
+		/// This function pauses audio processing for a given device. Any bound audio<br/>
+		/// streams will not progress, and no audio will be generated. Pausing one<br/>
+		/// device does not prevent other unpaused devices from running.<br/>
+		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
+		/// audio streams. This might be useful while a game is paused, or a level is<br/>
+		/// loading, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseAudioStreamDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PauseAudioStreamDevice([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
 			{
-				fixed (SDLPalette* ppalette = &palette)
+				byte ret = PauseAudioStreamDeviceNative((SDLAudioStream*)pstream);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to unpause audio playback on the audio device associated<br/>
+		/// with an audio stream.<br/>
+		/// This function unpauses audio processing for a given device that has<br/>
+		/// previously been paused. Once unpaused, any bound audio streams will begin<br/>
+		/// to progress again, and audio can be generated.<br/>
+		/// Remember, SDL_OpenAudioDeviceStream opens device in a paused state, so this<br/>
+		/// function call is required for audio playback to begin on such device.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeAudioStreamDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ResumeAudioStreamDeviceNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[351])(stream);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[351])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to unpause audio playback on the audio device associated<br/>
+		/// with an audio stream.<br/>
+		/// This function unpauses audio processing for a given device that has<br/>
+		/// previously been paused. Once unpaused, any bound audio streams will begin<br/>
+		/// to progress again, and audio can be generated.<br/>
+		/// Remember, SDL_OpenAudioDeviceStream opens device in a paused state, so this<br/>
+		/// function call is required for audio playback to begin on such device.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeAudioStreamDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ResumeAudioStreamDevice([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			byte ret = ResumeAudioStreamDeviceNative(stream);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Use this function to unpause audio playback on the audio device associated<br/>
+		/// with an audio stream.<br/>
+		/// This function unpauses audio processing for a given device that has<br/>
+		/// previously been paused. Once unpaused, any bound audio streams will begin<br/>
+		/// to progress again, and audio can be generated.<br/>
+		/// Remember, SDL_OpenAudioDeviceStream opens device in a paused state, so this<br/>
+		/// function call is required for audio playback to begin on such device.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeAudioStreamDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ResumeAudioStreamDevice([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				byte ret = ResumeAudioStreamDeviceNative((SDLAudioStream*)pstream);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to query if an audio device associated with a stream is<br/>
+		/// paused.<br/>
+		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
+		/// has to bind a stream before any audio will flow.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AudioStreamDevicePaused")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte AudioStreamDevicePausedNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[352])(stream);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[352])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to query if an audio device associated with a stream is<br/>
+		/// paused.<br/>
+		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
+		/// has to bind a stream before any audio will flow.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AudioStreamDevicePaused")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AudioStreamDevicePaused([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			byte ret = AudioStreamDevicePausedNative(stream);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Use this function to query if an audio device associated with a stream is<br/>
+		/// paused.<br/>
+		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
+		/// has to bind a stream before any audio will flow.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AudioStreamDevicePaused")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AudioStreamDevicePaused([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				byte ret = AudioStreamDevicePausedNative((SDLAudioStream*)pstream);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock an audio stream for serialized access.<br/>
+		/// Each SDL_AudioStream has an internal mutex it uses to protect its data<br/>
+		/// structures from threading conflicts. This function allows an app to lock<br/>
+		/// that mutex, which could be useful if registering callbacks on this stream.<br/>
+		/// One does not need to lock a stream to use in it most cases, as the stream<br/>
+		/// manages this lock internally. However, this lock is held during callbacks,<br/>
+		/// which may run from arbitrary threads at any time, so if an app needs to<br/>
+		/// protect shared data during those callbacks, locking the stream guarantees<br/>
+		/// that the callback is not running while the lock is held.<br/>
+		/// As this is just a wrapper over SDL_LockMutex for an internal lock; it has<br/>
+		/// all the same attributes (recursive locks are allowed, etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte LockAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[353])(stream);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[353])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock an audio stream for serialized access.<br/>
+		/// Each SDL_AudioStream has an internal mutex it uses to protect its data<br/>
+		/// structures from threading conflicts. This function allows an app to lock<br/>
+		/// that mutex, which could be useful if registering callbacks on this stream.<br/>
+		/// One does not need to lock a stream to use in it most cases, as the stream<br/>
+		/// manages this lock internally. However, this lock is held during callbacks,<br/>
+		/// which may run from arbitrary threads at any time, so if an app needs to<br/>
+		/// protect shared data during those callbacks, locking the stream guarantees<br/>
+		/// that the callback is not running while the lock is held.<br/>
+		/// As this is just a wrapper over SDL_LockMutex for an internal lock; it has<br/>
+		/// all the same attributes (recursive locks are allowed, etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LockAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			byte ret = LockAudioStreamNative(stream);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Lock an audio stream for serialized access.<br/>
+		/// Each SDL_AudioStream has an internal mutex it uses to protect its data<br/>
+		/// structures from threading conflicts. This function allows an app to lock<br/>
+		/// that mutex, which could be useful if registering callbacks on this stream.<br/>
+		/// One does not need to lock a stream to use in it most cases, as the stream<br/>
+		/// manages this lock internally. However, this lock is held during callbacks,<br/>
+		/// which may run from arbitrary threads at any time, so if an app needs to<br/>
+		/// protect shared data during those callbacks, locking the stream guarantees<br/>
+		/// that the callback is not running while the lock is held.<br/>
+		/// As this is just a wrapper over SDL_LockMutex for an internal lock; it has<br/>
+		/// all the same attributes (recursive locks are allowed, etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LockAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				byte ret = LockAudioStreamNative((SDLAudioStream*)pstream);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Unlock an audio stream for serialized access.<br/>
+		/// This unlocks an audio stream after a call to SDL_LockAudioStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// You should only call this from the same thread that<br/>
+		/// previously called SDL_LockAudioStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte UnlockAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[354])(stream);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[354])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Unlock an audio stream for serialized access.<br/>
+		/// This unlocks an audio stream after a call to SDL_LockAudioStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// You should only call this from the same thread that<br/>
+		/// previously called SDL_LockAudioStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UnlockAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			byte ret = UnlockAudioStreamNative(stream);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Unlock an audio stream for serialized access.<br/>
+		/// This unlocks an audio stream after a call to SDL_LockAudioStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// You should only call this from the same thread that<br/>
+		/// previously called SDL_LockAudioStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockAudioStream")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UnlockAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				byte ret = UnlockAudioStreamNative((SDLAudioStream*)pstream);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a callback that runs when data is requested from an audio stream.<br/>
+		/// This callback is called _before_ data is obtained from the stream, giving<br/>
+		/// the callback the chance to add more on-demand.<br/>
+		/// The callback can (optionally) call SDL_PutAudioStreamData() to add more<br/>
+		/// audio to the stream during this call; if needed, the request that triggered<br/>
+		/// this callback will obtain the new data immediately.<br/>
+		/// The callback's `approx_request` argument is roughly how many bytes of<br/>
+		/// _unconverted_ data (in the stream's input format) is needed by the caller,<br/>
+		/// although this may overestimate a little for safety. This takes into account<br/>
+		/// how much is already in the stream and only asks for any extra necessary to<br/>
+		/// resolve the request, which means the callback may be asked for zero bytes,<br/>
+		/// and a different amount on each call.<br/>
+		/// The callback is not required to supply exact amounts; it is allowed to<br/>
+		/// supply too much or too little or none at all. The caller will get what's<br/>
+		/// available, up to the amount they requested, regardless of this callback's<br/>
+		/// outcome.<br/>
+		/// Clearing or flushing an audio stream does not call this callback.<br/>
+		/// This function obtains the stream's lock, which means any existing callback<br/>
+		/// (get or put) in progress will finish running before setting the new<br/>
+		/// callback.<br/>
+		/// Setting a NULL function turns off the callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamGetCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetAudioStreamGetCallbackNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, delegate*<void*, SDLAudioStream*, int, int, void>, void*, byte>)funcTable[355])(stream, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[355])((nint)stream, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a callback that runs when data is requested from an audio stream.<br/>
+		/// This callback is called _before_ data is obtained from the stream, giving<br/>
+		/// the callback the chance to add more on-demand.<br/>
+		/// The callback can (optionally) call SDL_PutAudioStreamData() to add more<br/>
+		/// audio to the stream during this call; if needed, the request that triggered<br/>
+		/// this callback will obtain the new data immediately.<br/>
+		/// The callback's `approx_request` argument is roughly how many bytes of<br/>
+		/// _unconverted_ data (in the stream's input format) is needed by the caller,<br/>
+		/// although this may overestimate a little for safety. This takes into account<br/>
+		/// how much is already in the stream and only asks for any extra necessary to<br/>
+		/// resolve the request, which means the callback may be asked for zero bytes,<br/>
+		/// and a different amount on each call.<br/>
+		/// The callback is not required to supply exact amounts; it is allowed to<br/>
+		/// supply too much or too little or none at all. The caller will get what's<br/>
+		/// available, up to the amount they requested, regardless of this callback's<br/>
+		/// outcome.<br/>
+		/// Clearing or flushing an audio stream does not call this callback.<br/>
+		/// This function obtains the stream's lock, which means any existing callback<br/>
+		/// (get or put) in progress will finish running before setting the new<br/>
+		/// callback.<br/>
+		/// Setting a NULL function turns off the callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamGetCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioStreamGetCallback([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetAudioStreamGetCallbackNative(stream, callback, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a callback that runs when data is requested from an audio stream.<br/>
+		/// This callback is called _before_ data is obtained from the stream, giving<br/>
+		/// the callback the chance to add more on-demand.<br/>
+		/// The callback can (optionally) call SDL_PutAudioStreamData() to add more<br/>
+		/// audio to the stream during this call; if needed, the request that triggered<br/>
+		/// this callback will obtain the new data immediately.<br/>
+		/// The callback's `approx_request` argument is roughly how many bytes of<br/>
+		/// _unconverted_ data (in the stream's input format) is needed by the caller,<br/>
+		/// although this may overestimate a little for safety. This takes into account<br/>
+		/// how much is already in the stream and only asks for any extra necessary to<br/>
+		/// resolve the request, which means the callback may be asked for zero bytes,<br/>
+		/// and a different amount on each call.<br/>
+		/// The callback is not required to supply exact amounts; it is allowed to<br/>
+		/// supply too much or too little or none at all. The caller will get what's<br/>
+		/// available, up to the amount they requested, regardless of this callback's<br/>
+		/// outcome.<br/>
+		/// Clearing or flushing an audio stream does not call this callback.<br/>
+		/// This function obtains the stream's lock, which means any existing callback<br/>
+		/// (get or put) in progress will finish running before setting the new<br/>
+		/// callback.<br/>
+		/// Setting a NULL function turns off the callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamGetCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioStreamGetCallback([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				byte ret = SetAudioStreamGetCallbackNative((SDLAudioStream*)pstream, callback, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a callback that runs when data is added to an audio stream.<br/>
+		/// This callback is called _after_ the data is added to the stream, giving the<br/>
+		/// callback the chance to obtain it immediately.<br/>
+		/// The callback can (optionally) call SDL_GetAudioStreamData() to obtain audio<br/>
+		/// from the stream during this call.<br/>
+		/// The callback's `approx_request` argument is how many bytes of _converted_<br/>
+		/// data (in the stream's output format) was provided by the caller, although<br/>
+		/// this may underestimate a little for safety. This value might be less than<br/>
+		/// what is currently available in the stream, if data was already there, and<br/>
+		/// might be less than the caller provided if the stream needs to keep a buffer<br/>
+		/// to aid in resampling. Which means the callback may be provided with zero<br/>
+		/// bytes, and a different amount on each call.<br/>
+		/// The callback may call SDL_GetAudioStreamAvailable to see the total amount<br/>
+		/// currently available to read from the stream, instead of the total provided<br/>
+		/// by the current call.<br/>
+		/// The callback is not required to obtain all data. It is allowed to read less<br/>
+		/// or none at all. Anything not read now simply remains in the stream for<br/>
+		/// later access.<br/>
+		/// Clearing or flushing an audio stream does not call this callback.<br/>
+		/// This function obtains the stream's lock, which means any existing callback<br/>
+		/// (get or put) in progress will finish running before setting the new<br/>
+		/// callback.<br/>
+		/// Setting a NULL function turns off the callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamPutCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetAudioStreamPutCallbackNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, delegate*<void*, SDLAudioStream*, int, int, void>, void*, byte>)funcTable[356])(stream, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[356])((nint)stream, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a callback that runs when data is added to an audio stream.<br/>
+		/// This callback is called _after_ the data is added to the stream, giving the<br/>
+		/// callback the chance to obtain it immediately.<br/>
+		/// The callback can (optionally) call SDL_GetAudioStreamData() to obtain audio<br/>
+		/// from the stream during this call.<br/>
+		/// The callback's `approx_request` argument is how many bytes of _converted_<br/>
+		/// data (in the stream's output format) was provided by the caller, although<br/>
+		/// this may underestimate a little for safety. This value might be less than<br/>
+		/// what is currently available in the stream, if data was already there, and<br/>
+		/// might be less than the caller provided if the stream needs to keep a buffer<br/>
+		/// to aid in resampling. Which means the callback may be provided with zero<br/>
+		/// bytes, and a different amount on each call.<br/>
+		/// The callback may call SDL_GetAudioStreamAvailable to see the total amount<br/>
+		/// currently available to read from the stream, instead of the total provided<br/>
+		/// by the current call.<br/>
+		/// The callback is not required to obtain all data. It is allowed to read less<br/>
+		/// or none at all. Anything not read now simply remains in the stream for<br/>
+		/// later access.<br/>
+		/// Clearing or flushing an audio stream does not call this callback.<br/>
+		/// This function obtains the stream's lock, which means any existing callback<br/>
+		/// (get or put) in progress will finish running before setting the new<br/>
+		/// callback.<br/>
+		/// Setting a NULL function turns off the callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamPutCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioStreamPutCallback([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetAudioStreamPutCallbackNative(stream, callback, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a callback that runs when data is added to an audio stream.<br/>
+		/// This callback is called _after_ the data is added to the stream, giving the<br/>
+		/// callback the chance to obtain it immediately.<br/>
+		/// The callback can (optionally) call SDL_GetAudioStreamData() to obtain audio<br/>
+		/// from the stream during this call.<br/>
+		/// The callback's `approx_request` argument is how many bytes of _converted_<br/>
+		/// data (in the stream's output format) was provided by the caller, although<br/>
+		/// this may underestimate a little for safety. This value might be less than<br/>
+		/// what is currently available in the stream, if data was already there, and<br/>
+		/// might be less than the caller provided if the stream needs to keep a buffer<br/>
+		/// to aid in resampling. Which means the callback may be provided with zero<br/>
+		/// bytes, and a different amount on each call.<br/>
+		/// The callback may call SDL_GetAudioStreamAvailable to see the total amount<br/>
+		/// currently available to read from the stream, instead of the total provided<br/>
+		/// by the current call.<br/>
+		/// The callback is not required to obtain all data. It is allowed to read less<br/>
+		/// or none at all. Anything not read now simply remains in the stream for<br/>
+		/// later access.<br/>
+		/// Clearing or flushing an audio stream does not call this callback.<br/>
+		/// This function obtains the stream's lock, which means any existing callback<br/>
+		/// (get or put) in progress will finish running before setting the new<br/>
+		/// callback.<br/>
+		/// Setting a NULL function turns off the callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioStreamPutCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioStreamPutCallback([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				byte ret = SetAudioStreamPutCallbackNative((SDLAudioStream*)pstream, callback, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Free an audio stream.<br/>
+		/// This will release all allocated data, including any audio that is still<br/>
+		/// queued. You do not need to manually clear the stream first.<br/>
+		/// If this stream was bound to an audio device, it is unbound during this<br/>
+		/// call. If this stream was created with SDL_OpenAudioDeviceStream, the audio<br/>
+		/// device that was opened alongside this stream's creation will be closed,<br/>
+		/// too.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyAudioStream")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[357])(stream);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[357])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Free an audio stream.<br/>
+		/// This will release all allocated data, including any audio that is still<br/>
+		/// queued. You do not need to manually clear the stream first.<br/>
+		/// If this stream was bound to an audio device, it is unbound during this<br/>
+		/// call. If this stream was created with SDL_OpenAudioDeviceStream, the audio<br/>
+		/// device that was opened alongside this stream's creation will be closed,<br/>
+		/// too.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyAudioStream")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream)
+		{
+			DestroyAudioStreamNative(stream);
+		}
+
+		/// <summary>
+		/// Free an audio stream.<br/>
+		/// This will release all allocated data, including any audio that is still<br/>
+		/// queued. You do not need to manually clear the stream first.<br/>
+		/// If this stream was bound to an audio device, it is unbound during this<br/>
+		/// call. If this stream was created with SDL_OpenAudioDeviceStream, the audio<br/>
+		/// device that was opened alongside this stream's creation will be closed,<br/>
+		/// too.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyAudioStream")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				DestroyAudioStreamNative((SDLAudioStream*)pstream);
+			}
+		}
+
+		/// <summary>
+		/// Convenience function for straightforward audio init for the common case.<br/>
+		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
+		/// function allows you to do all your audio setup in a single call.<br/>
+		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
+		/// This function will open an audio device, create a stream and bind it.<br/>
+		/// Unlike other methods of setup, the audio device will be closed when this<br/>
+		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
+		/// the only object needed to manage audio playback.<br/>
+		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
+		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
+		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
+		/// with `SDL_ResumeAudioStreamDevice(stream);`<br/>
+		/// This function works with both playback and recording devices.<br/>
+		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
+		/// is, for recording audio, this will be the output format, and for playing<br/>
+		/// audio, this will be the input format. If spec is NULL, the system will<br/>
+		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
+		/// this information later.<br/>
+		/// If you don't care about opening a specific audio device, you can (and<br/>
+		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
+		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
+		/// One can optionally provide a callback function; if NULL, the app is<br/>
+		/// expected to queue audio data for playback (or unqueue audio data if<br/>
+		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
+		/// unpaused.<br/>
+		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
+		/// the audio device associated with this stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenAudioDeviceStream")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioStream *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLAudioStream* OpenAudioDeviceStreamNative([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioSpec*, delegate*<void*, SDLAudioStream*, int, int, void>, void*, SDLAudioStream*>)funcTable[358])(devid, spec, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint>)funcTable[358])(devid, (nint)spec, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Convenience function for straightforward audio init for the common case.<br/>
+		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
+		/// function allows you to do all your audio setup in a single call.<br/>
+		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
+		/// This function will open an audio device, create a stream and bind it.<br/>
+		/// Unlike other methods of setup, the audio device will be closed when this<br/>
+		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
+		/// the only object needed to manage audio playback.<br/>
+		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
+		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
+		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
+		/// with `SDL_ResumeAudioStreamDevice(stream);`<br/>
+		/// This function works with both playback and recording devices.<br/>
+		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
+		/// is, for recording audio, this will be the output format, and for playing<br/>
+		/// audio, this will be the input format. If spec is NULL, the system will<br/>
+		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
+		/// this information later.<br/>
+		/// If you don't care about opening a specific audio device, you can (and<br/>
+		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
+		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
+		/// One can optionally provide a callback function; if NULL, the app is<br/>
+		/// expected to queue audio data for playback (or unqueue audio data if<br/>
+		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
+		/// unpaused.<br/>
+		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
+		/// the audio device associated with this stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenAudioDeviceStream")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioStream *")]
+		public static SDLAudioStream* OpenAudioDeviceStream([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			SDLAudioStream* ret = OpenAudioDeviceStreamNative(devid, spec, callback, userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convenience function for straightforward audio init for the common case.<br/>
+		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
+		/// function allows you to do all your audio setup in a single call.<br/>
+		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
+		/// This function will open an audio device, create a stream and bind it.<br/>
+		/// Unlike other methods of setup, the audio device will be closed when this<br/>
+		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
+		/// the only object needed to manage audio playback.<br/>
+		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
+		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
+		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
+		/// with `SDL_ResumeAudioStreamDevice(stream);`<br/>
+		/// This function works with both playback and recording devices.<br/>
+		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
+		/// is, for recording audio, this will be the output format, and for playing<br/>
+		/// audio, this will be the input format. If spec is NULL, the system will<br/>
+		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
+		/// this information later.<br/>
+		/// If you don't care about opening a specific audio device, you can (and<br/>
+		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
+		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
+		/// One can optionally provide a callback function; if NULL, the app is<br/>
+		/// expected to queue audio data for playback (or unqueue audio data if<br/>
+		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
+		/// unpaused.<br/>
+		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
+		/// the audio device associated with this stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenAudioDeviceStream")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioStream *")]
+		public static SDLAudioStream* OpenAudioDeviceStream([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				SDLAudioStream* ret = OpenAudioDeviceStreamNative(devid, (SDLAudioSpec*)pspec, callback, userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
+		/// This is useful for accessing the final mix, perhaps for writing a<br/>
+		/// visualizer or applying a final effect to the audio data before playback.<br/>
+		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
+		/// this callback will fire regularly for any device that is both opened and<br/>
+		/// unpaused. If there is no new data to mix, either because no streams are<br/>
+		/// bound to the device or all the streams are empty, this callback will still<br/>
+		/// fire with the entire buffer set to silence.<br/>
+		/// This callback is allowed to make changes to the data; the contents of the<br/>
+		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
+		/// The callback is always provided the data in float format (values from -1.0f<br/>
+		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
+		/// the format the app requested when opening the device; SDL might have had to<br/>
+		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
+		/// new physical hardware when a system default changed, etc. These details may<br/>
+		/// change between calls. Accordingly, the size of the buffer might change<br/>
+		/// between calls as well.<br/>
+		/// This callback can run at any time, and from any thread; if you need to<br/>
+		/// serialize access to your app's data, you should provide and use a mutex or<br/>
+		/// other synchronization device.<br/>
+		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
+		/// it is not the simplest interface. Apps should generally provide audio in<br/>
+		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
+		/// difference.<br/>
+		/// This function is extremely time-sensitive; the callback should do the least<br/>
+		/// amount of work possible and return as quickly as it can. The longer the<br/>
+		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
+		/// This function will block until the audio device is in between iterations,<br/>
+		/// so any existing callback that might be running will finish before this<br/>
+		/// function sets the new callback and returns.<br/>
+		/// Setting a NULL callback function disables any previously-set callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioPostmixCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetAudioPostmixCallbackNative([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioPostmixCallback")] SDLAudioPostmixCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void*, SDLAudioSpec*, float*, int, void>, void*, byte>)funcTable[359])(devid, (delegate*<void*, SDLAudioSpec*, float*, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[359])(devid, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
+		/// This is useful for accessing the final mix, perhaps for writing a<br/>
+		/// visualizer or applying a final effect to the audio data before playback.<br/>
+		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
+		/// this callback will fire regularly for any device that is both opened and<br/>
+		/// unpaused. If there is no new data to mix, either because no streams are<br/>
+		/// bound to the device or all the streams are empty, this callback will still<br/>
+		/// fire with the entire buffer set to silence.<br/>
+		/// This callback is allowed to make changes to the data; the contents of the<br/>
+		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
+		/// The callback is always provided the data in float format (values from -1.0f<br/>
+		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
+		/// the format the app requested when opening the device; SDL might have had to<br/>
+		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
+		/// new physical hardware when a system default changed, etc. These details may<br/>
+		/// change between calls. Accordingly, the size of the buffer might change<br/>
+		/// between calls as well.<br/>
+		/// This callback can run at any time, and from any thread; if you need to<br/>
+		/// serialize access to your app's data, you should provide and use a mutex or<br/>
+		/// other synchronization device.<br/>
+		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
+		/// it is not the simplest interface. Apps should generally provide audio in<br/>
+		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
+		/// difference.<br/>
+		/// This function is extremely time-sensitive; the callback should do the least<br/>
+		/// amount of work possible and return as quickly as it can. The longer the<br/>
+		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
+		/// This function will block until the audio device is in between iterations,<br/>
+		/// so any existing callback that might be running will finish before this<br/>
+		/// function sets the new callback and returns.<br/>
+		/// Setting a NULL callback function disables any previously-set callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioPostmixCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioPostmixCallback([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioPostmixCallback")] SDLAudioPostmixCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetAudioPostmixCallbackNative(devid, callback, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte LoadWAVIONative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, SDLAudioSpec*, byte**, uint*, byte>)funcTable[360])(src, closeio, spec, audioBuf, audioLen);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, nint, nint, byte>)funcTable[360])((nint)src, closeio, (nint)spec, (nint)audioBuf, (nint)audioLen);
+			#endif
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, audioBuf, audioLen);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, audioBuf, audioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					byte ret = SetSurfacePaletteNative((SDLSurface*)psurface, (SDLPalette*)ppalette);
+					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the palette used by a surface.<br/>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfacePalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLPalette* GetSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*>)funcTable[377])(surface);
-			#else
-			return (SDLPalette*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[377])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the palette used by a surface.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfacePalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
-		public static SDLPalette* GetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			SDLPalette* ret = GetSurfacePaletteNative(surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the palette used by a surface.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfacePalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
-		public static SDLPalette* GetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte** paudioBuf = &audioBuf)
 			{
-				SDLPalette* ret = GetSurfacePaletteNative((SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add an alternate version of a surface.<br/>
-		/// This function adds an alternate version of this surface, usually used for<br/>
-		/// content with high DPI representations like cursors or icons. The size,<br/>
-		/// format, and content do not need to match the original surface, and these<br/>
-		/// alternate versions will not be updated when the original surface changes.<br/>
-		/// This function adds a reference to the alternate version, so you should call<br/>
-		/// SDL_DestroySurface() on the image after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte AddSurfaceAlternateImageNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* image)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*, byte>)funcTable[378])(surface, image);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[378])((nint)surface, (nint)image);
-			#endif
-		}
-
-		/// <summary>
-		/// Add an alternate version of a surface.<br/>
-		/// This function adds an alternate version of this surface, usually used for<br/>
-		/// content with high DPI representations like cursors or icons. The size,<br/>
-		/// format, and content do not need to match the original surface, and these<br/>
-		/// alternate versions will not be updated when the original surface changes.<br/>
-		/// This function adds a reference to the alternate version, so you should call<br/>
-		/// SDL_DestroySurface() on the image after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* image)
-		{
-			byte ret = AddSurfaceAlternateImageNative(surface, image);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Add an alternate version of a surface.<br/>
-		/// This function adds an alternate version of this surface, usually used for<br/>
-		/// content with high DPI representations like cursors or icons. The size,<br/>
-		/// format, and content do not need to match the original surface, and these<br/>
-		/// alternate versions will not be updated when the original surface changes.<br/>
-		/// This function adds a reference to the alternate version, so you should call<br/>
-		/// SDL_DestroySurface() on the image after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* image)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = AddSurfaceAlternateImageNative((SDLSurface*)psurface, image);
+				byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, audioLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Add an alternate version of a surface.<br/>
-		/// This function adds an alternate version of this surface, usually used for<br/>
-		/// content with high DPI representations like cursors or icons. The size,<br/>
-		/// format, and content do not need to match the original surface, and these<br/>
-		/// alternate versions will not be updated when the original surface changes.<br/>
-		/// This function adds a reference to the alternate version, so you should call<br/>
-		/// SDL_DestroySurface() on the image after this call.<br/>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface image)
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* pimage = &image)
+			fixed (SDLIOStream* psrc = &src)
 			{
-				byte ret = AddSurfaceAlternateImageNative(surface, (SDLSurface*)pimage);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Add an alternate version of a surface.<br/>
-		/// This function adds an alternate version of this surface, usually used for<br/>
-		/// content with high DPI representations like cursors or icons. The size,<br/>
-		/// format, and content do not need to match the original surface, and these<br/>
-		/// alternate versions will not be updated when the original surface changes.<br/>
-		/// This function adds a reference to the alternate version, so you should call<br/>
-		/// SDL_DestroySurface() on the image after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface image)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLSurface* pimage = &image)
+				fixed (byte** paudioBuf = &audioBuf)
 				{
-					byte ret = AddSurfaceAlternateImageNative((SDLSurface*)psurface, (SDLSurface*)pimage);
+					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Return whether a surface has alternate versions available.<br/>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasAlternateImages")]
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (uint* paudioLen = &audioLen)
+			{
+				byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, audioBuf, (uint*)paudioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						fixed (uint* paudioLen = &audioLen)
+						{
+							byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SurfaceHasAlternateImagesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		internal static byte LoadWAVNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[379])(surface);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLAudioSpec*, byte**, uint*, byte>)funcTable[361])(path, spec, audioBuf, audioLen);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[379])((nint)surface);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[361])((nint)path, (nint)spec, (nint)audioBuf, (nint)audioLen);
 			#endif
 		}
 
 		/// <summary>
-		/// Return whether a surface has alternate versions available.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasAlternateImages")]
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SurfaceHasAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			byte ret = SurfaceHasAlternateImagesNative(surface);
+			byte ret = LoadWAVNative(path, spec, audioBuf, audioLen);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Return whether a surface has alternate versions available.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasAlternateImages")]
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SurfaceHasAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = &path)
 			{
-				byte ret = SurfaceHasAlternateImagesNative((SDLSurface*)psurface);
+				byte ret = LoadWAVNative((byte*)ppath, spec, audioBuf, audioLen);
 				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = LoadWAVNative((byte*)ppath, spec, audioBuf, audioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = LoadWAVNative(pStr0, spec, audioBuf, audioLen);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				byte ret = LoadWAVNative(path, spec, (byte**)paudioBuf, audioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVNative((byte*)ppath, spec, (byte**)paudioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVNative((byte*)ppath, spec, (byte**)paudioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				byte ret = LoadWAVNative(pStr0, spec, (byte**)paudioBuf, audioLen);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (uint* paudioLen = &audioLen)
+			{
+				byte ret = LoadWAVNative(path, spec, audioBuf, (uint*)paudioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative((byte*)ppath, spec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative((byte*)ppath, spec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (uint* paudioLen = &audioLen)
+			{
+				byte ret = LoadWAVNative(pStr0, spec, audioBuf, (uint*)paudioLen);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative(path, spec, (byte**)paudioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, spec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, spec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative(pStr0, spec, (byte**)paudioBuf, (uint*)paudioLen);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						fixed (uint* paudioLen = &audioLen)
+						{
+							byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						fixed (uint* paudioLen = &audioLen)
+						{
+							byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							Utils.Free(pStr0);
+						}
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte MixAudioNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLAudioFormat, uint, float, byte>)funcTable[362])(dst, src, format, len, volume);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLAudioFormat, uint, float, byte>)funcTable[362])((nint)dst, (nint)src, format, len, volume);
+			#endif
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			byte ret = MixAudioNative(dst, src, format, len, volume);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				byte ret = MixAudioNative((byte*)pdst, src, format, len, volume);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			fixed (byte* psrc = &src)
+			{
+				byte ret = MixAudioNative(dst, (byte*)psrc, format, len, volume);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					byte ret = MixAudioNative((byte*)pdst, (byte*)psrc, format, len, volume);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ConvertAudioSamplesNative([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioSpec*, byte*, int, SDLAudioSpec*, byte**, int*, byte>)funcTable[363])(srcSpec, srcData, srcLen, dstSpec, dstData, dstLen);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, nint, nint, nint, byte>)funcTable[363])((nint)srcSpec, (nint)srcData, srcLen, (nint)dstSpec, (nint)dstData, (nint)dstLen);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, dstSpec, dstData, dstLen);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, dstSpec, dstData, dstLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, dstSpec, dstData, dstLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, dstSpec, dstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+			{
+				byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte** pdstData = &dstData)
+			{
+				byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, dstSpec, (byte**)pdstData, dstLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, dstSpec, (byte**)pdstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, dstSpec, (byte**)pdstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, dstSpec, (byte**)pdstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						fixed (byte** pdstData = &dstData)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (int* pdstLen = &dstLen)
+			{
+				byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, dstSpec, dstData, (int*)pdstLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, dstSpec, dstData, (int*)pdstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, dstSpec, dstData, (int*)pdstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, dstSpec, dstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+					return ret != 0;
+				}
 			}
 		}
 	}

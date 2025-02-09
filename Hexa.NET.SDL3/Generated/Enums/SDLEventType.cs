@@ -320,7 +320,7 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// The window with the associated ID is being or has been destroyed. If this message is being handled<br/>
-		/// in an event watcher, the window handle is still valid and can still be used to retrieve any userdata<br/>
+		/// in an event watcher, the window handle is still valid and can still be used to retrieve any properties<br/>
 		/// associated with the window. Otherwise, the handle has already been destroyed and all resources<br/>
 		/// associated with it are invalid <br/>
 		/// </summary>
@@ -609,6 +609,13 @@ namespace Hexa.NET.SDL3
 		FingerMotion = unchecked(1794),
 
 		/// <summary>
+		/// Touch events <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_FINGER_CANCELED")]
+		[NativeName(NativeNameType.Value, "1795")]
+		FingerCanceled = unchecked(1795),
+
+		/// <summary>
 		/// The clipboard or primary selection changed <br/>
 		/// </summary>
 		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_CLIPBOARD_UPDATE")]
@@ -775,6 +782,41 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_RENDER_DEVICE_RESET")]
 		[NativeName(NativeNameType.Value, "8193")]
 		RenderDeviceReset = unchecked(8193),
+
+		/// <summary>
+		/// The device has been lost and can't be recovered. <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_RENDER_DEVICE_LOST")]
+		[NativeName(NativeNameType.Value, "8194")]
+		RenderDeviceLost = unchecked(8194),
+
+		/// <summary>
+		/// Reserved events for private platforms <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE0")]
+		[NativeName(NativeNameType.Value, "16384")]
+		Private0 = unchecked(16384),
+
+		/// <summary>
+		/// Reserved events for private platforms <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE1")]
+		[NativeName(NativeNameType.Value, "16385")]
+		Private1 = unchecked(16385),
+
+		/// <summary>
+		/// Reserved events for private platforms <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE2")]
+		[NativeName(NativeNameType.Value, "16386")]
+		Private2 = unchecked(16386),
+
+		/// <summary>
+		/// Reserved events for private platforms <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE3")]
+		[NativeName(NativeNameType.Value, "16387")]
+		Private3 = unchecked(16387),
 
 		/// <summary>
 		/// Signals the end of an event poll cycle <br/>

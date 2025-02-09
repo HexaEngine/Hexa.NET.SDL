@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Game controller axis motion event structure (event.caxis.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLControllerAxisEvent
 	{
 		/// <summary>
-		/// ::SDL_CONTROLLERAXISMOTION <br/>
+		/// SDL_CONTROLLERAXISMOTION <br/>
 		/// </summary>
 		public uint Type;
 

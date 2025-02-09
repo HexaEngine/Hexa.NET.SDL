@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Joystick button event structure (event.jbutton.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyButtonEvent
 	{
 		/// <summary>
-		/// ::SDL_JOYBUTTONDOWN or ::SDL_JOYBUTTONUP <br/>
+		/// SDL_JOYBUTTONDOWN or SDL_JOYBUTTONUP <br/>
 		/// </summary>
 		public uint Type;
 
@@ -42,7 +42,7 @@ namespace Hexa.NET.SDL2
 		public byte Button;
 
 		/// <summary>
-		/// ::SDL_PRESSED or ::SDL_RELEASED <br/>
+		/// SDL_PRESSED or SDL_RELEASED <br/>
 		/// </summary>
 		public byte State;
 

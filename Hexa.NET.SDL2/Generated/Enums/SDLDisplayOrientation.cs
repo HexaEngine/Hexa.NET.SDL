@@ -13,7 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Display orientation<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLDisplayOrientation : int

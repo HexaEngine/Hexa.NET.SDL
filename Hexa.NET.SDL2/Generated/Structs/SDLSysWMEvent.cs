@@ -16,14 +16,15 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// <br/>
+	/// A video driver dependent system event (event.syswm.*)<br/>
+	/// This event is disabled by default, you can enable it with SDL_EventState()<br/>
+	/// If you want to use this event, you should include SDL_syswm.h.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSysWMEvent
 	{
 		/// <summary>
-		/// ::SDL_SYSWMEVENT <br/>
+		/// SDL_SYSWMEVENT <br/>
 		/// </summary>
 		public uint Type;
 

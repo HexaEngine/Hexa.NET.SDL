@@ -19,8 +19,10 @@ namespace Hexa.NET.SDL3
 	/// A structure specifying the parameters of an indirect draw command.<br/>
 	/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
 	/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-	/// example, SV_VertexID). If your shader depends on these variables, the<br/>
-	/// correlating draw call parameter MUST be 0.<br/>
+	/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+	/// built-in variables consistently, so if your shader depends on them, the<br/>
+	/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+	/// the correlating parameter in the draw calls.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

@@ -18,4342 +18,4450 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ref byte appidentifier)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			fixed (byte* pappversion = &appversion)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				fixed (byte* pappidentifier = &appidentifier)
+				fixed (SDLGPUBufferBinding* pbindings = &bindings)
 				{
-					byte ret = SetAppMetadataNative(appname, (byte*)pappversion, (byte*)pappidentifier);
-					return ret != 0;
+					BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appidentifier)
-		{
-			fixed (byte* pappversion = appversion)
-			{
-				fixed (byte* pappidentifier = appidentifier)
-				{
-					byte ret = SetAppMetadataNative(appname, (byte*)pappversion, (byte*)pappidentifier);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] string appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appversion != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appversion);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appversion, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (appidentifier != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(appidentifier);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(appidentifier, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = SetAppMetadataNative(appname, pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ref byte appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ref byte appidentifier)
-		{
-			fixed (byte* pappname = &appname)
-			{
-				fixed (byte* pappversion = &appversion)
-				{
-					fixed (byte* pappidentifier = &appidentifier)
-					{
-						byte ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, (byte*)pappidentifier);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appidentifier)
-		{
-			fixed (byte* pappname = appname)
-			{
-				fixed (byte* pappversion = appversion)
-				{
-					fixed (byte* pappidentifier = appidentifier)
-					{
-						byte ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, (byte*)pappidentifier);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] string appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] string appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appname != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appname);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appname, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (appversion != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(appversion);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(appversion, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* pStr2 = null;
-			int pStrSize2 = 0;
-			if (appidentifier != null)
-			{
-				pStrSize2 = Utils.GetByteCountUTF8(appidentifier);
-				if (pStrSize2 >= Utils.MaxStackallocSize)
-				{
-					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
-				}
-				else
-				{
-					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
-					pStr2 = pStrStack2;
-				}
-				int pStrOffset2 = Utils.EncodeStringUTF8(appidentifier, pStr2, pStrSize2);
-				pStr2[pStrOffset2] = 0;
-			}
-			byte ret = SetAppMetadataNative(pStr0, pStr1, pStr2);
-			if (pStrSize2 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr2);
-			}
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAppMetadataPropertyNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		internal static void BindGPUIndexBufferNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[963])(name, value);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBufferBinding*, SDLGPUIndexElementSize, void>)funcTable[870])(renderPass, binding, indexElementSize);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[963])((nint)name, (nint)value);
+			((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUIndexElementSize, void>)funcTable[870])((nint)renderPass, (nint)binding, indexElementSize);
 			#endif
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
 		{
-			byte ret = SetAppMetadataPropertyNative(name, value);
-			return ret != 0;
+			BindGPUIndexBufferNative(renderPass, binding, indexElementSize);
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
 		{
-			fixed (byte* pname = &name)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte ret = SetAppMetadataPropertyNative((byte*)pname, value);
-				return ret != 0;
+				BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, binding, indexElementSize);
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
 		{
-			fixed (byte* pname = name)
+			fixed (SDLGPUBufferBinding* pbinding = &binding)
 			{
-				byte ret = SetAppMetadataPropertyNative((byte*)pname, value);
-				return ret != 0;
+				BindGPUIndexBufferNative(renderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUIndexBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUIndexBuffer([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "binding")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding binding, [NativeName(NativeNameType.Param, "index_element_size")] [NativeName(NativeNameType.Type, "SDL_GPUIndexElementSize")] SDLGPUIndexElementSize indexElementSize)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUBufferBinding* pbinding = &binding)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataPropertyNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				byte ret = SetAppMetadataPropertyNative(name, (byte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pvalue = value)
-			{
-				byte ret = SetAppMetadataPropertyNative(name, (byte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataPropertyNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					byte ret = SetAppMetadataPropertyNative((byte*)pname, (byte*)pvalue);
-					return ret != 0;
+					BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pvalue = value)
-				{
-					byte ret = SetAppMetadataPropertyNative((byte*)pname, (byte*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = SetAppMetadataPropertyNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetAppMetadataPropertyNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static void BindGPUVertexSamplersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[964])(name);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[871])(renderPass, firstSlot, textureSamplerBindings, numBindings);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[964])((nint)name);
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[871])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
 			#endif
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			byte* ret = GetAppMetadataPropertyNative(name);
-			return ret;
+			BindGPUVertexSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative(name));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte* ret = GetAppMetadataPropertyNative((byte*)pname);
-				return ret;
+				BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
 			}
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			fixed (byte* pname = &name)
+			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
 			{
-				string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative((byte*)pname));
-				return ret;
+				BindGPUVertexSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
 			}
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			fixed (byte* pname = name)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte* ret = GetAppMetadataPropertyNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			byte* ret = GetAppMetadataPropertyNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Dynamically load a shared object.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSharedObject* LoadObjectNative([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] byte* sofile)
+		internal static void BindGPUVertexStorageTexturesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLSharedObject*>)funcTable[965])(sofile);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[872])(renderPass, firstSlot, storageTextures, numBindings);
 			#else
-			return (SDLSharedObject*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[965])((nint)sofile);
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[872])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
 			#endif
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] byte* sofile)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			SDLSharedObject* ret = LoadObjectNative(sofile);
-			return ret;
+			BindGPUVertexStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] ref byte sofile)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			fixed (byte* psofile = &sofile)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				SDLSharedObject* ret = LoadObjectNative((byte*)psofile);
-				return ret;
+				BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
 			}
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> sofile)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			fixed (byte* psofile = sofile)
+			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
 			{
-				SDLSharedObject* ret = LoadObjectNative((byte*)psofile);
-				return ret;
+				BindGPUVertexStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
 			}
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] string sofile)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (sofile != null)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(sofile);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(sofile, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			SDLSharedObject* ret = LoadObjectNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static delegate*<void> LoadFunctionNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static void BindGPUVertexStorageBuffersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSharedObject*, byte*, delegate*<void>>)funcTable[966])(handle, name);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[873])(renderPass, firstSlot, storageBuffers, numBindings);
 			#else
-			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[966])((nint)handle, (nint)name);
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[873])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
 			#endif
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
 		{
-			delegate*<void> ret = LoadFunctionNative(handle, name);
+			BindGPUVertexStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			{
+				BindGPUVertexStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUVertexStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				{
+					BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUFragmentSamplersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[874])(renderPass, firstSlot, textureSamplerBindings, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[874])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUFragmentSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+			{
+				BindGPUFragmentSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentSamplers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+				{
+					BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUFragmentStorageTexturesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[875])(renderPass, firstSlot, storageTextures, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[875])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+			{
+				BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageTextures([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+				{
+					BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUFragmentStorageBuffersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[876])(renderPass, firstSlot, storageBuffers, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[876])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			{
+				BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUFragmentStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUFragmentStorageBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				{
+					BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// enabled.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUIndexedPrimitivesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "Uint32")] uint numIndices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_index")] [NativeName(NativeNameType.Type, "Uint32")] uint firstIndex, [NativeName(NativeNameType.Param, "vertex_offset")] [NativeName(NativeNameType.Type, "Sint32")] int vertexOffset, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, int, uint, void>)funcTable[877])(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, int, uint, void>)funcTable[877])((nint)renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// enabled.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "Uint32")] uint numIndices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_index")] [NativeName(NativeNameType.Type, "Uint32")] uint firstIndex, [NativeName(NativeNameType.Param, "vertex_offset")] [NativeName(NativeNameType.Type, "Sint32")] int vertexOffset, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
+		{
+			DrawGPUIndexedPrimitivesNative(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// enabled.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "Uint32")] uint numIndices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_index")] [NativeName(NativeNameType.Type, "Uint32")] uint firstIndex, [NativeName(NativeNameType.Param, "vertex_offset")] [NativeName(NativeNameType.Type, "Sint32")] int vertexOffset, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUIndexedPrimitivesNative((SDLGPURenderPass*)prenderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUPrimitivesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, uint, void>)funcTable[878])(renderPass, numVertices, numInstances, firstVertex, firstInstance);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, void>)funcTable[878])((nint)renderPass, numVertices, numInstances, firstVertex, firstInstance);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
+		{
+			DrawGPUPrimitivesNative(renderPass, numVertices, numInstances, firstVertex, firstInstance);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUPrimitivesNative((SDLGPURenderPass*)prenderPass, numVertices, numInstances, firstVertex, firstInstance);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUPrimitivesIndirectNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[879])(renderPass, buffer, offset, drawCount);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[879])((nint)renderPass, (nint)buffer, offset, drawCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			DrawGPUPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				DrawGPUPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUIndexedPrimitivesIndirectNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[880])(renderPass, buffer, offset, drawCount);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[880])((nint)renderPass, (nint)buffer, offset, drawCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			DrawGPUIndexedPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				DrawGPUIndexedPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EndGPURenderPassNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, void>)funcTable[881])(renderPass);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[881])((nint)renderPass);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPURenderPass([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass)
+		{
+			EndGPURenderPassNative(renderPass);
+		}
+
+		/// <summary>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPURenderPass([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				EndGPURenderPassNative((SDLGPURenderPass*)prenderPass);
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUComputePass* BeginGPUComputePassNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUStorageTextureReadWriteBinding*, uint, SDLGPUStorageBufferReadWriteBinding*, uint, SDLGPUComputePass*>)funcTable[882])(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+			#else
+			return (SDLGPUComputePass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, uint, nint>)funcTable[882])((nint)commandBuffer, (nint)storageTextureBindings, numStorageTextureBindings, (nint)storageBufferBindings, numStorageBufferBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
+		{
+			SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
 			return ret;
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, name);
+				SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (byte* pname = &name)
+			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 			{
-				delegate*<void> ret = LoadFunctionNative(handle, (byte*)pname);
+				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				delegate*<void> ret = LoadFunctionNative(handle, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			delegate*<void> ret = LoadFunctionNative(handle, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (SDLSharedObject* phandle = &handle)
-			{
-				fixed (byte* pname = &name)
-				{
-					delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, (byte*)pname);
+					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
 			{
-				fixed (byte* pname = name)
+				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
 				{
-					delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, (byte*)pname);
+					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
+				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
+					SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+					return ret;
 				}
-				delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePass* BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 				{
-					Utils.Free(pStr0);
+					fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
+					{
+						SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+						return ret;
+					}
 				}
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputePipelineNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUComputePipeline*, void>)funcTable[883])(computePass, computePipeline);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[883])((nint)computePass, (nint)computePipeline);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		{
+			BindGPUComputePipelineNative(computePass, computePipeline);
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, computePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+			{
+				BindGPUComputePipelineNative(computePass, (SDLGPUComputePipeline*)pcomputePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+				{
+					BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, (SDLGPUComputePipeline*)pcomputePipeline);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeSamplersNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[884])(computePass, firstSlot, textureSamplerBindings, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[884])((nint)computePass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUComputeSamplersNative(computePass, firstSlot, textureSamplerBindings, numBindings);
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, textureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+			{
+				BindGPUComputeSamplersNative(computePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] ref SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+				{
+					BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeStorageTexturesNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTexture**, uint, void>)funcTable[885])(computePass, firstSlot, storageTextures, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[885])((nint)computePass, firstSlot, (nint)storageTextures, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUComputeStorageTexturesNative(computePass, firstSlot, storageTextures, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, storageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+			{
+				BindGPUComputeStorageTexturesNative(computePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] ref SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+				{
+					BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeStorageBuffersNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUBuffer**, uint, void>)funcTable[886])(computePass, firstSlot, storageBuffers, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[886])((nint)computePass, firstSlot, (nint)storageBuffers, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUComputeStorageBuffersNative(computePass, firstSlot, storageBuffers, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, storageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			{
+				BindGPUComputeStorageBuffersNative(computePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] ref SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				{
+					BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUCompute")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DispatchGPUComputeNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "groupcount_x")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountX, [NativeName(NativeNameType.Param, "groupcount_y")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountY, [NativeName(NativeNameType.Param, "groupcount_z")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountZ)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, uint, uint, void>)funcTable[887])(computePass, groupcountX, groupcountY, groupcountZ);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, void>)funcTable[887])((nint)computePass, groupcountX, groupcountY, groupcountZ);
+			#endif
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUCompute")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUCompute([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "groupcount_x")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountX, [NativeName(NativeNameType.Param, "groupcount_y")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountY, [NativeName(NativeNameType.Param, "groupcount_z")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountZ)
+		{
+			DispatchGPUComputeNative(computePass, groupcountX, groupcountY, groupcountZ);
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUCompute")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUCompute([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "groupcount_x")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountX, [NativeName(NativeNameType.Param, "groupcount_y")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountY, [NativeName(NativeNameType.Param, "groupcount_z")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountZ)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				DispatchGPUComputeNative((SDLGPUComputePass*)pcomputePass, groupcountX, groupcountY, groupcountZ);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DispatchGPUComputeIndirectNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUBuffer*, uint, void>)funcTable[888])(computePass, buffer, offset);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[888])((nint)computePass, (nint)buffer, offset);
+			#endif
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			DispatchGPUComputeIndirectNative(computePass, buffer, offset);
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, buffer, offset);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				DispatchGPUComputeIndirectNative(computePass, (SDLGPUBuffer*)pbuffer, offset);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, (SDLGPUBuffer*)pbuffer, offset);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EndGPUComputePassNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, void>)funcTable[889])(computePass);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[889])((nint)computePass);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUComputePass([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass)
+		{
+			EndGPUComputePassNative(computePass);
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUComputePass([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				EndGPUComputePassNative((SDLGPUComputePass*)pcomputePass);
+			}
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* MapGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, byte, void*>)funcTable[890])(device, transferBuffer, cycle);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, byte, nint>)funcTable[890])((nint)device, (nint)transferBuffer, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			void* ret = MapGPUTransferBufferNative(device, transferBuffer, cycle ? (byte)1 : (byte)0);
+			return ret;
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer, cycle ? (byte)1 : (byte)0);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnloadObjectNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSharedObject*, void>)funcTable[967])(handle);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[967])((nint)handle);
-			#endif
-		}
-
-		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnloadObject([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle)
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			UnloadObjectNative(handle);
-		}
-
-		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnloadObject([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle)
-		{
-			fixed (SDLSharedObject* phandle = &handle)
+			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
 			{
-				UnloadObjectNative((SDLSharedObject*)phandle);
-			}
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPreferredLocales")]
-		[return: NativeName(NativeNameType.Type, "SDL_Locale * *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLLocale** GetPreferredLocalesNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, SDLLocale**>)funcTable[968])(count);
-			#else
-			return (SDLLocale**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[968])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPreferredLocales")]
-		[return: NativeName(NativeNameType.Type, "SDL_Locale * *")]
-		public static SDLLocale** GetPreferredLocales([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			SDLLocale** ret = GetPreferredLocalesNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPreferredLocales")]
-		[return: NativeName(NativeNameType.Type, "SDL_Locale * *")]
-		public static SDLLocale** GetPreferredLocales([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				SDLLocale** ret = GetPreferredLocalesNative((int*)pcount);
+				void* ret = MapGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set the priority of all log categories.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorities")]
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				{
+					void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
 		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogPrioritiesNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
+		internal static void UnmapGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[969])(priority);
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[891])(device, transferBuffer);
 			#else
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[969])(priority);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[891])((nint)device, (nint)transferBuffer);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the priority of all log categories.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Unmaps a previously mapped transfer buffer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorities")]
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetLogPriorities([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
 		{
-			SetLogPrioritiesNative(priority);
+			UnmapGPUTransferBufferNative(device, transferBuffer);
 		}
 
 		/// <summary>
-		/// Set the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Unmaps a previously mapped transfer buffer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriority")]
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+			{
+				UnmapGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				{
+					UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
+		internal static SDLGPUCopyPass* BeginGPUCopyPassNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[970])(category, priority);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUCopyPass*>)funcTable[892])(commandBuffer);
 			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[970])(category, priority);
+			return (SDLGPUCopyPass*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[892])((nint)commandBuffer);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriority")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetLogPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
-		{
-			SetLogPriorityNative(category, priority);
-		}
-
-		/// <summary>
-		/// Get the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_LogPriority")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLLogPriority GetLogPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")]
+		public static SDLGPUCopyPass* BeginGPUCopyPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[971])(category);
-			#else
-			return (SDLLogPriority)((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[971])(category);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_LogPriority")]
-		public static SDLLogPriority GetLogPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
-		{
-			SDLLogPriority ret = GetLogPriorityNative(category);
+			SDLGPUCopyPass* ret = BeginGPUCopyPassNative(commandBuffer);
 			return ret;
 		}
 
 		/// <summary>
-		/// Reset all priorities to default.<br/>
-		/// This is called by SDL_Quit().<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetLogPriorities")]
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")]
+		public static SDLGPUCopyPass* BeginGPUCopyPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				SDLGPUCopyPass* ret = BeginGPUCopyPassNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
 		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetLogPrioritiesNative()
+		internal static void UploadToGPUTextureNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[972])();
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureTransferInfo*, SDLGPUTextureRegion*, byte, void>)funcTable[893])(copyPass, source, destination, cycle);
 			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[972])();
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[893])((nint)copyPass, (nint)source, (nint)destination, cycle);
 			#endif
 		}
 
 		/// <summary>
-		/// Reset all priorities to default.<br/>
-		/// This is called by SDL_Quit().<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetLogPriorities")]
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ResetLogPriorities()
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			ResetLogPrioritiesNative();
+			UploadToGPUTextureNative(copyPass, source, destination, cycle ? (byte)1 : (byte)0);
 		}
 
 		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetLogPriorityPrefixNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] byte* prefix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLLogPriority, byte*, byte>)funcTable[973])(priority, prefix);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLLogPriority, nint, byte>)funcTable[973])(priority, (nint)prefix);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] byte* prefix)
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			byte ret = SetLogPriorityPrefixNative(priority, prefix);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] ref byte prefix)
-		{
-			fixed (byte* pprefix = &prefix)
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
 			{
-				byte ret = SetLogPriorityPrefixNative(priority, (byte*)pprefix);
-				return ret != 0;
+				UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination, cycle ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> prefix)
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			fixed (byte* pprefix = prefix)
+			fixed (SDLGPUTextureTransferInfo* psource = &source)
 			{
-				byte ret = SetLogPriorityPrefixNative(priority, (byte*)pprefix);
-				return ret != 0;
+				UploadToGPUTextureNative(copyPass, (SDLGPUTextureTransferInfo*)psource, destination, cycle ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] string prefix)
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (prefix != null)
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(prefix);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUTextureTransferInfo* psource = &source)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(prefix, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetLogPriorityPrefixNative(priority, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[974])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[974])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogNative(fmt);
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogTraceNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[975])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[975])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogTraceNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogTraceNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogTraceNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogTraceNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogVerboseNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[976])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[976])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogVerboseNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogVerboseNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogVerboseNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogVerboseNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogDebugNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[977])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[977])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogDebugNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogDebugNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogDebugNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogDebugNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogInfoNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[978])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[978])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogInfoNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogInfoNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogInfoNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogInfoNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogWarnNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[979])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[979])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogWarnNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogWarnNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogWarnNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogWarnNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogErrorNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[980])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[980])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogErrorNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogErrorNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogErrorNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogErrorNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogCriticalNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[981])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[981])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogCriticalNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogCriticalNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogCriticalNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogCriticalNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogMessageNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, void>)funcTable[982])(category, priority, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, void>)funcTable[982])(category, priority, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogMessageNative(category, priority, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogMessageNative(category, priority, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogMessageNative(category, priority, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogMessageNative(category, priority, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogMessageVNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, nint, void>)funcTable[983])(category, priority, fmt, ap);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, nint, void>)funcTable[983])(category, priority, (nint)fmt, ap);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			LogMessageVNative(category, priority, fmt, ap);
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogMessageVNative(category, priority, (byte*)pfmt, ap);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogMessageVNative(category, priority, (byte*)pfmt, ap);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogMessageVNative(category, priority, pStr0, ap);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Get the current log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetLogOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction *")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>*, void**, void>)funcTable[984])(callback, userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[984])((nint)callback, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetLogOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction *")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
-		{
-			GetLogOutputFunctionNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Replace the default log output function with one of your own.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>, void*, void>)funcTable[985])((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[985])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Replace the default log output function with one of your own.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetLogOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			SetLogOutputFunctionNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowMessageBoxNative([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] int* buttonid)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxData*, int*, byte>)funcTable[986])(messageboxdata, buttonid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[986])((nint)messageboxdata, (nint)buttonid);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] int* buttonid)
-		{
-			byte ret = ShowMessageBoxNative(messageboxdata, buttonid);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] int* buttonid)
-		{
-			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
-			{
-				byte ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, buttonid);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] ref int buttonid)
-		{
-			fixed (int* pbuttonid = &buttonid)
-			{
-				byte ret = ShowMessageBoxNative(messageboxdata, (int*)pbuttonid);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] ref int buttonid)
-		{
-			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
-			{
-				fixed (int* pbuttonid = &buttonid)
-				{
-					byte ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, (int*)pbuttonid);
-					return ret != 0;
+					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, destination, cycle ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowSimpleMessageBoxNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxFlags, byte*, byte*, SDLWindow*, byte>)funcTable[987])(flags, title, message, window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLMessageBoxFlags, nint, nint, nint, byte>)funcTable[987])(flags, (nint)title, (nint)message, (nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = ShowSimpleMessageBoxNative(flags, title, message, window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* ptitle = &title)
+			fixed (SDLGPUTextureRegion* pdestination = &destination)
 			{
-				byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
-				return ret != 0;
+				UploadToGPUTextureNative(copyPass, source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			fixed (byte* ptitle = title)
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
 			{
-				byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUTextureRegion* pdestination = &destination)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, pStr0, message, window);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* pmessage = &message)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* pmessage = message)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (message != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(message);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, title, pStr0, window);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (byte* pmessage = &message)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
-					return ret != 0;
+					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			fixed (byte* ptitle = title)
+			fixed (SDLGPUTextureTransferInfo* psource = &source)
 			{
-				fixed (byte* pmessage = message)
+				fixed (SDLGPUTextureRegion* pdestination = &destination)
 				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
-					return ret != 0;
+					UploadToGPUTextureNative(copyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUTextureTransferInfo* psource = &source)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (message != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(message);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, window);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, message, (SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, pStr0, message, (SDLWindow*)pwindow);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* pmessage = &message)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* pmessage = message)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (message != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(message);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, pStr0, (SDLWindow*)pwindow);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (byte* pmessage = &message)
-				{
-					fixed (SDLWindow* pwindow = &window)
+					fixed (SDLGPUTextureRegion* pdestination = &destination)
 					{
-						byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UploadToGPUBufferNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTransferBufferLocation*, SDLGPUBufferRegion*, byte, void>)funcTable[894])(copyPass, source, destination, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[894])((nint)copyPass, (nint)source, (nint)destination, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			UploadToGPUBufferNative(copyPass, source, destination, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTransferBufferLocation* psource = &source)
+			{
+				UploadToGPUBufferNative(copyPass, (SDLGPUTransferBufferLocation*)psource, destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* psource = &source)
+				{
+					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, destination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferRegion* pdestination = &destination)
+			{
+				UploadToGPUBufferNative(copyPass, source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* pdestination = &destination)
+				{
+					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTransferBufferLocation* psource = &source)
+			{
+				fixed (SDLGPUBufferRegion* pdestination = &destination)
+				{
+					UploadToGPUBufferNative(copyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* psource = &source)
+				{
+					fixed (SDLGPUBufferRegion* pdestination = &destination)
+					{
+						UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CopyGPUTextureToTextureNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureLocation*, SDLGPUTextureLocation*, uint, uint, uint, byte, void>)funcTable[895])(copyPass, source, destination, w, h, d, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, uint, uint, byte, void>)funcTable[895])((nint)copyPass, (nint)source, (nint)destination, w, h, d, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			CopyGPUTextureToTextureNative(copyPass, source, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* psource = &source)
+			{
+				CopyGPUTextureToTextureNative(copyPass, (SDLGPUTextureLocation*)psource, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* psource = &source)
+				{
+					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* pdestination = &destination)
+			{
+				CopyGPUTextureToTextureNative(copyPass, source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* pdestination = &destination)
+				{
+					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* psource = &source)
+			{
+				fixed (SDLGPUTextureLocation* pdestination = &destination)
+				{
+					CopyGPUTextureToTextureNative(copyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] ref SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* psource = &source)
+				{
+					fixed (SDLGPUTextureLocation* pdestination = &destination)
+					{
+						CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CopyGPUBufferToBufferNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferLocation*, SDLGPUBufferLocation*, uint, byte, void>)funcTable[896])(copyPass, source, destination, size, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, byte, void>)funcTable[896])((nint)copyPass, (nint)source, (nint)destination, size, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			CopyGPUBufferToBufferNative(copyPass, source, destination, size, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* psource = &source)
+			{
+				CopyGPUBufferToBufferNative(copyPass, (SDLGPUBufferLocation*)psource, destination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferLocation* psource = &source)
+				{
+					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, destination, size, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* pdestination = &destination)
+			{
+				CopyGPUBufferToBufferNative(copyPass, source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferLocation* pdestination = &destination)
+				{
+					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* psource = &source)
+			{
+				fixed (SDLGPUBufferLocation* pdestination = &destination)
+				{
+					CopyGPUBufferToBufferNative(copyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] ref SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferLocation* psource = &source)
+				{
+					fixed (SDLGPUBufferLocation* pdestination = &destination)
+					{
+						CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DownloadFromGPUTextureNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* destination)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureRegion*, SDLGPUTextureTransferInfo*, void>)funcTable[897])(copyPass, source, destination);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[897])((nint)copyPass, (nint)source, (nint)destination);
+			#endif
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* destination)
+		{
+			DownloadFromGPUTextureNative(copyPass, source, destination);
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* destination)
+		{
+			fixed (SDLGPUTextureRegion* psource = &source)
+			{
+				DownloadFromGPUTextureNative(copyPass, (SDLGPUTextureRegion*)psource, destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* psource = &source)
+				{
+					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, destination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+			{
+				DownloadFromGPUTextureNative(copyPass, source, (SDLGPUTextureTransferInfo*)pdestination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+				{
+					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureTransferInfo*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUTextureRegion* psource = &source)
+			{
+				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+				{
+					DownloadFromGPUTextureNative(copyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] ref SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* psource = &source)
+				{
+					fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+					{
+						DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DownloadFromGPUBufferNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* destination)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferRegion*, SDLGPUTransferBufferLocation*, void>)funcTable[898])(copyPass, source, destination);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[898])((nint)copyPass, (nint)source, (nint)destination);
+			#endif
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* destination)
+		{
+			DownloadFromGPUBufferNative(copyPass, source, destination);
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* destination)
+		{
+			fixed (SDLGPUBufferRegion* psource = &source)
+			{
+				DownloadFromGPUBufferNative(copyPass, (SDLGPUBufferRegion*)psource, destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* psource = &source)
+				{
+					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, destination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+			{
+				DownloadFromGPUBufferNative(copyPass, source, (SDLGPUTransferBufferLocation*)pdestination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+				{
+					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTransferBufferLocation*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUBufferRegion* psource = &source)
+			{
+				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+				{
+					DownloadFromGPUBufferNative(copyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] ref SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* psource = &source)
+				{
+					fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+					{
+						DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EndGPUCopyPassNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, void>)funcTable[899])(copyPass);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[899])((nint)copyPass);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUCopyPass([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass)
+		{
+			EndGPUCopyPassNative(copyPass);
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUCopyPass([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				EndGPUCopyPassNative((SDLGPUCopyPass*)pcopyPass);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GenerateMipmapsForGPUTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUTexture*, void>)funcTable[900])(commandBuffer, texture);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[900])((nint)commandBuffer, (nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
+		{
+			GenerateMipmapsForGPUTextureNative(commandBuffer, texture);
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, texture);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				GenerateMipmapsForGPUTextureNative(commandBuffer, (SDLGPUTexture*)ptexture);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUTexture*)ptexture);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BlitGPUTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] SDLGPUBlitInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUBlitInfo*, void>)funcTable[901])(commandBuffer, info);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[901])((nint)commandBuffer, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] SDLGPUBlitInfo* info)
+		{
+			BlitGPUTextureNative(commandBuffer, info);
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] SDLGPUBlitInfo* info)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, info);
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] ref SDLGPUBlitInfo info)
+		{
+			fixed (SDLGPUBlitInfo* pinfo = &info)
+			{
+				BlitGPUTextureNative(commandBuffer, (SDLGPUBlitInfo*)pinfo);
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] ref SDLGPUBlitInfo info)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUBlitInfo* pinfo = &info)
+				{
+					BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUBlitInfo*)pinfo);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WindowSupportsGPUSwapchainCompositionNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, byte>)funcTable[902])(device, window, swapchainComposition);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, byte>)funcTable[902])((nint)device, (nint)window, swapchainComposition);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			byte ret = WindowSupportsGPUSwapchainCompositionNative(device, window, swapchainComposition);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, window, swapchainComposition);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WindowSupportsGPUSwapchainCompositionNative(device, (SDLWindow*)pwindow, swapchainComposition);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WindowSupportsGPUPresentModeNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUPresentMode, byte>)funcTable[903])(device, window, presentMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUPresentMode, byte>)funcTable[903])((nint)device, (nint)window, presentMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			byte ret = WindowSupportsGPUPresentModeNative(device, window, presentMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, window, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WindowSupportsGPUPresentModeNative(device, (SDLWindow*)pwindow, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, presentMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ClaimWindowForGPUDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[904])(device, window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[904])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			byte ret = ClaimWindowForGPUDeviceNative(device, window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, window);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = ClaimWindowForGPUDeviceNative(device, (SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseWindowFromGPUDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, void>)funcTable[905])(device, window);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[905])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			ReleaseWindowFromGPUDeviceNative(device, window);
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, window);
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ReleaseWindowFromGPUDeviceNative(device, (SDLWindow*)pwindow);
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetGPUSwapchainParametersNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[906])(device, window, swapchainComposition, presentMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[906])((nint)device, (nint)window, swapchainComposition, presentMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			byte ret = SetGPUSwapchainParametersNative(device, window, swapchainComposition, presentMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, window, swapchainComposition, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetGPUSwapchainParametersNative(device, (SDLWindow*)pwindow, swapchainComposition, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition, presentMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUAllowedFramesInFlight")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetGPUAllowedFramesInFlightNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "allowed_frames_in_flight")] [NativeName(NativeNameType.Type, "Uint32")] uint allowedFramesInFlight)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, uint, byte>)funcTable[907])(device, allowedFramesInFlight);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[907])((nint)device, allowedFramesInFlight);
+			#endif
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUAllowedFramesInFlight")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUAllowedFramesInFlight([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "allowed_frames_in_flight")] [NativeName(NativeNameType.Type, "Uint32")] uint allowedFramesInFlight)
+		{
+			byte ret = SetGPUAllowedFramesInFlightNative(device, allowedFramesInFlight);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUAllowedFramesInFlight")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUAllowedFramesInFlight([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "allowed_frames_in_flight")] [NativeName(NativeNameType.Type, "Uint32")] uint allowedFramesInFlight)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = SetGPUAllowedFramesInFlightNative((SDLGPUDevice*)pdevice, allowedFramesInFlight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUTextureFormat GetGPUSwapchainTextureFormatNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUTextureFormat>)funcTable[908])(device, window);
+			#else
+			return (SDLGPUTextureFormat)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUTextureFormat>)funcTable[908])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative(device, window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, window);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative(device, (SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte AcquireGPUSwapchainTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[909])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[909])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
+			#endif
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -4361,41 +4469,147 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (byte* ptitle = title)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				fixed (byte* pmessage = message)
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (SDLWindow* pwindow = &window)
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -4403,643 +4617,428 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (message != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(message);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, (SDLWindow*)pwindow);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
-		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMetalView MetalCreateViewNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLMetalView>)funcTable[988])(window);
-			#else
-			return (SDLMetalView)((delegate* unmanaged[Cdecl]<nint, SDLMetalView>)funcTable[988])((nint)window);
-			#endif
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
 		}
 
 		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
-		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		public static SDLMetalView MetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			SDLMetalView ret = MetalCreateViewNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
-		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
-		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		public static SDLMetalView MetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLMetalView ret = MetalCreateViewNative((SDLWindow*)pwindow);
-				return ret;
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
 			}
 		}
 
 		/// <summary>
-		/// Destroy an existing SDL_MetalView object.<br/>
-		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
-		/// called after SDL_CreateWindow.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MetalDestroyViewNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[989])(view);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[989])(view);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy an existing SDL_MetalView object.<br/>
-		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
-		/// called after SDL_CreateWindow.<br/>
-		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MetalDestroyView([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			MetalDestroyViewNative(view);
-		}
-
-		/// <summary>
-		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MetalGetLayerNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMetalView, void*>)funcTable[990])(view);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<SDLMetalView, nint>)funcTable[990])(view);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* MetalGetLayer([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			void* ret = MetalGetLayerNative(view);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte OpenURLNative([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] byte* url)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[991])(url);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[991])((nint)url);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] byte* url)
-		{
-			byte ret = OpenURLNative(url);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] ref byte url)
-		{
-			fixed (byte* purl = &url)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = OpenURLNative((byte*)purl);
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> url)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (byte* purl = url)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = OpenURLNative((byte*)purl);
-				return ret != 0;
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] string url)
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (url != null)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(url);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(url, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = OpenURLNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				Utils.Free(pStr0);
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
 			}
-			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetPlatformNative()
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[992])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[992])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetPlatform()
-		{
-			byte* ret = GetPlatformNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetPlatformS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetPlatformNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcess")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLProcess* CreateProcessNative([NativeName(NativeNameType.Param, "args")] [NativeName(NativeNameType.Type, "char const * const *")] byte** args, [NativeName(NativeNameType.Param, "pipe_stdio")] [NativeName(NativeNameType.Type, "bool")] byte pipeStdio)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, byte, SDLProcess*>)funcTable[993])(args, pipeStdio);
-			#else
-			return (SDLProcess*)((delegate* unmanaged[Cdecl]<nint, byte, nint>)funcTable[993])((nint)args, pipeStdio);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcess")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		public static SDLProcess* CreateProcess([NativeName(NativeNameType.Param, "args")] [NativeName(NativeNameType.Type, "char const * const *")] byte** args, [NativeName(NativeNameType.Param, "pipe_stdio")] [NativeName(NativeNameType.Type, "bool")] bool pipeStdio)
-		{
-			SDLProcess* ret = CreateProcessNative(args, pipeStdio ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcess")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		public static SDLProcess* CreateProcess([NativeName(NativeNameType.Param, "args")] [NativeName(NativeNameType.Type, "char const * const *")] ref byte* args, [NativeName(NativeNameType.Param, "pipe_stdio")] [NativeName(NativeNameType.Type, "bool")] bool pipeStdio)
-		{
-			fixed (byte** pargs = &args)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				SDLProcess* ret = CreateProcessNative((byte**)pargs, pipeStdio ? (byte)1 : (byte)0);
-				return ret;
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
 			}
 		}
 
 		/// <summary>
-		/// Create a new process with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ARGS_POINTER`: an array of strings containing<br/>
-		/// the program to run, any arguments, and a NULL pointer, e.g. const char<br/>
-		/// *args[] = { "myprogram", "argument", NULL }. This is a required property.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment<br/>
-		/// pointer. If this property is set, it will be the entire environment for<br/>
-		/// the process, otherwise the current environment is used.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing<br/>
-		/// where standard input for the process comes from, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_NULL`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`: an SDL_IOStream pointer used for<br/>
-		/// standard input when `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard output for the process goes go, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard output when `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` is set<br/>
-		/// to `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard error for the process goes go, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard error when `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN`: true if the error<br/>
-		/// output of the process should be redirected into the standard output of<br/>
-		/// the process. This property has no effect if<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN`: true if the process should<br/>
-		/// run in the background. In this case the default input and output is<br/>
-		/// `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not<br/>
-		/// available, and will always be 0.<br/>
-		/// On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and<br/>
-		/// SIGCHLD should not be ignored or handled because those would prevent SDL<br/>
-		/// from properly tracking the lifetime of the underlying process. You should<br/>
-		/// use SDL_WaitProcess() instead.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcessWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLProcess* CreateProcessWithPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLProcess*>)funcTable[994])(props);
-			#else
-			return (SDLProcess*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[994])(props);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new process with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ARGS_POINTER`: an array of strings containing<br/>
-		/// the program to run, any arguments, and a NULL pointer, e.g. const char<br/>
-		/// *args[] = { "myprogram", "argument", NULL }. This is a required property.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment<br/>
-		/// pointer. If this property is set, it will be the entire environment for<br/>
-		/// the process, otherwise the current environment is used.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing<br/>
-		/// where standard input for the process comes from, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_NULL`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`: an SDL_IOStream pointer used for<br/>
-		/// standard input when `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard output for the process goes go, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard output when `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` is set<br/>
-		/// to `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard error for the process goes go, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard error when `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN`: true if the error<br/>
-		/// output of the process should be redirected into the standard output of<br/>
-		/// the process. This property has no effect if<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN`: true if the process should<br/>
-		/// run in the background. In this case the default input and output is<br/>
-		/// `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not<br/>
-		/// available, and will always be 0.<br/>
-		/// On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and<br/>
-		/// SIGCHLD should not be ignored or handled because those would prevent SDL<br/>
-		/// from properly tracking the lifetime of the underlying process. You should<br/>
-		/// use SDL_WaitProcess() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcessWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		public static SDLProcess* CreateProcessWithProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			SDLProcess* ret = CreateProcessWithPropertiesNative(props);
-			return ret;
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
 		}
 	}
 }

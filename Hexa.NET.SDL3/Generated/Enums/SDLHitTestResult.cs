@@ -15,6 +15,8 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Possible return values from the SDL_HitTest callback.<br/>
 	/// <br/>
+	/// This function should only be called on the main thread.<br/>
+	/// <br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_HitTestResult")]

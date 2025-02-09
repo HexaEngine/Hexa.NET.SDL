@@ -17,6 +17,8 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// The structure for all events in SDL.<br/>
+	/// The SDL_Event structure is the core of all event handling in SDL. SDL_Event<br/>
+	/// is a union of all event structures used in SDL.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Event")]
@@ -302,6 +304,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "SDL_PenAxisEvent")]
 		[FieldOffset(0)]
 		public SDLPenAxisEvent Paxis;
+
+		/// <summary>
+		/// Render event data <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "render")]
+		[NativeName(NativeNameType.Type, "SDL_RenderEvent")]
+		[FieldOffset(0)]
+		public SDLRenderEvent Render;
 
 		/// <summary>
 		/// Drag and drop event data <br/>
@@ -591,7 +601,7 @@ namespace Hexa.NET.SDL3
 		public byte Padding_127;
 
 
-		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, byte* padding = default)
+		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLRenderEvent render = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, byte* padding = default)
 		{
 			Type = type;
 			Common = common;
@@ -628,6 +638,7 @@ namespace Hexa.NET.SDL3
 			Pmotion = pmotion;
 			Pbutton = pbutton;
 			Paxis = paxis;
+			Render = render;
 			Drop = drop;
 			Clipboard = clipboard;
 			if (padding != default(byte*))
@@ -763,7 +774,7 @@ namespace Hexa.NET.SDL3
 			}
 		}
 
-		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, Span<byte> padding = default)
+		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLRenderEvent render = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, Span<byte> padding = default)
 		{
 			Type = type;
 			Common = common;
@@ -800,6 +811,7 @@ namespace Hexa.NET.SDL3
 			Pmotion = pmotion;
 			Pbutton = pbutton;
 			Paxis = paxis;
+			Render = render;
 			Drop = drop;
 			Clipboard = clipboard;
 			if (padding != default(Span<byte>))

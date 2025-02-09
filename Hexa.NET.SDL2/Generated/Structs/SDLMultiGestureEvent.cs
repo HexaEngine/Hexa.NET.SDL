@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Multiple Finger Gesture Event (event.mgesture.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMultiGestureEvent
 	{
 		/// <summary>
-		/// ::SDL_MULTIGESTURE <br/>
+		/// SDL_MULTIGESTURE <br/>
 		/// </summary>
 		public uint Type;
 

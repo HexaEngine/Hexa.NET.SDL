@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Joystick hat position change event structure (event.jhat.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyHatEvent
 	{
 		/// <summary>
-		/// ::SDL_JOYHATMOTION <br/>
+		/// SDL_JOYHATMOTION <br/>
 		/// </summary>
 		public uint Type;
 

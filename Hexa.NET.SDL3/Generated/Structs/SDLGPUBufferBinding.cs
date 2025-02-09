@@ -25,7 +25,7 @@ namespace Hexa.NET.SDL3
 	public partial struct SDLGPUBufferBinding
 	{
 		/// <summary>
-		/// The buffer to bind. Must have been created with SDL_GPU_BUFFERUSAGE_VERTEX for SDL_BindGPUVertexBuffers, or SDL_GPU_BUFFERUSAGE_INDEX for SDL_BindGPUIndexBuffers. <br/>
+		/// The buffer to bind. Must have been created with SDL_GPU_BUFFERUSAGE_VERTEX for SDL_BindGPUVertexBuffers, or SDL_GPU_BUFFERUSAGE_INDEX for SDL_BindGPUIndexBuffer. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "buffer")]
 		[NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]

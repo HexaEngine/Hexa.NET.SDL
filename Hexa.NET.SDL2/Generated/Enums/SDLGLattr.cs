@@ -13,36 +13,160 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// OpenGL configuration attributes.<br/>
+	/// While you can set most OpenGL attributes normally, the attributes listed<br/>
+	/// above must be known before SDL creates the window that will be used with<br/>
+	/// the OpenGL context. These attributes are set and read with<br/>
+	/// SDL_GL_SetAttribute and SDL_GL_GetAttribute.<br/>
+	/// In some cases, these attributes are minimum requests; the GL does not<br/>
+	/// promise to give you exactly what you asked for. It's possible to ask for a<br/>
+	/// 16-bit depth buffer and get a 24-bit one instead, for example, or to ask<br/>
+	/// for no stencil buffer and still have one available. Context creation should<br/>
+	/// fail if the GL can't provide your requested attributes at a minimum, but<br/>
+	/// you should check to see exactly what you got.<br/>
+	/// [Multisample anti-aliasing](http://en.wikipedia.org/wiki/Multisample_anti-aliasing)<br/>
+	/// is a type of full screen anti-aliasing. Multipsampling defaults to off but<br/>
+	/// can be turned on by setting SDL_GL_MULTISAMPLEBUFFERS to 1 and<br/>
+	/// SDL_GL_MULTISAMPLESAMPLES to a value greater than 0. Typical values are 2<br/>
+	/// and 4.<br/>
+	/// SDL_GL_CONTEXT_PROFILE_MASK determines the type of context created, while<br/>
+	/// both SDL_GL_CONTEXT_MAJOR_VERSION and SDL_GL_CONTEXT_MINOR_VERSION<br/>
+	/// determine which version. All three attributes must be set prior to creating<br/>
+	/// the first window, and in general you can't change the value of<br/>
+	/// SDL_GL_CONTEXT_PROFILE_MASK without first destroying all windows created<br/>
+	/// with the previous setting.<br/>
+	/// SDL_GL_CONTEXT_RELEASE_BEHAVIOR can be set to<br/>
+	/// SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE or<br/>
+	/// SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH.<br/>
 	/// </summary>
 	[Flags]
 	public enum SDLGLattr : int
 	{
+		/// <summary>
+		/// the minimum number of bits for the red channel of the color buffer; defaults to 3. <br/>
+		/// </summary>
 		GlRedSize = unchecked(0),
+
+		/// <summary>
+		/// the minimum number of bits for the green channel of the color buffer; defaults to 3. <br/>
+		/// </summary>
 		GlGreenSize = unchecked(1),
+
+		/// <summary>
+		/// the minimum number of bits for the blue channel of the color buffer; defaults to 2. <br/>
+		/// </summary>
 		GlBlueSize = unchecked(2),
+
+		/// <summary>
+		/// the minimum number of bits for the alpha channel of the color buffer; defaults to 0. <br/>
+		/// </summary>
 		GlAlphaSize = unchecked(3),
+
+		/// <summary>
+		/// the minimum number of bits for frame buffer size; defaults to 0. <br/>
+		/// </summary>
 		GlBufferSize = unchecked(4),
+
+		/// <summary>
+		/// whether the output is single or double buffered; defaults to double buffering on. <br/>
+		/// </summary>
 		GlDoublebuffer = unchecked(5),
+
+		/// <summary>
+		/// the minimum number of bits in the depth buffer; defaults to 16. <br/>
+		/// </summary>
 		GlDepthSize = unchecked(6),
+
+		/// <summary>
+		/// the minimum number of bits in the stencil buffer; defaults to 0. <br/>
+		/// </summary>
 		GlStencilSize = unchecked(7),
+
+		/// <summary>
+		/// the minimum number of bits for the red channel of the accumulation buffer; defaults to 0. <br/>
+		/// </summary>
 		GlAccumRedSize = unchecked(8),
+
+		/// <summary>
+		/// the minimum number of bits for the green channel of the accumulation buffer; defaults to 0. <br/>
+		/// </summary>
 		GlAccumGreenSize = unchecked(9),
+
+		/// <summary>
+		/// the minimum number of bits for the blue channel of the accumulation buffer; defaults to 0. <br/>
+		/// </summary>
 		GlAccumBlueSize = unchecked(10),
+
+		/// <summary>
+		/// the minimum number of bits for the alpha channel of the accumulation buffer; defaults to 0. <br/>
+		/// </summary>
 		GlAccumAlphaSize = unchecked(11),
+
+		/// <summary>
+		/// whether the output is stereo 3D; defaults to off. <br/>
+		/// </summary>
 		GlStereo = unchecked(12),
+
+		/// <summary>
+		/// the number of buffers used for multisample anti-aliasing; defaults to 0. <br/>
+		/// </summary>
 		GlMultisamplebuffers = unchecked(13),
+
+		/// <summary>
+		/// the number of samples used around the current pixel used for multisample anti-aliasing. <br/>
+		/// </summary>
 		GlMultisamplesamples = unchecked(14),
+
+		/// <summary>
+		/// set to 1 to require hardware acceleration, set to 0 to force software rendering; defaults to allow either. <br/>
+		/// </summary>
 		GlAcceleratedVisual = unchecked(15),
+
+		/// <summary>
+		/// not used (deprecated). <br/>
+		/// </summary>
 		GlRetainedBacking = unchecked(16),
+
+		/// <summary>
+		/// OpenGL context major version. <br/>
+		/// </summary>
 		GlContextMajorVersion = unchecked(17),
+
+		/// <summary>
+		/// OpenGL context minor version. <br/>
+		/// </summary>
 		GlContextMinorVersion = unchecked(18),
+
+		/// <summary>
+		/// deprecated: set SDL_GL_CONTEXT_PROFILE_MASK to SDL_GL_CONTEXT_PROFILE_ES to enable instead. <br/>
+		/// </summary>
 		GlContextEgl = unchecked(19),
+
+		/// <summary>
+		/// some combination of 0 or more of elements of the SDL_GLcontextFlag enumeration; defaults to 0. <br/>
+		/// </summary>
 		GlContextFlags = unchecked(20),
+
+		/// <summary>
+		/// type of GL context (Core, Compatibility, ES). See SDL_GLprofile; default value depends on platform. <br/>
+		/// </summary>
 		GlContextProfileMask = unchecked(21),
+
+		/// <summary>
+		/// OpenGL context sharing; defaults to 0. <br/>
+		/// </summary>
 		GlShareWithCurrentContext = unchecked(22),
+
+		/// <summary>
+		/// requests sRGB capable visual; defaults to 0. (>= SDL 2.0.1) <br/>
+		/// </summary>
 		GlFramebufferSrgbCapable = unchecked(23),
+
+		/// <summary>
+		/// sets context the release behavior; defaults to 1. (>= SDL 2.0.4) <br/>
+		/// </summary>
 		GlContextReleaseBehavior = unchecked(24),
+
 		GlContextResetNotification = unchecked(25),
 		GlContextNoError = unchecked(26),
 		GlFloatbuffers = unchecked(27),

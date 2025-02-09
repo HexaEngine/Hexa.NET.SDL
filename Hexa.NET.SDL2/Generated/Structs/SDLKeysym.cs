@@ -16,19 +16,20 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// <br/>
+	/// The SDL keysym structure, used in key events.<br/>
+	/// If you are looking for translated character input, see the SDL_TEXTINPUT<br/>
+	/// event.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLKeysym
 	{
 		/// <summary>
-		/// SDL physical key code - see ::SDL_Scancode for details <br/>
+		/// SDL physical key code - see SDL_Scancode for details <br/>
 		/// </summary>
 		public SDLScancode Scancode;
 
 		/// <summary>
-		/// SDL virtual key code - see ::SDL_Keycode for details <br/>
+		/// SDL virtual key code - see SDL_Keycode for details <br/>
 		/// </summary>
 		public int Sym;
 

@@ -17,6 +17,12 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// Gamepad device event structure (event.gdevice.*)<br/>
+	/// Joysticks that are supported gamepads receive both an SDL_JoyDeviceEvent<br/>
+	/// and an SDL_GamepadDeviceEvent.<br/>
+	/// SDL will send GAMEPAD_ADDED events for joysticks that are already plugged<br/>
+	/// in during SDL_Init() and are recognized as gamepads. It will also send<br/>
+	/// events for joysticks that get gamepad mappings at runtime.<br/>
+	/// <br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_GamepadDeviceEvent")]

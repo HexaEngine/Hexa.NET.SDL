@@ -16,7 +16,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// A type representing an atomic integer value.<br/>
+	/// It is a struct so people don't accidentally use numeric operations on it.<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAtomic

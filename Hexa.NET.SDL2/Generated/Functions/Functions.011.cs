@@ -18,6 +18,130 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Get the value of a hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetHintS(ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the value of a hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetHint(string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetHintNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the value of a hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetHintS(string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetHintNative(pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the boolean value of a hint variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GetHintBooleanNative(byte* name, SDLBool defaultValue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool, SDLBool>)funcTable[694])(name, defaultValue);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool, SDLBool>)funcTable[694])((nint)name, defaultValue);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the boolean value of a hint variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GetHintBoolean(byte* name, SDLBool defaultValue)
+		{
+			SDLBool ret = GetHintBooleanNative(name, defaultValue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the boolean value of a hint variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GetHintBoolean(ref byte name, SDLBool defaultValue)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLBool ret = GetHintBooleanNative((byte*)pname, defaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Get the boolean value of a hint variable.<br/>
 		/// <br/>
 		/// <br/>
@@ -4890,128 +5014,6 @@ namespace Hexa.NET.SDL2
 				fixed (SDLBlendMode* pblendMode = &blendMode)
 				{
 					int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)funcTable[741])(texture, scaleMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)funcTable[741])((nint)texture, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
-		{
-			int ret = SetTextureScaleModeNative(texture, scaleMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureScaleMode(ref SDLTexture texture, SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode* scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)funcTable[742])(texture, scaleMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[742])((nint)texture, (nint)scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
-		{
-			int ret = GetTextureScaleModeNative(texture, scaleMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(ref SDLTexture texture, SDLScaleMode* scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLScaleMode* pscaleMode = &scaleMode)
-			{
-				int ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(ref SDLTexture texture, ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLScaleMode* pscaleMode = &scaleMode)
-				{
-					int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
 					return ret;
 				}
 			}

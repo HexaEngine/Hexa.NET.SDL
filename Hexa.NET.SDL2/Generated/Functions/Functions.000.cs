@@ -519,31 +519,31 @@ namespace Hexa.NET.SDL2
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QsortNative(void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		internal static void QsortNative(void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void*, nuint, nuint, delegate*<void*, void*, int>, void>)funcTable[11])(baseValue, nmemb, size, compare);
+			((delegate* unmanaged[Cdecl]<void*, nuint, nuint, delegate*<void*, void*, int>, void>)funcTable[11])(baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nuint, nuint, nint, void>)funcTable[11])((nint)baseValue, nmemb, size, (nint)compare);
+			((delegate* unmanaged[Cdecl]<nint, nuint, nuint, nint, void>)funcTable[11])((nint)baseValue, nmemb, size, (nint)Utils.GetFunctionPointerForDelegate(compare));
 			#endif
 		}
 
-		public static void Qsort(void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		public static void Qsort(void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			QsortNative(baseValue, nmemb, size, compare);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* BsearchNative(void* key, void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		internal static void* BsearchNative(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, nuint, delegate*<void*, void*, int>, void*>)funcTable[12])(key, baseValue, nmemb, size, compare);
+			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, nuint, delegate*<void*, void*, int>, void*>)funcTable[12])(key, baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nint, nint>)funcTable[12])((nint)key, (nint)baseValue, nmemb, size, (nint)compare);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nint, nint>)funcTable[12])((nint)key, (nint)baseValue, nmemb, size, (nint)Utils.GetFunctionPointerForDelegate(compare));
 			#endif
 		}
 
-		public static void* Bsearch(void* key, void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		public static void* Bsearch(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
 			return ret;

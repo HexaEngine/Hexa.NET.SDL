@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Keyboard text editing event structure (event.edit.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTextEditingEvent
 	{
 		/// <summary>
-		/// ::SDL_TEXTEDITING <br/>
+		/// SDL_TEXTEDITING <br/>
 		/// </summary>
 		public uint Type;
 

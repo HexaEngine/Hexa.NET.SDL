@@ -18,1788 +18,862 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Assert that logs and break execution flow on failures.<br/>
+		/// Draw a point on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] ref byte assertDescription)
+		[NativeName(NativeNameType.Func, "SDL_RenderPoint")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
 		{
-			fixed (byte* passertDescription = &assertDescription)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				TestAssertNative(assertCondition, (byte*)passertDescription);
+				byte ret = RenderPointNative((SDLRenderer*)prenderer, x, y);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Assert that logs and break execution flow on failures.<br/>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> assertDescription)
-		{
-			fixed (byte* passertDescription = assertDescription)
-			{
-				TestAssertNative(assertCondition, (byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// Assert that logs and break execution flow on failures.<br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] string assertDescription)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (assertDescription != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestAssertNative(assertCondition, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Assert for test cases that logs but does not break execution flow on failures. Updates assertion counters.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestAssertCheckNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] byte* assertDescription)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*, int>)funcTable[1189])(assertCondition, assertDescription);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[1189])(assertCondition, (nint)assertDescription);
-			#endif
-		}
-
-		/// <summary>
-		/// Assert for test cases that logs but does not break execution flow on failures. Updates assertion counters.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] byte* assertDescription)
-		{
-			int ret = TestAssertCheckNative(assertCondition, assertDescription);
-			return ret;
-		}
-
-		/// <summary>
-		/// Assert for test cases that logs but does not break execution flow on failures. Updates assertion counters.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] ref byte assertDescription)
-		{
-			fixed (byte* passertDescription = &assertDescription)
-			{
-				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Assert for test cases that logs but does not break execution flow on failures. Updates assertion counters.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> assertDescription)
-		{
-			fixed (byte* passertDescription = assertDescription)
-			{
-				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Assert for test cases that logs but does not break execution flow on failures. Updates assertion counters.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] string assertDescription)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (assertDescription != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = TestAssertCheckNative(assertCondition, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Explicitly pass without checking an assertion condition. Updates assertion counter.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestAssertPassNative([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] byte* assertDescription)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1190])(assertDescription);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1190])((nint)assertDescription);
-			#endif
-		}
-
-		/// <summary>
-		/// Explicitly pass without checking an assertion condition. Updates assertion counter.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] byte* assertDescription)
-		{
-			TestAssertPassNative(assertDescription);
-		}
-
-		/// <summary>
-		/// Explicitly pass without checking an assertion condition. Updates assertion counter.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] ref byte assertDescription)
-		{
-			fixed (byte* passertDescription = &assertDescription)
-			{
-				TestAssertPassNative((byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// Explicitly pass without checking an assertion condition. Updates assertion counter.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> assertDescription)
-		{
-			fixed (byte* passertDescription = assertDescription)
-			{
-				TestAssertPassNative((byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// Explicitly pass without checking an assertion condition. Updates assertion counter.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "char const *")] string assertDescription)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (assertDescription != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestAssertPassNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Resets the assert summary counters to zero.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestResetAssertSummaryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1191])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1191])();
-			#endif
-		}
-
-		/// <summary>
-		/// Resets the assert summary counters to zero.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestResetAssertSummary()
-		{
-			TestResetAssertSummaryNative();
-		}
-
-		/// <summary>
-		/// Logs summary of all assertions (total, pass, fail) since last reset as INFO or ERROR.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogAssertSummary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogAssertSummaryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1192])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1192])();
-			#endif
-		}
-
-		/// <summary>
-		/// Logs summary of all assertions (total, pass, fail) since last reset as INFO or ERROR.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogAssertSummary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogAssertSummary()
-		{
-			TestLogAssertSummaryNative();
-		}
-
-		/// <summary>
-		/// Converts the current assert summary state to a test result.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertSummaryToTestResult")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestAssertSummaryToTestResultNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1193])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1193])();
-			#endif
-		}
-
-		/// <summary>
-		/// Converts the current assert summary state to a test result.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertSummaryToTestResult")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertSummaryToTestResult()
-		{
-			int ret = TestAssertSummaryToTestResultNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse command line parameters and create common state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonCreateState")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_CommonState *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTestCommonState* TestCommonCreateStateNative([NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, SDLInitFlags, SDLTestCommonState*>)funcTable[1194])(argv, flags);
-			#else
-			return (SDLTestCommonState*)((delegate* unmanaged[Cdecl]<nint, SDLInitFlags, nint>)funcTable[1194])((nint)argv, flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Parse command line parameters and create common state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonCreateState")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_CommonState *")]
-		public static SDLTestCommonState* TestCommonCreateState([NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			SDLTestCommonState* ret = TestCommonCreateStateNative(argv, flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse command line parameters and create common state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonCreateState")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_CommonState *")]
-		public static SDLTestCommonState* TestCommonCreateState([NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] ref byte* argv, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			fixed (byte** pargv = &argv)
-			{
-				SDLTestCommonState* ret = TestCommonCreateStateNative((byte**)pargv, flags);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Free the common state object.<br/>
-		/// You should call SDL_Quit() before calling this function.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDestroyState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonDestroyStateNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, void>)funcTable[1195])(state);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1195])((nint)state);
-			#endif
-		}
-
-		/// <summary>
-		/// Free the common state object.<br/>
-		/// You should call SDL_Quit() before calling this function.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDestroyState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDestroyState([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state)
-		{
-			TestCommonDestroyStateNative(state);
-		}
-
-		/// <summary>
-		/// Free the common state object.<br/>
-		/// You should call SDL_Quit() before calling this function.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDestroyState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDestroyState([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				TestCommonDestroyStateNative((SDLTestCommonState*)pstate);
-			}
-		}
-
-		/// <summary>
-		/// Process one common argument.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonArg")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCommonArgNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, int>)funcTable[1196])(state, index);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[1196])((nint)state, index);
-			#endif
-		}
-
-		/// <summary>
-		/// Process one common argument.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonArg")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCommonArg([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			int ret = TestCommonArgNative(state, index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Process one common argument.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonArg")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCommonArg([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				int ret = TestCommonArgNative((SDLTestCommonState*)pstate, index);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonLogUsageNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] byte* argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte*, byte**, void>)funcTable[1197])(state, argv0, options);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1197])((nint)state, (nint)argv0, (nint)options);
-			#endif
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] byte* argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			TestCommonLogUsageNative(state, argv0, options);
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] byte* argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				TestCommonLogUsageNative((SDLTestCommonState*)pstate, argv0, options);
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ref byte argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			fixed (byte* pargv0 = &argv0)
-			{
-				TestCommonLogUsageNative(state, (byte*)pargv0, options);
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			fixed (byte* pargv0 = argv0)
-			{
-				TestCommonLogUsageNative(state, (byte*)pargv0, options);
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] string argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (argv0 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(argv0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestCommonLogUsageNative(state, pStr0, options);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ref byte argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = &argv0)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, options);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = argv0)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, options);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] string argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (argv0 != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(argv0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				TestCommonLogUsageNative((SDLTestCommonState*)pstate, pStr0, options);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] byte* argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			fixed (byte** poptions = &options)
-			{
-				TestCommonLogUsageNative(state, argv0, (byte**)poptions);
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] byte* argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, argv0, (byte**)poptions);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ref byte argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			fixed (byte* pargv0 = &argv0)
-			{
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative(state, (byte*)pargv0, (byte**)poptions);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			fixed (byte* pargv0 = argv0)
-			{
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative(state, (byte*)pargv0, (byte**)poptions);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] string argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (argv0 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(argv0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** poptions = &options)
-			{
-				TestCommonLogUsageNative(state, pStr0, (byte**)poptions);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ref byte argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = &argv0)
-				{
-					fixed (byte** poptions = &options)
-					{
-						TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, (byte**)poptions);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = argv0)
-				{
-					fixed (byte** poptions = &options)
-					{
-						TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, (byte**)poptions);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Logs command line usage info.<br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonLogUsage([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "char const *")] string argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (argv0 != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(argv0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, pStr0, (byte**)poptions);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open test window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonInit")]
+		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCommonInitNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state)
+		internal static byte RenderPointsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte>)funcTable[1198])(state);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, byte>)funcTable[1095])(renderer, points, count);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1198])((nint)state);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1095])((nint)renderer, (nint)points, count);
 			#endif
 		}
 
 		/// <summary>
-		/// Open test window.<br/>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonInit")]
+		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCommonInit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state)
+		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			byte ret = TestCommonInitNative(state);
+			byte ret = RenderPointsNative(renderer, points, count);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Open test window.<br/>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonInit")]
+		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCommonInit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state)
+		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (SDLTestCommonState* pstate = &state)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = TestCommonInitNative((SDLTestCommonState*)pstate);
+				byte ret = RenderPointsNative((SDLRenderer*)prenderer, points, count);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Easy argument handling when test app doesn't need any custom args.<br/>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDefaultArgs")]
+		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCommonDefaultArgsNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv)
+		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, byte**, byte>)funcTable[1199])(state, argc, argv);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, byte>)funcTable[1199])((nint)state, argc, (nint)argv);
-			#endif
-		}
-
-		/// <summary>
-		/// Easy argument handling when test app doesn't need any custom args.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDefaultArgs")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCommonDefaultArgs([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv)
-		{
-			byte ret = TestCommonDefaultArgsNative(state, argc, argv);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Easy argument handling when test app doesn't need any custom args.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDefaultArgs")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCommonDefaultArgs([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
+			fixed (SDLFPoint* ppoints = &points)
 			{
-				byte ret = TestCommonDefaultArgsNative((SDLTestCommonState*)pstate, argc, argv);
+				byte ret = RenderPointsNative(renderer, (SDLFPoint*)ppoints, count);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Easy argument handling when test app doesn't need any custom args.<br/>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDefaultArgs")]
+		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCommonDefaultArgs([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] ref byte* argv)
+		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (byte** pargv = &argv)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = TestCommonDefaultArgsNative(state, argc, (byte**)pargv);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Easy argument handling when test app doesn't need any custom args.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDefaultArgs")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCommonDefaultArgs([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] ref byte* argv)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte** pargv = &argv)
+				fixed (SDLFPoint* ppoints = &points)
 				{
-					byte ret = TestCommonDefaultArgsNative((SDLTestCommonState*)pstate, argc, (byte**)pargv);
+					byte ret = RenderPointsNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Print the details of an event.<br/>
-		/// This is automatically called by SDLTest_CommonEvent() as needed.<br/>
+		/// Draw a line on the current rendering target at subpixel precision.<br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_PrintEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestPrintEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLEvent*, void>)funcTable[1200])(evnt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1200])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Print the details of an event.<br/>
-		/// This is automatically called by SDLTest_CommonEvent() as needed.<br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_PrintEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestPrintEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
-		{
-			TestPrintEventNative(evnt);
-		}
-
-		/// <summary>
-		/// Print the details of an event.<br/>
-		/// This is automatically called by SDLTest_CommonEvent() as needed.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_PrintEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestPrintEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				TestPrintEventNative((SDLEvent*)pevnt);
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonEventNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] int* done)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLEvent*, int*, void>)funcTable[1201])(state, evnt, done);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1201])((nint)state, (nint)evnt, (nint)done);
-			#endif
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] int* done)
-		{
-			TestCommonEventNative(state, evnt, done);
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] int* done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				TestCommonEventNative((SDLTestCommonState*)pstate, evnt, done);
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] int* done)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				TestCommonEventNative(state, (SDLEvent*)pevnt, done);
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] int* done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (SDLEvent* pevnt = &evnt)
-				{
-					TestCommonEventNative((SDLTestCommonState*)pstate, (SDLEvent*)pevnt, done);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] ref int done)
-		{
-			fixed (int* pdone = &done)
-			{
-				TestCommonEventNative(state, evnt, (int*)pdone);
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] ref int done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (int* pdone = &done)
-				{
-					TestCommonEventNative((SDLTestCommonState*)pstate, evnt, (int*)pdone);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] ref int done)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				fixed (int* pdone = &done)
-				{
-					TestCommonEventNative(state, (SDLEvent*)pevnt, (int*)pdone);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use a standard SDL_main.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonEvent([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int *")] ref int done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (SDLEvent* pevnt = &evnt)
-				{
-					fixed (int* pdone = &done)
-					{
-						TestCommonEventNative((SDLTestCommonState*)pstate, (SDLEvent*)pevnt, (int*)pdone);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use SDL_AppEvent.<br/>
-		/// This does _not_ free anything in `event`.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEventMainCallbacks")]
-		[return: NativeName(NativeNameType.Type, "SDL_AppResult")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAppResult TestCommonEventMainCallbacksNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLEvent*, SDLAppResult>)funcTable[1202])(state, evnt);
-			#else
-			return (SDLAppResult)((delegate* unmanaged[Cdecl]<nint, nint, SDLAppResult>)funcTable[1202])((nint)state, (nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use SDL_AppEvent.<br/>
-		/// This does _not_ free anything in `event`.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEventMainCallbacks")]
-		[return: NativeName(NativeNameType.Type, "SDL_AppResult")]
-		public static SDLAppResult TestCommonEventMainCallbacks([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
-		{
-			SDLAppResult ret = TestCommonEventMainCallbacksNative(state, evnt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use SDL_AppEvent.<br/>
-		/// This does _not_ free anything in `event`.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEventMainCallbacks")]
-		[return: NativeName(NativeNameType.Type, "SDL_AppResult")]
-		public static SDLAppResult TestCommonEventMainCallbacks([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				SDLAppResult ret = TestCommonEventMainCallbacksNative((SDLTestCommonState*)pstate, evnt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use SDL_AppEvent.<br/>
-		/// This does _not_ free anything in `event`.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEventMainCallbacks")]
-		[return: NativeName(NativeNameType.Type, "SDL_AppResult")]
-		public static SDLAppResult TestCommonEventMainCallbacks([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				SDLAppResult ret = TestCommonEventMainCallbacksNative(state, (SDLEvent*)pevnt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Common event handler for test windows if you use SDL_AppEvent.<br/>
-		/// This does _not_ free anything in `event`.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonEventMainCallbacks")]
-		[return: NativeName(NativeNameType.Type, "SDL_AppResult")]
-		public static SDLAppResult TestCommonEventMainCallbacks([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] ref SDLEvent evnt)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (SDLEvent* pevnt = &evnt)
-				{
-					SDLAppResult ret = TestCommonEventMainCallbacksNative((SDLTestCommonState*)pstate, (SDLEvent*)pevnt);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Close test window.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonQuit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonQuitNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, void>)funcTable[1203])(state);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1203])((nint)state);
-			#endif
-		}
-
-		/// <summary>
-		/// Close test window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonQuit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonQuit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state)
-		{
-			TestCommonQuitNative(state);
-		}
-
-		/// <summary>
-		/// Close test window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonQuit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonQuit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				TestCommonQuitNative((SDLTestCommonState*)pstate);
-			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonDrawWindowInfoNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] float* usedHeight)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*, float*, void>)funcTable[1204])(renderer, window, usedHeight);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1204])((nint)renderer, (nint)window, (nint)usedHeight);
-			#endif
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] float* usedHeight)
-		{
-			TestCommonDrawWindowInfoNative(renderer, window, usedHeight);
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] float* usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, window, usedHeight);
-			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] float* usedHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				TestCommonDrawWindowInfoNative(renderer, (SDLWindow*)pwindow, usedHeight);
-			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] float* usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, (SDLWindow*)pwindow, usedHeight);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] ref float usedHeight)
-		{
-			fixed (float* pusedHeight = &usedHeight)
-			{
-				TestCommonDrawWindowInfoNative(renderer, window, (float*)pusedHeight);
-			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] ref float usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pusedHeight = &usedHeight)
-				{
-					TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, window, (float*)pusedHeight);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] ref float usedHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (float* pusedHeight = &usedHeight)
-				{
-					TestCommonDrawWindowInfoNative(renderer, (SDLWindow*)pwindow, (float*)pusedHeight);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] ref float usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (float* pusedHeight = &usedHeight)
-					{
-						TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, (SDLWindow*)pwindow, (float*)pusedHeight);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCompareSurfacesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*, int, int>)funcTable[1205])(surface, referenceSurface, allowableError);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[1205])((nint)surface, (nint)referenceSurface, allowableError);
-			#endif
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			int ret = TestCompareSurfacesNative(surface, referenceSurface, allowableError);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				int ret = TestCompareSurfacesNative((SDLSurface*)psurface, referenceSurface, allowableError);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			fixed (SDLSurface* preferenceSurface = &referenceSurface)
-			{
-				int ret = TestCompareSurfacesNative(surface, (SDLSurface*)preferenceSurface, allowableError);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLSurface* preferenceSurface = &referenceSurface)
-				{
-					int ret = TestCompareSurfacesNative((SDLSurface*)psurface, (SDLSurface*)preferenceSurface, allowableError);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Compares 2 memory blocks for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareMemory")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCompareMemoryNative([NativeName(NativeNameType.Param, "actual")] [NativeName(NativeNameType.Type, "void const *")] void* actual, [NativeName(NativeNameType.Param, "size_actual")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeActual, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "void const *")] void* reference, [NativeName(NativeNameType.Param, "size_reference")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeReference)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, nuint, void*, nuint, int>)funcTable[1206])(actual, sizeActual, reference, sizeReference);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nuint, nint, nuint, int>)funcTable[1206])((nint)actual, sizeActual, (nint)reference, sizeReference);
-			#endif
-		}
-
-		/// <summary>
-		/// Compares 2 memory blocks for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareMemory")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareMemory([NativeName(NativeNameType.Param, "actual")] [NativeName(NativeNameType.Type, "void const *")] void* actual, [NativeName(NativeNameType.Param, "size_actual")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeActual, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "void const *")] void* reference, [NativeName(NativeNameType.Param, "size_reference")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeReference)
-		{
-			int ret = TestCompareMemoryNative(actual, sizeActual, reference, sizeReference);
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize the CRC context<br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Init")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32InitNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext)
+		internal static byte RenderLineNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte>)funcTable[1207])(crcContext);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float, float, byte>)funcTable[1096])(renderer, x1, y1, x2, y2);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1207])((nint)crcContext);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, byte>)funcTable[1096])((nint)renderer, x1, y1, x2, y2);
 			#endif
 		}
 
 		/// <summary>
-		/// Initialize the CRC context<br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
+		/// Draw a line on the current rendering target at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Init")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Init([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext)
+		public static bool RenderLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
 		{
-			byte ret = TestCrc32InitNative(crcContext);
+			byte ret = RenderLineNative(renderer, x1, y1, x2, y2);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Initialize the CRC context<br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
+		/// Draw a line on the current rendering target at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Init")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Init([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext)
+		public static bool RenderLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = TestCrc32InitNative((SDLTestCrc32Context*)pcrcContext);
+				byte ret = RenderLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32CalcNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
+		internal static byte RenderLinesNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, byte>)funcTable[1208])(crcContext, inBuf, inLen, crc32);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, byte>)funcTable[1097])(renderer, points, count);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, byte>)funcTable[1208])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1097])((nint)renderer, (nint)points, count);
 			#endif
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
+		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			byte ret = TestCrc32CalcNative(crcContext, inBuf, inLen, crc32);
+			byte ret = RenderLinesNative(renderer, points, count);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
+		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, crc32);
+				byte ret = RenderLinesNative((SDLRenderer*)prenderer, points, count);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
+		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (byte* pinBuf = &inBuf)
+			fixed (SDLFPoint* ppoints = &points)
 			{
-				byte ret = TestCrc32CalcNative(crcContext, (byte*)pinBuf, inLen, crc32);
+				byte ret = RenderLinesNative(renderer, (SDLFPoint*)ppoints, count);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
+		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (byte* pinBuf = &inBuf)
+				fixed (SDLFPoint* ppoints = &points)
 				{
-					byte ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, crc32);
+					byte ret = RenderLinesNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
 		{
-			fixed (uint* pcrc32 = &crc32)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, byte>)funcTable[1098])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1098])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		{
+			byte ret = RenderRectNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = TestCrc32CalcNative(crcContext, inBuf, inLen, (uint*)pcrc32);
+				byte ret = RenderRectNative((SDLRenderer*)prenderer, rect);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
+		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (uint* pcrc32 = &crc32)
+				byte ret = RenderRectNative(renderer, (SDLFRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prect = &rect)
 				{
-					byte ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, (uint*)pcrc32);
+					byte ret = RenderRectNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			fixed (byte* pinBuf = &inBuf)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, byte>)funcTable[1099])(renderer, rects, count);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1099])((nint)renderer, (nint)rects, count);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			byte ret = RenderRectsNative(renderer, rects, count);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (uint* pcrc32 = &crc32)
+				byte ret = RenderRectsNative((SDLRenderer*)prenderer, rects, count);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			fixed (SDLFRect* prects = &rects)
+			{
+				byte ret = RenderRectsNative(renderer, (SDLFRect*)prects, count);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prects = &rects)
 				{
-					byte ret = TestCrc32CalcNative(crcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
+					byte ret = RenderRectsNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// calculate a crc32 from a data block<br/>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Calc([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderFillRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, byte>)funcTable[1100])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1100])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		{
+			byte ret = RenderFillRectNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (byte* pinBuf = &inBuf)
+				byte ret = RenderFillRectNative((SDLRenderer*)prenderer, rect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				byte ret = RenderFillRectNative(renderer, (SDLFRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prect = &rect)
 				{
-					fixed (uint* pcrc32 = &crc32)
+					byte ret = RenderFillRectNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderFillRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, byte>)funcTable[1101])(renderer, rects, count);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1101])((nint)renderer, (nint)rects, count);
+			#endif
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			byte ret = RenderFillRectsNative(renderer, rects, count);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			fixed (SDLFRect* prects = &rects)
+			{
+				byte ret = RenderFillRectsNative(renderer, (SDLFRect*)prects, count);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prects = &rects)
+				{
+					byte ret = RenderFillRectsNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderTextureNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFRect*, byte>)funcTable[1102])(renderer, texture, srcrect, dstrect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1102])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			byte ret = RenderTextureNative(renderer, texture, srcrect, dstrect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				byte ret = RenderTextureNative(renderer, texture, (SDLFRect*)psrcrect, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
 					{
-						byte ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
+						byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect);
 						return ret != 0;
 					}
 				}
@@ -1807,238 +881,91 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Same routine broken down into three steps <br/>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcStart")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32CalcStartNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, byte>)funcTable[1209])(crcContext, crc32);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1209])((nint)crcContext, (nint)crc32);
-			#endif
-		}
-
-		/// <summary>
-		/// Same routine broken down into three steps <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcStart")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcStart([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			byte ret = TestCrc32CalcStartNative(crcContext, crc32);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Same routine broken down into three steps <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcStart")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcStart([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLFRect* pdstrect = &dstrect)
 			{
-				byte ret = TestCrc32CalcStartNative((SDLTestCrc32Context*)pcrcContext, crc32);
+				byte ret = RenderTextureNative(renderer, texture, srcrect, (SDLFRect*)pdstrect);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Same routine broken down into three steps <br/>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcStart")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcStart([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
 		{
-			fixed (uint* pcrc32 = &crc32)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = TestCrc32CalcStartNative(crcContext, (uint*)pcrc32);
-				return ret != 0;
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect);
+					return ret != 0;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Same routine broken down into three steps <br/>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcStart")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcStart([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				fixed (uint* pcrc32 = &crc32)
+				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					byte ret = TestCrc32CalcStartNative((SDLTestCrc32Context*)pcrcContext, (uint*)pcrc32);
+					byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
 					return ret != 0;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcEnd")]
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32CalcEndNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, byte>)funcTable[1210])(crcContext, crc32);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1210])((nint)crcContext, (nint)crc32);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcEnd")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcEnd([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			byte ret = TestCrc32CalcEndNative(crcContext, crc32);
-			return ret != 0;
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcEnd")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcEnd([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = TestCrc32CalcEndNative((SDLTestCrc32Context*)pcrcContext, crc32);
-				return ret != 0;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcEnd")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcEnd([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
-		{
-			fixed (uint* pcrc32 = &crc32)
-			{
-				byte ret = TestCrc32CalcEndNative(crcContext, (uint*)pcrc32);
-				return ret != 0;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcEnd")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcEnd([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (uint* pcrc32 = &crc32)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					byte ret = TestCrc32CalcEndNative((SDLTestCrc32Context*)pcrcContext, (uint*)pcrc32);
-					return ret != 0;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32CalcBufferNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, byte>)funcTable[1211])(crcContext, inBuf, inLen, crc32);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, byte>)funcTable[1211])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			byte ret = TestCrc32CalcBufferNative(crcContext, inBuf, inLen, crc32);
-			return ret != 0;
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				byte ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, crc32);
-				return ret != 0;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				byte ret = TestCrc32CalcBufferNative(crcContext, (byte*)pinBuf, inLen, crc32);
-				return ret != 0;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
-				{
-					byte ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, crc32);
-					return ret != 0;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
-		{
-			fixed (uint* pcrc32 = &crc32)
-			{
-				byte ret = TestCrc32CalcBufferNative(crcContext, inBuf, inLen, (uint*)pcrc32);
-				return ret != 0;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					byte ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, (uint*)pcrc32);
-					return ret != 0;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					byte ret = TestCrc32CalcBufferNative(crcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
-					return ret != 0;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32CalcBuffer([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
-				{
-					fixed (uint* pcrc32 = &crc32)
+					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						byte ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
+						byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
 						return ret != 0;
 					}
 				}
@@ -2046,2984 +973,4051 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// clean up CRC context<br/>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Done")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32DoneNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext)
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte>)funcTable[1212])(crcContext);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1212])((nint)crcContext);
-			#endif
-		}
-
-		/// <summary>
-		/// clean up CRC context<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Done")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Done([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext)
-		{
-			byte ret = TestCrc32DoneNative(crcContext);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// clean up CRC context<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Done")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Done([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (SDLFRect* psrcrect = &srcrect)
 			{
-				byte ret = TestCrc32DoneNative((SDLTestCrc32Context*)pcrcContext);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a string in the currently set font.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawCharacter")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestDrawCharacterNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "Uint32")] uint c)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, uint, byte>)funcTable[1213])(renderer, x, y, c);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, uint, byte>)funcTable[1213])((nint)renderer, x, y, c);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a string in the currently set font.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawCharacter")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawCharacter([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "Uint32")] uint c)
-		{
-			byte ret = TestDrawCharacterNative(renderer, x, y, c);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw a string in the currently set font.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawCharacter")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawCharacter([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "Uint32")] uint c)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = TestDrawCharacterNative((SDLRenderer*)prenderer, x, y, c);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestDrawStringNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] byte* s)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, byte*, byte>)funcTable[1214])(renderer, x, y, s);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, nint, byte>)funcTable[1214])((nint)renderer, x, y, (nint)s);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] byte* s)
-		{
-			byte ret = TestDrawStringNative(renderer, x, y, s);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] byte* s)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, s);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] ref byte s)
-		{
-			fixed (byte* ps = &s)
-			{
-				byte ret = TestDrawStringNative(renderer, x, y, (byte*)ps);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> s)
-		{
-			fixed (byte* ps = s)
-			{
-				byte ret = TestDrawStringNative(renderer, x, y, (byte*)ps);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] string s)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (s != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(s);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(s, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = TestDrawStringNative(renderer, x, y, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] ref byte s)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* ps = &s)
-				{
-					byte ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, (byte*)ps);
+					byte ret = RenderTextureNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> s)
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (byte* ps = s)
+				fixed (SDLFRect* psrcrect = &srcrect)
 				{
-					byte ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, (byte*)ps);
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderTextureRotatedNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFRect*, double, SDLFPoint*, SDLFlipMode, byte>)funcTable[1103])(renderer, texture, srcrect, dstrect, angle, center, flip);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, double, nint, SDLFlipMode, byte>)funcTable[1103])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect, angle, (nint)center, flip);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, dstrect, angle, center, flip);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draw a UTF-8 string in the currently set font.<br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestDrawString([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "char const *")] string s)
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLFRect* psrcrect = &srcrect)
 			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (s != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(s);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(s, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
+				byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a multi-line text output window<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowCreate")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_TextWindow *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTestTextWindow* TestTextWindowCreateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float")] float w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float")] float h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float, float, float, SDLTestTextWindow*>)funcTable[1215])(x, y, w, h);
-			#else
-			return (SDLTestTextWindow*)((delegate* unmanaged[Cdecl]<float, float, float, float, nint>)funcTable[1215])(x, y, w, h);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a multi-line text output window<br/>
-		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowCreate")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_TextWindow *")]
-		public static SDLTestTextWindow* TestTextWindowCreate([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "float")] float w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "float")] float h)
-		{
-			SDLTestTextWindow* ret = TestTextWindowCreateNative(x, y, w, h);
-			return ret;
-		}
-
-		/// <summary>
-		/// Display a multi-line text output window<br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDisplay")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowDisplayNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, SDLRenderer*, void>)funcTable[1216])(textwin, renderer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1216])((nint)textwin, (nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Display a multi-line text output window<br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDisplay")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowDisplay([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			TestTextWindowDisplayNative(textwin, renderer);
-		}
-
-		/// <summary>
-		/// Display a multi-line text output window<br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDisplay")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowDisplay([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				TestTextWindowDisplayNative((SDLTestTextWindow*)ptextwin, renderer);
-			}
-		}
-
-		/// <summary>
-		/// Display a multi-line text output window<br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDisplay")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowDisplay([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				TestTextWindowDisplayNative(textwin, (SDLRenderer*)prenderer);
-			}
-		}
-
-		/// <summary>
-		/// Display a multi-line text output window<br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDisplay")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowDisplay([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (SDLRenderer* prenderer = &renderer)
+				fixed (SDLFRect* psrcrect = &srcrect)
 				{
-					TestTextWindowDisplayNative((SDLTestTextWindow*)ptextwin, (SDLRenderer*)prenderer);
+					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowAddTextNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, void>)funcTable[1217])(textwin, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1217])((nint)textwin, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			TestTextWindowAddTextNative(textwin, fmt);
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, fmt);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				TestTextWindowAddTextNative(textwin, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestTextWindowAddTextNative(textwin, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLFRect* psrcrect = &srcrect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestTextWindowAddTextNative(textwin, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (byte* pfmt = &fmt)
-				{
-					TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, (byte*)pfmt);
+					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (byte* pfmt = fmt)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, (byte*)pfmt);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddText([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (fmt != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(fmt);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (SDLFRect* psrcrect = &srcrect)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
+						return ret != 0;
 					}
-					else
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLFRect* pdstrect = &dstrect)
+			{
+				byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
+						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						return ret != 0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowAddTextWithLengthNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, nuint, void>)funcTable[1218])(textwin, text, len);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nuint, void>)funcTable[1218])((nint)textwin, (nint)text, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			TestTextWindowAddTextWithLengthNative(textwin, text, len);
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
+			fixed (SDLFRect* psrcrect = &srcrect)
 			{
-				TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, text, len);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (byte* ptext = &text)
-			{
-				TestTextWindowAddTextWithLengthNative(textwin, (byte*)ptext, len);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (byte* ptext = text)
-			{
-				TestTextWindowAddTextWithLengthNative(textwin, (byte*)ptext, len);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestTextWindowAddTextWithLengthNative(textwin, pStr0, len);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (byte* ptext = &text)
-				{
-					TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, (byte*)ptext, len);
+					byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (byte* ptext = text)
+				fixed (SDLFRect* psrcrect = &srcrect)
 				{
-					TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, (byte*)ptext, len);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Add text to a multi-line text output window<br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowAddTextWithLength([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						return ret != 0;
 					}
-					else
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
+						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						return ret != 0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
 				}
-				TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, pStr0, len);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					Utils.Free(pStr0);
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+							return ret != 0;
+						}
+					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Clear the text in a multi-line text output window<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowClearNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)funcTable[1219])(textwin);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1219])((nint)textwin);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear the text in a multi-line text output window<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowClear([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin)
-		{
-			TestTextWindowClearNative(textwin);
-		}
-
-		/// <summary>
-		/// Clear the text in a multi-line text output window<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowClear([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
+			fixed (SDLFPoint* pcenter = &center)
 			{
-				TestTextWindowClearNative((SDLTestTextWindow*)ptextwin);
+				byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Free the storage associated with a multi-line text output window<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDestroy")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowDestroyNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)funcTable[1220])(textwin);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1220])((nint)textwin);
-			#endif
-		}
-
-		/// <summary>
-		/// Free the storage associated with a multi-line text output window<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDestroy")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowDestroy([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] SDLTestTextWindow* textwin)
-		{
-			TestTextWindowDestroyNative(textwin);
-		}
-
-		/// <summary>
-		/// Free the storage associated with a multi-line text output window<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDestroy")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTextWindowDestroy([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow *")] ref SDLTestTextWindow textwin)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				TestTextWindowDestroyNative((SDLTestTextWindow*)ptextwin);
-			}
-		}
-
-		/// <summary>
-		/// Cleanup textures used by font drawing functions.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CleanupTextDrawing")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCleanupTextDrawingNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1221])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1221])();
-			#endif
-		}
-
-		/// <summary>
-		/// Cleanup textures used by font drawing functions.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CleanupTextDrawing")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCleanupTextDrawing()
-		{
-			TestCleanupTextDrawingNative();
-		}
-
-		/// <summary>
-		/// Initializes the fuzzer for a test<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_FuzzerInit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestFuzzerInitNative([NativeName(NativeNameType.Param, "execKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong execKey)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1222])(execKey);
-			#else
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1222])(execKey);
-			#endif
-		}
-
-		/// <summary>
-		/// Initializes the fuzzer for a test<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_FuzzerInit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestFuzzerInit([NativeName(NativeNameType.Param, "execKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong execKey)
-		{
-			TestFuzzerInitNative(execKey);
-		}
-
-		/// <summary>
-		/// Returns a random Uint8<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint8")]
-		[return: NativeName(NativeNameType.Type, "Uint8")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestRandomUint8Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[1223])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[1223])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Uint8<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint8")]
-		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte TestRandomUint8()
-		{
-			byte ret = TestRandomUint8Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random Sint8<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint8")]
-		[return: NativeName(NativeNameType.Type, "Sint8")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static sbyte TestRandomSint8Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<sbyte>)funcTable[1224])();
-			#else
-			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte>)funcTable[1224])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Sint8<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint8")]
-		[return: NativeName(NativeNameType.Type, "Sint8")]
-		public static sbyte TestRandomSint8()
-		{
-			sbyte ret = TestRandomSint8Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random Uint16<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort TestRandomUint16Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort>)funcTable[1225])();
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<ushort>)funcTable[1225])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Uint16<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort TestRandomUint16()
-		{
-			ushort ret = TestRandomUint16Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random Sint16<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint16")]
-		[return: NativeName(NativeNameType.Type, "Sint16")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static short TestRandomSint16Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<short>)funcTable[1226])();
-			#else
-			return (short)((delegate* unmanaged[Cdecl]<short>)funcTable[1226])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Sint16<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint16")]
-		[return: NativeName(NativeNameType.Type, "Sint16")]
-		public static short TestRandomSint16()
-		{
-			short ret = TestRandomSint16Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random integer<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint32")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestRandomSint32Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1227])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1227])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random integer<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint32")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		public static int TestRandomSint32()
-		{
-			int ret = TestRandomSint32Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random positive integer<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint TestRandomUint32Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[1228])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[1228])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random positive integer<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint TestRandomUint32()
-		{
-			uint ret = TestRandomUint32Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns random Uint64.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong TestRandomUint64Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1229])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1229])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns random Uint64.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong TestRandomUint64()
-		{
-			ulong ret = TestRandomUint64Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns random Sint64.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint64")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long TestRandomSint64Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long>)funcTable[1230])();
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<long>)funcTable[1230])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns random Sint64.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint64")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		public static long TestRandomSint64()
-		{
-			long ret = TestRandomSint64Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUnitFloat")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float TestRandomUnitFloatNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float>)funcTable[1231])();
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float>)funcTable[1231])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUnitFloat")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float TestRandomUnitFloat()
-		{
-			float ret = TestRandomUnitFloatNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUnitDouble")]
-		[return: NativeName(NativeNameType.Type, "double")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double TestRandomUnitDoubleNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double>)funcTable[1232])();
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double>)funcTable[1232])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUnitDouble")]
-		[return: NativeName(NativeNameType.Type, "double")]
-		public static double TestRandomUnitDouble()
-		{
-			double ret = TestRandomUnitDoubleNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomFloat")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float TestRandomFloatNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float>)funcTable[1233])();
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float>)funcTable[1233])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomFloat")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float TestRandomFloat()
-		{
-			float ret = TestRandomFloatNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomDouble")]
-		[return: NativeName(NativeNameType.Type, "double")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double TestRandomDoubleNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double>)funcTable[1234])();
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double>)funcTable[1234])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomDouble")]
-		[return: NativeName(NativeNameType.Type, "double")]
-		public static double TestRandomDouble()
-		{
-			double ret = TestRandomDoubleNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint8BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint8BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint8BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint8BoundaryValue(0, 255, false) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint8BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint8")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestRandomUint8BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint8")] byte boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint8")] byte boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte, byte, byte, byte>)funcTable[1235])(boundary1, boundary2, validDomain);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte, byte, byte, byte>)funcTable[1235])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint8BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint8BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint8BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint8BoundaryValue(0, 255, false) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint8BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte TestRandomUint8BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint8")] byte boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint8")] byte boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			byte ret = TestRandomUint8BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint16BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint16BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint16BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint16BoundaryValue(0, 0xFFFF, false) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint16BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort TestRandomUint16BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint16")] ushort boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint16")] ushort boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, byte, ushort>)funcTable[1236])(boundary1, boundary2, validDomain);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<ushort, ushort, byte, ushort>)funcTable[1236])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint16BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint16BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint16BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint16BoundaryValue(0, 0xFFFF, false) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint16BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort TestRandomUint16BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint16")] ushort boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint16")] ushort boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			ushort ret = TestRandomUint16BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint32BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint32BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint32BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint32BoundaryValue(0, 0xFFFFFFFF, false) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint32BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint TestRandomUint32BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint32")] uint boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint32")] uint boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, byte, uint>)funcTable[1237])(boundary1, boundary2, validDomain);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint, byte, uint>)funcTable[1237])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint32BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint32BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint32BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint32BoundaryValue(0, 0xFFFFFFFF, false) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint32BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint TestRandomUint32BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint32")] uint boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint32")] uint boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			uint ret = TestRandomUint32BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint64BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint64BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint64BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint64BoundaryValue(0, 0xFFFFFFFFFFFFFFFF, false) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint64BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong TestRandomUint64BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint64")] ulong boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint64")] ulong boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, ulong, byte, ulong>)funcTable[1238])(boundary1, boundary2, validDomain);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong, ulong, byte, ulong>)funcTable[1238])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint64BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
-		/// RandomUint64BoundaryValue(1, 20, false) returns 0 or 21<br/>
-		/// RandomUint64BoundaryValue(0, 99, false) returns 100<br/>
-		/// RandomUint64BoundaryValue(0, 0xFFFFFFFFFFFFFFFF, false) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomUint64BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong TestRandomUint64BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint64")] ulong boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint64")] ulong boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			ulong ret = TestRandomUint64BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint8BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint8BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, 99, false) returns 100<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, SINT8_MAX, false) returns SINT8_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint8BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint8")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static sbyte TestRandomSint8BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint8")] sbyte boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint8")] sbyte boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<sbyte, sbyte, byte, sbyte>)funcTable[1239])(boundary1, boundary2, validDomain);
-			#else
-			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte, sbyte, byte, sbyte>)funcTable[1239])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint8BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint8BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, 99, false) returns 100<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, SINT8_MAX, false) returns SINT8_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint8BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint8")]
-		public static sbyte TestRandomSint8BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint8")] sbyte boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint8")] sbyte boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			sbyte ret = TestRandomSint8BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint16BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint16BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, 99, false) returns 100<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, SINT16_MAX, false) returns SINT16_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint16BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint16")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static short TestRandomSint16BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint16")] short boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint16")] short boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<short, short, byte, short>)funcTable[1240])(boundary1, boundary2, validDomain);
-			#else
-			return (short)((delegate* unmanaged[Cdecl]<short, short, byte, short>)funcTable[1240])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint16BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint16BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, 99, false) returns 100<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, SINT16_MAX, false) returns SINT16_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint16BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint16")]
-		public static short TestRandomSint16BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint16")] short boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint16")] short boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			short ret = TestRandomSint16BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint32BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint32BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, 99, false) returns 100<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, SINT32_MAX, false) returns SINT32_MIN (== error value)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint32BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestRandomSint32BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint32")] int boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint32")] int boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, byte, int>)funcTable[1241])(boundary1, boundary2, validDomain);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, byte, int>)funcTable[1241])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint32BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint32BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, 99, false) returns 100<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, SINT32_MAX, false) returns SINT32_MIN (== error value)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint32BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		public static int TestRandomSint32BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint32")] int boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint32")] int boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			int ret = TestRandomSint32BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint64BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint64BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, 99, false) returns 100<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, false) returns SINT64_MIN (== error value) and error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint64BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long TestRandomSint64BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint64")] long boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint64")] long boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] byte validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, long, byte, long>)funcTable[1242])(boundary1, boundary2, validDomain);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<long, long, byte, long>)funcTable[1242])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint64BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
-		/// RandomSint64BoundaryValue(-100, -10, false) returns -101 or -9<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, 99, false) returns 100<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, false) returns SINT64_MIN (== error value) and error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint64BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		public static long TestRandomSint64BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint64")] long boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint64")] long boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "bool")] bool validDomain)
-		{
-			long ret = TestRandomSint64BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns integer in range [min, max] (inclusive).<br/>
-		/// Min and max values can be negative values.<br/>
-		/// If Max in smaller than min, then the values are swapped.<br/>
-		/// Min and max are the same value, that value will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomIntegerInRange")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestRandomIntegerInRangeNative([NativeName(NativeNameType.Param, "min")] [NativeName(NativeNameType.Type, "Sint32")] int min, [NativeName(NativeNameType.Param, "max")] [NativeName(NativeNameType.Type, "Sint32")] int max)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1243])(min, max);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1243])(min, max);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns integer in range [min, max] (inclusive).<br/>
-		/// Min and max values can be negative values.<br/>
-		/// If Max in smaller than min, then the values are swapped.<br/>
-		/// Min and max are the same value, that value will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomIntegerInRange")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		public static int TestRandomIntegerInRange([NativeName(NativeNameType.Param, "min")] [NativeName(NativeNameType.Type, "Sint32")] int min, [NativeName(NativeNameType.Param, "max")] [NativeName(NativeNameType.Type, "Sint32")] int max)
-		{
-			int ret = TestRandomIntegerInRangeNative(min, max);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiString")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestRandomAsciiStringNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[1244])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1244])();
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiString")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* TestRandomAsciiString()
-		{
-			byte* ret = TestRandomAsciiStringNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiString")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string TestRandomAsciiStringS()
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringWithMaximumLength")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestRandomAsciiStringWithMaximumLengthNative([NativeName(NativeNameType.Param, "maxLength")] [NativeName(NativeNameType.Type, "int")] int maxLength)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1245])(maxLength);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1245])(maxLength);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringWithMaximumLength")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* TestRandomAsciiStringWithMaximumLength([NativeName(NativeNameType.Param, "maxLength")] [NativeName(NativeNameType.Type, "int")] int maxLength)
-		{
-			byte* ret = TestRandomAsciiStringWithMaximumLengthNative(maxLength);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringWithMaximumLength")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string TestRandomAsciiStringWithMaximumLengthS([NativeName(NativeNameType.Param, "maxLength")] [NativeName(NativeNameType.Type, "int")] int maxLength)
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringWithMaximumLengthNative(maxLength));
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringOfSize")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestRandomAsciiStringOfSizeNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1246])(size);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1246])(size);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringOfSize")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* TestRandomAsciiStringOfSize([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			byte* ret = TestRandomAsciiStringOfSizeNative(size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringOfSize")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string TestRandomAsciiStringOfSizeS([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringOfSizeNative(size));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GetFuzzerInvocationCount")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestGetFuzzerInvocationCountNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1247])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1247])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GetFuzzerInvocationCount")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestGetFuzzerInvocationCount()
-		{
-			int ret = TestGetFuzzerInvocationCountNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates a random run seed string for the harness. The generated seed<br/>
-		/// will contain alphanumeric characters (0-9A-Z).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestGenerateRunSeedNative([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "char *")] byte* buffer, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "int")] int length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[1248])(buffer, length);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[1248])((nint)buffer, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates a random run seed string for the harness. The generated seed<br/>
-		/// will contain alphanumeric characters (0-9A-Z).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* TestGenerateRunSeed([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "char *")] byte* buffer, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "int")] int length)
-		{
-			byte* ret = TestGenerateRunSeedNative(buffer, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates a random run seed string for the harness. The generated seed<br/>
-		/// will contain alphanumeric characters (0-9A-Z).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string TestGenerateRunSeedS([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "char *")] byte* buffer, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "int")] int length)
-		{
-			string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative(buffer, length));
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates a random run seed string for the harness. The generated seed<br/>
-		/// will contain alphanumeric characters (0-9A-Z).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* TestGenerateRunSeed([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "char *")] ref byte buffer, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "int")] int length)
-		{
-			fixed (byte* pbuffer = &buffer)
-			{
-				byte* ret = TestGenerateRunSeedNative((byte*)pbuffer, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Generates a random run seed string for the harness. The generated seed<br/>
-		/// will contain alphanumeric characters (0-9A-Z).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string TestGenerateRunSeedS([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "char *")] ref byte buffer, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "int")] int length)
-		{
-			fixed (byte* pbuffer = &buffer)
-			{
-				string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative((byte*)pbuffer, length));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Generates a random run seed string for the harness. The generated seed<br/>
-		/// will contain alphanumeric characters (0-9A-Z).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* TestGenerateRunSeed([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "char *")] ref string buffer, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "int")] int length)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (buffer != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(buffer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLFPoint* pcenter = &center)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret != 0;
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* pcenter = &center)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret != 0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(buffer, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			byte* ret = TestGenerateRunSeedNative(pStr0, length);
-			buffer = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		/// <summary>
-		/// Generates a random run seed string for the harness. The generated seed<br/>
-		/// will contain alphanumeric characters (0-9A-Z).<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string TestGenerateRunSeedS([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "char *")] ref string buffer, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "int")] int length)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (buffer != null)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(buffer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret != 0;
+					}
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* pcenter = &center)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret != 0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(buffer, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative(pStr0, length));
-			buffer = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new test suite runner, that will execute the given test suites.<br/>
-		/// It will register the harness cli arguments to the common SDL state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CreateTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTestTestSuiteRunner* TestCreateTestSuiteRunnerNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference *[-1]")] SDLTestTestSuiteReference** testSuites)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLTestTestSuiteReference**, SDLTestTestSuiteRunner*>)funcTable[1249])(state, testSuites);
-			#else
-			return (SDLTestTestSuiteRunner*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1249])((nint)state, (nint)testSuites);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new test suite runner, that will execute the given test suites.<br/>
-		/// It will register the harness cli arguments to the common SDL state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CreateTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")]
-		public static SDLTestTestSuiteRunner* TestCreateTestSuiteRunner([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference *[-1]")] SDLTestTestSuiteReference** testSuites)
-		{
-			SDLTestTestSuiteRunner* ret = TestCreateTestSuiteRunnerNative(state, testSuites);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new test suite runner, that will execute the given test suites.<br/>
-		/// It will register the harness cli arguments to the common SDL state.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CreateTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")]
-		public static SDLTestTestSuiteRunner* TestCreateTestSuiteRunner([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState *")] ref SDLTestCommonState state, [NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference *[-1]")] SDLTestTestSuiteReference** testSuites)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				SDLTestTestSuiteRunner* ret = TestCreateTestSuiteRunnerNative((SDLTestCommonState*)pstate, testSuites);
-				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Destroy a test suite runner.<br/>
-		/// It will unregister the harness cli arguments to the common SDL state.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DestroyTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestDestroyTestSuiteRunnerNative([NativeName(NativeNameType.Param, "runner")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")] SDLTestTestSuiteRunner* runner)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTestSuiteRunner*, void>)funcTable[1250])(runner);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1250])((nint)runner);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a test suite runner.<br/>
-		/// It will unregister the harness cli arguments to the common SDL state.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DestroyTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestDestroyTestSuiteRunner([NativeName(NativeNameType.Param, "runner")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")] SDLTestTestSuiteRunner* runner)
-		{
-			TestDestroyTestSuiteRunnerNative(runner);
-		}
-
-		/// <summary>
-		/// Destroy a test suite runner.<br/>
-		/// It will unregister the harness cli arguments to the common SDL state.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_DestroyTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestDestroyTestSuiteRunner([NativeName(NativeNameType.Param, "runner")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")] ref SDLTestTestSuiteRunner runner)
-		{
-			fixed (SDLTestTestSuiteRunner* prunner = &runner)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				TestDestroyTestSuiteRunnerNative((SDLTestTestSuiteRunner*)prunner);
-			}
-		}
-
-		/// <summary>
-		/// Execute a test suite, using the configured run seed, execution key, filter, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_ExecuteTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestExecuteTestSuiteRunnerNative([NativeName(NativeNameType.Param, "runner")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")] SDLTestTestSuiteRunner* runner)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestTestSuiteRunner*, int>)funcTable[1251])(runner);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[1251])((nint)runner);
-			#endif
-		}
-
-		/// <summary>
-		/// Execute a test suite, using the configured run seed, execution key, filter, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_ExecuteTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestExecuteTestSuiteRunner([NativeName(NativeNameType.Param, "runner")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")] SDLTestTestSuiteRunner* runner)
-		{
-			int ret = TestExecuteTestSuiteRunnerNative(runner);
-			return ret;
-		}
-
-		/// <summary>
-		/// Execute a test suite, using the configured run seed, execution key, filter, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_ExecuteTestSuiteRunner")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestExecuteTestSuiteRunner([NativeName(NativeNameType.Param, "runner")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteRunner *")] ref SDLTestTestSuiteRunner runner)
-		{
-			fixed (SDLTestTestSuiteRunner* prunner = &runner)
-			{
-				int ret = TestExecuteTestSuiteRunnerNative((SDLTestTestSuiteRunner*)prunner);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1252])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1252])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			TestLogNative(fmt);
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				TestLogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestLogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLFRect* psrcrect = &srcrect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret != 0;
+					}
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret != 0;
+					}
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestLogNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
 			}
 		}
 
 		/// <summary>
-		/// Prints given prefix and buffer.<br/>
-		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogEscapedString")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogEscapedStringNative([NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] byte* prefix, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "void const *")] void* buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void*, nuint, void>)funcTable[1253])(prefix, buffer, size);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nuint, void>)funcTable[1253])((nint)prefix, (nint)buffer, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Prints given prefix and buffer.<br/>
-		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogEscapedString")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogEscapedString([NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] byte* prefix, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "void const *")] void* buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			TestLogEscapedStringNative(prefix, buffer, size);
-		}
-
-		/// <summary>
-		/// Prints given prefix and buffer.<br/>
-		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogEscapedString")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogEscapedString([NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] ref byte prefix, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "void const *")] void* buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			fixed (byte* pprefix = &prefix)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				TestLogEscapedStringNative((byte*)pprefix, buffer, size);
-			}
-		}
-
-		/// <summary>
-		/// Prints given prefix and buffer.<br/>
-		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogEscapedString")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogEscapedString([NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> prefix, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "void const *")] void* buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			fixed (byte* pprefix = prefix)
-			{
-				TestLogEscapedStringNative((byte*)pprefix, buffer, size);
-			}
-		}
-
-		/// <summary>
-		/// Prints given prefix and buffer.<br/>
-		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogEscapedString")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogEscapedString([NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] string prefix, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "void const *")] void* buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (prefix != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(prefix);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret != 0;
+						}
+					}
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLFRect* pdstrect = &dstrect)
+			{
+				fixed (SDLFPoint* pcenter = &center)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret != 0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(prefix, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestLogEscapedStringNative(pStr0, buffer, size);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
 			}
 		}
 
 		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogErrorNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1254])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1254])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			TestLogErrorNative(fmt);
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				TestLogErrorNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestLogErrorNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret != 0;
+					}
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret != 0;
+					}
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestLogErrorNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
 			}
 		}
 
 		/// <summary>
-		/// initialize the context<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
 		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Init")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestMd5InitNative([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] SDLTestMd5Context* mdContext)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)funcTable[1255])(mdContext);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1255])((nint)mdContext);
-			#endif
-		}
-
-		/// <summary>
-		/// initialize the context<br/>
 		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Init")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Init([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] SDLTestMd5Context* mdContext)
-		{
-			TestMd5InitNative(mdContext);
-		}
-
-		/// <summary>
-		/// initialize the context<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
+		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Init")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Init([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] ref SDLTestMd5Context mdContext)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				TestMd5InitNative((SDLTestMd5Context*)pmdContext);
-			}
-		}
-
-		/// <summary>
-		/// update digest from variable length data<br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestMd5UpdateNative([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] SDLTestMd5Context* mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, byte*, uint, void>)funcTable[1256])(mdContext, inBuf, inLen);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[1256])((nint)mdContext, (nint)inBuf, inLen);
-			#endif
-		}
-
-		/// <summary>
-		/// update digest from variable length data<br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] SDLTestMd5Context* mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			TestMd5UpdateNative(mdContext, inBuf, inLen);
-		}
-
-		/// <summary>
-		/// update digest from variable length data<br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] ref SDLTestMd5Context mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, inBuf, inLen);
-			}
-		}
-
-		/// <summary>
-		/// update digest from variable length data<br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] SDLTestMd5Context* mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				TestMd5UpdateNative(mdContext, (byte*)pinBuf, inLen);
-			}
-		}
-
-		/// <summary>
-		/// update digest from variable length data<br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] ref SDLTestMd5Context mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, (byte*)pinBuf, inLen);
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret != 0;
+						}
+					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// complete digest computation<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
 		/// <br/>
-		/// Note: The function terminates the message-digest computation and<br/>
-		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
-		/// Always call before using the digest[] variable.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Final")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestMd5FinalNative([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] SDLTestMd5Context* mdContext)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)funcTable[1257])(mdContext);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1257])((nint)mdContext);
-			#endif
-		}
-
-		/// <summary>
-		/// complete digest computation<br/>
 		/// <br/>
-		/// Note: The function terminates the message-digest computation and<br/>
-		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
-		/// Always call before using the digest[] variable.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Final")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Final([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] SDLTestMd5Context* mdContext)
-		{
-			TestMd5FinalNative(mdContext);
-		}
-
-		/// <summary>
-		/// complete digest computation<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
-		/// Note: The function terminates the message-digest computation and<br/>
-		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
-		/// Always call before using the digest[] variable.<br/>
+		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Final")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Final([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context *")] ref SDLTestMd5Context mdContext)
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			fixed (SDLFRect* psrcrect = &srcrect)
 			{
-				TestMd5FinalNative((SDLTestMd5Context*)pmdContext);
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret != 0;
+					}
+				}
 			}
 		}
 
 		/// <summary>
-		/// Start tracking SDL memory allocations<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TrackAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTrackAllocationsNative()
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1258])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1258])();
-			#endif
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret != 0;
+						}
+					}
+				}
+			}
 		}
 
 		/// <summary>
-		/// Start tracking SDL memory allocations<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TrackAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestTrackAllocations()
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			TestTrackAllocationsNative();
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret != 0;
+						}
+					}
+				}
+			}
 		}
 
 		/// <summary>
-		/// Fill allocations with random data<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandFillAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestRandFillAllocationsNative()
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1259])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1259])();
-			#endif
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							fixed (SDLFPoint* pcenter = &center)
+							{
+								byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
 		}
 
 		/// <summary>
-		/// Fill allocations with random data<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandFillAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestRandFillAllocations()
-		{
-			TestRandFillAllocationsNative();
-		}
-
-		/// <summary>
-		/// Print a log of any outstanding allocations<br/>
 		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogAllocationsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1260])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1260])();
-			#endif
-		}
-
-		/// <summary>
-		/// Print a log of any outstanding allocations<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogAllocations()
-		{
-			TestLogAllocationsNative();
-		}
-
-		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
-		/// <br/>
+		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte VulkanLoadLibraryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		internal static byte RenderTextureAffineNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[1261])(path);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFPoint*, SDLFPoint*, SDLFPoint*, byte>)funcTable[1104])(renderer, texture, srcrect, origin, right, down);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1261])((nint)path);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint, byte>)funcTable[1104])((nint)renderer, (nint)texture, (nint)srcrect, (nint)origin, (nint)right, (nint)down);
 			#endif
 		}
 
 		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
 		{
-			byte ret = VulkanLoadLibraryNative(path);
+			byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, right, down);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path)
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
 		{
-			fixed (byte* ppath = &path)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte ret = VulkanLoadLibraryNative((byte*)ppath);
+				byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, right, down);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
 		{
-			fixed (byte* ppath = path)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				byte ret = VulkanLoadLibraryNative((byte*)ppath);
+				byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, right, down);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
 		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, right, down);
+					return ret != 0;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = VulkanLoadLibraryNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the address of the `vkGetInstanceProcAddr` function.<br/>
-		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
-		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
-		/// The actual type of the returned function pointer is<br/>
-		/// PFN_vkGetInstanceProcAddr, but that isn't available because the Vulkan<br/>
-		/// headers are not included here. You should cast the return value of this<br/>
-		/// function to that type, e.g.<br/>
-		/// `vkGetInstanceProcAddr =<br/>
-		/// (PFN_vkGetInstanceProcAddr)SDL_Vulkan_GetVkGetInstanceProcAddr();`<br/>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetVkGetInstanceProcAddr")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, right, down);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, right, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLFPoint* porigin = &origin)
+			{
+				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, right, down);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, right, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* porigin = &origin)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLFPoint* pright = &right)
+			{
+				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, (SDLFPoint*)pright, down);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, (SDLFPoint*)pright, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLFPoint* porigin = &origin)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* porigin = &origin)
+						{
+							fixed (SDLFPoint* pright = &right)
+							{
+								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFPoint* pdown = &down)
+			{
+				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, right, (SDLFPoint*)pdown);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* pdown = &down)
+				{
+					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, right, (SDLFPoint*)pdown);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* pdown = &down)
+				{
+					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, right, (SDLFPoint*)pdown);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, right, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* pdown = &down)
+				{
+					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFPoint* porigin = &origin)
+			{
+				fixed (SDLFPoint* pdown = &down)
+				{
+					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* porigin = &origin)
+						{
+							fixed (SDLFPoint* pdown = &down)
+							{
+								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFPoint* pright = &right)
+			{
+				fixed (SDLFPoint* pdown = &down)
+				{
+					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							fixed (SDLFPoint* pdown = &down)
+							{
+								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFPoint* porigin = &origin)
+			{
+				fixed (SDLFPoint* pright = &right)
+				{
+					fixed (SDLFPoint* pdown = &down)
+					{
+						byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							fixed (SDLFPoint* pdown = &down)
+							{
+								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* porigin = &origin)
+				{
+					fixed (SDLFPoint* pright = &right)
+					{
+						fixed (SDLFPoint* pdown = &down)
+						{
+							byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							fixed (SDLFPoint* pdown = &down)
+							{
+								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* porigin = &origin)
+					{
+						fixed (SDLFPoint* pright = &right)
+						{
+							fixed (SDLFPoint* pdown = &down)
+							{
+								byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// affine transform, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function from the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* porigin = &origin)
+						{
+							fixed (SDLFPoint* pright = &right)
+							{
+								fixed (SDLFPoint* pdown = &down)
+								{
+									byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
+									return ret != 0;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static delegate*<void> VulkanGetVkGetInstanceProcAddrNative()
+		internal static byte RenderTextureTiledNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void>>)funcTable[1262])();
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, float, SDLFRect*, byte>)funcTable[1105])(renderer, texture, srcrect, scale, dstrect);
 			#else
-			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint>)funcTable[1262])();
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, float, nint, byte>)funcTable[1105])((nint)renderer, (nint)texture, (nint)srcrect, scale, (nint)dstrect);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the address of the `vkGetInstanceProcAddr` function.<br/>
-		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
-		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
-		/// The actual type of the returned function pointer is<br/>
-		/// PFN_vkGetInstanceProcAddr, but that isn't available because the Vulkan<br/>
-		/// headers are not included here. You should cast the return value of this<br/>
-		/// function to that type, e.g.<br/>
-		/// `vkGetInstanceProcAddr =<br/>
-		/// (PFN_vkGetInstanceProcAddr)SDL_Vulkan_GetVkGetInstanceProcAddr();`<br/>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetVkGetInstanceProcAddr")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> VulkanGetVkGetInstanceProcAddr()
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
 		{
-			delegate*<void> ret = VulkanGetVkGetInstanceProcAddrNative();
-			return ret;
+			byte ret = RenderTextureTiledNative(renderer, texture, srcrect, scale, dstrect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, srcrect, scale, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, srcrect, scale, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, scale, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				byte ret = RenderTextureTiledNative(renderer, texture, (SDLFRect*)psrcrect, scale, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, scale, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, dstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLFRect* pdstrect = &dstrect)
+			{
+				byte ret = RenderTextureTiledNative(renderer, texture, srcrect, scale, (SDLFRect*)pdstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, srcrect, scale, (SDLFRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, srcrect, scale, (SDLFRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, scale, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTextureTiledNative(renderer, texture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderTexture9GridNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, float, float, float, float, float, SDLFRect*, byte>)funcTable[1106])(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, float, float, float, float, float, nint, byte>)funcTable[1106])((nint)renderer, (nint)texture, (nint)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			byte ret = RenderTexture9GridNative(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				byte ret = RenderTexture9GridNative(renderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLFRect* pdstrect = &dstrect)
+			{
+				byte ret = RenderTexture9GridNative(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLFRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					byte ret = RenderTexture9GridNative(renderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
+		/// target at subpixel precision.<br/>
+		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
+		/// corner sizes for each corner, and the sides and center making up the<br/>
+		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
+		/// the corners of the destination rectangle. The sides and center are then<br/>
+		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderGeometryNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLVertex*, int, int*, int, byte>)funcTable[1107])(renderer, texture, vertices, numVertices, indices, numIndices);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, byte>)funcTable[1107])((nint)renderer, (nint)texture, (nint)vertices, numVertices, (nint)indices, numIndices);
+			#endif
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			byte ret = RenderGeometryNative(renderer, texture, vertices, numVertices, indices, numIndices);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, indices, numIndices);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLVertex* pvertices = &vertices)
+			{
+				byte ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLVertex* pvertices = &vertices)
+					{
+						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (int* pindices = &indices)
+			{
+				byte ret = RenderGeometryNative(renderer, texture, vertices, numVertices, (int*)pindices, numIndices);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pindices = &indices)
+				{
+					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, (int*)pindices, numIndices);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* pindices = &indices)
+				{
+					byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (int* pindices = &indices)
+					{
+						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLVertex* pvertices = &vertices)
+			{
+				fixed (int* pindices = &indices)
+				{
+					byte ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					fixed (int* pindices = &indices)
+					{
+						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					fixed (int* pindices = &indices)
+					{
+						byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLVertex* pvertices = &vertices)
+					{
+						fixed (int* pindices = &indices)
+						{
+							byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderGeometryRawNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "float const *")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "SDL_FColor const *")] SDLFColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "float const *")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const *")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, float*, int, SDLFColor*, int, float*, int, int, void*, int, int, byte>)funcTable[1108])(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int, nint, int, int, byte>)funcTable[1108])((nint)renderer, (nint)texture, (nint)xy, xyStride, (nint)color, colorStride, (nint)uv, uvStride, numVertices, (nint)indices, numIndices, sizeIndices);
+			#endif
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "float const *")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "SDL_FColor const *")] SDLFColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "float const *")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const *")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			byte ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "float const *")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "SDL_FColor const *")] SDLFColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "float const *")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const *")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "float const *")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "SDL_FColor const *")] SDLFColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "float const *")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const *")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "float const *")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "SDL_FColor const *")] SDLFColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "float const *")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const *")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "float const *")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "SDL_FColor const *")] SDLFColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "float const *")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const *")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				byte ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "float const *")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "SDL_FColor const *")] SDLFColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "float const *")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const *")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret != 0;
+				}
+			}
 		}
 	}
 }

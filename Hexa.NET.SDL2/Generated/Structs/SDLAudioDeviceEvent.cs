@@ -16,13 +16,13 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
+	/// Audio device event structure (event.adevice.*)<br/>
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioDeviceEvent
 	{
 		/// <summary>
-		/// ::SDL_AUDIODEVICEADDED, or ::SDL_AUDIODEVICEREMOVED <br/>
+		/// SDL_AUDIODEVICEADDED, or SDL_AUDIODEVICEREMOVED <br/>
 		/// </summary>
 		public uint Type;
 

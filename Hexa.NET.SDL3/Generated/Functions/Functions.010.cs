@@ -18,1487 +18,2787 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Get an array including all versions of a surface.<br/>
-		/// This returns all versions of a surface, with the surface being queried as<br/>
-		/// the first element in the returned array.<br/>
-		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
-		/// They are still referenced by the surface being queried and will be cleaned<br/>
-		/// up normally.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte** pdstData = &dstData)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, dstSpec, (byte**)pdstData, (int*)pdstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, dstSpec, (byte**)pdstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, dstSpec, (byte**)pdstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, dstSpec, (byte**)pdstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative(srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative(srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] ref SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						fixed (byte** pdstData = &dstData)
+						{
+							fixed (int* pdstLen = &dstLen)
+							{
+								byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the human readable name of an audio format.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAudioFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface** GetSurfaceImagesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		internal static byte* GetAudioFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int*, SDLSurface**>)funcTable[380])(surface, count);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioFormat, byte*>)funcTable[364])(format);
 			#else
-			return (SDLSurface**)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[380])((nint)surface, (nint)count);
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLAudioFormat, nint>)funcTable[364])(format);
 			#endif
 		}
 
 		/// <summary>
-		/// Get an array including all versions of a surface.<br/>
-		/// This returns all versions of a surface, with the surface being queried as<br/>
-		/// the first element in the returned array.<br/>
-		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
-		/// They are still referenced by the surface being queried and will be cleaned<br/>
-		/// up normally.<br/>
+		/// Get the human readable name of an audio format.<br/>
 		/// <br/>
 		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
-		public static SDLSurface** GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetAudioFormatName([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
 		{
-			SDLSurface** ret = GetSurfaceImagesNative(surface, count);
+			byte* ret = GetAudioFormatNameNative(format);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get an array including all versions of a surface.<br/>
-		/// This returns all versions of a surface, with the surface being queried as<br/>
-		/// the first element in the returned array.<br/>
-		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
-		/// They are still referenced by the surface being queried and will be cleaned<br/>
-		/// up normally.<br/>
+		/// Get the human readable name of an audio format.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAudioFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetAudioFormatNameS([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
+		{
+			string ret = Utils.DecodeStringUTF8(GetAudioFormatNameNative(format));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the appropriate memset value for silencing an audio format.<br/>
+		/// The value returned by this function can be used as the second argument to<br/>
+		/// memset (or SDL_memset) to set an audio buffer in a specific format to<br/>
+		/// silence.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSilenceValueForFormat")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSilenceValueForFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioFormat, int>)funcTable[365])(format);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<SDLAudioFormat, int>)funcTable[365])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the appropriate memset value for silencing an audio format.<br/>
+		/// The value returned by this function can be used as the second argument to<br/>
+		/// memset (or SDL_memset) to set an audio buffer in a specific format to<br/>
+		/// silence.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSilenceValueForFormat")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSilenceValueForFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
+		{
+			int ret = GetSilenceValueForFormatNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Compose a custom blend mode for renderers.<br/>
+		/// The functions SDL_SetRenderDrawBlendMode and SDL_SetTextureBlendMode accept<br/>
+		/// the SDL_BlendMode returned by this function if the renderer supports it.<br/>
+		/// A blend mode controls how the pixels from a drawing operation (source) get<br/>
+		/// combined with the pixels from the render target (destination). First, the<br/>
+		/// components of the source and destination pixels get multiplied with their<br/>
+		/// blend factors. Then, the blend operation takes the two products and<br/>
+		/// calculates the result that will get stored in the render target.<br/>
+		/// Expressed in pseudocode, it would look like this:<br/>
+		/// ```c<br/>
+		/// dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);<br/>
+		/// dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);<br/>
+		/// ```<br/>
+		/// Where the functions `colorOperation(src, dst)` and `alphaOperation(src,<br/>
+		/// dst)` can return one of the following:<br/>
+		/// - `src + dst`<br/>
+		/// - `src - dst`<br/>
+		/// - `dst - src`<br/>
+		/// - `min(src, dst)`<br/>
+		/// - `max(src, dst)`<br/>
+		/// The red, green, and blue components are always multiplied with the first,<br/>
+		/// second, and third components of the SDL_BlendFactor, respectively. The<br/>
+		/// fourth component is not used.<br/>
+		/// The alpha component is always multiplied with the fourth component of the<br/>
+		/// SDL_BlendFactor. The other components are not used in the alpha<br/>
+		/// calculation.<br/>
+		/// Support for these blend modes varies for each renderer. To check if a<br/>
+		/// specific SDL_BlendMode is supported, create a renderer and pass it to<br/>
+		/// either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will<br/>
+		/// return with an error if the blend mode is not supported.<br/>
+		/// This list describes the support of custom blend modes for each renderer.<br/>
+		/// All renderers support the four blend modes listed in the SDL_BlendMode<br/>
+		/// enumeration.<br/>
+		/// - **direct3d**: Supports all operations with all factors. However, some<br/>
+		/// factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and<br/>
+		/// `SDL_BLENDOPERATION_MAXIMUM`.<br/>
+		/// - **direct3d11**: Same as Direct3D 9.<br/>
+		/// - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly here.<br/>
+		/// - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,<br/>
+		/// `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`<br/>
+		/// operations with all factors.<br/>
+		/// - **psp**: No custom blend mode support.<br/>
+		/// - **software**: No custom blend mode support.<br/>
+		/// Some renderers do not provide an alpha component for the default render<br/>
+		/// target. The `SDL_BLENDFACTOR_DST_ALPHA` and<br/>
+		/// `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this<br/>
+		/// case.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
-		public static SDLSurface** GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		[NativeName(NativeNameType.Func, "SDL_ComposeCustomBlendMode")]
+		[return: NativeName(NativeNameType.Type, "SDL_BlendMode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBlendMode ComposeCustomBlendModeNative([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendMode>)funcTable[366])(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
+			#else
+			return (SDLBlendMode)((delegate* unmanaged[Cdecl]<SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendMode>)funcTable[366])(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
+			#endif
+		}
+
+		/// <summary>
+		/// Compose a custom blend mode for renderers.<br/>
+		/// The functions SDL_SetRenderDrawBlendMode and SDL_SetTextureBlendMode accept<br/>
+		/// the SDL_BlendMode returned by this function if the renderer supports it.<br/>
+		/// A blend mode controls how the pixels from a drawing operation (source) get<br/>
+		/// combined with the pixels from the render target (destination). First, the<br/>
+		/// components of the source and destination pixels get multiplied with their<br/>
+		/// blend factors. Then, the blend operation takes the two products and<br/>
+		/// calculates the result that will get stored in the render target.<br/>
+		/// Expressed in pseudocode, it would look like this:<br/>
+		/// ```c<br/>
+		/// dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);<br/>
+		/// dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);<br/>
+		/// ```<br/>
+		/// Where the functions `colorOperation(src, dst)` and `alphaOperation(src,<br/>
+		/// dst)` can return one of the following:<br/>
+		/// - `src + dst`<br/>
+		/// - `src - dst`<br/>
+		/// - `dst - src`<br/>
+		/// - `min(src, dst)`<br/>
+		/// - `max(src, dst)`<br/>
+		/// The red, green, and blue components are always multiplied with the first,<br/>
+		/// second, and third components of the SDL_BlendFactor, respectively. The<br/>
+		/// fourth component is not used.<br/>
+		/// The alpha component is always multiplied with the fourth component of the<br/>
+		/// SDL_BlendFactor. The other components are not used in the alpha<br/>
+		/// calculation.<br/>
+		/// Support for these blend modes varies for each renderer. To check if a<br/>
+		/// specific SDL_BlendMode is supported, create a renderer and pass it to<br/>
+		/// either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will<br/>
+		/// return with an error if the blend mode is not supported.<br/>
+		/// This list describes the support of custom blend modes for each renderer.<br/>
+		/// All renderers support the four blend modes listed in the SDL_BlendMode<br/>
+		/// enumeration.<br/>
+		/// - **direct3d**: Supports all operations with all factors. However, some<br/>
+		/// factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and<br/>
+		/// `SDL_BLENDOPERATION_MAXIMUM`.<br/>
+		/// - **direct3d11**: Same as Direct3D 9.<br/>
+		/// - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly here.<br/>
+		/// - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,<br/>
+		/// `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`<br/>
+		/// operations with all factors.<br/>
+		/// - **psp**: No custom blend mode support.<br/>
+		/// - **software**: No custom blend mode support.<br/>
+		/// Some renderers do not provide an alpha component for the default render<br/>
+		/// target. The `SDL_BLENDFACTOR_DST_ALPHA` and<br/>
+		/// `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this<br/>
+		/// case.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ComposeCustomBlendMode")]
+		[return: NativeName(NativeNameType.Type, "SDL_BlendMode")]
+		public static SDLBlendMode ComposeCustomBlendMode([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
+		{
+			SDLBlendMode ret = ComposeCustomBlendModeNative(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPixelFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat, byte*>)funcTable[367])(format);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLPixelFormat, nint>)funcTable[367])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetPixelFormatName([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			byte* ret = GetPixelFormatNameNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetPixelFormatNameS([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			string ret = Utils.DecodeStringUTF8(GetPixelFormatNameNative(format));
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetMasksForPixelFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat, int*, uint*, uint*, uint*, uint*, byte>)funcTable[368])(format, bpp, rmask, gmask, bmask, amask);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLPixelFormat, nint, nint, nint, nint, nint, byte>)funcTable[368])(format, (nint)bpp, (nint)rmask, (nint)gmask, (nint)bmask, (nint)amask);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, bmask, amask);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
 			{
-				SDLSurface** ret = GetSurfaceImagesNative((SDLSurface*)psurface, count);
-				return ret;
+				byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, bmask, amask);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get an array including all versions of a surface.<br/>
-		/// This returns all versions of a surface, with the surface being queried as<br/>
-		/// the first element in the returned array.<br/>
-		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
-		/// They are still referenced by the surface being queried and will be cleaned<br/>
-		/// up normally.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
-		public static SDLSurface** GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (int* pcount = &count)
+			fixed (uint* prmask = &rmask)
 			{
-				SDLSurface** ret = GetSurfaceImagesNative(surface, (int*)pcount);
-				return ret;
+				byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, bmask, amask);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get an array including all versions of a surface.<br/>
-		/// This returns all versions of a surface, with the surface being queried as<br/>
-		/// the first element in the returned array.<br/>
-		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
-		/// They are still referenced by the surface being queried and will be cleaned<br/>
-		/// up normally.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
-		public static SDLSurface** GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (int* pcount = &count)
+				fixed (uint* prmask = &rmask)
 				{
-					SDLSurface** ret = GetSurfaceImagesNative((SDLSurface*)psurface, (int*)pcount);
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, amask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (uint* pgmask = &gmask)
+			{
+				byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, bmask, amask);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, amask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (uint* pbmask = &bmask)
+			{
+				byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, (uint*)pbmask, amask);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, amask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (uint* pgmask = &gmask)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						fixed (uint* pbmask = &bmask)
+						{
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* pamask = &amask)
+			{
+				byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, bmask, (uint*)pamask);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, bmask, (uint*)pamask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* pgmask = &gmask)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* pbmask = &bmask)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* pgmask = &gmask)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						fixed (uint* pbmask = &bmask)
+						{
+							fixed (uint* pamask = &amask)
+							{
+								byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert a bpp value and RGBA masks to an enumerated pixel format.<br/>
+		/// This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't<br/>
+		/// possible.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatForMasks")]
+		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPixelFormat GetPixelFormatForMasksNative([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, SDLPixelFormat>)funcTable[369])(bpp, rmask, gmask, bmask, amask);
+			#else
+			return (SDLPixelFormat)((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, SDLPixelFormat>)funcTable[369])(bpp, rmask, gmask, bmask, amask);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert a bpp value and RGBA masks to an enumerated pixel format.<br/>
+		/// This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't<br/>
+		/// possible.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatForMasks")]
+		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat")]
+		public static SDLPixelFormat GetPixelFormatForMasks([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		{
+			SDLPixelFormat ret = GetPixelFormatForMasksNative(bpp, rmask, gmask, bmask, amask);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create an SDL_PixelFormatDetails structure corresponding to a pixel format.<br/>
+		/// Returned structure may come from a shared global cache (i.e. not newly<br/>
+		/// allocated), and hence should not be modified, especially the palette. Weird<br/>
+		/// errors such as `Blit combination not supported` may occur.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatDetails")]
+		[return: NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPixelFormatDetails* GetPixelFormatDetailsNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat, SDLPixelFormatDetails*>)funcTable[370])(format);
+			#else
+			return (SDLPixelFormatDetails*)((delegate* unmanaged[Cdecl]<SDLPixelFormat, nint>)funcTable[370])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Create an SDL_PixelFormatDetails structure corresponding to a pixel format.<br/>
+		/// Returned structure may come from a shared global cache (i.e. not newly<br/>
+		/// allocated), and hence should not be modified, especially the palette. Weird<br/>
+		/// errors such as `Blit combination not supported` may occur.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatDetails")]
+		[return: NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")]
+		public static SDLPixelFormatDetails* GetPixelFormatDetails([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			SDLPixelFormatDetails* ret = GetPixelFormatDetailsNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a palette structure with the specified number of color entries.<br/>
+		/// The palette entries are initialized to white.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreatePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPalette* CreatePaletteNative([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLPalette*>)funcTable[371])(ncolors);
+			#else
+			return (SDLPalette*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[371])(ncolors);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a palette structure with the specified number of color entries.<br/>
+		/// The palette entries are initialized to white.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreatePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		public static SDLPalette* CreatePalette([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		{
+			SDLPalette* ret = CreatePaletteNative(ncolors);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetPaletteColorsNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "SDL_Color const *")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPalette*, SDLColor*, int, int, byte>)funcTable[372])(palette, colors, firstcolor, ncolors);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, int, byte>)funcTable[372])((nint)palette, (nint)colors, firstcolor, ncolors);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "SDL_Color const *")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		{
+			byte ret = SetPaletteColorsNative(palette, colors, firstcolor, ncolors);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "SDL_Color const *")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				byte ret = SetPaletteColorsNative((SDLPalette*)ppalette, colors, firstcolor, ncolors);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "SDL_Color const *")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		{
+			fixed (SDLColor* pcolors = &colors)
+			{
+				byte ret = SetPaletteColorsNative(palette, (SDLColor*)pcolors, firstcolor, ncolors);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "SDL_Color const *")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (SDLColor* pcolors = &colors)
+				{
+					byte ret = SetPaletteColorsNative((SDLPalette*)ppalette, (SDLColor*)pcolors, firstcolor, ncolors);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Free a palette created with SDL_CreatePalette().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyPalette")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyPaletteNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLPalette*, void>)funcTable[373])(palette);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[373])((nint)palette);
+			#endif
+		}
+
+		/// <summary>
+		/// Free a palette created with SDL_CreatePalette().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyPalette")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyPalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette)
+		{
+			DestroyPaletteNative(palette);
+		}
+
+		/// <summary>
+		/// Free a palette created with SDL_CreatePalette().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified or destroyed in another thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyPalette")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyPalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				DestroyPaletteNative((SDLPalette*)ppalette);
+			}
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint MapRGBNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormatDetails*, SDLPalette*, byte, byte, byte, uint>)funcTable[374])(format, palette, r, g, b);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, byte, byte, byte, uint>)funcTable[374])((nint)format, (nint)palette, r, g, b);
+			#endif
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			uint ret = MapRGBNative(format, palette, r, g, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				uint ret = MapRGBNative((SDLPixelFormatDetails*)pformat, palette, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				uint ret = MapRGBNative(format, (SDLPalette*)ppalette, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					uint ret = MapRGBNative((SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, b);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Remove all alternate versions of a surface.<br/>
-		/// This function removes a reference from all the alternative versions,<br/>
-		/// destroying them if this is the last reference to them.<br/>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveSurfaceAlternateImages")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RemoveSurfaceAlternateImagesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		internal static uint MapRGBANative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[381])(surface);
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormatDetails*, SDLPalette*, byte, byte, byte, byte, uint>)funcTable[375])(format, palette, r, g, b, a);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[381])((nint)surface);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, byte, byte, byte, byte, uint>)funcTable[375])((nint)format, (nint)palette, r, g, b, a);
 			#endif
 		}
 
 		/// <summary>
-		/// Remove all alternate versions of a surface.<br/>
-		/// This function removes a reference from all the alternative versions,<br/>
-		/// destroying them if this is the last reference to them.<br/>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveSurfaceAlternateImages")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RemoveSurfaceAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			RemoveSurfaceAlternateImagesNative(surface);
-		}
-
-		/// <summary>
-		/// Remove all alternate versions of a surface.<br/>
-		/// This function removes a reference from all the alternative versions,<br/>
-		/// destroying them if this is the last reference to them.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveSurfaceAlternateImages")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RemoveSurfaceAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				RemoveSurfaceAlternateImagesNative((SDLSurface*)psurface);
-			}
-		}
-
-		/// <summary>
-		/// Set up a surface for directly accessing the pixels.<br/>
-		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
-		/// and read from `surface->pixels`, using the pixel format stored in<br/>
-		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
-		/// SDL_UnlockSurface() to release it.<br/>
-		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
-		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
-		/// format of the surface will not change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte LockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[382])(surface);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[382])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Set up a surface for directly accessing the pixels.<br/>
-		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
-		/// and read from `surface->pixels`, using the pixel format stored in<br/>
-		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
-		/// SDL_UnlockSurface() to release it.<br/>
-		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
-		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
-		/// format of the surface will not change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool LockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			byte ret = LockSurfaceNative(surface);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set up a surface for directly accessing the pixels.<br/>
-		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
-		/// and read from `surface->pixels`, using the pixel format stored in<br/>
-		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
-		/// SDL_UnlockSurface() to release it.<br/>
-		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
-		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
-		/// format of the surface will not change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool LockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = LockSurfaceNative((SDLSurface*)psurface);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Release a surface after directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[383])(surface);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[383])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Release a surface after directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			UnlockSurfaceNative(surface);
-		}
-
-		/// <summary>
-		/// Release a surface after directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				UnlockSurfaceNative((SDLSurface*)psurface);
-			}
-		}
-
-		/// <summary>
-		/// Load a BMP image from a seekable SDL data stream.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* LoadBMPIONative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, SDLSurface*>)funcTable[384])(src, closeio);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, byte, nint>)funcTable[384])((nint)src, closeio);
-			#endif
-		}
-
-		/// <summary>
-		/// Load a BMP image from a seekable SDL data stream.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* LoadBMPIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
-		{
-			SDLSurface* ret = LoadBMPIONative(src, closeio ? (byte)1 : (byte)0);
+			uint ret = MapRGBANative(format, palette, r, g, b, a);
 			return ret;
 		}
 
 		/// <summary>
-		/// Load a BMP image from a seekable SDL data stream.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* LoadBMPIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
-			fixed (SDLIOStream* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				SDLSurface* ret = LoadBMPIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0);
+				uint ret = MapRGBANative((SDLPixelFormatDetails*)pformat, palette, r, g, b, a);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load a BMP image from a file.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* LoadBMPNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLSurface*>)funcTable[385])(file);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[385])((nint)file);
-			#endif
-		}
-
-		/// <summary>
-		/// Load a BMP image from a file.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
+		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
-			SDLSurface* ret = LoadBMPNative(file);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load a BMP image from a file.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file)
-		{
-			fixed (byte* pfile = &file)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				SDLSurface* ret = LoadBMPNative((byte*)pfile);
+				uint ret = MapRGBANative(format, (SDLPalette*)ppalette, r, g, b, a);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load a BMP image from a file.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
+		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
-			fixed (byte* pfile = file)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				SDLSurface* ret = LoadBMPNative((byte*)pfile);
-				return ret;
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					uint ret = MapRGBANative((SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, b, a);
+					return ret;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Load a BMP image from a file.<br/>
-		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
-		/// will result in a memory leak.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLSurface* ret = LoadBMPNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SaveBMPIONative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
+		internal static void GetRGBNative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLIOStream*, byte, byte>)funcTable[386])(surface, dst, closeio);
+			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormatDetails*, SDLPalette*, byte*, byte*, byte*, void>)funcTable[376])(pixel, format, palette, r, g, b);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte, byte>)funcTable[386])((nint)surface, (nint)dst, closeio);
+			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, void>)funcTable[376])(pixel, (nint)format, (nint)palette, (nint)r, (nint)g, (nint)b);
 			#endif
 		}
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			byte ret = SaveBMPIONative(surface, dst, closeio ? (byte)1 : (byte)0);
-			return ret != 0;
+			GetRGBNative(pixel, format, palette, r, g, b);
 		}
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				byte ret = SaveBMPIONative((SDLSurface*)psurface, dst, closeio ? (byte)1 : (byte)0);
-				return ret != 0;
+				GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, b);
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			fixed (SDLIOStream* pdst = &dst)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				byte ret = SaveBMPIONative(surface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
-				return ret != 0;
+				GetRGBNative(pixel, format, (SDLPalette*)ppalette, r, g, b);
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLIOStream* pdst = &dst)
+				fixed (SDLPalette* ppalette = &palette)
 				{
-					byte ret = SaveBMPIONative((SDLSurface*)psurface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
-					return ret != 0;
+					GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, b);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SaveBMPNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte>)funcTable[387])(surface, file);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[387])((nint)surface, (nint)file);
-			#endif
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
-		{
-			byte ret = SaveBMPNative(surface, file);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SaveBMPNative((SDLSurface*)psurface, file);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file)
-		{
-			fixed (byte* pfile = &file)
-			{
-				byte ret = SaveBMPNative(surface, (byte*)pfile);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
-		{
-			fixed (byte* pfile = file)
-			{
-				byte ret = SaveBMPNative(surface, (byte*)pfile);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SaveBMPNative(surface, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pfile = &file)
-				{
-					byte ret = SaveBMPNative((SDLSurface*)psurface, (byte*)pfile);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pfile = file)
-				{
-					byte ret = SaveBMPNative((SDLSurface*)psurface, (byte*)pfile);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (file != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(file);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = SaveBMPNative((SDLSurface*)psurface, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the RLE acceleration hint for a surface.<br/>
-		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
-		/// the surface must be locked before directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[388])(surface, enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[388])((nint)surface, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the RLE acceleration hint for a surface.<br/>
-		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
-		/// the surface must be locked before directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			byte ret = SetSurfaceRLENative(surface, enabled ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the RLE acceleration hint for a surface.<br/>
-		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
-		/// the surface must be locked before directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceRLENative((SDLSurface*)psurface, enabled ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Returns whether the surface is RLE enabled.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasRLE")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SurfaceHasRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[389])(surface);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[389])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns whether the surface is RLE enabled.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasRLE")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SurfaceHasRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			byte ret = SurfaceHasRLENative(surface);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Returns whether the surface is RLE enabled.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasRLE")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SurfaceHasRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SurfaceHasRLENative((SDLSurface*)psurface);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the color key (transparent pixel) in a surface.<br/>
-		/// The color key defines a pixel value that will be treated as transparent in<br/>
-		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
-		/// considered transparent, and therefore not rendered.<br/>
-		/// It is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, uint, byte>)funcTable[390])(surface, enabled, key);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, uint, byte>)funcTable[390])((nint)surface, enabled, key);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the color key (transparent pixel) in a surface.<br/>
-		/// The color key defines a pixel value that will be treated as transparent in<br/>
-		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
-		/// considered transparent, and therefore not rendered.<br/>
-		/// It is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
-		{
-			byte ret = SetSurfaceColorKeyNative(surface, enabled ? (byte)1 : (byte)0, key);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the color key (transparent pixel) in a surface.<br/>
-		/// The color key defines a pixel value that will be treated as transparent in<br/>
-		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
-		/// considered transparent, and therefore not rendered.<br/>
-		/// It is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceColorKeyNative((SDLSurface*)psurface, enabled ? (byte)1 : (byte)0, key);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Returns whether the surface has a color key.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SurfaceHasColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[391])(surface);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[391])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns whether the surface has a color key.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SurfaceHasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			byte ret = SurfaceHasColorKeyNative(surface);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Returns whether the surface has a color key.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SurfaceHasColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SurfaceHasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SurfaceHasColorKeyNative((SDLSurface*)psurface);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint*, byte>)funcTable[392])(surface, key);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[392])((nint)surface, (nint)key);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* key)
-		{
-			byte ret = GetSurfaceColorKeyNative(surface, key);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* key)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceColorKeyNative((SDLSurface*)psurface, key);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint key)
-		{
-			fixed (uint* pkey = &key)
-			{
-				byte ret = GetSurfaceColorKeyNative(surface, (uint*)pkey);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint key)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (uint* pkey = &key)
-				{
-					byte ret = GetSurfaceColorKeyNative((SDLSurface*)psurface, (uint*)pkey);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into blit operations.<br/>
-		/// When this surface is blitted, during the blit operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte, byte, byte>)funcTable[393])(surface, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[393])((nint)surface, r, g, b);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into blit operations.<br/>
-		/// When this surface is blitted, during the blit operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			byte ret = SetSurfaceColorModNative(surface, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into blit operations.<br/>
-		/// When this surface is blitted, during the blit operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte*, byte*, byte>)funcTable[394])(surface, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[394])((nint)surface, (nint)r, (nint)g, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			byte ret = GetSurfaceColorModNative(surface, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
-				byte ret = GetSurfaceColorModNative(surface, (byte*)pr, g, b);
-				return ret != 0;
+				GetRGBNative(pixel, format, palette, (byte*)pr, g, b);
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
 				fixed (byte* pr = &r)
 				{
-					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, b);
-					return ret != 0;
+					GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, b);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pr = &r)
+				{
+					GetRGBNative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, b);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
 			fixed (byte* pg = &g)
 			{
-				byte ret = GetSurfaceColorModNative(surface, r, (byte*)pg, b);
-				return ret != 0;
+				GetRGBNative(pixel, format, palette, r, (byte*)pg, b);
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
 				fixed (byte* pg = &g)
 				{
-					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, b);
-					return ret != 0;
+					GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, b);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBNative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pg = &g)
+					{
+						GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, b);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pg = &g)
 				{
-					byte ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, b);
-					return ret != 0;
+					GetRGBNative(pixel, format, palette, (byte*)pr, (byte*)pg, b);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
 				fixed (byte* pr = &r)
 				{
 					fixed (byte* pg = &g)
 					{
-						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, b);
-						return ret != 0;
+						GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, b);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (byte* pb = &b)
-			{
-				byte ret = GetSurfaceColorModNative(surface, r, g, (byte*)pb);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				fixed (byte* pb = &b)
+				fixed (byte* pr = &r)
 				{
-					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
-					return ret != 0;
+					fixed (byte* pg = &g)
+					{
+						GetRGBNative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b);
+					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						fixed (byte* pg = &g)
+						{
+							GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (byte* pb = &b)
+			{
+				GetRGBNative(pixel, format, palette, r, g, (byte*)pb);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, format, (SDLPalette*)ppalette, r, g, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pb = &b)
 				{
-					byte ret = GetSurfaceColorModNative(surface, (byte*)pr, g, (byte*)pb);
-					return ret != 0;
+					GetRGBNative(pixel, format, palette, (byte*)pr, g, (byte*)pb);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
 				fixed (byte* pr = &r)
 				{
 					fixed (byte* pb = &b)
 					{
-						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
-						return ret != 0;
+						GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, (byte*)pb);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
 			fixed (byte* pg = &g)
 			{
 				fixed (byte* pb = &b)
 				{
-					byte ret = GetSurfaceColorModNative(surface, r, (byte*)pg, (byte*)pb);
-					return ret != 0;
+					GetRGBNative(pixel, format, palette, r, (byte*)pg, (byte*)pb);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
 				fixed (byte* pg = &g)
 				{
 					fixed (byte* pb = &b)
 					{
-						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
-						return ret != 0;
+						GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, (byte*)pb);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -1506,24 +2806,30 @@ namespace Hexa.NET.SDL3
 				{
 					fixed (byte* pb = &b)
 					{
-						byte ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, (byte*)pb);
-						return ret != 0;
+						GetRGBNative(pixel, format, palette, (byte*)pr, (byte*)pg, (byte*)pb);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
 				fixed (byte* pr = &r)
 				{
@@ -1531,8 +2837,7 @@ namespace Hexa.NET.SDL3
 					{
 						fixed (byte* pb = &b)
 						{
-							byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
-							return ret != 0;
+							GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, (byte*)pb);
 						}
 					}
 				}
@@ -1540,2418 +2845,66 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[395])(surface, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[395])((nint)surface, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
-		{
-			byte ret = SetSurfaceAlphaModNative(surface, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte>)funcTable[396])(surface, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[396])((nint)surface, (nint)alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
-		{
-			byte ret = GetSurfaceAlphaModNative(surface, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte alpha)
-		{
-			fixed (byte* palpha = &alpha)
-			{
-				byte ret = GetSurfaceAlphaModNative(surface, (byte*)palpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* palpha = &alpha)
-				{
-					byte ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode, byte>)funcTable[397])(surface, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, byte>)funcTable[397])((nint)surface, blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			byte ret = SetSurfaceBlendModeNative(surface, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode*, byte>)funcTable[398])(surface, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[398])((nint)surface, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			byte ret = GetSurfaceBlendModeNative(surface, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				byte ret = GetSurfaceBlendModeNative(surface, (SDLBlendMode*)pblendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					byte ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceClipRectNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, byte>)funcTable[399])(surface, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[399])((nint)surface, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect)
-		{
-			byte ret = SetSurfaceClipRectNative(surface, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceClipRectNative((SDLSurface*)psurface, rect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = SetSurfaceClipRectNative(surface, (SDLRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = SetSurfaceClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceClipRectNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, byte>)funcTable[400])(surface, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[400])((nint)surface, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect)
-		{
-			byte ret = GetSurfaceClipRectNative(surface, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceClipRectNative((SDLSurface*)psurface, rect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = GetSurfaceClipRectNative(surface, (SDLRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceClipRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = GetSurfaceClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Flip a surface vertically or horizontally.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlipSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FlipSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLFlipMode, byte>)funcTable[401])(surface, flip);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLFlipMode, byte>)funcTable[401])((nint)surface, flip);
-			#endif
-		}
-
-		/// <summary>
-		/// Flip a surface vertically or horizontally.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlipSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FlipSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			byte ret = FlipSurfaceNative(surface, flip);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Flip a surface vertically or horizontally.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlipSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FlipSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = FlipSurfaceNative((SDLSurface*)psurface, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DuplicateSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* DuplicateSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*>)funcTable[402])(surface);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[402])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DuplicateSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* DuplicateSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
-		{
-			SDLSurface* ret = DuplicateSurfaceNative(surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DuplicateSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* DuplicateSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = DuplicateSurfaceNative((SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface, scaled to the<br/>
-		/// desired size.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScaleSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ScaleSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLScaleMode, SDLSurface*>)funcTable[403])(surface, width, height, scaleMode);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, int, int, SDLScaleMode, nint>)funcTable[403])((nint)surface, width, height, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface, scaled to the<br/>
-		/// desired size.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScaleSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ScaleSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			SDLSurface* ret = ScaleSurfaceNative(surface, width, height, scaleMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface, scaled to the<br/>
-		/// desired size.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScaleSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ScaleSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = ScaleSurfaceNative((SDLSurface*)psurface, width, height, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// If you are converting to an indexed surface and want to map colors to a<br/>
-		/// palette, you can use SDL_ConvertSurfaceAndColorspace() instead.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ConvertSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat, SDLSurface*>)funcTable[404])(surface, format);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat, nint>)funcTable[404])((nint)surface, format);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// If you are converting to an indexed surface and want to map colors to a<br/>
-		/// palette, you can use SDL_ConvertSurfaceAndColorspace() instead.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ConvertSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
-		{
-			SDLSurface* ret = ConvertSurfaceNative(surface, format);
-			return ret;
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// If you are converting to an indexed surface and want to map colors to a<br/>
-		/// palette, you can use SDL_ConvertSurfaceAndColorspace() instead.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ConvertSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = ConvertSurfaceNative((SDLSurface*)psurface, format);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurfaceAndColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ConvertSurfaceAndColorspaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat, SDLPalette*, SDLColorspace, uint, SDLSurface*>)funcTable[405])(surface, format, palette, colorspace, props);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat, nint, SDLColorspace, uint, nint>)funcTable[405])((nint)surface, format, (nint)palette, colorspace, props);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurfaceAndColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ConvertSurfaceAndColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			SDLSurface* ret = ConvertSurfaceAndColorspaceNative(surface, format, palette, colorspace, props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurfaceAndColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ConvertSurfaceAndColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = ConvertSurfaceAndColorspaceNative((SDLSurface*)psurface, format, palette, colorspace, props);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurfaceAndColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ConvertSurfaceAndColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				SDLSurface* ret = ConvertSurfaceAndColorspaceNative(surface, format, (SDLPalette*)ppalette, colorspace, props);
-				return ret;
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBNative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb);
+						}
+					}
+				}
 			}
 		}
 
 		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertSurfaceAndColorspace")]
-		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
-		public static SDLSurface* ConvertSurfaceAndColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
 				fixed (SDLPalette* ppalette = &palette)
 				{
-					SDLSurface* ret = ConvertSurfaceAndColorspaceNative((SDLSurface*)psurface, format, (SDLPalette*)ppalette, colorspace, props);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format to another format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertPixels")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ConvertPixelsNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat srcFormat, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat dstFormat, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, void*, int, SDLPixelFormat, void*, int, byte>)funcTable[406])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint, int, SDLPixelFormat, nint, int, byte>)funcTable[406])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format to another format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertPixels")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ConvertPixels([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat srcFormat, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat dstFormat, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch)
-		{
-			byte ret = ConvertPixelsNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format and colorspace to another format and<br/>
-		/// colorspace.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertPixelsAndColorspace")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ConvertPixelsAndColorspaceNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat srcFormat, [NativeName(NativeNameType.Param, "src_colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace srcColorspace, [NativeName(NativeNameType.Param, "src_properties")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint srcProperties, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat dstFormat, [NativeName(NativeNameType.Param, "dst_colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace dstColorspace, [NativeName(NativeNameType.Param, "dst_properties")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dstProperties, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, SDLColorspace, uint, void*, int, SDLPixelFormat, SDLColorspace, uint, void*, int, byte>)funcTable[407])(width, height, srcFormat, srcColorspace, srcProperties, src, srcPitch, dstFormat, dstColorspace, dstProperties, dst, dstPitch);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, SDLColorspace, uint, nint, int, SDLPixelFormat, SDLColorspace, uint, nint, int, byte>)funcTable[407])(width, height, srcFormat, srcColorspace, srcProperties, (nint)src, srcPitch, dstFormat, dstColorspace, dstProperties, (nint)dst, dstPitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format and colorspace to another format and<br/>
-		/// colorspace.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertPixelsAndColorspace")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ConvertPixelsAndColorspace([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat srcFormat, [NativeName(NativeNameType.Param, "src_colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace srcColorspace, [NativeName(NativeNameType.Param, "src_properties")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint srcProperties, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat dstFormat, [NativeName(NativeNameType.Param, "dst_colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace dstColorspace, [NativeName(NativeNameType.Param, "dst_properties")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dstProperties, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch)
-		{
-			byte ret = ConvertPixelsAndColorspaceNative(width, height, srcFormat, srcColorspace, srcProperties, src, srcPitch, dstFormat, dstColorspace, dstProperties, dst, dstPitch);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Premultiply the alpha on a block of pixels.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PremultiplyAlpha")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PremultiplyAlphaNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat srcFormat, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat dstFormat, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch, [NativeName(NativeNameType.Param, "linear")] [NativeName(NativeNameType.Type, "bool")] byte linear)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, void*, int, SDLPixelFormat, void*, int, byte, byte>)funcTable[408])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch, linear);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint, int, SDLPixelFormat, nint, int, byte, byte>)funcTable[408])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch, linear);
-			#endif
-		}
-
-		/// <summary>
-		/// Premultiply the alpha on a block of pixels.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PremultiplyAlpha")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PremultiplyAlpha([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat srcFormat, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat dstFormat, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch, [NativeName(NativeNameType.Param, "linear")] [NativeName(NativeNameType.Type, "bool")] bool linear)
-		{
-			byte ret = PremultiplyAlphaNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch, linear ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Premultiply the alpha in a surface.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PremultiplySurfaceAlpha")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PremultiplySurfaceAlphaNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "linear")] [NativeName(NativeNameType.Type, "bool")] byte linear)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[409])(surface, linear);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[409])((nint)surface, linear);
-			#endif
-		}
-
-		/// <summary>
-		/// Premultiply the alpha in a surface.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PremultiplySurfaceAlpha")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PremultiplySurfaceAlpha([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "linear")] [NativeName(NativeNameType.Type, "bool")] bool linear)
-		{
-			byte ret = PremultiplySurfaceAlphaNative(surface, linear ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Premultiply the alpha in a surface.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PremultiplySurfaceAlpha")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PremultiplySurfaceAlpha([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "linear")] [NativeName(NativeNameType.Type, "bool")] bool linear)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = PremultiplySurfaceAlphaNative((SDLSurface*)psurface, linear ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Clear a surface with a specific color, with floating point precision.<br/>
-		/// This function handles all surface formats, and ignores any clip rectangle.<br/>
-		/// If the surface is YUV, the color is assumed to be in the sRGB colorspace,<br/>
-		/// otherwise the color is assumed to be in the colorspace of the suface.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ClearSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float")] float a)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, float, float, float, float, byte>)funcTable[410])(surface, r, g, b, a);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, byte>)funcTable[410])((nint)surface, r, g, b, a);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear a surface with a specific color, with floating point precision.<br/>
-		/// This function handles all surface formats, and ignores any clip rectangle.<br/>
-		/// If the surface is YUV, the color is assumed to be in the sRGB colorspace,<br/>
-		/// otherwise the color is assumed to be in the colorspace of the suface.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ClearSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float")] float a)
-		{
-			byte ret = ClearSurfaceNative(surface, r, g, b, a);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Clear a surface with a specific color, with floating point precision.<br/>
-		/// This function handles all surface formats, and ignores any clip rectangle.<br/>
-		/// If the surface is YUV, the color is assumed to be in the sRGB colorspace,<br/>
-		/// otherwise the color is assumed to be in the colorspace of the suface.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ClearSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float")] float a)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = ClearSurfaceNative((SDLSurface*)psurface, r, g, b, a);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FillSurfaceRectNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, uint, byte>)funcTable[411])(dst, rect, color);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, uint, byte>)funcTable[411])((nint)dst, (nint)rect, color);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRect([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			byte ret = FillSurfaceRectNative(dst, rect, color);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRect([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = FillSurfaceRectNative((SDLSurface*)pdst, rect, color);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRect([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = FillSurfaceRectNative(dst, (SDLRect*)prect, color);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRect([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = FillSurfaceRectNative((SDLSurface*)pdst, (SDLRect*)prect, color);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FillSurfaceRectsNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, uint, byte>)funcTable[412])(dst, rects, count, color);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, uint, byte>)funcTable[412])((nint)dst, (nint)rects, count, color);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRects([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			byte ret = FillSurfaceRectsNative(dst, rects, count, color);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRects([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = FillSurfaceRectsNative((SDLSurface*)pdst, rects, count, color);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRects([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			fixed (SDLRect* prects = &rects)
-			{
-				byte ret = FillSurfaceRectsNative(dst, (SDLRect*)prects, count, color);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FillSurfaceRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool FillSurfaceRects([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* prects = &rects)
-				{
-					byte ret = FillSurfaceRectsNative((SDLSurface*)pdst, (SDLRect*)prects, count, color);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, byte>)funcTable[413])(src, srcrect, dst, dstrect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[413])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			byte ret = BlitSurfaceNative(src, srcrect, dst, dstrect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = BlitSurfaceNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (byte* pr = &r)
 					{
-						byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				byte ret = BlitSurfaceNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface.<br/>
-		/// This assumes that the source and destination rectangles are the same size.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied. The final blit rectangles are saved in `srcrect` and<br/>
-		/// `dstrect` after all clipping is performed.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurface")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurface([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (byte* pg = &g)
 						{
-							byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret != 0;
+							fixed (byte* pb = &b)
+							{
+								GetRGBNative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb);
+							}
 						}
 					}
 				}
@@ -3959,439 +2912,474 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceUncheckedNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		internal static void GetRGBANative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, byte>)funcTable[414])(src, srcrect, dst, dstrect);
+			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormatDetails*, SDLPalette*, byte*, byte*, byte*, byte*, void>)funcTable[377])(pixel, format, palette, r, g, b, a);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[414])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, nint, void>)funcTable[377])(pixel, (nint)format, (nint)palette, (nint)r, (nint)g, (nint)b, (nint)a);
 			#endif
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			byte ret = BlitSurfaceUncheckedNative(src, srcrect, dst, dstrect);
-			return ret != 0;
+			GetRGBANative(pixel, format, palette, r, g, b, a);
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret != 0;
+				GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, b, a);
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret != 0;
+				GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, g, b, a);
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (SDLPalette* ppalette = &palette)
 				{
-					byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret != 0;
+					GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, b, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* pdst = &dst)
+			fixed (byte* pr = &r)
 			{
-				byte ret = BlitSurfaceUncheckedNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret != 0;
+				GetRGBANative(pixel, format, palette, (byte*)pr, g, b, a);
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (byte* pr = &r)
 				{
-					byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret != 0;
+					GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, b, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (byte* pr = &r)
 				{
-					byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret != 0;
+					GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, b, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (SDLPalette* ppalette = &palette)
 				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (byte* pr = &r)
 					{
-						byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret != 0;
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, b, a);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLRect* pdstrect = &dstrect)
+			fixed (byte* pg = &g)
 			{
-				byte ret = BlitSurfaceUncheckedNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret != 0;
+				GetRGBANative(pixel, format, palette, r, (byte*)pg, b, a);
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (byte* pg = &g)
 				{
-					byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret != 0;
+					GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, b, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (byte* pg = &g)
 				{
-					byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret != 0;
+					GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, b, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (SDLPalette* ppalette = &palette)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (byte* pg = &g)
 					{
-						byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret != 0;
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, b, a);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* pdst = &dst)
+			fixed (byte* pr = &r)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (byte* pg = &g)
 				{
-					byte ret = BlitSurfaceUncheckedNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret != 0;
+					GetRGBANative(pixel, format, palette, (byte*)pr, (byte*)pg, b, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (byte* pr = &r)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (byte* pg = &g)
 					{
-						byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret != 0;
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, b, a);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (byte* pr = &r)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (byte* pg = &g)
 					{
-						byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret != 0;
+						GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b, a);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUnchecked")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUnchecked([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (SDLPalette* ppalette = &palette)
 				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (byte* pr = &r)
 					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (byte* pg = &g)
 						{
-							byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret != 0;
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b, a);
 						}
 					}
 				}
@@ -4399,422 +3387,235 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceScaledNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, SDLScaleMode, byte>)funcTable[415])(src, srcrect, dst, dstrect, scaleMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, SDLScaleMode, byte>)funcTable[415])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			byte ret = BlitSurfaceScaledNative(src, srcrect, dst, dstrect, scaleMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (byte* pb = &b)
 			{
-				byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect, scaleMode);
-				return ret != 0;
+				GetRGBANative(pixel, format, palette, r, g, (byte*)pb, a);
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (byte* pb = &b)
 				{
-					byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
-					return ret != 0;
+					GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, (byte*)pb, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = BlitSurfaceScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (byte* pb = &b)
 				{
-					byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
+					GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, g, (byte*)pb, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (SDLPalette* ppalette = &palette)
 				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (byte* pb = &b)
 					{
-						byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-						return ret != 0;
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, (byte*)pb, a);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				byte ret = BlitSurfaceScaledNative(src, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (byte* pr = &r)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (byte* pb = &b)
 				{
-					byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
+					GetRGBANative(pixel, format, palette, (byte*)pr, g, (byte*)pb, a);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (byte* pr = &r)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (byte* pb = &b)
 					{
-						byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, (byte*)pb, a);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceScaledNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPalette* ppalette = &palette)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (byte* pr = &r)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (byte* pb = &b)
 					{
-						byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
+						GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, a);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLPixelFormatDetails* pformat = &format)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (SDLPalette* ppalette = &palette)
 				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (byte* pr = &r)
 					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (byte* pb = &b)
 						{
-							byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-							return ret != 0;
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, a);
 						}
 					}
 				}
@@ -4822,221 +3623,1402 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBANative(pixel, format, palette, r, (byte*)pg, (byte*)pb, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, a);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, format, palette, (byte*)pr, (byte*)pg, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						fixed (byte* pg = &g)
+						{
+							fixed (byte* pb = &b)
+							{
+								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, a);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pa = &a)
+			{
+				GetRGBANative(pixel, format, palette, r, g, b, (byte*)pa);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, g, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, format, palette, (byte*)pr, g, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, b, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, format, palette, r, (byte*)pg, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, b, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, palette, (byte*)pr, (byte*)pg, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						fixed (byte* pg = &g)
+						{
+							fixed (byte* pa = &a)
+							{
+								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, b, (byte*)pa);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pb = &b)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, format, palette, r, g, (byte*)pb, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, g, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, g, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, g, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, palette, (byte*)pr, g, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, g, (byte*)pb, (byte*)pa);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, palette, r, (byte*)pg, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, format, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, r, (byte*)pg, (byte*)pb, (byte*)pa);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, format, palette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] SDLPalette* palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, palette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] SDLPixelFormatDetails* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								GetRGBANative(pixel, format, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, as long as<br/>
+		/// the palette is not modified.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormatDetails const *")] ref SDLPixelFormatDetails format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette const *")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLPixelFormatDetails* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					fixed (byte* pr = &r)
+					{
+						fixed (byte* pg = &g)
+						{
+							fixed (byte* pb = &b)
+							{
+								fixed (byte* pa = &a)
+								{
+									GetRGBANative(pixel, (SDLPixelFormatDetails*)pformat, (SDLPalette*)ppalette, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
 		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceUncheckedScaledNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		internal static byte HasRectIntersectionNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, SDLScaleMode, byte>)funcTable[416])(src, srcrect, dst, dstrect, scaleMode);
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, byte>)funcTable[378])(a, b);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, SDLScaleMode, byte>)funcTable[416])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect, scaleMode);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[378])((nint)a, (nint)b);
 			#endif
 		}
 
 		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return false.<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
+		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b)
 		{
-			byte ret = BlitSurfaceUncheckedScaledNative(src, srcrect, dst, dstrect, scaleMode);
+			byte ret = HasRectIntersectionNative(a, b);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return false.<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
+		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* b)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLRect* pa = &a)
 			{
-				byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect, scaleMode);
+				byte ret = HasRectIntersectionNative((SDLRect*)pa, b);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return false.<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
+		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (SDLRect* pb = &b)
 			{
-				byte ret = BlitSurfaceUncheckedScaledNative(src, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
+				byte ret = HasRectIntersectionNative(a, (SDLRect*)pb);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return false.<br/>
 		/// <br/>
 		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
+		[NativeName(NativeNameType.Func, "SDL_HasRectIntersection")]
 		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		public static bool HasRectIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect b)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (SDLRect* pa = &a)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (SDLRect* pb = &b)
 				{
-					byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
+					byte ret = HasRectIntersectionNative((SDLRect*)pa, (SDLRect*)pb);
 					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = BlitSurfaceUncheckedScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceUncheckedScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination surface should not be used from two<br/>
-		/// threads at once. It is safe to use the same source surface<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceUncheckedScaled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool BlitSurfaceUncheckedScaled([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-						return ret != 0;
-					}
 				}
 			}
 		}

@@ -16,11 +16,11 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	/// <summary>
-	/// <br/>
-	/// This struct is exclusively for the ::SDL_HAPTIC_CUSTOM effect.<br/>
+	/// A structure containing a template for the SDL_HAPTIC_CUSTOM effect.<br/>
+	/// This struct is exclusively for the SDL_HAPTIC_CUSTOM effect.<br/>
 	/// A custom force feedback effect is much like a periodic effect, where the<br/>
-	/// application can define its exact shape.  You will have to allocate the<br/>
-	/// data yourself.  Data should consist of channels * samples Uint16 samples.<br/>
+	/// application can define its exact shape. You will have to allocate the data<br/>
+	/// yourself. Data should consist of channels * samples Uint16 samples.<br/>
 	/// If channels is one, the effect is rotated using the defined direction.<br/>
 	/// Otherwise it uses the samples in data for the different axes.<br/>
 	/// <br/>
@@ -29,7 +29,7 @@ namespace Hexa.NET.SDL2
 	public partial struct SDLHapticCustom
 	{
 		/// <summary>
-		/// ::SDL_HAPTIC_CUSTOM <br/>
+		/// SDL_HAPTIC_CUSTOM <br/>
 		/// </summary>
 		public ushort Type;
 

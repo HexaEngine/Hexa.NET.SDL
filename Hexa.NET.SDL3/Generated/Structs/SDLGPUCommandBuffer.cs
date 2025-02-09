@@ -25,9 +25,8 @@ namespace Hexa.NET.SDL3
 	/// Command buffers are executed in submission order. If you submit command<br/>
 	/// buffer A and then command buffer B all commands in A will begin executing<br/>
 	/// before any command in B begins executing.<br/>
-	/// In multi-threading scenarios, you should acquire and submit a command<br/>
-	/// buffer on the same thread. As long as you satisfy this requirement, all<br/>
-	/// functionality related to command buffers is thread-safe.<br/>
+	/// In multi-threading scenarios, you should only access a command buffer on<br/>
+	/// the thread you acquired it from.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
