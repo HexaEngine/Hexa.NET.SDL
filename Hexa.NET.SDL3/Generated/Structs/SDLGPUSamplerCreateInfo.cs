@@ -17,6 +17,8 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// A structure specifying the parameters of a sampler.<br/>
+	/// Note that mip_lod_bias is a no-op for the Metal driver. For Metal, LOD bias<br/>
+	/// must be applied via shader instead.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

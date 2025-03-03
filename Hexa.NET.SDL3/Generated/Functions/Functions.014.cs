@@ -18,6 +18,23 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Determine whether the CPU has AVX features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasAVX")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasAVX()
+		{
+			byte ret = HasAVXNative();
+			return ret != 0;
+		}
+
+		/// <summary>
 		/// Determine whether the CPU has AVX2 features.<br/>
 		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
 		/// <br/>

@@ -18,6 +18,229 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Rename a file or directory in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenameStoragePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenameStoragePath([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* poldpath = &oldpath)
+				{
+					fixed (byte* pnewpath = &newpath)
+					{
+						byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenameStoragePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenameStoragePath([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* poldpath = oldpath)
+				{
+					fixed (byte* pnewpath = newpath)
+					{
+						byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenameStoragePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenameStoragePath([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (oldpath != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				byte* pStr1 = null;
+				int pStrSize1 = 0;
+				if (newpath != null)
+				{
+					pStrSize1 = Utils.GetByteCountUTF8(newpath);
+					if (pStrSize1 >= Utils.MaxStackallocSize)
+					{
+						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+					}
+					else
+					{
+						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+						pStr1 = pStrStack1;
+					}
+					int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
+					pStr1[pStrOffset1] = 0;
+				}
+				byte ret = RenameStoragePathNative((SDLStorage*)pstorage, pStr0, pStr1);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CopyStorageFileNative([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte*, byte>)funcTable[1134])(storage, oldpath, newpath);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1134])((nint)storage, (nint)oldpath, (nint)newpath);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a file in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte ret = CopyStorageFileNative(storage, oldpath, newpath);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				byte ret = CopyStorageFileNative(storage, (byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				byte ret = CopyStorageFileNative(storage, (byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file in a writable storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CopyStorageFileNative(storage, pStr0, newpath);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
 		/// Copy a file in a writable storage container.<br/>
 		/// <br/>
 		/// <br/>
@@ -4806,214 +5029,6 @@ namespace Hexa.NET.SDL3
 		public static SDLTrayMenu* CreateTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry)
 		{
 			SDLTrayMenu* ret = CreateTraySubmenuNative(entry);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a submenu for a system tray entry.<br/>
-		/// This should be called at most once per tray entry.<br/>
-		/// This function does the same thing as SDL_CreateTrayMenu, except that it<br/>
-		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTraySubmenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* CreateTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] ref SDLTrayEntry entry)
-		{
-			fixed (SDLTrayEntry* pentry = &entry)
-			{
-				SDLTrayMenu* ret = CreateTraySubmenuNative((SDLTrayEntry*)pentry);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Gets a previously created tray menu.<br/>
-		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
-		/// function allows you to fetch it again later.<br/>
-		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
-		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTrayMenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTrayMenu* GetTrayMenuNative([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTray*, SDLTrayMenu*>)funcTable[1175])(tray);
-			#else
-			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1175])((nint)tray);
-			#endif
-		}
-
-		/// <summary>
-		/// Gets a previously created tray menu.<br/>
-		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
-		/// function allows you to fetch it again later.<br/>
-		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
-		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTrayMenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* GetTrayMenu([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray)
-		{
-			SDLTrayMenu* ret = GetTrayMenuNative(tray);
-			return ret;
-		}
-
-		/// <summary>
-		/// Gets a previously created tray menu.<br/>
-		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
-		/// function allows you to fetch it again later.<br/>
-		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
-		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTrayMenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* GetTrayMenu([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				SDLTrayMenu* ret = GetTrayMenuNative((SDLTray*)ptray);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Gets a previously created tray entry submenu.<br/>
-		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
-		/// function allows you to fetch it again later.<br/>
-		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
-		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTraySubmenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTrayMenu* GetTraySubmenuNative([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, SDLTrayMenu*>)funcTable[1176])(entry);
-			#else
-			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1176])((nint)entry);
-			#endif
-		}
-
-		/// <summary>
-		/// Gets a previously created tray entry submenu.<br/>
-		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
-		/// function allows you to fetch it again later.<br/>
-		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
-		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTraySubmenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* GetTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry)
-		{
-			SDLTrayMenu* ret = GetTraySubmenuNative(entry);
-			return ret;
-		}
-
-		/// <summary>
-		/// Gets a previously created tray entry submenu.<br/>
-		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
-		/// function allows you to fetch it again later.<br/>
-		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
-		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTraySubmenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* GetTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] ref SDLTrayEntry entry)
-		{
-			fixed (SDLTrayEntry* pentry = &entry)
-			{
-				SDLTrayMenu* ret = GetTraySubmenuNative((SDLTrayEntry*)pentry);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Returns a list of entries in the menu, in order.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTrayEntries")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayEntry const * *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTrayEntry** GetTrayEntriesNative([NativeName(NativeNameType.Param, "menu")] [NativeName(NativeNameType.Type, "SDL_TrayMenu *")] SDLTrayMenu* menu, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTrayMenu*, int*, SDLTrayEntry**>)funcTable[1177])(menu, count);
-			#else
-			return (SDLTrayEntry**)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1177])((nint)menu, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a list of entries in the menu, in order.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTrayEntries")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayEntry const * *")]
-		public static SDLTrayEntry** GetTrayEntries([NativeName(NativeNameType.Param, "menu")] [NativeName(NativeNameType.Type, "SDL_TrayMenu *")] SDLTrayMenu* menu, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			SDLTrayEntry** ret = GetTrayEntriesNative(menu, count);
 			return ret;
 		}
 	}

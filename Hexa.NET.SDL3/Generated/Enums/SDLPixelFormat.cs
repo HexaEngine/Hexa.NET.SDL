@@ -489,6 +489,13 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "0x2053454fu")]
 		ExternalOes = unchecked((int)0x2053454fu),
 
+		/// <summary>
+		/// Motion JPEG <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_MJPG")]
+		[NativeName(NativeNameType.Value, "0x47504a4du")]
+		Mjpg = unchecked((int)0x47504a4du),
+
 		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA32")]
 		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_ABGR8888")]
 		Rgba32 = Abgr8888,

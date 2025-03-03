@@ -21,9 +21,9 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Initializes the function table, automatically called. Do not call manually, only after <see cref="FreeApi"/>.
 		/// </summary>
-		public static void InitApi()
+		public static void InitApi(INativeContext context)
 		{
-			funcTable = new FunctionTable(LibraryLoader.LoadLibrary(GetLibraryName, null), 1423);
+			funcTable = new FunctionTable(context, 1423);
 			funcTable.Load(0, "SDL_GetPlatform");
 			funcTable.Load(1, "SDL_malloc");
 			funcTable.Load(2, "SDL_calloc");

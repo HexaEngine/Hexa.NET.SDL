@@ -2987,6 +2987,10 @@ namespace Hexa.NET.SDL3
 		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
 		/// where N is a floating point scale factor applied in linear space, and<br/>
 		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the<br/>
+		/// left edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the<br/>
+		/// top edge of the image, if this surface is being used as a cursor.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -3019,6 +3023,10 @@ namespace Hexa.NET.SDL3
 		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
 		/// where N is a floating point scale factor applied in linear space, and<br/>
 		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the<br/>
+		/// left edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the<br/>
+		/// top edge of the image, if this surface is being used as a cursor.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -3047,6 +3055,10 @@ namespace Hexa.NET.SDL3
 		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
 		/// where N is a floating point scale factor applied in linear space, and<br/>
 		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the<br/>
+		/// left edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the<br/>
+		/// top edge of the image, if this surface is being used as a cursor.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -5007,29 +5019,6 @@ namespace Hexa.NET.SDL3
 				{
 					byte ret = GetSurfaceColorModNative(surface, r, (byte*)pg, (byte*)pb);
 					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
-						return ret != 0;
-					}
 				}
 			}
 		}

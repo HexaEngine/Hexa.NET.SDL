@@ -33,14 +33,14 @@ namespace Hexa.NET.SDL3
 		public SDLGPUSampleCount SampleCount;
 
 		/// <summary>
-		/// Determines which samples get updated in the render targets. Treated as 0xFFFFFFFF if enable_mask is false. <br/>
+		/// Reserved for future use. Must be set to 0. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "sample_mask")]
 		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint SampleMask;
 
 		/// <summary>
-		/// Enables sample masking. <br/>
+		/// Reserved for future use. Must be set to false. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "enable_mask")]
 		[NativeName(NativeNameType.Type, "bool")]

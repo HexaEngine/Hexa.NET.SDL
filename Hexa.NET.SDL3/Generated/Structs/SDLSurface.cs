@@ -31,6 +31,8 @@ namespace Hexa.NET.SDL3
 	/// contiguous without padding between them, e.g. a 32x32 surface in NV12<br/>
 	/// format with a pitch of 32 would consist of 32x32 bytes of Y plane followed<br/>
 	/// by 32x16 bytes of UV plane.<br/>
+	/// When a surface holds MJPG format data, pixels points at the compressed JPEG<br/>
+	/// image and pitch is the length of that data.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

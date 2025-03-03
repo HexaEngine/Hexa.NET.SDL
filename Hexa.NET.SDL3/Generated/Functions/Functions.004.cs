@@ -2027,12 +2027,12 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Seeds the pseudo-random number generator.<br/>
-		/// Reusing the seed number will cause SDL_rand_*() to repeat the same stream<br/>
-		/// of 'random' numbers.<br/>
+		/// Reusing the seed number will cause SDL_rand() to repeat the same stream of<br/>
+		/// 'random' numbers.<br/>
 		/// <br/>
 		/// <br/>
 		/// This should be called on the same thread that calls<br/>
-		/// SDL_rand*()<br/>
+		/// SDL_rand()<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
@@ -2050,12 +2050,12 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Seeds the pseudo-random number generator.<br/>
-		/// Reusing the seed number will cause SDL_rand_*() to repeat the same stream<br/>
-		/// of 'random' numbers.<br/>
+		/// Reusing the seed number will cause SDL_rand() to repeat the same stream of<br/>
+		/// 'random' numbers.<br/>
 		/// <br/>
 		/// <br/>
 		/// This should be called on the same thread that calls<br/>
-		/// SDL_rand*()<br/>
+		/// SDL_rand()<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>

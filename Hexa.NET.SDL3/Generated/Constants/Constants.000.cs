@@ -90,6 +90,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "4321")]
 		public const int SDL_BIG_ENDIAN = 4321;
 
+		[NativeName(NativeNameType.Const, "SDL_BYTEORDER")]
+		[NativeName(NativeNameType.Value, "SDL_LIL_ENDIAN")]
+		public const int SDL_BYTEORDER = SDL_LIL_ENDIAN;
+
+		[NativeName(NativeNameType.Const, "SDL_FLOATWORDORDER")]
+		[NativeName(NativeNameType.Value, "SDL_BYTEORDER")]
+		public const int SDL_FLOATWORDORDER = SDL_BYTEORDER;
+
 		[NativeName(NativeNameType.Const, "SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER")]
 		[NativeName(NativeNameType.Value, "\"SDL.thread.create.entry_function\"")]
 		public const string SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER = "SDL.thread.create.entry_function";
@@ -169,6 +177,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING")]
 		[NativeName(NativeNameType.Value, "\"SDL.surface.tonemap\"")]
 		public const string SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING = "SDL.surface.tonemap";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_HOTSPOT_X_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.hotspot.x\"")]
+		public const string SDL_PROP_SURFACE_HOTSPOT_X_NUMBER = "SDL.surface.hotspot.x";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.hotspot.y\"")]
+		public const string SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER = "SDL.surface.hotspot.y";
 
 		[NativeName(NativeNameType.Const, "SDL_CACHELINE_SIZE")]
 		[NativeName(NativeNameType.Value, "128")]
@@ -605,6 +621,26 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HAT_LEFT")]
 		[NativeName(NativeNameType.Value, "0x08u")]
 		public const uint SDL_HAT_LEFT = 0x08u;
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN")]
+		public const string SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN = SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN;
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN")]
+		public const string SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN = SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN;
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN")]
+		public const string SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN = SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN;
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN")]
+		public const string SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN = SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN;
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN")]
+		public const string SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN = SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN;
 
 		[NativeName(NativeNameType.Const, "SDLK_UNKNOWN")]
 		[NativeName(NativeNameType.Value, "0x00000000u")]
@@ -2322,6 +2358,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ZERO_CENTERED_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES = "SDL_JOYSTICK_ZERO_CENTERED_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HAPTIC_AXES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HAPTIC_AXES\"")]
+		public const string SDL_HINT_JOYSTICK_HAPTIC_AXES = "SDL_JOYSTICK_HAPTIC_AXES";
+
 		[NativeName(NativeNameType.Const, "SDL_HINT_KEYCODE_OPTIONS")]
 		[NativeName(NativeNameType.Value, "\"SDL_KEYCODE_OPTIONS\"")]
 		public const string SDL_HINT_KEYCODE_OPTIONS = "SDL_KEYCODE_OPTIONS";
@@ -3299,8 +3339,8 @@ namespace Hexa.NET.SDL3
 		public const int SDL_MINOR_VERSION = 2;
 
 		[NativeName(NativeNameType.Const, "SDL_MICRO_VERSION")]
-		[NativeName(NativeNameType.Value, "4")]
-		public const int SDL_MICRO_VERSION = 4;
+		[NativeName(NativeNameType.Value, "6")]
+		public const int SDL_MICRO_VERSION = 6;
 
 		[NativeName(NativeNameType.Const, "KHRONOS_SUPPORT_INT64")]
 		[NativeName(NativeNameType.Value, "1")]
@@ -6271,8 +6311,8 @@ namespace Hexa.NET.SDL3
 		public const int SDL_SSE4_2_INTRINSICS = 1;
 
 		[NativeName(NativeNameType.Const, "SDL_REVISION")]
-		[NativeName(NativeNameType.Value, "\"release-3.2.4-0-gb5c3eab6b\"")]
-		public const string SDL_REVISION = "release-3.2.4-0-gb5c3eab6b";
+		[NativeName(NativeNameType.Value, "\"release-3.2.6-0-g65864190c\"")]
+		public const string SDL_REVISION = "release-3.2.6-0-g65864190c";
 
 		[NativeName(NativeNameType.Const, "ASSERT_FAIL")]
 		[NativeName(NativeNameType.Value, "0")]

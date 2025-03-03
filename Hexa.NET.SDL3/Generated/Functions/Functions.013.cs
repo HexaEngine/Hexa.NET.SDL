@@ -32,6 +32,33 @@ namespace Hexa.NET.SDL3
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceTiledWithScale")]
 		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurfaceTiledWithScale([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					byte ret = BlitSurfaceTiledWithScaleNative(src, srcrect, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled and tiled blit to a destination surface, which may be of a<br/>
+		/// different format.<br/>
+		/// The pixels in `srcrect` will be scaled and repeated as many times as needed<br/>
+		/// to completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// The same destination surface should not be used from two<br/>
+		/// threads at once. It is safe to use the same source surface<br/>
+		/// from multiple threads.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceTiledWithScale")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		public static bool BlitSurfaceTiledWithScale([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
@@ -5005,23 +5032,6 @@ namespace Hexa.NET.SDL3
 			#else
 			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[481])();
 			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAVX")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasAVX()
-		{
-			byte ret = HasAVXNative();
-			return ret != 0;
 		}
 	}
 }

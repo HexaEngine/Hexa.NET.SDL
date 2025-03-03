@@ -18,10 +18,12 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// A structure specifying the parameters of the graphics pipeline rasterizer<br/>
 	/// state.<br/>
-	/// NOTE: Some backend APIs (D3D11/12) will enable depth clamping even if<br/>
-	/// enable_depth_clip is true. If you rely on this clamp+clip behavior,<br/>
-	/// consider enabling depth clip and then manually clamping depth in your<br/>
-	/// fragment shaders on Metal and Vulkan.<br/>
+	/// Note that SDL_GPU_FILLMODE_LINE is not supported on many Android devices.<br/>
+	/// For those devices, the fill mode will automatically fall back to FILL.<br/>
+	/// Also note that the D3D12 driver will enable depth clamping even if<br/>
+	/// enable_depth_clip is true. If you need this clamp+clip behavior, consider<br/>
+	/// enabling depth clip and then manually clamping depth in your fragment<br/>
+	/// shaders on Metal and Vulkan.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

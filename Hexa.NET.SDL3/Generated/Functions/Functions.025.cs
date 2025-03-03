@@ -37,6 +37,70 @@ namespace Hexa.NET.SDL3
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
+		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = &name)
+				{
+					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
+		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
+		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = name)
+				{
+					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
+		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
 		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
 		{
 			fixed (SDLWindow* pwindow = &window)
@@ -663,6 +727,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -685,6 +751,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -703,6 +771,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -724,6 +794,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -745,6 +817,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -769,6 +843,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -790,6 +866,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -814,6 +892,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -838,6 +918,8 @@ namespace Hexa.NET.SDL3
 		/// Get the output size in pixels of a rendering context.<br/>
 		/// This returns the true output size in pixels, ignoring any render targets or<br/>
 		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -864,9 +946,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -888,9 +970,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -908,9 +990,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -931,9 +1013,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -954,9 +1036,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -980,9 +1062,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1003,9 +1085,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1029,9 +1111,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1055,9 +1137,9 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Get the current output size in pixels of a rendering context.<br/>
 		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise if a logical size is set, it will return the<br/>
-		/// logical size, otherwise it will return the value of<br/>
-		/// SDL_GetRenderOutputSize().<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -4954,65 +5036,6 @@ namespace Hexa.NET.SDL3
 					{
 						byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
 						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puVplane = &uVplane)
-					{
-						byte ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* puVplane = &uVplane)
-						{
-							byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-							return ret != 0;
-						}
 					}
 				}
 			}

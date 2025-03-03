@@ -156,6 +156,10 @@ namespace Hexa.NET.SDL2
 
 		public const int SDL_BIG_ENDIAN = 4321;
 
+		public const int SDL_BYTEORDER = SDL_LIL_ENDIAN;
+
+		public const int SDL_FLOATWORDORDER = SDL_BYTEORDER;
+
 		public const int SDL_MUTEX_TIMEDOUT = 1;
 
 		public const uint SDL_RWOPS_UNKNOWN = 0U;
@@ -190,13 +194,29 @@ namespace Hexa.NET.SDL2
 
 		public const int AUDIO_S16MSB = 0x9010;
 
+		public const int AUDIO_U16 = AUDIO_U16LSB;
+
+		public const int AUDIO_S16 = AUDIO_S16LSB;
+
 		public const int AUDIO_S32LSB = 0x8020;
 
 		public const int AUDIO_S32MSB = 0x9020;
 
+		public const int AUDIO_S32 = AUDIO_S32LSB;
+
 		public const int AUDIO_F32LSB = 0x8120;
 
 		public const int AUDIO_F32MSB = 0x9120;
+
+		public const int AUDIO_F32 = AUDIO_F32LSB;
+
+		public const int AUDIO_U16SYS = AUDIO_U16LSB;
+
+		public const int AUDIO_S16SYS = AUDIO_S16LSB;
+
+		public const int AUDIO_S32SYS = AUDIO_S32LSB;
+
+		public const int AUDIO_F32SYS = AUDIO_F32LSB;
 
 		public const int SDL_AUDIO_ALLOW_FREQUENCY_CHANGE = 0x00000001;
 
@@ -470,6 +490,8 @@ namespace Hexa.NET.SDL2
 
 		public const string SDL_HINT_JOYSTICK_DEVICE = "SDL_JOYSTICK_DEVICE";
 
+		public const string SDL_HINT_JOYSTICK_HAPTIC_AXES = "SDL_JOYSTICK_HAPTIC_AXES";
+
 		public const string SDL_HINT_LINUX_DIGITAL_HATS = "SDL_LINUX_DIGITAL_HATS";
 
 		public const string SDL_HINT_LINUX_HAT_DEADZONES = "SDL_LINUX_HAT_DEADZONES";
@@ -692,7 +714,7 @@ namespace Hexa.NET.SDL2
 
 		public const int SDL_MINOR_VERSION = 32;
 
-		public const int SDL_PATCHLEVEL = 0;
+		public const int SDL_PATCHLEVEL = 2;
 
 		public const uint SDL_INIT_TIMER = 0x00000001u;
 

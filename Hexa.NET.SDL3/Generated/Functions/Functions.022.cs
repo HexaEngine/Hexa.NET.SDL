@@ -508,6 +508,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -542,6 +544,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -572,6 +576,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -605,6 +611,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -638,6 +646,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -674,6 +684,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -707,6 +719,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -743,6 +757,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -779,6 +795,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -818,6 +836,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -851,6 +871,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -887,6 +909,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -923,6 +947,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -962,6 +988,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -998,6 +1026,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1037,6 +1067,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1076,6 +1108,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1118,6 +1152,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1151,6 +1187,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1187,6 +1225,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1223,6 +1263,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1262,6 +1304,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1298,6 +1342,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1337,6 +1383,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1376,6 +1424,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1418,6 +1468,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1454,6 +1506,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1493,6 +1547,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1532,6 +1588,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1574,6 +1632,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1613,6 +1673,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1655,6 +1717,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -1697,6 +1761,8 @@ namespace Hexa.NET.SDL3
 		/// The swapchain texture is managed by the implementation and must not be<br/>
 		/// freed by the user. You MUST NOT call this function from any thread other<br/>
 		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called from the thread that<br/>
@@ -4970,59 +5036,6 @@ namespace Hexa.NET.SDL3
 			{
 				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
 			}
 		}
 	}

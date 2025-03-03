@@ -18,6 +18,65 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puVplane = &uVplane)
+					{
+						byte ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						fixed (byte* puVplane = &uVplane)
+						{
+							byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
 		/// Lock a portion of the texture for **write-only** pixel access.<br/>
 		/// As an optimization, the pixels made available for editing don't necessarily<br/>
 		/// contain the old texture data. This is a write-only operation, and if you<br/>
@@ -614,6 +673,10 @@ namespace Hexa.NET.SDL3
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
 		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -637,6 +700,10 @@ namespace Hexa.NET.SDL3
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
 		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -656,6 +723,10 @@ namespace Hexa.NET.SDL3
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
 		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -678,6 +749,10 @@ namespace Hexa.NET.SDL3
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
 		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -700,6 +775,10 @@ namespace Hexa.NET.SDL3
 		/// The default render target is the window for which the renderer was created.<br/>
 		/// To stop rendering to a texture and render to the window again, call this<br/>
 		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -782,21 +861,34 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set a device independent resolution and presentation mode for rendering.<br/>
+		/// Set a device-independent resolution and presentation mode for rendering.<br/>
 		/// This function sets the width and height of the logical rendering output.<br/>
-		/// The renderer will act as if the window is always the requested dimensions,<br/>
-		/// scaling to the actual window resolution as necessary.<br/>
+		/// The renderer will act as if the current render target is always the<br/>
+		/// requested dimensions, scaling to the actual resolution as necessary.<br/>
 		/// This can be useful for games that expect a fixed size, but would like to<br/>
 		/// scale the output to whatever is available, regardless of how a user resizes<br/>
 		/// a window, or if the display is high DPI.<br/>
+		/// Logical presentation can be used with both render target textures and the<br/>
+		/// renderer's window; the state is unique to each render target, and this<br/>
+		/// function sets the state for the current render target. It might be useful<br/>
+		/// to draw to a texture that matches the window dimensions with logical<br/>
+		/// presentation enabled, and then draw that texture across the entire window<br/>
+		/// with logical presentation disabled. Be careful not to render both with<br/>
+		/// logical presentation enabled, however, as this could produce<br/>
+		/// double-letterboxing, etc.<br/>
 		/// You can disable logical coordinates by setting the mode to<br/>
 		/// SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel<br/>
-		/// resolution of the output window; it is safe to toggle logical presentation<br/>
+		/// resolution of the render target; it is safe to toggle logical presentation<br/>
 		/// during the rendering of a frame: perhaps most of the rendering is done to<br/>
 		/// specific dimensions but to make fonts look sharp, the app turns off logical<br/>
-		/// presentation while drawing text.<br/>
-		/// Letterboxing will only happen if logical presentation is enabled during<br/>
-		/// SDL_RenderPresent; be sure to reenable it first if you were using it.<br/>
+		/// presentation while drawing text, for example.<br/>
+		/// For the renderer's window, letterboxing is drawn into the framebuffer if<br/>
+		/// logical presentation is enabled during SDL_RenderPresent; be sure to<br/>
+		/// reenable it before presenting if you were toggling it, otherwise the<br/>
+		/// letterbox areas might have artifacts from previous frames (or artifacts<br/>
+		/// from external overlays, etc). Letterboxing is never drawn into texture<br/>
+		/// render targets; be sure to call SDL_RenderClear() before drawing into the<br/>
+		/// texture so the letterboxing areas are cleared, if appropriate.<br/>
 		/// You can convert coordinates in an event into rendering coordinates using<br/>
 		/// SDL_ConvertEventToRenderCoordinates().<br/>
 		/// <br/>
@@ -818,21 +910,34 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set a device independent resolution and presentation mode for rendering.<br/>
+		/// Set a device-independent resolution and presentation mode for rendering.<br/>
 		/// This function sets the width and height of the logical rendering output.<br/>
-		/// The renderer will act as if the window is always the requested dimensions,<br/>
-		/// scaling to the actual window resolution as necessary.<br/>
+		/// The renderer will act as if the current render target is always the<br/>
+		/// requested dimensions, scaling to the actual resolution as necessary.<br/>
 		/// This can be useful for games that expect a fixed size, but would like to<br/>
 		/// scale the output to whatever is available, regardless of how a user resizes<br/>
 		/// a window, or if the display is high DPI.<br/>
+		/// Logical presentation can be used with both render target textures and the<br/>
+		/// renderer's window; the state is unique to each render target, and this<br/>
+		/// function sets the state for the current render target. It might be useful<br/>
+		/// to draw to a texture that matches the window dimensions with logical<br/>
+		/// presentation enabled, and then draw that texture across the entire window<br/>
+		/// with logical presentation disabled. Be careful not to render both with<br/>
+		/// logical presentation enabled, however, as this could produce<br/>
+		/// double-letterboxing, etc.<br/>
 		/// You can disable logical coordinates by setting the mode to<br/>
 		/// SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel<br/>
-		/// resolution of the output window; it is safe to toggle logical presentation<br/>
+		/// resolution of the render target; it is safe to toggle logical presentation<br/>
 		/// during the rendering of a frame: perhaps most of the rendering is done to<br/>
 		/// specific dimensions but to make fonts look sharp, the app turns off logical<br/>
-		/// presentation while drawing text.<br/>
-		/// Letterboxing will only happen if logical presentation is enabled during<br/>
-		/// SDL_RenderPresent; be sure to reenable it first if you were using it.<br/>
+		/// presentation while drawing text, for example.<br/>
+		/// For the renderer's window, letterboxing is drawn into the framebuffer if<br/>
+		/// logical presentation is enabled during SDL_RenderPresent; be sure to<br/>
+		/// reenable it before presenting if you were toggling it, otherwise the<br/>
+		/// letterbox areas might have artifacts from previous frames (or artifacts<br/>
+		/// from external overlays, etc). Letterboxing is never drawn into texture<br/>
+		/// render targets; be sure to call SDL_RenderClear() before drawing into the<br/>
+		/// texture so the letterboxing areas are cleared, if appropriate.<br/>
 		/// You can convert coordinates in an event into rendering coordinates using<br/>
 		/// SDL_ConvertEventToRenderCoordinates().<br/>
 		/// <br/>
@@ -850,21 +955,34 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set a device independent resolution and presentation mode for rendering.<br/>
+		/// Set a device-independent resolution and presentation mode for rendering.<br/>
 		/// This function sets the width and height of the logical rendering output.<br/>
-		/// The renderer will act as if the window is always the requested dimensions,<br/>
-		/// scaling to the actual window resolution as necessary.<br/>
+		/// The renderer will act as if the current render target is always the<br/>
+		/// requested dimensions, scaling to the actual resolution as necessary.<br/>
 		/// This can be useful for games that expect a fixed size, but would like to<br/>
 		/// scale the output to whatever is available, regardless of how a user resizes<br/>
 		/// a window, or if the display is high DPI.<br/>
+		/// Logical presentation can be used with both render target textures and the<br/>
+		/// renderer's window; the state is unique to each render target, and this<br/>
+		/// function sets the state for the current render target. It might be useful<br/>
+		/// to draw to a texture that matches the window dimensions with logical<br/>
+		/// presentation enabled, and then draw that texture across the entire window<br/>
+		/// with logical presentation disabled. Be careful not to render both with<br/>
+		/// logical presentation enabled, however, as this could produce<br/>
+		/// double-letterboxing, etc.<br/>
 		/// You can disable logical coordinates by setting the mode to<br/>
 		/// SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel<br/>
-		/// resolution of the output window; it is safe to toggle logical presentation<br/>
+		/// resolution of the render target; it is safe to toggle logical presentation<br/>
 		/// during the rendering of a frame: perhaps most of the rendering is done to<br/>
 		/// specific dimensions but to make fonts look sharp, the app turns off logical<br/>
-		/// presentation while drawing text.<br/>
-		/// Letterboxing will only happen if logical presentation is enabled during<br/>
-		/// SDL_RenderPresent; be sure to reenable it first if you were using it.<br/>
+		/// presentation while drawing text, for example.<br/>
+		/// For the renderer's window, letterboxing is drawn into the framebuffer if<br/>
+		/// logical presentation is enabled during SDL_RenderPresent; be sure to<br/>
+		/// reenable it before presenting if you were toggling it, otherwise the<br/>
+		/// letterbox areas might have artifacts from previous frames (or artifacts<br/>
+		/// from external overlays, etc). Letterboxing is never drawn into texture<br/>
+		/// render targets; be sure to call SDL_RenderClear() before drawing into the<br/>
+		/// texture so the letterboxing areas are cleared, if appropriate.<br/>
 		/// You can convert coordinates in an event into rendering coordinates using<br/>
 		/// SDL_ConvertEventToRenderCoordinates().<br/>
 		/// <br/>
@@ -888,6 +1006,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -910,6 +1030,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -928,6 +1050,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -949,6 +1073,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -970,6 +1096,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -994,6 +1122,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1015,6 +1145,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1039,6 +1171,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1063,6 +1197,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1090,6 +1226,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1111,6 +1249,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1135,6 +1275,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1159,6 +1301,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1186,6 +1330,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1210,6 +1356,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1237,6 +1385,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1264,6 +1414,8 @@ namespace Hexa.NET.SDL3
 		/// Get device independent resolution and presentation mode for rendering.<br/>
 		/// This function gets the width and height of the logical rendering output, or<br/>
 		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1296,6 +1448,8 @@ namespace Hexa.NET.SDL3
 		/// presentation, based on the presentation mode and output size. If logical<br/>
 		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
 		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1320,6 +1474,8 @@ namespace Hexa.NET.SDL3
 		/// presentation, based on the presentation mode and output size. If logical<br/>
 		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
 		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1340,6 +1496,8 @@ namespace Hexa.NET.SDL3
 		/// presentation, based on the presentation mode and output size. If logical<br/>
 		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
 		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1363,6 +1521,8 @@ namespace Hexa.NET.SDL3
 		/// presentation, based on the presentation mode and output size. If logical<br/>
 		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
 		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -1386,6 +1546,8 @@ namespace Hexa.NET.SDL3
 		/// presentation, based on the presentation mode and output size. If logical<br/>
 		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
 		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2036,6 +2198,8 @@ namespace Hexa.NET.SDL3
 		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
 		/// (0, 0) for future drawing commands.<br/>
 		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2060,6 +2224,8 @@ namespace Hexa.NET.SDL3
 		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
 		/// (0, 0) for future drawing commands.<br/>
 		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2080,6 +2246,8 @@ namespace Hexa.NET.SDL3
 		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
 		/// (0, 0) for future drawing commands.<br/>
 		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2103,6 +2271,8 @@ namespace Hexa.NET.SDL3
 		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
 		/// (0, 0) for future drawing commands.<br/>
 		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2126,6 +2296,8 @@ namespace Hexa.NET.SDL3
 		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
 		/// (0, 0) for future drawing commands.<br/>
 		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2148,6 +2320,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2168,6 +2342,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2184,6 +2360,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2203,6 +2381,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2222,6 +2402,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2247,6 +2429,8 @@ namespace Hexa.NET.SDL3
 		/// This is useful if you're saving and restoring the viewport and want to know<br/>
 		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
 		/// viewport is always reset when changing rendering targets.<br/>
+		/// Each render target has its own viewport. This function checks the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2270,6 +2454,8 @@ namespace Hexa.NET.SDL3
 		/// This is useful if you're saving and restoring the viewport and want to know<br/>
 		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
 		/// viewport is always reset when changing rendering targets.<br/>
+		/// Each render target has its own viewport. This function checks the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2289,6 +2475,8 @@ namespace Hexa.NET.SDL3
 		/// This is useful if you're saving and restoring the viewport and want to know<br/>
 		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
 		/// viewport is always reset when changing rendering targets.<br/>
+		/// Each render target has its own viewport. This function checks the viewport<br/>
+		/// for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2429,6 +2617,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2449,6 +2639,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2465,6 +2657,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2484,6 +2678,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2503,6 +2699,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2525,6 +2723,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2545,6 +2745,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2561,6 +2763,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2580,6 +2784,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2599,6 +2805,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2620,7 +2828,9 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
+		/// Get whether clipping is enabled on the given render target.<br/>
+		/// Each render target has its own clip rectangle. This function checks the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2640,7 +2850,9 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
+		/// Get whether clipping is enabled on the given render target.<br/>
+		/// Each render target has its own clip rectangle. This function checks the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2656,7 +2868,9 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
+		/// Get whether clipping is enabled on the given render target.<br/>
+		/// Each render target has its own clip rectangle. This function checks the<br/>
+		/// cliprect for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2682,6 +2896,8 @@ namespace Hexa.NET.SDL3
 		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
 		/// will be handled using the appropriate quality hints. For best results use<br/>
 		/// integer scaling factors.<br/>
+		/// Each render target has its own scale. This function sets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2708,6 +2924,8 @@ namespace Hexa.NET.SDL3
 		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
 		/// will be handled using the appropriate quality hints. For best results use<br/>
 		/// integer scaling factors.<br/>
+		/// Each render target has its own scale. This function sets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2730,6 +2948,8 @@ namespace Hexa.NET.SDL3
 		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
 		/// will be handled using the appropriate quality hints. For best results use<br/>
 		/// integer scaling factors.<br/>
+		/// Each render target has its own scale. This function sets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2749,6 +2969,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2769,6 +2991,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2785,6 +3009,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2804,6 +3030,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2823,6 +3051,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2845,6 +3075,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2864,6 +3096,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2886,6 +3120,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -2908,6 +3144,8 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
@@ -4785,242 +5023,6 @@ namespace Hexa.NET.SDL3
 			#else
 			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, byte>)funcTable[1091])((nint)renderer, blendMode);
 			#endif
-		}
-
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			byte ret = SetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = SetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode*, byte>)funcTable[1092])(renderer, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1092])((nint)renderer, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			byte ret = GetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				byte ret = GetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					byte ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderClearNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte>)funcTable[1093])(renderer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1093])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
-		{
-			byte ret = RenderClearNative(renderer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderClearNative((SDLRenderer*)prenderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderPointNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, byte>)funcTable[1094])(renderer, x, y);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, byte>)funcTable[1094])((nint)renderer, x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			byte ret = RenderPointNative(renderer, x, y);
-			return ret != 0;
 		}
 	}
 }

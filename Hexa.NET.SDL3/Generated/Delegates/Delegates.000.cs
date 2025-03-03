@@ -1234,8 +1234,8 @@ namespace Hexa.NET.SDL3
 	/// - A pointer to NULL, the user either didn't choose any file or canceled the<br/>
 	/// dialog.<br/>
 	/// - A pointer to non-`NULL`, the user chose one or more files. The argument<br/>
-	/// is a null-terminated list of pointers to C strings, each containing a<br/>
-	/// path.<br/>
+	/// is a null-terminated array of pointers to UTF-8 encoded strings, each<br/>
+	/// containing a path.<br/>
 	/// The filelist argument should not be freed; it will automatically be freed<br/>
 	/// when the callback returns.<br/>
 	/// The filter argument is the index of the filter that was selected, or -1 if<br/>
@@ -1261,8 +1261,8 @@ namespace Hexa.NET.SDL3
 	/// - A pointer to NULL, the user either didn't choose any file or canceled the<br/>
 	/// dialog.<br/>
 	/// - A pointer to non-`NULL`, the user chose one or more files. The argument<br/>
-	/// is a null-terminated list of pointers to C strings, each containing a<br/>
-	/// path.<br/>
+	/// is a null-terminated array of pointers to UTF-8 encoded strings, each<br/>
+	/// containing a path.<br/>
 	/// The filelist argument should not be freed; it will automatically be freed<br/>
 	/// when the callback returns.<br/>
 	/// The filter argument is the index of the filter that was selected, or -1 if<br/>

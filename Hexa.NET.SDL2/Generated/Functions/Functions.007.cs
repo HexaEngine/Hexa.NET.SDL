@@ -4659,7 +4659,7 @@ namespace Hexa.NET.SDL2
 		/// pair with SDL_StopTextInput().<br/>
 		/// On some platforms using this function activates the screen keyboard.<br/>
 		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
-		/// window creation which will cause events SDL_TextInputEvent and<br/>
+		/// video subsystem initialization which will cause SDL_TextInputEvent and<br/>
 		/// SDL_TextEditingEvent to begin emitting.<br/>
 		/// <br/>
 		/// <br/>
@@ -4682,7 +4682,7 @@ namespace Hexa.NET.SDL2
 		/// pair with SDL_StopTextInput().<br/>
 		/// On some platforms using this function activates the screen keyboard.<br/>
 		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
-		/// window creation which will cause events SDL_TextInputEvent and<br/>
+		/// video subsystem initialization which will cause SDL_TextInputEvent and<br/>
 		/// SDL_TextEditingEvent to begin emitting.<br/>
 		/// <br/>
 		/// <br/>

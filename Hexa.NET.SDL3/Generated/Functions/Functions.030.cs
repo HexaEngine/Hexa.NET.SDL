@@ -18,6 +18,214 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Create a submenu for a system tray entry.<br/>
+		/// This should be called at most once per tray entry.<br/>
+		/// This function does the same thing as SDL_CreateTrayMenu, except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateTraySubmenu")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
+		public static SDLTrayMenu* CreateTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				SDLTrayMenu* ret = CreateTraySubmenuNative((SDLTrayEntry*)pentry);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Gets a previously created tray menu.<br/>
+		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
+		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTrayMenu")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayMenu* GetTrayMenuNative([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTray*, SDLTrayMenu*>)funcTable[1175])(tray);
+			#else
+			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1175])((nint)tray);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets a previously created tray menu.<br/>
+		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
+		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTrayMenu")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
+		public static SDLTrayMenu* GetTrayMenu([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray)
+		{
+			SDLTrayMenu* ret = GetTrayMenuNative(tray);
+			return ret;
+		}
+
+		/// <summary>
+		/// Gets a previously created tray menu.<br/>
+		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
+		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTrayMenu")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
+		public static SDLTrayMenu* GetTrayMenu([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				SDLTrayMenu* ret = GetTrayMenuNative((SDLTray*)ptray);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Gets a previously created tray entry submenu.<br/>
+		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTraySubmenu")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayMenu* GetTraySubmenuNative([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, SDLTrayMenu*>)funcTable[1176])(entry);
+			#else
+			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1176])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets a previously created tray entry submenu.<br/>
+		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTraySubmenu")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
+		public static SDLTrayMenu* GetTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry)
+		{
+			SDLTrayMenu* ret = GetTraySubmenuNative(entry);
+			return ret;
+		}
+
+		/// <summary>
+		/// Gets a previously created tray entry submenu.<br/>
+		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTraySubmenu")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
+		public static SDLTrayMenu* GetTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				SDLTrayMenu* ret = GetTraySubmenuNative((SDLTrayEntry*)pentry);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns a list of entries in the menu, in order.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTrayEntries")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayEntry const * *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayEntry** GetTrayEntriesNative([NativeName(NativeNameType.Param, "menu")] [NativeName(NativeNameType.Type, "SDL_TrayMenu *")] SDLTrayMenu* menu, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayMenu*, int*, SDLTrayEntry**>)funcTable[1177])(menu, count);
+			#else
+			return (SDLTrayEntry**)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1177])((nint)menu, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns a list of entries in the menu, in order.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTrayEntries")]
+		[return: NativeName(NativeNameType.Type, "SDL_TrayEntry const * *")]
+		public static SDLTrayEntry** GetTrayEntries([NativeName(NativeNameType.Param, "menu")] [NativeName(NativeNameType.Type, "SDL_TrayMenu *")] SDLTrayMenu* menu, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			SDLTrayEntry** ret = GetTrayEntriesNative(menu, count);
+			return ret;
+		}
+
+		/// <summary>
 		/// Returns a list of entries in the menu, in order.<br/>
 		/// <br/>
 		/// <br/>
@@ -4817,210 +5025,6 @@ namespace Hexa.NET.SDL3
 					TestCommonDrawWindowInfoNative(renderer, (SDLWindow*)pwindow, (float*)pusedHeight);
 				}
 			}
-		}
-
-		/// <summary>
-		/// Draws various window information (position, size, etc.) to the renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestCommonDrawWindowInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "float *")] ref float usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (float* pusedHeight = &usedHeight)
-					{
-						TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, (SDLWindow*)pwindow, (float*)pusedHeight);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCompareSurfacesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*, int, int>)funcTable[1264])(surface, referenceSurface, allowableError);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[1264])((nint)surface, (nint)referenceSurface, allowableError);
-			#endif
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			int ret = TestCompareSurfacesNative(surface, referenceSurface, allowableError);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				int ret = TestCompareSurfacesNative((SDLSurface*)psurface, referenceSurface, allowableError);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			fixed (SDLSurface* preferenceSurface = &referenceSurface)
-			{
-				int ret = TestCompareSurfacesNative(surface, (SDLSurface*)preferenceSurface, allowableError);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Compares a surface and with reference image data for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareSurfaces([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLSurface* preferenceSurface = &referenceSurface)
-				{
-					int ret = TestCompareSurfacesNative((SDLSurface*)psurface, (SDLSurface*)preferenceSurface, allowableError);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Compares 2 memory blocks for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareMemory")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCompareMemoryNative([NativeName(NativeNameType.Param, "actual")] [NativeName(NativeNameType.Type, "void const *")] void* actual, [NativeName(NativeNameType.Param, "size_actual")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeActual, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "void const *")] void* reference, [NativeName(NativeNameType.Param, "size_reference")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeReference)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, nuint, void*, nuint, int>)funcTable[1265])(actual, sizeActual, reference, sizeReference);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nuint, nint, nuint, int>)funcTable[1265])((nint)actual, sizeActual, (nint)reference, sizeReference);
-			#endif
-		}
-
-		/// <summary>
-		/// Compares 2 memory blocks for equality<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_CompareMemory")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestCompareMemory([NativeName(NativeNameType.Param, "actual")] [NativeName(NativeNameType.Type, "void const *")] void* actual, [NativeName(NativeNameType.Param, "size_actual")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeActual, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "void const *")] void* reference, [NativeName(NativeNameType.Param, "size_reference")] [NativeName(NativeNameType.Type, "size_t")] nuint sizeReference)
-		{
-			int ret = TestCompareMemoryNative(actual, sizeActual, reference, sizeReference);
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize the CRC context<br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Init")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32InitNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte>)funcTable[1266])(crcContext);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1266])((nint)crcContext);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize the CRC context<br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Init")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Init([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext)
-		{
-			byte ret = TestCrc32InitNative(crcContext);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Initialize the CRC context<br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Init")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TestCrc32Init([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] ref SDLTestCrc32Context crcContext)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				byte ret = TestCrc32InitNative((SDLTestCrc32Context*)pcrcContext);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// calculate a crc32 from a data block<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestCrc32CalcNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context *")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int *")] uint* crc32)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, byte>)funcTable[1267])(crcContext, inBuf, inLen, crc32);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, byte>)funcTable[1267])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
-			#endif
 		}
 	}
 }

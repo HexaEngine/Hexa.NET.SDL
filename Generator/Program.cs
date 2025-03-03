@@ -39,12 +39,13 @@ for (int i = filesSdl3.Count - 1; i >= 0; i--)
 }
 
 BatchGenerator.Create()
+#if true
     // SDL 2
     .Setup<CsCodeGenerator>("sdl2/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))
     .AddPrePatch(new EnumNamePatch())
     .Generate(["sdl2/include/main.h"], "../../../../Hexa.NET.SDL2/Generated", filesSdl2)
-
+#endif
     // SDL 3
     .Setup<CsCodeGenerator>("sdl3/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))

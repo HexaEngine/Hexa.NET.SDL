@@ -54,7 +54,7 @@ namespace Hexa.NET.SDL3
 		public SDLGPUVertexInputRate InputRate;
 
 		/// <summary>
-		/// The number of instances to draw using the same per-instance data before advancing in the instance buffer by one element. Ignored unless input_rate is SDL_GPU_VERTEXINPUTRATE_INSTANCE <br/>
+		/// Reserved for future use. Must be set to 0. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "instance_step_rate")]
 		[NativeName(NativeNameType.Type, "Uint32")]
