@@ -20,21 +20,12 @@ namespace Hexa.NET.SDL3
 	/// color which uses the SDL_PIXELFORMAT_RGBA128_FLOAT format<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_FColor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLFColor
 	{
-		[NativeName(NativeNameType.Field, "r")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float R;
-		[NativeName(NativeNameType.Field, "g")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float G;
-		[NativeName(NativeNameType.Field, "b")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float B;
-		[NativeName(NativeNameType.Field, "a")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float A;
 
 		public unsafe SDLFColor(float r = default, float g = default, float b = default, float a = default)

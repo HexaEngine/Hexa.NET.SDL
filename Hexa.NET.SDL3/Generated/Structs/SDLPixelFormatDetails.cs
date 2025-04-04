@@ -19,58 +19,25 @@ namespace Hexa.NET.SDL3
 	/// Details about the format of a pixel.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_PixelFormatDetails")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPixelFormatDetails
 	{
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
-		[NativeName(NativeNameType.Field, "bits_per_pixel")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte BitsPerPixel;
-		[NativeName(NativeNameType.Field, "bytes_per_pixel")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte BytesPerPixel;
-		[NativeName(NativeNameType.Field, "padding")]
-		[NativeName(NativeNameType.Type, "Uint8[2]")]
 		public byte Padding_0;
 		public byte Padding_1;
-		[NativeName(NativeNameType.Field, "Rmask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Rmask;
-		[NativeName(NativeNameType.Field, "Gmask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Gmask;
-		[NativeName(NativeNameType.Field, "Bmask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Bmask;
-		[NativeName(NativeNameType.Field, "Amask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Amask;
-		[NativeName(NativeNameType.Field, "Rbits")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Rbits;
-		[NativeName(NativeNameType.Field, "Gbits")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Gbits;
-		[NativeName(NativeNameType.Field, "Bbits")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Bbits;
-		[NativeName(NativeNameType.Field, "Abits")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Abits;
-		[NativeName(NativeNameType.Field, "Rshift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Rshift;
-		[NativeName(NativeNameType.Field, "Gshift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Gshift;
-		[NativeName(NativeNameType.Field, "Bshift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Bshift;
-		[NativeName(NativeNameType.Field, "Ashift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Ashift;
 
 		public unsafe SDLPixelFormatDetails(SDLPixelFormat format = default, byte bitsPerPixel = default, byte bytesPerPixel = default, byte* padding = default, uint rmask = default, uint gmask = default, uint bmask = default, uint amask = default, byte rbits = default, byte gbits = default, byte bbits = default, byte abits = default, byte rshift = default, byte gshift = default, byte bshift = default, byte ashift = default)

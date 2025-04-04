@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	[NativeName(NativeNameType.StructOrClass, "VkAllocationCallbacks")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct VkAllocationCallbacks
 	{

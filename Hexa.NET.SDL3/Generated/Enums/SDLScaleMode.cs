@@ -16,22 +16,18 @@ namespace Hexa.NET.SDL3
 	/// The scaling mode.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_ScaleMode")]
 	[Flags]
 	public enum SDLScaleMode : int
 	{
+		Invalid = unchecked(-1),
 		/// <summary>
 		/// nearest pixel sampling <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_NEAREST")]
-		[NativeName(NativeNameType.Value, "0")]
 		Nearest = unchecked(0),
 
 		/// <summary>
 		/// linear filtering <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_LINEAR")]
-		[NativeName(NativeNameType.Value, "1")]
 		Linear = unchecked(1),
 	}
 }

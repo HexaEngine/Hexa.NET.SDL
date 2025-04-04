@@ -18,746 +18,1390 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
+		/// Returns a random boundary value for Uint32 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomUint32BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
+		/// RandomUint32BoundaryValue(1, 20, false) returns 0 or 21<br/>
+		/// RandomUint32BoundaryValue(0, 99, false) returns 100<br/>
+		/// RandomUint32BoundaryValue(0, 0xFFFFFFFF, false) returns 0 (with error set)<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenameStoragePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenameStoragePath([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
+		public static uint TestRandomUint32BoundaryValue(uint boundary1, uint boundary2, bool validDomain)
 		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = &oldpath)
-				{
-					fixed (byte* pnewpath = &newpath)
-					{
-						byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
+			uint ret = TestRandomUint32BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
+			return ret;
 		}
 
 		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenameStoragePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenameStoragePath([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = oldpath)
-				{
-					fixed (byte* pnewpath = newpath)
-					{
-						byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
+		/// Returns a random boundary value for Uint64 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomUint64BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
+		/// RandomUint64BoundaryValue(1, 20, false) returns 0 or 21<br/>
+		/// RandomUint64BoundaryValue(0, 99, false) returns 100<br/>
+		/// RandomUint64BoundaryValue(0, 0xFFFFFFFFFFFFFFFF, false) returns 0 (with error set)<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenameStoragePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenameStoragePath([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (oldpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte* pStr1 = null;
-				int pStrSize1 = 0;
-				if (newpath != null)
-				{
-					pStrSize1 = Utils.GetByteCountUTF8(newpath);
-					if (pStrSize1 >= Utils.MaxStackallocSize)
-					{
-						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-					}
-					else
-					{
-						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-						pStr1 = pStrStack1;
-					}
-					int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-					pStr1[pStrOffset1] = 0;
-				}
-				byte ret = RenameStoragePathNative((SDLStorage*)pstorage, pStr0, pStr1);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CopyStorageFileNative([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		internal static ulong TestRandomUint64BoundaryValueNative(ulong boundary1, ulong boundary2, byte validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte*, byte>)funcTable[1134])(storage, oldpath, newpath);
+			return ((delegate* unmanaged[Cdecl]<ulong, ulong, byte, ulong>)funcTable[1297])(boundary1, boundary2, validDomain);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1134])((nint)storage, (nint)oldpath, (nint)newpath);
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong, ulong, byte, ulong>)funcTable[1297])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
 		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
+		/// Returns a random boundary value for Uint64 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomUint64BoundaryValue(10, 20, true) returns 10, 11, 19 or 20<br/>
+		/// RandomUint64BoundaryValue(1, 20, false) returns 0 or 21<br/>
+		/// RandomUint64BoundaryValue(0, 99, false) returns 100<br/>
+		/// RandomUint64BoundaryValue(0, 0xFFFFFFFFFFFFFFFF, false) returns 0 (with error set)<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		public static ulong TestRandomUint64BoundaryValue(ulong boundary1, ulong boundary2, bool validDomain)
 		{
-			byte ret = CopyStorageFileNative(storage, oldpath, newpath);
-			return ret != 0;
+			ulong ret = TestRandomUint64BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
+			return ret;
 		}
 
 		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
+		/// Returns a random boundary value for Sint8 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint8BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint8BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint8BoundaryValue(SINT8_MIN, 99, false) returns 100<br/>
+		/// RandomSint8BoundaryValue(SINT8_MIN, SINT8_MAX, false) returns SINT8_MIN (== error value) with error set<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				byte ret = CopyStorageFileNative(storage, (byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				byte ret = CopyStorageFileNative(storage, (byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyStorageFileNative(storage, pStr0, newpath);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = &oldpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, newpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = oldpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, newpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (oldpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, pStr0, newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (byte* pnewpath = &newpath)
-			{
-				byte ret = CopyStorageFileNative(storage, oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* pnewpath = newpath)
-			{
-				byte ret = CopyStorageFileNative(storage, oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (newpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyStorageFileNative(storage, oldpath, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (newpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(newpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = CopyStorageFileNative(storage, (byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = CopyStorageFileNative(storage, (byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (newpath != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = CopyStorageFileNative(storage, pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = &oldpath)
-				{
-					fixed (byte* pnewpath = &newpath)
-					{
-						byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = oldpath)
-				{
-					fixed (byte* pnewpath = newpath)
-					{
-						byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyStorageFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyStorageFile([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (oldpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte* pStr1 = null;
-				int pStrSize1 = 0;
-				if (newpath != null)
-				{
-					pStrSize1 = Utils.GetByteCountUTF8(newpath);
-					if (pStrSize1 >= Utils.MaxStackallocSize)
-					{
-						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-					}
-					else
-					{
-						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-						pStr1 = pStrStack1;
-					}
-					int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-					pStr1[pStrOffset1] = 0;
-				}
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, pStr0, pStr1);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetStoragePathInfoNative([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		internal static sbyte TestRandomSint8BoundaryValueNative(sbyte boundary1, sbyte boundary2, byte validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, SDLPathInfo*, byte>)funcTable[1135])(storage, path, info);
+			return ((delegate* unmanaged[Cdecl]<sbyte, sbyte, byte, sbyte>)funcTable[1298])(boundary1, boundary2, validDomain);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1135])((nint)storage, (nint)path, (nint)info);
+			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte, sbyte, byte, sbyte>)funcTable[1298])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
+		/// Returns a random boundary value for Sint8 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint8BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint8BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint8BoundaryValue(SINT8_MIN, 99, false) returns 100<br/>
+		/// RandomSint8BoundaryValue(SINT8_MIN, SINT8_MAX, false) returns SINT8_MIN (== error value) with error set<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		public static sbyte TestRandomSint8BoundaryValue(sbyte boundary1, sbyte boundary2, bool validDomain)
 		{
-			byte ret = GetStoragePathInfoNative(storage, path, info);
-			return ret != 0;
+			sbyte ret = TestRandomSint8BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
+			return ret;
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
+		/// Returns a random boundary value for Sint16 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint16BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint16BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint16BoundaryValue(SINT16_MIN, 99, false) returns 100<br/>
+		/// RandomSint16BoundaryValue(SINT16_MIN, SINT16_MAX, false) returns SINT16_MIN (== error value) with error set<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static short TestRandomSint16BoundaryValueNative(short boundary1, short boundary2, byte validDomain)
 		{
-			fixed (SDLStorage* pstorage = &storage)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<short, short, byte, short>)funcTable[1299])(boundary1, boundary2, validDomain);
+			#else
+			return (short)((delegate* unmanaged[Cdecl]<short, short, byte, short>)funcTable[1299])(boundary1, boundary2, validDomain);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns a random boundary value for Sint16 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint16BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint16BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint16BoundaryValue(SINT16_MIN, 99, false) returns 100<br/>
+		/// RandomSint16BoundaryValue(SINT16_MIN, SINT16_MAX, false) returns SINT16_MIN (== error value) with error set<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static short TestRandomSint16BoundaryValue(short boundary1, short boundary2, bool validDomain)
+		{
+			short ret = TestRandomSint16BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns a random boundary value for Sint32 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint32BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint32BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint32BoundaryValue(SINT32_MIN, 99, false) returns 100<br/>
+		/// RandomSint32BoundaryValue(SINT32_MIN, SINT32_MAX, false) returns SINT32_MIN (== error value)<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int TestRandomSint32BoundaryValueNative(int boundary1, int boundary2, byte validDomain)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, byte, int>)funcTable[1300])(boundary1, boundary2, validDomain);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, byte, int>)funcTable[1300])(boundary1, boundary2, validDomain);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns a random boundary value for Sint32 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint32BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint32BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint32BoundaryValue(SINT32_MIN, 99, false) returns 100<br/>
+		/// RandomSint32BoundaryValue(SINT32_MIN, SINT32_MAX, false) returns SINT32_MIN (== error value)<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int TestRandomSint32BoundaryValue(int boundary1, int boundary2, bool validDomain)
+		{
+			int ret = TestRandomSint32BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns a random boundary value for Sint64 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint64BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint64BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint64BoundaryValue(SINT64_MIN, 99, false) returns 100<br/>
+		/// RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, false) returns SINT64_MIN (== error value) and error set<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long TestRandomSint64BoundaryValueNative(long boundary1, long boundary2, byte validDomain)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, long, byte, long>)funcTable[1301])(boundary1, boundary2, validDomain);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<long, long, byte, long>)funcTable[1301])(boundary1, boundary2, validDomain);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns a random boundary value for Sint64 within the given boundaries.<br/>
+		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
+		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
+		/// boundaries are also possible.<br/>
+		/// If boundary1 > boundary2, the values are swapped<br/>
+		/// Usage examples:<br/>
+		/// RandomSint64BoundaryValue(-10, 20, true) returns -11, -10, 19 or 20<br/>
+		/// RandomSint64BoundaryValue(-100, -10, false) returns -101 or -9<br/>
+		/// RandomSint64BoundaryValue(SINT64_MIN, 99, false) returns 100<br/>
+		/// RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, false) returns SINT64_MIN (== error value) and error set<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long TestRandomSint64BoundaryValue(long boundary1, long boundary2, bool validDomain)
+		{
+			long ret = TestRandomSint64BoundaryValueNative(boundary1, boundary2, validDomain ? (byte)1 : (byte)0);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns integer in range [min, max] (inclusive).<br/>
+		/// Min and max values can be negative values.<br/>
+		/// If Max in smaller than min, then the values are swapped.<br/>
+		/// Min and max are the same value, that value will be returned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int TestRandomIntegerInRangeNative(int min, int max)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1302])(min, max);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1302])(min, max);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns integer in range [min, max] (inclusive).<br/>
+		/// Min and max values can be negative values.<br/>
+		/// If Max in smaller than min, then the values are swapped.<br/>
+		/// Min and max are the same value, that value will be returned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int TestRandomIntegerInRange(int min, int max)
+		{
+			int ret = TestRandomIntegerInRangeNative(min, max);
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The minimum length for<br/>
+		/// the string is 1 character, maximum length for the string is 255<br/>
+		/// characters and it can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* TestRandomAsciiStringNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[1303])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1303])();
+			#endif
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The minimum length for<br/>
+		/// the string is 1 character, maximum length for the string is 255<br/>
+		/// characters and it can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* TestRandomAsciiString()
+		{
+			byte* ret = TestRandomAsciiStringNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The minimum length for<br/>
+		/// the string is 1 character, maximum length for the string is 255<br/>
+		/// characters and it can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// </summary>
+		public static string TestRandomAsciiStringS()
+		{
+			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The maximum length for<br/>
+		/// the string is defined by the maxLength parameter.<br/>
+		/// String can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* TestRandomAsciiStringWithMaximumLengthNative(int maxLength)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1304])(maxLength);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1304])(maxLength);
+			#endif
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The maximum length for<br/>
+		/// the string is defined by the maxLength parameter.<br/>
+		/// String can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* TestRandomAsciiStringWithMaximumLength(int maxLength)
+		{
+			byte* ret = TestRandomAsciiStringWithMaximumLengthNative(maxLength);
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The maximum length for<br/>
+		/// the string is defined by the maxLength parameter.<br/>
+		/// String can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string TestRandomAsciiStringWithMaximumLengthS(int maxLength)
+		{
+			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringWithMaximumLengthNative(maxLength));
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The length for<br/>
+		/// the string is defined by the size parameter.<br/>
+		/// String can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* TestRandomAsciiStringOfSizeNative(int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1305])(size);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1305])(size);
+			#endif
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The length for<br/>
+		/// the string is defined by the size parameter.<br/>
+		/// String can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* TestRandomAsciiStringOfSize(int size)
+		{
+			byte* ret = TestRandomAsciiStringOfSizeNative(size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates random null-terminated string. The length for<br/>
+		/// the string is defined by the size parameter.<br/>
+		/// String can contain ASCII characters from 32 to 126.<br/>
+		/// Note: Returned string needs to be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string TestRandomAsciiStringOfSizeS(int size)
+		{
+			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringOfSizeNative(size));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int TestGetFuzzerInvocationCountNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1306])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1306])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
+		/// <br/>
+		/// </summary>
+		public static int TestGetFuzzerInvocationCount()
+		{
+			int ret = TestGetFuzzerInvocationCountNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates a random run seed string for the harness. The generated seed<br/>
+		/// will contain alphanumeric characters (0-9A-Z).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* TestGenerateRunSeedNative(byte* buffer, int length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[1307])(buffer, length);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[1307])((nint)buffer, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Generates a random run seed string for the harness. The generated seed<br/>
+		/// will contain alphanumeric characters (0-9A-Z).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* TestGenerateRunSeed(byte* buffer, int length)
+		{
+			byte* ret = TestGenerateRunSeedNative(buffer, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates a random run seed string for the harness. The generated seed<br/>
+		/// will contain alphanumeric characters (0-9A-Z).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string TestGenerateRunSeedS(byte* buffer, int length)
+		{
+			string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative(buffer, length));
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates a random run seed string for the harness. The generated seed<br/>
+		/// will contain alphanumeric characters (0-9A-Z).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* TestGenerateRunSeed(ref byte buffer, int length)
+		{
+			fixed (byte* pbuffer = &buffer)
 			{
-				byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, path, info);
-				return ret != 0;
+				byte* ret = TestGenerateRunSeedNative((byte*)pbuffer, length);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
+		/// Generates a random run seed string for the harness. The generated seed<br/>
+		/// will contain alphanumeric characters (0-9A-Z).<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		public static string TestGenerateRunSeedS(ref byte buffer, int length)
+		{
+			fixed (byte* pbuffer = &buffer)
+			{
+				string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative((byte*)pbuffer, length));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Generates a random run seed string for the harness. The generated seed<br/>
+		/// will contain alphanumeric characters (0-9A-Z).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* TestGenerateRunSeed(ref string buffer, int length)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (buffer != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(buffer);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(buffer, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = TestGenerateRunSeedNative(pStr0, length);
+			buffer = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Generates a random run seed string for the harness. The generated seed<br/>
+		/// will contain alphanumeric characters (0-9A-Z).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string TestGenerateRunSeedS(ref string buffer, int length)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (buffer != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(buffer);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(buffer, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative(pStr0, length));
+			buffer = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a new test suite runner, that will execute the given test suites.<br/>
+		/// It will register the harness cli arguments to the common SDL state.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTestTestSuiteRunner* TestCreateTestSuiteRunnerNative(SDLTestCommonState* state, SDLTestTestSuiteReference** testSuites)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLTestTestSuiteReference**, SDLTestTestSuiteRunner*>)funcTable[1308])(state, testSuites);
+			#else
+			return (SDLTestTestSuiteRunner*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1308])((nint)state, (nint)testSuites);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a new test suite runner, that will execute the given test suites.<br/>
+		/// It will register the harness cli arguments to the common SDL state.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTestTestSuiteRunner* TestCreateTestSuiteRunner(SDLTestCommonState* state, SDLTestTestSuiteReference** testSuites)
+		{
+			SDLTestTestSuiteRunner* ret = TestCreateTestSuiteRunnerNative(state, testSuites);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a new test suite runner, that will execute the given test suites.<br/>
+		/// It will register the harness cli arguments to the common SDL state.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTestTestSuiteRunner* TestCreateTestSuiteRunner(ref SDLTestCommonState state, SDLTestTestSuiteReference** testSuites)
+		{
+			fixed (SDLTestCommonState* pstate = &state)
+			{
+				SDLTestTestSuiteRunner* ret = TestCreateTestSuiteRunnerNative((SDLTestCommonState*)pstate, testSuites);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Destroy a test suite runner.<br/>
+		/// It will unregister the harness cli arguments to the common SDL state.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestDestroyTestSuiteRunnerNative(SDLTestTestSuiteRunner* runner)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTestTestSuiteRunner*, void>)funcTable[1309])(runner);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1309])((nint)runner);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a test suite runner.<br/>
+		/// It will unregister the harness cli arguments to the common SDL state.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestDestroyTestSuiteRunner(SDLTestTestSuiteRunner* runner)
+		{
+			TestDestroyTestSuiteRunnerNative(runner);
+		}
+
+		/// <summary>
+		/// Destroy a test suite runner.<br/>
+		/// It will unregister the harness cli arguments to the common SDL state.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestDestroyTestSuiteRunner(ref SDLTestTestSuiteRunner runner)
+		{
+			fixed (SDLTestTestSuiteRunner* prunner = &runner)
+			{
+				TestDestroyTestSuiteRunnerNative((SDLTestTestSuiteRunner*)prunner);
+			}
+		}
+
+		/// <summary>
+		/// Execute a test suite, using the configured run seed, execution key, filter, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int TestExecuteTestSuiteRunnerNative(SDLTestTestSuiteRunner* runner)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTestTestSuiteRunner*, int>)funcTable[1310])(runner);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[1310])((nint)runner);
+			#endif
+		}
+
+		/// <summary>
+		/// Execute a test suite, using the configured run seed, execution key, filter, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int TestExecuteTestSuiteRunner(SDLTestTestSuiteRunner* runner)
+		{
+			int ret = TestExecuteTestSuiteRunnerNative(runner);
+			return ret;
+		}
+
+		/// <summary>
+		/// Execute a test suite, using the configured run seed, execution key, filter, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int TestExecuteTestSuiteRunner(ref SDLTestTestSuiteRunner runner)
+		{
+			fixed (SDLTestTestSuiteRunner* prunner = &runner)
+			{
+				int ret = TestExecuteTestSuiteRunnerNative((SDLTestTestSuiteRunner*)prunner);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestLogNative(byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1311])(fmt);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1311])((nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLog(byte* fmt)
+		{
+			TestLogNative(fmt);
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLog(ref byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				TestLogNative((byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLog(ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				TestLogNative((byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and INFO priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLog(string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			TestLogNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Prints given prefix and buffer.<br/>
+		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestLogEscapedStringNative(byte* prefix, void* buffer, nuint size)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void*, nuint, void>)funcTable[1312])(prefix, buffer, size);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nuint, void>)funcTable[1312])((nint)prefix, (nint)buffer, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Prints given prefix and buffer.<br/>
+		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogEscapedString(byte* prefix, void* buffer, nuint size)
+		{
+			TestLogEscapedStringNative(prefix, buffer, size);
+		}
+
+		/// <summary>
+		/// Prints given prefix and buffer.<br/>
+		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogEscapedString(ref byte prefix, void* buffer, nuint size)
+		{
+			fixed (byte* pprefix = &prefix)
+			{
+				TestLogEscapedStringNative((byte*)pprefix, buffer, size);
+			}
+		}
+
+		/// <summary>
+		/// Prints given prefix and buffer.<br/>
+		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogEscapedString(ReadOnlySpan<byte> prefix, void* buffer, nuint size)
+		{
+			fixed (byte* pprefix = prefix)
+			{
+				TestLogEscapedStringNative((byte*)pprefix, buffer, size);
+			}
+		}
+
+		/// <summary>
+		/// Prints given prefix and buffer.<br/>
+		/// Non-printible characters in the raw data are substituted by printible alternatives.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogEscapedString(string prefix, void* buffer, nuint size)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (prefix != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(prefix);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(prefix, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			TestLogEscapedStringNative(pStr0, buffer, size);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestLogErrorNative(byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1313])(fmt);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1313])((nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogError(byte* fmt)
+		{
+			TestLogErrorNative(fmt);
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogError(ref byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				TestLogErrorNative((byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogError(ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				TestLogErrorNative((byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Prints given message with a timestamp in the TEST category and the ERROR priority.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogError(string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			TestLogErrorNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// initialize the context<br/>
+		/// <br/>
+		/// Note: The function initializes the message-digest context<br/>
+		/// mdContext. Call before each new use of the context -<br/>
+		/// all fields are set to zero.<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestMd5InitNative(SDLTestMd5Context* mdContext)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)funcTable[1314])(mdContext);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1314])((nint)mdContext);
+			#endif
+		}
+
+		/// <summary>
+		/// initialize the context<br/>
+		/// <br/>
+		/// Note: The function initializes the message-digest context<br/>
+		/// mdContext. Call before each new use of the context -<br/>
+		/// all fields are set to zero.<br/>
+		/// </summary>
+		public static void TestMd5Init(SDLTestMd5Context* mdContext)
+		{
+			TestMd5InitNative(mdContext);
+		}
+
+		/// <summary>
+		/// initialize the context<br/>
+		/// <br/>
+		/// Note: The function initializes the message-digest context<br/>
+		/// mdContext. Call before each new use of the context -<br/>
+		/// all fields are set to zero.<br/>
+		/// </summary>
+		public static void TestMd5Init(ref SDLTestMd5Context mdContext)
+		{
+			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			{
+				TestMd5InitNative((SDLTestMd5Context*)pmdContext);
+			}
+		}
+
+		/// <summary>
+		/// update digest from variable length data<br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestMd5UpdateNative(SDLTestMd5Context* mdContext, byte* inBuf, uint inLen)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, byte*, uint, void>)funcTable[1315])(mdContext, inBuf, inLen);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[1315])((nint)mdContext, (nint)inBuf, inLen);
+			#endif
+		}
+
+		/// <summary>
+		/// update digest from variable length data<br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		public static void TestMd5Update(SDLTestMd5Context* mdContext, byte* inBuf, uint inLen)
+		{
+			TestMd5UpdateNative(mdContext, inBuf, inLen);
+		}
+
+		/// <summary>
+		/// update digest from variable length data<br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		public static void TestMd5Update(ref SDLTestMd5Context mdContext, byte* inBuf, uint inLen)
+		{
+			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			{
+				TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, inBuf, inLen);
+			}
+		}
+
+		/// <summary>
+		/// update digest from variable length data<br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		public static void TestMd5Update(SDLTestMd5Context* mdContext, ref byte inBuf, uint inLen)
+		{
+			fixed (byte* pinBuf = &inBuf)
+			{
+				TestMd5UpdateNative(mdContext, (byte*)pinBuf, inLen);
+			}
+		}
+
+		/// <summary>
+		/// update digest from variable length data<br/>
+		/// <br/>
+		/// Note: The function updates the message-digest context to account<br/>
+		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
+		/// in the message whose digest is being computed.<br/>
+		/// </summary>
+		public static void TestMd5Update(ref SDLTestMd5Context mdContext, ref byte inBuf, uint inLen)
+		{
+			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			{
+				fixed (byte* pinBuf = &inBuf)
+				{
+					TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, (byte*)pinBuf, inLen);
+				}
+			}
+		}
+
+		/// <summary>
+		/// complete digest computation<br/>
+		/// <br/>
+		/// Note: The function terminates the message-digest computation and<br/>
+		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
+		/// Always call before using the digest[] variable.<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestMd5FinalNative(SDLTestMd5Context* mdContext)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)funcTable[1316])(mdContext);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1316])((nint)mdContext);
+			#endif
+		}
+
+		/// <summary>
+		/// complete digest computation<br/>
+		/// <br/>
+		/// Note: The function terminates the message-digest computation and<br/>
+		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
+		/// Always call before using the digest[] variable.<br/>
+		/// </summary>
+		public static void TestMd5Final(SDLTestMd5Context* mdContext)
+		{
+			TestMd5FinalNative(mdContext);
+		}
+
+		/// <summary>
+		/// complete digest computation<br/>
+		/// <br/>
+		/// Note: The function terminates the message-digest computation and<br/>
+		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
+		/// Always call before using the digest[] variable.<br/>
+		/// </summary>
+		public static void TestMd5Final(ref SDLTestMd5Context mdContext)
+		{
+			fixed (SDLTestMd5Context* pmdContext = &mdContext)
+			{
+				TestMd5FinalNative((SDLTestMd5Context*)pmdContext);
+			}
+		}
+
+		/// <summary>
+		/// Start tracking SDL memory allocations<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestTrackAllocationsNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1317])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1317])();
+			#endif
+		}
+
+		/// <summary>
+		/// Start tracking SDL memory allocations<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestTrackAllocations()
+		{
+			TestTrackAllocationsNative();
+		}
+
+		/// <summary>
+		/// Fill allocations with random data<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestRandFillAllocationsNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1318])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1318])();
+			#endif
+		}
+
+		/// <summary>
+		/// Fill allocations with random data<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestRandFillAllocations()
+		{
+			TestRandFillAllocationsNative();
+		}
+
+		/// <summary>
+		/// Print a log of any outstanding allocations<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestLogAllocationsNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1319])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1319])();
+			#endif
+		}
+
+		/// <summary>
+		/// Print a log of any outstanding allocations<br/>
+		/// <br/>
+		/// </summary>
+		public static void TestLogAllocations()
+		{
+			TestLogAllocationsNative();
+		}
+
+		/// <summary>
+		/// Dynamically load the Vulkan loader library.<br/>
+		/// This should be called after initializing the video driver, but before<br/>
+		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
+		/// default library will be loaded upon creation of the first Vulkan window.<br/>
+		/// SDL keeps a counter of how many times this function has been successfully<br/>
+		/// called, so it is safe to call this function multiple times, so long as it<br/>
+		/// is eventually paired with an equivalent number of calls to<br/>
+		/// SDL_Vulkan_UnloadLibrary. The `path` argument is ignored unless there is no<br/>
+		/// library currently loaded, and and the library isn't actually unloaded until<br/>
+		/// there have been an equivalent number of calls to SDL_Vulkan_UnloadLibrary.<br/>
+		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
+		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
+		/// application links to a dynamic library and both it and SDL use the same<br/>
+		/// search path.<br/>
+		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
+		/// Vulkan functions it uses from the dynamic library using<br/>
+		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
+		/// to the same vulkan loader library the application linked to.<br/>
+		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
+		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
+		/// process. This is because it is fairly common for Vulkan applications to<br/>
+		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
+		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
+		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
+		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
+		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
+		/// dynamic framework or .dylib must ensure it is included in its application<br/>
+		/// bundle.<br/>
+		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
+		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
+		/// library version.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte VulkanLoadLibraryNative(byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[1320])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1320])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Dynamically load the Vulkan loader library.<br/>
+		/// This should be called after initializing the video driver, but before<br/>
+		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
+		/// default library will be loaded upon creation of the first Vulkan window.<br/>
+		/// SDL keeps a counter of how many times this function has been successfully<br/>
+		/// called, so it is safe to call this function multiple times, so long as it<br/>
+		/// is eventually paired with an equivalent number of calls to<br/>
+		/// SDL_Vulkan_UnloadLibrary. The `path` argument is ignored unless there is no<br/>
+		/// library currently loaded, and and the library isn't actually unloaded until<br/>
+		/// there have been an equivalent number of calls to SDL_Vulkan_UnloadLibrary.<br/>
+		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
+		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
+		/// application links to a dynamic library and both it and SDL use the same<br/>
+		/// search path.<br/>
+		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
+		/// Vulkan functions it uses from the dynamic library using<br/>
+		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
+		/// to the same vulkan loader library the application linked to.<br/>
+		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
+		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
+		/// process. This is because it is fairly common for Vulkan applications to<br/>
+		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
+		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
+		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
+		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
+		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
+		/// dynamic framework or .dylib must ensure it is included in its application<br/>
+		/// bundle.<br/>
+		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
+		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
+		/// library version.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool VulkanLoadLibrary(byte* path)
+		{
+			byte ret = VulkanLoadLibraryNative(path);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Dynamically load the Vulkan loader library.<br/>
+		/// This should be called after initializing the video driver, but before<br/>
+		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
+		/// default library will be loaded upon creation of the first Vulkan window.<br/>
+		/// SDL keeps a counter of how many times this function has been successfully<br/>
+		/// called, so it is safe to call this function multiple times, so long as it<br/>
+		/// is eventually paired with an equivalent number of calls to<br/>
+		/// SDL_Vulkan_UnloadLibrary. The `path` argument is ignored unless there is no<br/>
+		/// library currently loaded, and and the library isn't actually unloaded until<br/>
+		/// there have been an equivalent number of calls to SDL_Vulkan_UnloadLibrary.<br/>
+		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
+		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
+		/// application links to a dynamic library and both it and SDL use the same<br/>
+		/// search path.<br/>
+		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
+		/// Vulkan functions it uses from the dynamic library using<br/>
+		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
+		/// to the same vulkan loader library the application linked to.<br/>
+		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
+		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
+		/// process. This is because it is fairly common for Vulkan applications to<br/>
+		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
+		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
+		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
+		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
+		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
+		/// dynamic framework or .dylib must ensure it is included in its application<br/>
+		/// bundle.<br/>
+		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
+		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
+		/// library version.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool VulkanLoadLibrary(ref byte path)
 		{
 			fixed (byte* ppath = &path)
 			{
-				byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, info);
+				byte ret = VulkanLoadLibraryNative((byte*)ppath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Dynamically load the Vulkan loader library.<br/>
+		/// This should be called after initializing the video driver, but before<br/>
+		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
+		/// default library will be loaded upon creation of the first Vulkan window.<br/>
+		/// SDL keeps a counter of how many times this function has been successfully<br/>
+		/// called, so it is safe to call this function multiple times, so long as it<br/>
+		/// is eventually paired with an equivalent number of calls to<br/>
+		/// SDL_Vulkan_UnloadLibrary. The `path` argument is ignored unless there is no<br/>
+		/// library currently loaded, and and the library isn't actually unloaded until<br/>
+		/// there have been an equivalent number of calls to SDL_Vulkan_UnloadLibrary.<br/>
+		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
+		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
+		/// application links to a dynamic library and both it and SDL use the same<br/>
+		/// search path.<br/>
+		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
+		/// Vulkan functions it uses from the dynamic library using<br/>
+		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
+		/// to the same vulkan loader library the application linked to.<br/>
+		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
+		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
+		/// process. This is because it is fairly common for Vulkan applications to<br/>
+		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
+		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
+		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
+		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
+		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
+		/// dynamic framework or .dylib must ensure it is included in its application<br/>
+		/// bundle.<br/>
+		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
+		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
+		/// library version.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		public static bool VulkanLoadLibrary(ReadOnlySpan<byte> path)
 		{
 			fixed (byte* ppath = path)
 			{
-				byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, info);
+				byte ret = VulkanLoadLibraryNative((byte*)ppath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Dynamically load the Vulkan loader library.<br/>
+		/// This should be called after initializing the video driver, but before<br/>
+		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
+		/// default library will be loaded upon creation of the first Vulkan window.<br/>
+		/// SDL keeps a counter of how many times this function has been successfully<br/>
+		/// called, so it is safe to call this function multiple times, so long as it<br/>
+		/// is eventually paired with an equivalent number of calls to<br/>
+		/// SDL_Vulkan_UnloadLibrary. The `path` argument is ignored unless there is no<br/>
+		/// library currently loaded, and and the library isn't actually unloaded until<br/>
+		/// there have been an equivalent number of calls to SDL_Vulkan_UnloadLibrary.<br/>
+		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
+		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
+		/// application links to a dynamic library and both it and SDL use the same<br/>
+		/// search path.<br/>
+		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
+		/// Vulkan functions it uses from the dynamic library using<br/>
+		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
+		/// to the same vulkan loader library the application linked to.<br/>
+		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
+		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
+		/// process. This is because it is fairly common for Vulkan applications to<br/>
+		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
+		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
+		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
+		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
+		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
+		/// dynamic framework or .dylib must ensure it is included in its application<br/>
+		/// bundle.<br/>
+		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
+		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
+		/// library version.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		public static bool VulkanLoadLibrary(string path)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -776,7 +1420,7 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = GetStoragePathInfoNative(storage, pStr0, info);
+			byte ret = VulkanLoadLibraryNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -785,215 +1429,348 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Get the address of the `vkGetInstanceProcAddr` function.<br/>
+		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
+		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
+		/// The actual type of the returned function pointer is<br/>
+		/// PFN_vkGetInstanceProcAddr, but that isn't available because the Vulkan<br/>
+		/// headers are not included here. You should cast the return value of this<br/>
+		/// function to that type, e.g.<br/>
+		/// `vkGetInstanceProcAddr =<br/>
+		/// (PFN_vkGetInstanceProcAddr)SDL_Vulkan_GetVkGetInstanceProcAddr();`<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static delegate*<void> VulkanGetVkGetInstanceProcAddrNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void>>)funcTable[1321])();
+			#else
+			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint>)funcTable[1321])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the address of the `vkGetInstanceProcAddr` function.<br/>
+		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
+		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
+		/// The actual type of the returned function pointer is<br/>
+		/// PFN_vkGetInstanceProcAddr, but that isn't available because the Vulkan<br/>
+		/// headers are not included here. You should cast the return value of this<br/>
+		/// function to that type, e.g.<br/>
+		/// `vkGetInstanceProcAddr =<br/>
+		/// (PFN_vkGetInstanceProcAddr)SDL_Vulkan_GetVkGetInstanceProcAddr();`<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static delegate*<void> VulkanGetVkGetInstanceProcAddr()
+		{
+			delegate*<void> ret = VulkanGetVkGetInstanceProcAddrNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Unload the Vulkan library previously loaded by SDL_Vulkan_LoadLibrary().<br/>
+		/// SDL keeps a counter of how many times this function has been called, so it<br/>
+		/// is safe to call this function multiple times, so long as it is paired with<br/>
+		/// an equivalent number of calls to SDL_Vulkan_LoadLibrary. The library isn't<br/>
+		/// actually unloaded until there have been an equivalent number of calls to<br/>
+		/// SDL_Vulkan_UnloadLibrary.<br/>
+		/// Once the library has actually been unloaded, if any Vulkan instances<br/>
+		/// remain, they will likely crash the program. Clean up any existing Vulkan<br/>
+		/// resources, and destroy appropriate windows, renderers and GPU devices<br/>
+		/// before calling this function.<br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void VulkanUnloadLibraryNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1322])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1322])();
+			#endif
+		}
+
+		/// <summary>
+		/// Unload the Vulkan library previously loaded by SDL_Vulkan_LoadLibrary().<br/>
+		/// SDL keeps a counter of how many times this function has been called, so it<br/>
+		/// is safe to call this function multiple times, so long as it is paired with<br/>
+		/// an equivalent number of calls to SDL_Vulkan_LoadLibrary. The library isn't<br/>
+		/// actually unloaded until there have been an equivalent number of calls to<br/>
+		/// SDL_Vulkan_UnloadLibrary.<br/>
+		/// Once the library has actually been unloaded, if any Vulkan instances<br/>
+		/// remain, they will likely crash the program. Clean up any existing Vulkan<br/>
+		/// resources, and destroy appropriate windows, renderers and GPU devices<br/>
+		/// before calling this function.<br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void VulkanUnloadLibrary()
+		{
+			VulkanUnloadLibraryNative();
+		}
+
+		/// <summary>
+		/// Get the Vulkan instance extensions needed for vkCreateInstance.<br/>
+		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
+		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
+		/// On return, the variable pointed to by `count` will be set to the number of<br/>
+		/// elements returned, suitable for using with<br/>
+		/// VkInstanceCreateInfo::enabledExtensionCount, and the returned array can be<br/>
+		/// used with VkInstanceCreateInfo::ppEnabledExtensionNames, for calling<br/>
+		/// Vulkan's vkCreateInstance API.<br/>
+		/// You should not free the returned array; it is owned by SDL.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte** VulkanGetInstanceExtensionsNative(uint* count)
 		{
-			fixed (SDLStorage* pstorage = &storage)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint*, byte**>)funcTable[1323])(count);
+			#else
+			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1323])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the Vulkan instance extensions needed for vkCreateInstance.<br/>
+		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
+		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
+		/// On return, the variable pointed to by `count` will be set to the number of<br/>
+		/// elements returned, suitable for using with<br/>
+		/// VkInstanceCreateInfo::enabledExtensionCount, and the returned array can be<br/>
+		/// used with VkInstanceCreateInfo::ppEnabledExtensionNames, for calling<br/>
+		/// Vulkan's vkCreateInstance API.<br/>
+		/// You should not free the returned array; it is owned by SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte** VulkanGetInstanceExtensions(uint* count)
+		{
+			byte** ret = VulkanGetInstanceExtensionsNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the Vulkan instance extensions needed for vkCreateInstance.<br/>
+		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
+		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
+		/// On return, the variable pointed to by `count` will be set to the number of<br/>
+		/// elements returned, suitable for using with<br/>
+		/// VkInstanceCreateInfo::enabledExtensionCount, and the returned array can be<br/>
+		/// used with VkInstanceCreateInfo::ppEnabledExtensionNames, for calling<br/>
+		/// Vulkan's vkCreateInstance API.<br/>
+		/// You should not free the returned array; it is owned by SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte** VulkanGetInstanceExtensions(ref uint count)
+		{
+			fixed (uint* pcount = &count)
 			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, info);
-					return ret != 0;
-				}
+				byte** ret = VulkanGetInstanceExtensionsNative((uint*)pcount);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte VulkanCreateSurfaceNative(SDLWindow* window, VkInstance instance, VkAllocationCallbacks* allocator, VkSurfaceKHR* surface)
 		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, info);
-					return ret != 0;
-				}
-			}
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, VkInstance, VkAllocationCallbacks*, VkSurfaceKHR*, byte>)funcTable[1324])(window, instance, allocator, surface);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, VkInstance, nint, nint, byte>)funcTable[1324])((nint)window, instance, (nint)allocator, (nint)surface);
+			#endif
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		public static bool VulkanCreateSurface(SDLWindow* window, VkInstance instance, VkAllocationCallbacks* allocator, VkSurfaceKHR* surface)
 		{
-			fixed (SDLStorage* pstorage = &storage)
+			byte ret = VulkanCreateSurfaceNative(window, instance, allocator, surface);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool VulkanCreateSurface(ref SDLWindow window, VkInstance instance, VkAllocationCallbacks* allocator, VkSurfaceKHR* surface)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, pStr0, info);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
+				byte ret = VulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, allocator, surface);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		public static bool VulkanCreateSurface(SDLWindow* window, VkInstance instance, ref VkAllocationCallbacks allocator, VkSurfaceKHR* surface)
 		{
-			fixed (SDLPathInfo* pinfo = &info)
+			fixed (VkAllocationCallbacks* pallocator = &allocator)
 			{
-				byte ret = GetStoragePathInfoNative(storage, path, (SDLPathInfo*)pinfo);
+				byte ret = VulkanCreateSurfaceNative(window, instance, (VkAllocationCallbacks*)pallocator, surface);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		public static bool VulkanCreateSurface(ref SDLWindow window, VkInstance instance, ref VkAllocationCallbacks allocator, VkSurfaceKHR* surface)
 		{
-			fixed (SDLStorage* pstorage = &storage)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLPathInfo* pinfo = &info)
+				fixed (VkAllocationCallbacks* pallocator = &allocator)
 				{
-					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, path, (SDLPathInfo*)pinfo);
+					byte ret = VulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, (VkAllocationCallbacks*)pallocator, surface);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		public static bool VulkanCreateSurface(SDLWindow* window, VkInstance instance, VkAllocationCallbacks* allocator, ref VkSurfaceKHR surface)
 		{
-			fixed (byte* ppath = &path)
+			fixed (VkSurfaceKHR* psurface = &surface)
 			{
-				fixed (SDLPathInfo* pinfo = &info)
-				{
-					byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, (SDLPathInfo*)pinfo);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (SDLPathInfo* pinfo = &info)
-				{
-					byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, (SDLPathInfo*)pinfo);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLPathInfo* pinfo = &info)
-			{
-				byte ret = GetStoragePathInfoNative(storage, pStr0, (SDLPathInfo*)pinfo);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
+				byte ret = VulkanCreateSurfaceNative(window, instance, allocator, (VkSurfaceKHR*)psurface);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		public static bool VulkanCreateSurface(ref SDLWindow window, VkInstance instance, VkAllocationCallbacks* allocator, ref VkSurfaceKHR surface)
 		{
-			fixed (SDLStorage* pstorage = &storage)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* ppath = &path)
+				fixed (VkSurfaceKHR* psurface = &surface)
 				{
-					fixed (SDLPathInfo* pinfo = &info)
+					byte ret = VulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, allocator, (VkSurfaceKHR*)psurface);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool VulkanCreateSurface(SDLWindow* window, VkInstance instance, ref VkAllocationCallbacks allocator, ref VkSurfaceKHR surface)
+		{
+			fixed (VkAllocationCallbacks* pallocator = &allocator)
+			{
+				fixed (VkSurfaceKHR* psurface = &surface)
+				{
+					byte ret = VulkanCreateSurfaceNative(window, instance, (VkAllocationCallbacks*)pallocator, (VkSurfaceKHR*)psurface);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a Vulkan rendering surface for a window.<br/>
+		/// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and<br/>
+		/// `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool VulkanCreateSurface(ref SDLWindow window, VkInstance instance, ref VkAllocationCallbacks allocator, ref VkSurfaceKHR surface)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (VkAllocationCallbacks* pallocator = &allocator)
+				{
+					fixed (VkSurfaceKHR* psurface = &surface)
 					{
-						byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, (SDLPathInfo*)pinfo);
+						byte ret = VulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, (VkAllocationCallbacks*)pallocator, (VkSurfaceKHR*)psurface);
 						return ret != 0;
 					}
 				}
@@ -1001,4035 +1778,100 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
+		/// Destroy the Vulkan rendering surface of a window.<br/>
+		/// This should be called before SDL_DestroyWindow, if SDL_Vulkan_CreateSurface<br/>
+		/// was called after SDL_CreateWindow.<br/>
+		/// The `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled and `surface` must have been<br/>
+		/// created successfully by an SDL_Vulkan_CreateSurface() call.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					fixed (SDLPathInfo* pinfo = &info)
-					{
-						byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, (SDLPathInfo*)pinfo);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStoragePathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetStoragePathInfo([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				fixed (SDLPathInfo* pinfo = &info)
-				{
-					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, pStr0, (SDLPathInfo*)pinfo);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Queries the remaining space in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStorageSpaceRemaining")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetStorageSpaceRemainingNative([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage)
+		internal static void VulkanDestroySurfaceNative(VkInstance instance, VkSurfaceKHR surface, VkAllocationCallbacks* allocator)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, ulong>)funcTable[1136])(storage);
+			((delegate* unmanaged[Cdecl]<VkInstance, VkSurfaceKHR, VkAllocationCallbacks*, void>)funcTable[1325])(instance, surface, allocator);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[1136])((nint)storage);
+			((delegate* unmanaged[Cdecl]<VkInstance, VkSurfaceKHR, nint, void>)funcTable[1325])(instance, surface, (nint)allocator);
 			#endif
 		}
 
 		/// <summary>
-		/// Queries the remaining space in a storage container.<br/>
+		/// Destroy the Vulkan rendering surface of a window.<br/>
+		/// This should be called before SDL_DestroyWindow, if SDL_Vulkan_CreateSurface<br/>
+		/// was called after SDL_CreateWindow.<br/>
+		/// The `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled and `surface` must have been<br/>
+		/// created successfully by an SDL_Vulkan_CreateSurface() call.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStorageSpaceRemaining")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong GetStorageSpaceRemaining([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage)
+		public static void VulkanDestroySurface(VkInstance instance, VkSurfaceKHR surface, VkAllocationCallbacks* allocator)
 		{
-			ulong ret = GetStorageSpaceRemainingNative(storage);
-			return ret;
+			VulkanDestroySurfaceNative(instance, surface, allocator);
 		}
 
 		/// <summary>
-		/// Queries the remaining space in a storage container.<br/>
+		/// Destroy the Vulkan rendering surface of a window.<br/>
+		/// This should be called before SDL_DestroyWindow, if SDL_Vulkan_CreateSurface<br/>
+		/// was called after SDL_CreateWindow.<br/>
+		/// The `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled and `surface` must have been<br/>
+		/// created successfully by an SDL_Vulkan_CreateSurface() call.<br/>
+		/// If `allocator` is NULL, Vulkan will use the system default allocator. This<br/>
+		/// argument is passed directly to Vulkan and isn't used by SDL itself.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStorageSpaceRemaining")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong GetStorageSpaceRemaining([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage)
+		public static void VulkanDestroySurface(VkInstance instance, VkSurfaceKHR surface, ref VkAllocationCallbacks allocator)
 		{
-			fixed (SDLStorage* pstorage = &storage)
+			fixed (VkAllocationCallbacks* pallocator = &allocator)
 			{
-				ulong ret = GetStorageSpaceRemainingNative((SDLStorage*)pstorage);
-				return ret;
+				VulkanDestroySurfaceNative(instance, surface, (VkAllocationCallbacks*)pallocator);
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
+		/// Query support for presentation via a given physical device and queue<br/>
+		/// family.<br/>
+		/// The `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte** GlobStorageDirectoryNative([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		internal static byte VulkanGetPresentationSupportNative(VkInstance instance, VkPhysicalDevice physicalDevice, uint queueFamilyIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte*, SDLGlobFlags, int*, byte**>)funcTable[1137])(storage, path, pattern, flags, count);
+			return ((delegate* unmanaged[Cdecl]<VkInstance, VkPhysicalDevice, uint, byte>)funcTable[1326])(instance, physicalDevice, queueFamilyIndex);
 			#else
-			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLGlobFlags, nint, nint>)funcTable[1137])((nint)storage, (nint)path, (nint)pattern, flags, (nint)count);
+			return (byte)((delegate* unmanaged[Cdecl]<VkInstance, VkPhysicalDevice, uint, byte>)funcTable[1326])(instance, physicalDevice, queueFamilyIndex);
 			#endif
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
+		/// Query support for presentation via a given physical device and queue<br/>
+		/// family.<br/>
+		/// The `instance` must have been created with extensions returned by<br/>
+		/// SDL_Vulkan_GetInstanceExtensions() enabled.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		public static bool VulkanGetPresentationSupport(VkInstance instance, VkPhysicalDevice physicalDevice, uint queueFamilyIndex)
 		{
-			byte** ret = GlobStorageDirectoryNative(storage, path, pattern, flags, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte** ret = GlobStorageDirectoryNative(storage, pStr0, pattern, flags, count);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pattern, flags, count);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppattern = &pattern)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppattern = pattern)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pattern != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte** ret = GlobStorageDirectoryNative(storage, path, pStr0, flags, count);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppattern = &pattern)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppattern = pattern)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (pattern != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(pattern);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pStr0, flags, count);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (byte* ppattern = &pattern)
-				{
-					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (byte* ppattern = pattern)
-				{
-					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (pattern != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte** ret = GlobStorageDirectoryNative(storage, pStr0, pStr1, flags, count);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					fixed (byte* ppattern = &pattern)
-					{
-						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, count);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					fixed (byte* ppattern = pattern)
-					{
-						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, count);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte* pStr1 = null;
-				int pStrSize1 = 0;
-				if (pattern != null)
-				{
-					pStrSize1 = Utils.GetByteCountUTF8(pattern);
-					if (pStrSize1 >= Utils.MaxStackallocSize)
-					{
-						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-					}
-					else
-					{
-						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-						pStr1 = pStrStack1;
-					}
-					int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-					pStr1[pStrOffset1] = 0;
-				}
-				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pStr1, flags, count);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, path, pattern, flags, (int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pattern, flags, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, pStr0, pattern, flags, (int*)pcount);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					fixed (int* pcount = &count)
-					{
-						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, (int*)pcount);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					fixed (int* pcount = &count)
-					{
-						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, (int*)pcount);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pattern, flags, (int*)pcount);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppattern = &pattern)
-			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppattern = pattern)
-			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pattern != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, path, pStr0, flags, (int*)pcount);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppattern = &pattern)
-				{
-					fixed (int* pcount = &count)
-					{
-						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppattern = pattern)
-				{
-					fixed (int* pcount = &count)
-					{
-						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (pattern != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(pattern);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pStr0, flags, (int*)pcount);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (byte* ppattern = &pattern)
-				{
-					fixed (int* pcount = &count)
-					{
-						byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (byte* ppattern = pattern)
-				{
-					fixed (int* pcount = &count)
-					{
-						byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] SDLStorage* storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (pattern != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobStorageDirectoryNative(storage, pStr0, pStr1, flags, (int*)pcount);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					fixed (byte* ppattern = &pattern)
-					{
-						fixed (int* pcount = &count)
-						{
-							byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					fixed (byte* ppattern = pattern)
-					{
-						fixed (int* pcount = &count)
-						{
-							byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, assuming<br/>
-		/// the `storage` object is thread-safe.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobStorageDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobStorageDirectory([NativeName(NativeNameType.Param, "storage")] [NativeName(NativeNameType.Type, "SDL_Storage *")] ref SDLStorage storage, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte* pStr1 = null;
-				int pStrSize1 = 0;
-				if (pattern != null)
-				{
-					pStrSize1 = Utils.GetByteCountUTF8(pattern);
-					if (pStrSize1 >= Utils.MaxStackallocSize)
-					{
-						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-					}
-					else
-					{
-						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-						pStr1 = pStrStack1;
-					}
-					int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-					pStr1[pStrOffset1] = 0;
-				}
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pStr1, flags, (int*)pcount);
-					if (pStrSize1 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr1);
-					}
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
-		/// The callback may modify the message, and should return true if the message<br/>
-		/// should continue to be processed, or false to prevent further processing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowsMessageHook")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowsMessageHookNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_WindowsMessageHook")] SDLWindowsMessageHook callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, Msg*, bool>, void*, void>)funcTable[1138])((delegate*<void*, Msg*, bool>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1138])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
-		/// The callback may modify the message, and should return true if the message<br/>
-		/// should continue to be processed, or false to prevent further processing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowsMessageHook")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetWindowsMessageHook([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_WindowsMessageHook")] SDLWindowsMessageHook callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			SetWindowsMessageHookNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Get the D3D9 adapter index that matches the specified display.<br/>
-		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
-		/// controls on which monitor a full screen application will appear.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDirect3D9AdapterIndex")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetDirect3D9AdapterIndexNative([NativeName(NativeNameType.Param, "displayID")] [NativeName(NativeNameType.Type, "SDL_DisplayID")] uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[1139])(displayID);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[1139])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D9 adapter index that matches the specified display.<br/>
-		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
-		/// controls on which monitor a full screen application will appear.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDirect3D9AdapterIndex")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDirect3D9AdapterIndex([NativeName(NativeNameType.Param, "displayID")] [NativeName(NativeNameType.Type, "SDL_DisplayID")] uint displayID)
-		{
-			int ret = GetDirect3D9AdapterIndexNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDXGIOutputInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetDXGIOutputInfoNative([NativeName(NativeNameType.Param, "displayID")] [NativeName(NativeNameType.Type, "SDL_DisplayID")] uint displayID, [NativeName(NativeNameType.Param, "adapterIndex")] [NativeName(NativeNameType.Type, "int *")] int* adapterIndex, [NativeName(NativeNameType.Param, "outputIndex")] [NativeName(NativeNameType.Type, "int *")] int* outputIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int*, int*, byte>)funcTable[1140])(displayID, adapterIndex, outputIndex);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[1140])(displayID, (nint)adapterIndex, (nint)outputIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDXGIOutputInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDXGIOutputInfo([NativeName(NativeNameType.Param, "displayID")] [NativeName(NativeNameType.Type, "SDL_DisplayID")] uint displayID, [NativeName(NativeNameType.Param, "adapterIndex")] [NativeName(NativeNameType.Type, "int *")] int* adapterIndex, [NativeName(NativeNameType.Param, "outputIndex")] [NativeName(NativeNameType.Type, "int *")] int* outputIndex)
-		{
-			byte ret = GetDXGIOutputInfoNative(displayID, adapterIndex, outputIndex);
+			byte ret = VulkanGetPresentationSupportNative(instance, physicalDevice, queueFamilyIndex);
 			return ret != 0;
 		}
 
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDXGIOutputInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDXGIOutputInfo([NativeName(NativeNameType.Param, "displayID")] [NativeName(NativeNameType.Type, "SDL_DisplayID")] uint displayID, [NativeName(NativeNameType.Param, "adapterIndex")] [NativeName(NativeNameType.Type, "int *")] ref int adapterIndex, [NativeName(NativeNameType.Param, "outputIndex")] [NativeName(NativeNameType.Type, "int *")] int* outputIndex)
-		{
-			fixed (int* padapterIndex = &adapterIndex)
-			{
-				byte ret = GetDXGIOutputInfoNative(displayID, (int*)padapterIndex, outputIndex);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDXGIOutputInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDXGIOutputInfo([NativeName(NativeNameType.Param, "displayID")] [NativeName(NativeNameType.Type, "SDL_DisplayID")] uint displayID, [NativeName(NativeNameType.Param, "adapterIndex")] [NativeName(NativeNameType.Type, "int *")] int* adapterIndex, [NativeName(NativeNameType.Param, "outputIndex")] [NativeName(NativeNameType.Type, "int *")] ref int outputIndex)
-		{
-			fixed (int* poutputIndex = &outputIndex)
-			{
-				byte ret = GetDXGIOutputInfoNative(displayID, adapterIndex, (int*)poutputIndex);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDXGIOutputInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDXGIOutputInfo([NativeName(NativeNameType.Param, "displayID")] [NativeName(NativeNameType.Type, "SDL_DisplayID")] uint displayID, [NativeName(NativeNameType.Param, "adapterIndex")] [NativeName(NativeNameType.Type, "int *")] ref int adapterIndex, [NativeName(NativeNameType.Param, "outputIndex")] [NativeName(NativeNameType.Type, "int *")] ref int outputIndex)
-		{
-			fixed (int* padapterIndex = &adapterIndex)
-			{
-				fixed (int* poutputIndex = &outputIndex)
-				{
-					byte ret = GetDXGIOutputInfoNative(displayID, (int*)padapterIndex, (int*)poutputIndex);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a callback for every X11 event.<br/>
-		/// The callback may modify the event, and should return true if the event<br/>
-		/// should continue to be processed, or false to prevent further processing.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetX11EventHook")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetX11EventHookNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_X11EventHook")] SDLX11EventHook callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, XEvent*, bool>, void*, void>)funcTable[1141])((delegate*<void*, XEvent*, bool>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1141])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a callback for every X11 event.<br/>
-		/// The callback may modify the event, and should return true if the event<br/>
-		/// should continue to be processed, or false to prevent further processing.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetX11EventHook")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetX11EventHook([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_X11EventHook")] SDLX11EventHook callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			SetX11EventHookNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Query if the current device is a tablet.<br/>
-		/// If SDL can't determine this, it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IsTablet")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsTabletNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[1142])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[1142])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query if the current device is a tablet.<br/>
-		/// If SDL can't determine this, it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IsTablet")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool IsTablet()
-		{
-			byte ret = IsTabletNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query if the current device is a TV.<br/>
-		/// If SDL can't determine this, it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IsTV")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsTVNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[1143])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[1143])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query if the current device is a TV.<br/>
-		/// If SDL can't determine this, it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IsTV")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool IsTV()
-		{
-			byte ret = IsTVNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the application sandbox environment, if any.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSandbox")]
-		[return: NativeName(NativeNameType.Type, "SDL_Sandbox")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSandbox GetSandboxNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSandbox>)funcTable[1144])();
-			#else
-			return (SDLSandbox)((delegate* unmanaged[Cdecl]<SDLSandbox>)funcTable[1144])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the application sandbox environment, if any.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSandbox")]
-		[return: NativeName(NativeNameType.Type, "SDL_Sandbox")]
-		public static SDLSandbox GetSandbox()
-		{
-			SDLSandbox ret = GetSandboxNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationWillTerminate.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillTerminate")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationWillTerminateNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1145])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1145])();
-			#endif
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationWillTerminate.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillTerminate")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void OnApplicationWillTerminate()
-		{
-			OnApplicationWillTerminateNative();
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationDidReceiveMemoryWarning.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidReceiveMemoryWarning")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationDidReceiveMemoryWarningNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1146])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1146])();
-			#endif
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationDidReceiveMemoryWarning.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidReceiveMemoryWarning")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void OnApplicationDidReceiveMemoryWarning()
-		{
-			OnApplicationDidReceiveMemoryWarningNative();
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationWillResignActive.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillEnterBackground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationWillEnterBackgroundNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1147])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1147])();
-			#endif
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationWillResignActive.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillEnterBackground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void OnApplicationWillEnterBackground()
-		{
-			OnApplicationWillEnterBackgroundNative();
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationDidEnterBackground.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidEnterBackground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationDidEnterBackgroundNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1148])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1148])();
-			#endif
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationDidEnterBackground.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidEnterBackground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void OnApplicationDidEnterBackground()
-		{
-			OnApplicationDidEnterBackgroundNative();
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationWillEnterForeground.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillEnterForeground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationWillEnterForegroundNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1149])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1149])();
-			#endif
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationWillEnterForeground.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillEnterForeground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void OnApplicationWillEnterForeground()
-		{
-			OnApplicationWillEnterForegroundNative();
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationDidBecomeActive.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidEnterForeground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationDidEnterForegroundNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1150])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1150])();
-			#endif
-		}
-
-		/// <summary>
-		/// Let iOS apps with external event handling report<br/>
-		/// onApplicationDidBecomeActive.<br/>
-		/// This functions allows iOS apps that have their own event handling to hook<br/>
-		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
-		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
-		/// available on all platforms, in case it might be useful for some specific<br/>
-		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
-		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidEnterForeground")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void OnApplicationDidEnterForeground()
-		{
-			OnApplicationDidEnterForegroundNative();
-		}
-
-		/// <summary>
-		/// Gets the current preferred date and time format for the system locale.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, the preferred<br/>
-		/// formats can change, usually because the user has changed a system<br/>
-		/// preference outside of your program.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDateTimeLocalePreferences")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetDateTimeLocalePreferencesNative([NativeName(NativeNameType.Param, "dateFormat")] [NativeName(NativeNameType.Type, "SDL_DateFormat *")] SDLDateFormat* dateFormat, [NativeName(NativeNameType.Param, "timeFormat")] [NativeName(NativeNameType.Type, "SDL_TimeFormat *")] SDLTimeFormat* timeFormat)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLDateFormat*, SDLTimeFormat*, byte>)funcTable[1151])(dateFormat, timeFormat);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1151])((nint)dateFormat, (nint)timeFormat);
-			#endif
-		}
-
-		/// <summary>
-		/// Gets the current preferred date and time format for the system locale.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, the preferred<br/>
-		/// formats can change, usually because the user has changed a system<br/>
-		/// preference outside of your program.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDateTimeLocalePreferences")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDateTimeLocalePreferences([NativeName(NativeNameType.Param, "dateFormat")] [NativeName(NativeNameType.Type, "SDL_DateFormat *")] SDLDateFormat* dateFormat, [NativeName(NativeNameType.Param, "timeFormat")] [NativeName(NativeNameType.Type, "SDL_TimeFormat *")] SDLTimeFormat* timeFormat)
-		{
-			byte ret = GetDateTimeLocalePreferencesNative(dateFormat, timeFormat);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Gets the current preferred date and time format for the system locale.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, the preferred<br/>
-		/// formats can change, usually because the user has changed a system<br/>
-		/// preference outside of your program.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDateTimeLocalePreferences")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDateTimeLocalePreferences([NativeName(NativeNameType.Param, "dateFormat")] [NativeName(NativeNameType.Type, "SDL_DateFormat *")] ref SDLDateFormat dateFormat, [NativeName(NativeNameType.Param, "timeFormat")] [NativeName(NativeNameType.Type, "SDL_TimeFormat *")] SDLTimeFormat* timeFormat)
-		{
-			fixed (SDLDateFormat* pdateFormat = &dateFormat)
-			{
-				byte ret = GetDateTimeLocalePreferencesNative((SDLDateFormat*)pdateFormat, timeFormat);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Gets the current preferred date and time format for the system locale.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, the preferred<br/>
-		/// formats can change, usually because the user has changed a system<br/>
-		/// preference outside of your program.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDateTimeLocalePreferences")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDateTimeLocalePreferences([NativeName(NativeNameType.Param, "dateFormat")] [NativeName(NativeNameType.Type, "SDL_DateFormat *")] SDLDateFormat* dateFormat, [NativeName(NativeNameType.Param, "timeFormat")] [NativeName(NativeNameType.Type, "SDL_TimeFormat *")] ref SDLTimeFormat timeFormat)
-		{
-			fixed (SDLTimeFormat* ptimeFormat = &timeFormat)
-			{
-				byte ret = GetDateTimeLocalePreferencesNative(dateFormat, (SDLTimeFormat*)ptimeFormat);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Gets the current preferred date and time format for the system locale.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, the preferred<br/>
-		/// formats can change, usually because the user has changed a system<br/>
-		/// preference outside of your program.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDateTimeLocalePreferences")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetDateTimeLocalePreferences([NativeName(NativeNameType.Param, "dateFormat")] [NativeName(NativeNameType.Type, "SDL_DateFormat *")] ref SDLDateFormat dateFormat, [NativeName(NativeNameType.Param, "timeFormat")] [NativeName(NativeNameType.Type, "SDL_TimeFormat *")] ref SDLTimeFormat timeFormat)
-		{
-			fixed (SDLDateFormat* pdateFormat = &dateFormat)
-			{
-				fixed (SDLTimeFormat* ptimeFormat = &timeFormat)
-				{
-					byte ret = GetDateTimeLocalePreferencesNative((SDLDateFormat*)pdateFormat, (SDLTimeFormat*)ptimeFormat);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Gets the current value of the system realtime clock in nanoseconds since<br/>
-		/// Jan 1, 1970 in Universal Coordinated Time (UTC).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetCurrentTimeNative([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] long* ticks)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long*, byte>)funcTable[1152])(ticks);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1152])((nint)ticks);
-			#endif
-		}
-
-		/// <summary>
-		/// Gets the current value of the system realtime clock in nanoseconds since<br/>
-		/// Jan 1, 1970 in Universal Coordinated Time (UTC).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentTime([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] long* ticks)
-		{
-			byte ret = GetCurrentTimeNative(ticks);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Gets the current value of the system realtime clock in nanoseconds since<br/>
-		/// Jan 1, 1970 in Universal Coordinated Time (UTC).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetCurrentTime([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] ref long ticks)
-		{
-			fixed (long* pticks = &ticks)
-			{
-				byte ret = GetCurrentTimeNative((long*)pticks);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Converts an SDL_Time in nanoseconds since the epoch to a calendar time in<br/>
-		/// the SDL_DateTime format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToDateTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TimeToDateTimeNative([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime *")] SDLDateTime* dt, [NativeName(NativeNameType.Param, "localTime")] [NativeName(NativeNameType.Type, "bool")] byte localTime)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, SDLDateTime*, byte, byte>)funcTable[1153])(ticks, dt, localTime);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<long, nint, byte, byte>)funcTable[1153])(ticks, (nint)dt, localTime);
-			#endif
-		}
-
-		/// <summary>
-		/// Converts an SDL_Time in nanoseconds since the epoch to a calendar time in<br/>
-		/// the SDL_DateTime format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToDateTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TimeToDateTime([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime *")] SDLDateTime* dt, [NativeName(NativeNameType.Param, "localTime")] [NativeName(NativeNameType.Type, "bool")] bool localTime)
-		{
-			byte ret = TimeToDateTimeNative(ticks, dt, localTime ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Converts an SDL_Time in nanoseconds since the epoch to a calendar time in<br/>
-		/// the SDL_DateTime format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToDateTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TimeToDateTime([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime *")] ref SDLDateTime dt, [NativeName(NativeNameType.Param, "localTime")] [NativeName(NativeNameType.Type, "bool")] bool localTime)
-		{
-			fixed (SDLDateTime* pdt = &dt)
-			{
-				byte ret = TimeToDateTimeNative(ticks, (SDLDateTime*)pdt, localTime ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
-		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
-		/// it may remain unset.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DateTimeToTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte DateTimeToTimeNative([NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime const *")] SDLDateTime* dt, [NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] long* ticks)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLDateTime*, long*, byte>)funcTable[1154])(dt, ticks);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1154])((nint)dt, (nint)ticks);
-			#endif
-		}
-
-		/// <summary>
-		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
-		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
-		/// it may remain unset.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DateTimeToTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool DateTimeToTime([NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime const *")] SDLDateTime* dt, [NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] long* ticks)
-		{
-			byte ret = DateTimeToTimeNative(dt, ticks);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
-		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
-		/// it may remain unset.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DateTimeToTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool DateTimeToTime([NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime const *")] ref SDLDateTime dt, [NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] long* ticks)
-		{
-			fixed (SDLDateTime* pdt = &dt)
-			{
-				byte ret = DateTimeToTimeNative((SDLDateTime*)pdt, ticks);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
-		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
-		/// it may remain unset.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DateTimeToTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool DateTimeToTime([NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime const *")] SDLDateTime* dt, [NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] ref long ticks)
-		{
-			fixed (long* pticks = &ticks)
-			{
-				byte ret = DateTimeToTimeNative(dt, (long*)pticks);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
-		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
-		/// it may remain unset.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DateTimeToTime")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool DateTimeToTime([NativeName(NativeNameType.Param, "dt")] [NativeName(NativeNameType.Type, "SDL_DateTime const *")] ref SDLDateTime dt, [NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time *")] ref long ticks)
-		{
-			fixed (SDLDateTime* pdt = &dt)
-			{
-				fixed (long* pticks = &ticks)
-				{
-					byte ret = DateTimeToTimeNative((SDLDateTime*)pdt, (long*)pticks);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
-		/// since January 1, 1601).<br/>
-		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToWindows")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TimeToWindowsNative([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dwLowDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* dwLowDateTime, [NativeName(NativeNameType.Param, "dwHighDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* dwHighDateTime)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<long, uint*, uint*, void>)funcTable[1155])(ticks, dwLowDateTime, dwHighDateTime);
-			#else
-			((delegate* unmanaged[Cdecl]<long, nint, nint, void>)funcTable[1155])(ticks, (nint)dwLowDateTime, (nint)dwHighDateTime);
-			#endif
-		}
-
-		/// <summary>
-		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
-		/// since January 1, 1601).<br/>
-		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToWindows")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TimeToWindows([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dwLowDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* dwLowDateTime, [NativeName(NativeNameType.Param, "dwHighDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* dwHighDateTime)
-		{
-			TimeToWindowsNative(ticks, dwLowDateTime, dwHighDateTime);
-		}
-
-		/// <summary>
-		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
-		/// since January 1, 1601).<br/>
-		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToWindows")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TimeToWindows([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dwLowDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint dwLowDateTime, [NativeName(NativeNameType.Param, "dwHighDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* dwHighDateTime)
-		{
-			fixed (uint* pdwLowDateTime = &dwLowDateTime)
-			{
-				TimeToWindowsNative(ticks, (uint*)pdwLowDateTime, dwHighDateTime);
-			}
-		}
-
-		/// <summary>
-		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
-		/// since January 1, 1601).<br/>
-		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToWindows")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TimeToWindows([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dwLowDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* dwLowDateTime, [NativeName(NativeNameType.Param, "dwHighDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint dwHighDateTime)
-		{
-			fixed (uint* pdwHighDateTime = &dwHighDateTime)
-			{
-				TimeToWindowsNative(ticks, dwLowDateTime, (uint*)pdwHighDateTime);
-			}
-		}
-
-		/// <summary>
-		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
-		/// since January 1, 1601).<br/>
-		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeToWindows")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TimeToWindows([NativeName(NativeNameType.Param, "ticks")] [NativeName(NativeNameType.Type, "SDL_Time")] long ticks, [NativeName(NativeNameType.Param, "dwLowDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint dwLowDateTime, [NativeName(NativeNameType.Param, "dwHighDateTime")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint dwHighDateTime)
-		{
-			fixed (uint* pdwLowDateTime = &dwLowDateTime)
-			{
-				fixed (uint* pdwHighDateTime = &dwHighDateTime)
-				{
-					TimeToWindowsNative(ticks, (uint*)pdwLowDateTime, (uint*)pdwHighDateTime);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Converts a Windows FILETIME (100-nanosecond intervals since January 1,<br/>
-		/// 1601) to an SDL time.<br/>
-		/// This function takes the two 32-bit values of the FILETIME structure as<br/>
-		/// parameters.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeFromWindows")]
-		[return: NativeName(NativeNameType.Type, "SDL_Time")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long TimeFromWindowsNative([NativeName(NativeNameType.Param, "dwLowDateTime")] [NativeName(NativeNameType.Type, "Uint32")] uint dwLowDateTime, [NativeName(NativeNameType.Param, "dwHighDateTime")] [NativeName(NativeNameType.Type, "Uint32")] uint dwHighDateTime)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, long>)funcTable[1156])(dwLowDateTime, dwHighDateTime);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<uint, uint, long>)funcTable[1156])(dwLowDateTime, dwHighDateTime);
-			#endif
-		}
-
-		/// <summary>
-		/// Converts a Windows FILETIME (100-nanosecond intervals since January 1,<br/>
-		/// 1601) to an SDL time.<br/>
-		/// This function takes the two 32-bit values of the FILETIME structure as<br/>
-		/// parameters.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TimeFromWindows")]
-		[return: NativeName(NativeNameType.Type, "SDL_Time")]
-		public static long TimeFromWindows([NativeName(NativeNameType.Param, "dwLowDateTime")] [NativeName(NativeNameType.Type, "Uint32")] uint dwLowDateTime, [NativeName(NativeNameType.Param, "dwHighDateTime")] [NativeName(NativeNameType.Type, "Uint32")] uint dwHighDateTime)
-		{
-			long ret = TimeFromWindowsNative(dwLowDateTime, dwHighDateTime);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of days in a month for a given year.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDaysInMonth")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetDaysInMonthNative([NativeName(NativeNameType.Param, "year")] [NativeName(NativeNameType.Type, "int")] int year, [NativeName(NativeNameType.Param, "month")] [NativeName(NativeNameType.Type, "int")] int month)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1157])(year, month);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1157])(year, month);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of days in a month for a given year.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDaysInMonth")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDaysInMonth([NativeName(NativeNameType.Param, "year")] [NativeName(NativeNameType.Type, "int")] int year, [NativeName(NativeNameType.Param, "month")] [NativeName(NativeNameType.Type, "int")] int month)
-		{
-			int ret = GetDaysInMonthNative(year, month);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the day of year for a calendar date.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDayOfYear")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetDayOfYearNative([NativeName(NativeNameType.Param, "year")] [NativeName(NativeNameType.Type, "int")] int year, [NativeName(NativeNameType.Param, "month")] [NativeName(NativeNameType.Type, "int")] int month, [NativeName(NativeNameType.Param, "day")] [NativeName(NativeNameType.Type, "int")] int day)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1158])(year, month, day);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1158])(year, month, day);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the day of year for a calendar date.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDayOfYear")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDayOfYear([NativeName(NativeNameType.Param, "year")] [NativeName(NativeNameType.Type, "int")] int year, [NativeName(NativeNameType.Param, "month")] [NativeName(NativeNameType.Type, "int")] int month, [NativeName(NativeNameType.Param, "day")] [NativeName(NativeNameType.Type, "int")] int day)
-		{
-			int ret = GetDayOfYearNative(year, month, day);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the day of week for a calendar date.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDayOfWeek")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetDayOfWeekNative([NativeName(NativeNameType.Param, "year")] [NativeName(NativeNameType.Type, "int")] int year, [NativeName(NativeNameType.Param, "month")] [NativeName(NativeNameType.Type, "int")] int month, [NativeName(NativeNameType.Param, "day")] [NativeName(NativeNameType.Type, "int")] int day)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1159])(year, month, day);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1159])(year, month, day);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the day of week for a calendar date.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDayOfWeek")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDayOfWeek([NativeName(NativeNameType.Param, "year")] [NativeName(NativeNameType.Type, "int")] int year, [NativeName(NativeNameType.Param, "month")] [NativeName(NativeNameType.Type, "int")] int month, [NativeName(NativeNameType.Param, "day")] [NativeName(NativeNameType.Type, "int")] int day)
-		{
-			int ret = GetDayOfWeekNative(year, month, day);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of milliseconds since SDL library initialization.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTicks")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetTicksNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1160])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1160])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of milliseconds since SDL library initialization.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTicks")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong GetTicks()
-		{
-			ulong ret = GetTicksNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of nanoseconds since SDL library initialization.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTicksNS")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetTicksNSNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1161])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1161])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of nanoseconds since SDL library initialization.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTicksNS")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong GetTicksNS()
-		{
-			ulong ret = GetTicksNSNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current value of the high resolution counter.<br/>
-		/// This function is typically used for profiling.<br/>
-		/// The counter values are only meaningful relative to each other. Differences<br/>
-		/// between values can be converted to times by using<br/>
-		/// SDL_GetPerformanceFrequency().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPerformanceCounter")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetPerformanceCounterNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1162])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1162])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current value of the high resolution counter.<br/>
-		/// This function is typically used for profiling.<br/>
-		/// The counter values are only meaningful relative to each other. Differences<br/>
-		/// between values can be converted to times by using<br/>
-		/// SDL_GetPerformanceFrequency().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPerformanceCounter")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong GetPerformanceCounter()
-		{
-			ulong ret = GetPerformanceCounterNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the count per second of the high resolution counter.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPerformanceFrequency")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetPerformanceFrequencyNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1163])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1163])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the count per second of the high resolution counter.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPerformanceFrequency")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong GetPerformanceFrequency()
-		{
-			ulong ret = GetPerformanceFrequencyNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Wait a specified number of milliseconds before returning.<br/>
-		/// This function waits a specified number of milliseconds before returning. It<br/>
-		/// waits at least the specified time, but possibly longer due to OS<br/>
-		/// scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Delay")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DelayNative([NativeName(NativeNameType.Param, "ms")] [NativeName(NativeNameType.Type, "Uint32")] uint ms)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1164])(ms);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1164])(ms);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait a specified number of milliseconds before returning.<br/>
-		/// This function waits a specified number of milliseconds before returning. It<br/>
-		/// waits at least the specified time, but possibly longer due to OS<br/>
-		/// scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Delay")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Delay([NativeName(NativeNameType.Param, "ms")] [NativeName(NativeNameType.Type, "Uint32")] uint ms)
-		{
-			DelayNative(ms);
-		}
-
-		/// <summary>
-		/// Wait a specified number of nanoseconds before returning.<br/>
-		/// This function waits a specified number of nanoseconds before returning. It<br/>
-		/// waits at least the specified time, but possibly longer due to OS<br/>
-		/// scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelayNS")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DelayNSNative([NativeName(NativeNameType.Param, "ns")] [NativeName(NativeNameType.Type, "Uint64")] ulong ns)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1165])(ns);
-			#else
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1165])(ns);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait a specified number of nanoseconds before returning.<br/>
-		/// This function waits a specified number of nanoseconds before returning. It<br/>
-		/// waits at least the specified time, but possibly longer due to OS<br/>
-		/// scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelayNS")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DelayNS([NativeName(NativeNameType.Param, "ns")] [NativeName(NativeNameType.Type, "Uint64")] ulong ns)
-		{
-			DelayNSNative(ns);
-		}
-
-		/// <summary>
-		/// Wait a specified number of nanoseconds before returning.<br/>
-		/// This function waits a specified number of nanoseconds before returning. It<br/>
-		/// will attempt to wait as close to the requested time as possible, busy<br/>
-		/// waiting if necessary, but could return later due to OS scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelayPrecise")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DelayPreciseNative([NativeName(NativeNameType.Param, "ns")] [NativeName(NativeNameType.Type, "Uint64")] ulong ns)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1166])(ns);
-			#else
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1166])(ns);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait a specified number of nanoseconds before returning.<br/>
-		/// This function waits a specified number of nanoseconds before returning. It<br/>
-		/// will attempt to wait as close to the requested time as possible, busy<br/>
-		/// waiting if necessary, but could return later due to OS scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelayPrecise")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DelayPrecise([NativeName(NativeNameType.Param, "ns")] [NativeName(NativeNameType.Type, "Uint64")] ulong ns)
-		{
-			DelayPreciseNative(ns);
-		}
-
-		/// <summary>
-		/// Call a callback function at a future time.<br/>
-		/// The callback function is passed the current timer interval and the user<br/>
-		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
-		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
-		/// canceled and will be removed.<br/>
-		/// The callback is run on a separate thread, and for short timeouts can<br/>
-		/// potentially be called before this function returns.<br/>
-		/// Timers take into account the amount of time it took to execute the<br/>
-		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
-		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
-		/// iteration.<br/>
-		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
-		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
-		/// callback needs to adjust for variances.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddTimer")]
-		[return: NativeName(NativeNameType.Type, "SDL_TimerID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AddTimerNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint32")] uint interval, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_TimerCallback")] SDLTimerCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void*, int, uint, uint>, void*, int>)funcTable[1167])(interval, (delegate*<void*, int, uint, uint>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[1167])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Call a callback function at a future time.<br/>
-		/// The callback function is passed the current timer interval and the user<br/>
-		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
-		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
-		/// canceled and will be removed.<br/>
-		/// The callback is run on a separate thread, and for short timeouts can<br/>
-		/// potentially be called before this function returns.<br/>
-		/// Timers take into account the amount of time it took to execute the<br/>
-		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
-		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
-		/// iteration.<br/>
-		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
-		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
-		/// callback needs to adjust for variances.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddTimer")]
-		[return: NativeName(NativeNameType.Type, "SDL_TimerID")]
-		public static int AddTimer([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint32")] uint interval, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_TimerCallback")] SDLTimerCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			int ret = AddTimerNative(interval, callback, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Call a callback function at a future time.<br/>
-		/// The callback function is passed the current timer interval and the user<br/>
-		/// supplied parameter from the SDL_AddTimerNS() call and should return the<br/>
-		/// next timer interval. If the value returned from the callback is 0, the<br/>
-		/// timer is canceled and will be removed.<br/>
-		/// The callback is run on a separate thread, and for short timeouts can<br/>
-		/// potentially be called before this function returns.<br/>
-		/// Timers take into account the amount of time it took to execute the<br/>
-		/// callback. For example, if the callback took 250 ns to execute and returned<br/>
-		/// 1000 (ns), the timer would only wait another 750 ns before its next<br/>
-		/// iteration.<br/>
-		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
-		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
-		/// callback needs to adjust for variances.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddTimerNS")]
-		[return: NativeName(NativeNameType.Type, "SDL_TimerID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AddTimerNSNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint64")] ulong interval, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_NSTimerCallback")] SDLNSTimerCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, delegate*<void*, int, ulong, ulong>, void*, int>)funcTable[1168])(interval, (delegate*<void*, int, ulong, ulong>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<ulong, nint, nint, int>)funcTable[1168])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Call a callback function at a future time.<br/>
-		/// The callback function is passed the current timer interval and the user<br/>
-		/// supplied parameter from the SDL_AddTimerNS() call and should return the<br/>
-		/// next timer interval. If the value returned from the callback is 0, the<br/>
-		/// timer is canceled and will be removed.<br/>
-		/// The callback is run on a separate thread, and for short timeouts can<br/>
-		/// potentially be called before this function returns.<br/>
-		/// Timers take into account the amount of time it took to execute the<br/>
-		/// callback. For example, if the callback took 250 ns to execute and returned<br/>
-		/// 1000 (ns), the timer would only wait another 750 ns before its next<br/>
-		/// iteration.<br/>
-		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
-		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
-		/// callback needs to adjust for variances.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddTimerNS")]
-		[return: NativeName(NativeNameType.Type, "SDL_TimerID")]
-		public static int AddTimerNS([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint64")] ulong interval, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_NSTimerCallback")] SDLNSTimerCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			int ret = AddTimerNSNative(interval, callback, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Remove a timer created with SDL_AddTimer().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveTimer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RemoveTimerNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int id)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[1169])(id);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[1169])(id);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove a timer created with SDL_AddTimer().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveTimer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RemoveTimer([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int id)
-		{
-			byte ret = RemoveTimerNative(id);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTray* CreateTrayNative([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] byte* tooltip)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, SDLTray*>)funcTable[1170])(icon, tooltip);
-			#else
-			return (SDLTray*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1170])((nint)icon, (nint)tooltip);
-			#endif
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] byte* tooltip)
-		{
-			SDLTray* ret = CreateTrayNative(icon, tooltip);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] byte* tooltip)
-		{
-			fixed (SDLSurface* picon = &icon)
-			{
-				SDLTray* ret = CreateTrayNative((SDLSurface*)picon, tooltip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ref byte tooltip)
-		{
-			fixed (byte* ptooltip = &tooltip)
-			{
-				SDLTray* ret = CreateTrayNative(icon, (byte*)ptooltip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tooltip)
-		{
-			fixed (byte* ptooltip = tooltip)
-			{
-				SDLTray* ret = CreateTrayNative(icon, (byte*)ptooltip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] string tooltip)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tooltip != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tooltip);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLTray* ret = CreateTrayNative(icon, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ref byte tooltip)
-		{
-			fixed (SDLSurface* picon = &icon)
-			{
-				fixed (byte* ptooltip = &tooltip)
-				{
-					SDLTray* ret = CreateTrayNative((SDLSurface*)picon, (byte*)ptooltip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tooltip)
-		{
-			fixed (SDLSurface* picon = &icon)
-			{
-				fixed (byte* ptooltip = tooltip)
-				{
-					SDLTray* ret = CreateTrayNative((SDLSurface*)picon, (byte*)ptooltip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
-		/// Many platforms advise not using a system tray unless persistence is a<br/>
-		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
-		/// feel like it clutters their interface.<br/>
-		/// Using tray icons require the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTray")]
-		[return: NativeName(NativeNameType.Type, "SDL_Tray *")]
-		public static SDLTray* CreateTray([NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface icon, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] string tooltip)
-		{
-			fixed (SDLSurface* picon = &icon)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (tooltip != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(tooltip);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SDLTray* ret = CreateTrayNative((SDLSurface*)picon, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's icon.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayIcon")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetTrayIconNative([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTray*, SDLSurface*, void>)funcTable[1171])(tray, icon);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1171])((nint)tray, (nint)icon);
-			#endif
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's icon.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayIcon")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayIcon([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon)
-		{
-			SetTrayIconNative(tray, icon);
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's icon.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayIcon")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayIcon([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* icon)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				SetTrayIconNative((SDLTray*)ptray, icon);
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's icon.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayIcon")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayIcon([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface icon)
-		{
-			fixed (SDLSurface* picon = &icon)
-			{
-				SetTrayIconNative(tray, (SDLSurface*)picon);
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's icon.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayIcon")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayIcon([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface icon)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				fixed (SDLSurface* picon = &icon)
-				{
-					SetTrayIconNative((SDLTray*)ptray, (SDLSurface*)picon);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetTrayTooltipNative([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] byte* tooltip)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTray*, byte*, void>)funcTable[1172])(tray, tooltip);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1172])((nint)tray, (nint)tooltip);
-			#endif
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] byte* tooltip)
-		{
-			SetTrayTooltipNative(tray, tooltip);
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] byte* tooltip)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				SetTrayTooltipNative((SDLTray*)ptray, tooltip);
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ref byte tooltip)
-		{
-			fixed (byte* ptooltip = &tooltip)
-			{
-				SetTrayTooltipNative(tray, (byte*)ptooltip);
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tooltip)
-		{
-			fixed (byte* ptooltip = tooltip)
-			{
-				SetTrayTooltipNative(tray, (byte*)ptooltip);
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] string tooltip)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tooltip != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tooltip);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetTrayTooltipNative(tray, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ref byte tooltip)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				fixed (byte* ptooltip = &tooltip)
-				{
-					SetTrayTooltipNative((SDLTray*)ptray, (byte*)ptooltip);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tooltip)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				fixed (byte* ptooltip = tooltip)
-				{
-					SetTrayTooltipNative((SDLTray*)ptray, (byte*)ptooltip);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Updates the system tray icon's tooltip.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTrayTooltip")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetTrayTooltip([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray, [NativeName(NativeNameType.Param, "tooltip")] [NativeName(NativeNameType.Type, "char const *")] string tooltip)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (tooltip != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(tooltip);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetTrayTooltipNative((SDLTray*)ptray, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a menu for a system tray.<br/>
-		/// This should be called at most once per tray icon.<br/>
-		/// This function does the same thing as SDL_CreateTraySubmenu(), except that<br/>
-		/// it takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTrayMenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTrayMenu* CreateTrayMenuNative([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTray*, SDLTrayMenu*>)funcTable[1173])(tray);
-			#else
-			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1173])((nint)tray);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a menu for a system tray.<br/>
-		/// This should be called at most once per tray icon.<br/>
-		/// This function does the same thing as SDL_CreateTraySubmenu(), except that<br/>
-		/// it takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTrayMenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* CreateTrayMenu([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] SDLTray* tray)
-		{
-			SDLTrayMenu* ret = CreateTrayMenuNative(tray);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a menu for a system tray.<br/>
-		/// This should be called at most once per tray icon.<br/>
-		/// This function does the same thing as SDL_CreateTraySubmenu(), except that<br/>
-		/// it takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTrayMenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* CreateTrayMenu([NativeName(NativeNameType.Param, "tray")] [NativeName(NativeNameType.Type, "SDL_Tray *")] ref SDLTray tray)
-		{
-			fixed (SDLTray* ptray = &tray)
-			{
-				SDLTrayMenu* ret = CreateTrayMenuNative((SDLTray*)ptray);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a submenu for a system tray entry.<br/>
-		/// This should be called at most once per tray entry.<br/>
-		/// This function does the same thing as SDL_CreateTrayMenu, except that it<br/>
-		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTraySubmenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTrayMenu* CreateTraySubmenuNative([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, SDLTrayMenu*>)funcTable[1174])(entry);
-			#else
-			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1174])((nint)entry);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a submenu for a system tray entry.<br/>
-		/// This should be called at most once per tray entry.<br/>
-		/// This function does the same thing as SDL_CreateTrayMenu, except that it<br/>
-		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
-		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called on the thread that created the<br/>
-		/// tray.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTraySubmenu")]
-		[return: NativeName(NativeNameType.Type, "SDL_TrayMenu *")]
-		public static SDLTrayMenu* CreateTraySubmenu([NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry)
-		{
-			SDLTrayMenu* ret = CreateTraySubmenuNative(entry);
-			return ret;
-		}
 	}
 }

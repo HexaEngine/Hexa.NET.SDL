@@ -21,71 +21,52 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureRegion")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureRegion
 	{
 		/// <summary>
 		/// The texture used in the copy operation. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "texture")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The mip level index to transfer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mip_level")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint MipLevel;
 
 		/// <summary>
 		/// The layer index to transfer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "layer")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Layer;
 
 		/// <summary>
 		/// The left offset of the region. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint X;
 
 		/// <summary>
 		/// The top offset of the region. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Y;
 
 		/// <summary>
 		/// The front offset of the region. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "z")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Z;
 
 		/// <summary>
 		/// The width of the region. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint W;
 
 		/// <summary>
 		/// The height of the region. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint H;
 
 		/// <summary>
 		/// The depth of the region. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "d")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint D;
 
 

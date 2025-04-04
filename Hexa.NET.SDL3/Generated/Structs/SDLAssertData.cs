@@ -22,57 +22,42 @@ namespace Hexa.NET.SDL3
 	/// returned as a linked list from SDL_GetAssertionReport().<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_AssertData")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAssertData
 	{
 		/// <summary>
 		/// true if app should always continue when assertion is triggered. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "always_ignore")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte AlwaysIgnore;
 
 		/// <summary>
 		/// Number of times this assertion has been triggered. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "trigger_count")]
-		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint TriggerCount;
 
 		/// <summary>
 		/// A string of this assert's test code. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "condition")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Condition;
 
 		/// <summary>
 		/// The source file where this assert lives. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "filename")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Filename;
 
 		/// <summary>
 		/// The line in `filename` where this assert lives. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "linenum")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Linenum;
 
 		/// <summary>
 		/// The name of the function where this assert lives. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "function")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Function;
 
 		/// <summary>
 		/// next item in the linked list. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "next")]
-		[NativeName(NativeNameType.Type, "SDL_AssertData const *")]
 		public unsafe SDLAssertData* Next;
 
 

@@ -21,22 +21,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTransferBufferLocation")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTransferBufferLocation
 	{
 		/// <summary>
 		/// The transfer buffer used in the transfer operation. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "transfer_buffer")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
 		public unsafe SDLGPUTransferBuffer* TransferBuffer;
 
 		/// <summary>
 		/// The starting byte of the buffer data in the transfer buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "offset")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 

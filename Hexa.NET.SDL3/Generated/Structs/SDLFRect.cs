@@ -21,21 +21,12 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_FRect")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLFRect
 	{
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float W;
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float H;
 
 		public unsafe SDLFRect(float x = default, float y = default, float w = default, float h = default)

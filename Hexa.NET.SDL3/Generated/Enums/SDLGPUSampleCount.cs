@@ -19,36 +19,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUSampleCount")]
 	[Flags]
 	public enum SDLGPUSampleCount : int
 	{
 		/// <summary>
 		/// No multisampling. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SAMPLECOUNT_1")]
-		[NativeName(NativeNameType.Value, "0")]
 		Samplecount1 = unchecked(0),
 
 		/// <summary>
 		/// MSAA 2x <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SAMPLECOUNT_2")]
-		[NativeName(NativeNameType.Value, "1")]
 		Samplecount2 = unchecked(1),
 
 		/// <summary>
 		/// MSAA 4x <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SAMPLECOUNT_4")]
-		[NativeName(NativeNameType.Value, "2")]
 		Samplecount4 = unchecked(2),
 
 		/// <summary>
 		/// MSAA 8x <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SAMPLECOUNT_8")]
-		[NativeName(NativeNameType.Value, "3")]
 		Samplecount8 = unchecked(3),
 	}
 }

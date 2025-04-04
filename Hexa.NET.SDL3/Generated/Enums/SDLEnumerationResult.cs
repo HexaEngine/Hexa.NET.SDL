@@ -17,29 +17,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_EnumerationResult")]
 	[Flags]
 	public enum SDLEnumerationResult : int
 	{
 		/// <summary>
 		/// Value that requests that enumeration continue. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ENUM_CONTINUE")]
-		[NativeName(NativeNameType.Value, "0")]
 		EnumContinue = unchecked(0),
 
 		/// <summary>
 		/// Value that requests that enumeration stop, successfully. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ENUM_SUCCESS")]
-		[NativeName(NativeNameType.Value, "1")]
 		EnumSuccess = unchecked(1),
 
 		/// <summary>
 		/// Value that requests that enumeration stop, as a failure. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ENUM_FAILURE")]
-		[NativeName(NativeNameType.Value, "2")]
 		EnumFailure = unchecked(2),
 	}
 }

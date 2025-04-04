@@ -21,46 +21,31 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUStorageTextureReadWriteBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUStorageTextureReadWriteBinding
 	{
 		/// <summary>
 		/// The texture to bind. Must have been created with SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_WRITE or SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "texture")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The mip level index to bind. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mip_level")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint MipLevel;
 
 		/// <summary>
 		/// The layer index to bind. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "layer")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Layer;
 
 		/// <summary>
 		/// true cycles the texture if it is already bound. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "cycle")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
-		[NativeName(NativeNameType.Field, "padding3")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
 		public unsafe SDLGPUStorageTextureReadWriteBinding(SDLGPUTexture* texture = default, uint mipLevel = default, uint layer = default, bool cycle = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)

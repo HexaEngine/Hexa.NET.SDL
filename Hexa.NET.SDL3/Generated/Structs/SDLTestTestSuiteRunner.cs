@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Holds information about the execution of test suites.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_TestSuiteRunner")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestTestSuiteRunner
 	{

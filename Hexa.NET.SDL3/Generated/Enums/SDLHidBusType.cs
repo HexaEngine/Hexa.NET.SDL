@@ -16,15 +16,12 @@ namespace Hexa.NET.SDL3
 	/// HID underlying bus types.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_hid_bus_type")]
 	[Flags]
 	public enum SDLHidBusType : int
 	{
 		/// <summary>
 		/// Unknown bus type <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HID_API_BUS_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		ApiBusUnknown = unchecked(0),
 
 		/// <summary>
@@ -32,8 +29,6 @@ namespace Hexa.NET.SDL3
 		/// Specifications:<br/>
 		/// https://usb.org/hid <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HID_API_BUS_USB")]
-		[NativeName(NativeNameType.Value, "1")]
 		ApiBusUsb = unchecked(1),
 
 		/// <summary>
@@ -43,8 +38,6 @@ namespace Hexa.NET.SDL3
 		/// https://www.bluetooth.com/specifications/specs/hid-service-1-0/<br/>
 		/// https://www.bluetooth.com/specifications/specs/hid-over-gatt-profile-1-0/ <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HID_API_BUS_BLUETOOTH")]
-		[NativeName(NativeNameType.Value, "2")]
 		ApiBusBluetooth = unchecked(2),
 
 		/// <summary>
@@ -52,8 +45,6 @@ namespace Hexa.NET.SDL3
 		/// Specifications:<br/>
 		/// https://docs.microsoft.com/previous-versions/windows/hardware/design/dn642101(v=vs.85) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HID_API_BUS_I2C")]
-		[NativeName(NativeNameType.Value, "3")]
 		ApiBusI2C = unchecked(3),
 
 		/// <summary>
@@ -61,8 +52,6 @@ namespace Hexa.NET.SDL3
 		/// Specifications:<br/>
 		/// https://www.microsoft.com/download/details.aspx?id=103325 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HID_API_BUS_SPI")]
-		[NativeName(NativeNameType.Value, "4")]
 		ApiBusSpi = unchecked(4),
 	}
 }

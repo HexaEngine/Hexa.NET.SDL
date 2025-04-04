@@ -20,50 +20,37 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUViewport")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUViewport
 	{
 		/// <summary>
 		/// The left offset of the viewport. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// The top offset of the viewport. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// The width of the viewport. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float W;
 
 		/// <summary>
 		/// The height of the viewport. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float H;
 
 		/// <summary>
 		/// The minimum depth of the viewport. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "min_depth")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float MinDepth;
 
 		/// <summary>
 		/// The maximum depth of the viewport. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "max_depth")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float MaxDepth;
 
 

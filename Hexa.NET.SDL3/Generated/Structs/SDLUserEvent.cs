@@ -24,53 +24,38 @@ namespace Hexa.NET.SDL3
 	/// from SDL_RegisterEvents().<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_UserEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLUserEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_USER through SDL_EVENT_LAST-1, Uint32 because these are not in the SDL_EventType enumeration <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The associated window if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// User defined event code <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "code")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Code;
 
 		/// <summary>
 		/// User defined data pointer <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data1")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Data1;
 
 		/// <summary>
 		/// User defined data pointer <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data2")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Data2;
 
 

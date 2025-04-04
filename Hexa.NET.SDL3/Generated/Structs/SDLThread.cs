@@ -21,7 +21,6 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Thread")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLThread
 	{

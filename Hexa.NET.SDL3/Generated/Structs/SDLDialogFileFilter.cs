@@ -26,15 +26,10 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_DialogFileFilter")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDialogFileFilter
 	{
-		[NativeName(NativeNameType.Field, "name")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Name;
-		[NativeName(NativeNameType.Field, "pattern")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Pattern;
 
 		public unsafe SDLDialogFileFilter(byte* name = default, byte* pattern = default)

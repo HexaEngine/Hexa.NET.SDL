@@ -17,18 +17,13 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUCompareOp")]
 	[Flags]
 	public enum SDLGPUCompareOp : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_INVALID")]
-		[NativeName(NativeNameType.Value, "0")]
 		Invalid = unchecked(0),
 		/// <summary>
 		/// The comparison always evaluates false. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_NEVER")]
-		[NativeName(NativeNameType.Value, "1")]
 		Never = unchecked(1),
 
 		/// <summary>
@@ -36,15 +31,11 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// test. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_LESS")]
-		[NativeName(NativeNameType.Value, "2")]
 		Less = unchecked(2),
 
 		/// <summary>
 		/// The comparison evaluates reference == test. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_EQUAL")]
-		[NativeName(NativeNameType.Value, "3")]
 		Equal = unchecked(3),
 
 		/// <summary>
@@ -52,36 +43,26 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// = test. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_LESS_OR_EQUAL")]
-		[NativeName(NativeNameType.Value, "4")]
 		LessOrEqual = unchecked(4),
 
 		/// <summary>
 		/// The comparison evaluates reference > test. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_GREATER")]
-		[NativeName(NativeNameType.Value, "5")]
 		Greater = unchecked(5),
 
 		/// <summary>
 		/// The comparison evaluates reference != test. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_NOT_EQUAL")]
-		[NativeName(NativeNameType.Value, "6")]
 		NotEqual = unchecked(6),
 
 		/// <summary>
 		/// The comparison evalutes reference >= test. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_GREATER_OR_EQUAL")]
-		[NativeName(NativeNameType.Value, "7")]
 		GreaterOrEqual = unchecked(7),
 
 		/// <summary>
 		/// The comparison always evaluates true. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_COMPAREOP_ALWAYS")]
-		[NativeName(NativeNameType.Value, "8")]
 		Always = unchecked(8),
 	}
 }

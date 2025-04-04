@@ -18,5007 +18,5013 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferLocation* source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
 		{
-			fixed (byte* ppattern = pattern)
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
 			{
-				fixed (int* pcount = &count)
+				fixed (SDLGPUBufferLocation* pdestination = &destination)
 				{
-					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
-					return ret;
+					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferLocation source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pattern != null)
+			fixed (SDLGPUBufferLocation* psource = &source)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLGPUBufferLocation* pdestination = &destination)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					CopyGPUBufferToBufferNative(copyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobDirectoryNative(path, pStr0, flags, (int*)pcount);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferLocation source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
 		{
-			fixed (byte* ppath = &path)
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
 			{
-				fixed (byte* ppattern = &pattern)
+				fixed (SDLGPUBufferLocation* psource = &source)
 				{
-					fixed (int* pcount = &count)
+					fixed (SDLGPUBufferLocation* pdestination = &destination)
 					{
-						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
+						CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DownloadFromGPUTextureNative(SDLGPUCopyPass* copyPass, SDLGPUTextureRegion* source, SDLGPUTextureTransferInfo* destination)
 		{
-			fixed (byte* ppath = path)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureRegion*, SDLGPUTextureTransferInfo*, void>)funcTable[897])(copyPass, source, destination);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[897])((nint)copyPass, (nint)source, (nint)destination);
+			#endif
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureRegion* source, SDLGPUTextureTransferInfo* destination)
+		{
+			DownloadFromGPUTextureNative(copyPass, source, destination);
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureRegion* source, SDLGPUTextureTransferInfo* destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
 			{
-				fixed (byte* ppattern = pattern)
+				DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureRegion source, SDLGPUTextureTransferInfo* destination)
+		{
+			fixed (SDLGPUTextureRegion* psource = &source)
+			{
+				DownloadFromGPUTextureNative(copyPass, (SDLGPUTextureRegion*)psource, destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureRegion source, SDLGPUTextureTransferInfo* destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* psource = &source)
 				{
-					fixed (int* pcount = &count)
+					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, destination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureRegion* source, ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+			{
+				DownloadFromGPUTextureNative(copyPass, source, (SDLGPUTextureTransferInfo*)pdestination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureRegion* source, ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+				{
+					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureTransferInfo*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureRegion source, ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUTextureRegion* psource = &source)
+			{
+				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+				{
+					DownloadFromGPUTextureNative(copyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureRegion source, ref SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* psource = &source)
+				{
+					fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
 					{
-						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
+						DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (pattern != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, (int*)pcount);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get what the system believes is the "current working directory."<br/>
-		/// For systems without a concept of a current working directory, this will<br/>
-		/// still attempt to provide something reasonable.<br/>
-		/// SDL does not provide a means to _change_ the current working directory; for<br/>
-		/// platforms without this concept, this would cause surprises with file access<br/>
-		/// outside of SDL.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentDirectory")]
-		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetCurrentDirectoryNative()
+		internal static void DownloadFromGPUBufferNative(SDLGPUCopyPass* copyPass, SDLGPUBufferRegion* source, SDLGPUTransferBufferLocation* destination)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[830])();
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferRegion*, SDLGPUTransferBufferLocation*, void>)funcTable[898])(copyPass, source, destination);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[830])();
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[898])((nint)copyPass, (nint)source, (nint)destination);
 			#endif
 		}
 
 		/// <summary>
-		/// Get what the system believes is the "current working directory."<br/>
-		/// For systems without a concept of a current working directory, this will<br/>
-		/// still attempt to provide something reasonable.<br/>
-		/// SDL does not provide a means to _change_ the current working directory; for<br/>
-		/// platforms without this concept, this would cause surprises with file access<br/>
-		/// outside of SDL.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentDirectory")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetCurrentDirectory()
+		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferRegion* source, SDLGPUTransferBufferLocation* destination)
 		{
-			byte* ret = GetCurrentDirectoryNative();
-			return ret;
+			DownloadFromGPUBufferNative(copyPass, source, destination);
 		}
 
 		/// <summary>
-		/// Get what the system believes is the "current working directory."<br/>
-		/// For systems without a concept of a current working directory, this will<br/>
-		/// still attempt to provide something reasonable.<br/>
-		/// SDL does not provide a means to _change_ the current working directory; for<br/>
-		/// platforms without this concept, this would cause surprises with file access<br/>
-		/// outside of SDL.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentDirectory")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetCurrentDirectoryS()
+		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferRegion* source, SDLGPUTransferBufferLocation* destination)
 		{
-			string ret = Utils.DecodeStringUTF8(GetCurrentDirectoryNative());
-			return ret;
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination);
+			}
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
-		/// <br/>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferRegion source, SDLGPUTransferBufferLocation* destination)
+		{
+			fixed (SDLGPUBufferRegion* psource = &source)
+			{
+				DownloadFromGPUBufferNative(copyPass, (SDLGPUBufferRegion*)psource, destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferRegion source, SDLGPUTransferBufferLocation* destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* psource = &source)
+				{
+					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, destination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferRegion* source, ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+			{
+				DownloadFromGPUBufferNative(copyPass, source, (SDLGPUTransferBufferLocation*)pdestination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferRegion* source, ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+				{
+					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTransferBufferLocation*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferRegion source, ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUBufferRegion* psource = &source)
+			{
+				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+				{
+					DownloadFromGPUBufferNative(copyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferRegion source, ref SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* psource = &source)
+				{
+					fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+					{
+						DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GPUSupportsShaderFormatsNative([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static void EndGPUCopyPassNative(SDLGPUCopyPass* copyPass)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte*, byte>)funcTable[831])(formatFlags, name);
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, void>)funcTable[899])(copyPass);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, nint, byte>)funcTable[831])(formatFlags, (nint)name);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[899])((nint)copyPass);
 			#endif
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void EndGPUCopyPass(SDLGPUCopyPass* copyPass)
+		{
+			EndGPUCopyPassNative(copyPass);
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void EndGPUCopyPass(ref SDLGPUCopyPass copyPass)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				EndGPUCopyPassNative((SDLGPUCopyPass*)pcopyPass);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GenerateMipmapsForGPUTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUTexture*, void>)funcTable[900])(commandBuffer, texture);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[900])((nint)commandBuffer, (nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GenerateMipmapsForGPUTexture(SDLGPUCommandBuffer* commandBuffer, SDLGPUTexture* texture)
+		{
+			GenerateMipmapsForGPUTextureNative(commandBuffer, texture);
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GenerateMipmapsForGPUTexture(ref SDLGPUCommandBuffer commandBuffer, SDLGPUTexture* texture)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, texture);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GenerateMipmapsForGPUTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				GenerateMipmapsForGPUTextureNative(commandBuffer, (SDLGPUTexture*)ptexture);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GenerateMipmapsForGPUTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUTexture*)ptexture);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BlitGPUTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUBlitInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUBlitInfo*, void>)funcTable[901])(commandBuffer, info);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[901])((nint)commandBuffer, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BlitGPUTexture(SDLGPUCommandBuffer* commandBuffer, SDLGPUBlitInfo* info)
+		{
+			BlitGPUTextureNative(commandBuffer, info);
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BlitGPUTexture(ref SDLGPUCommandBuffer commandBuffer, SDLGPUBlitInfo* info)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, info);
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BlitGPUTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUBlitInfo info)
+		{
+			fixed (SDLGPUBlitInfo* pinfo = &info)
+			{
+				BlitGPUTextureNative(commandBuffer, (SDLGPUBlitInfo*)pinfo);
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BlitGPUTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUBlitInfo info)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUBlitInfo* pinfo = &info)
+				{
+					BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUBlitInfo*)pinfo);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WindowSupportsGPUSwapchainCompositionNative(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition)
 		{
-			byte ret = GPUSupportsShaderFormatsNative(formatFlags, name);
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, byte>)funcTable[902])(device, window, swapchainComposition);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, byte>)funcTable[902])((nint)device, (nint)window, swapchainComposition);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WindowSupportsGPUSwapchainComposition(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition)
+		{
+			byte ret = WindowSupportsGPUSwapchainCompositionNative(device, window, swapchainComposition);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static bool WindowSupportsGPUSwapchainComposition(ref SDLGPUDevice device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition)
 		{
-			fixed (byte* pname = &name)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
+				byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, window, swapchainComposition);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static bool WindowSupportsGPUSwapchainComposition(SDLGPUDevice* device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition)
 		{
-			fixed (byte* pname = name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
+				byte ret = WindowSupportsGPUSwapchainCompositionNative(device, (SDLWindow*)pwindow, swapchainComposition);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static bool WindowSupportsGPUSwapchainComposition(ref SDLGPUDevice device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition);
+					return ret != 0;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = GPUSupportsShaderFormatsNative(formatFlags, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WindowSupportsGPUPresentModeNative(SDLGPUDevice* device, SDLWindow* window, SDLGPUPresentMode presentMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUPresentMode, byte>)funcTable[903])(device, window, presentMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUPresentMode, byte>)funcTable[903])((nint)device, (nint)window, presentMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WindowSupportsGPUPresentMode(SDLGPUDevice* device, SDLWindow* window, SDLGPUPresentMode presentMode)
+		{
+			byte ret = WindowSupportsGPUPresentModeNative(device, window, presentMode);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GPUSupportsProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode(ref SDLGPUDevice device, SDLWindow* window, SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, window, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WindowSupportsGPUPresentMode(SDLGPUDevice* device, ref SDLWindow window, SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WindowSupportsGPUPresentModeNative(device, (SDLWindow*)pwindow, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WindowSupportsGPUPresentMode(ref SDLGPUDevice device, ref SDLWindow window, SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, presentMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GPUSupportsPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		internal static byte ClaimWindowForGPUDeviceNative(SDLGPUDevice* device, SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[832])(props);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[904])(device, window);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[832])(props);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[904])((nint)device, (nint)window);
 			#endif
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GPUSupportsProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GPUSupportsProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		public static bool ClaimWindowForGPUDevice(SDLGPUDevice* device, SDLWindow* window)
 		{
-			byte ret = GPUSupportsPropertiesNative(props);
+			byte ret = ClaimWindowForGPUDeviceNative(device, window);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Creates a GPU context.<br/>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUDevice* CreateGPUDeviceNative([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] byte debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, byte*, SDLGPUDevice*>)funcTable[833])(formatFlags, debugMode, name);
-			#else
-			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, nint, nint>)funcTable[833])(formatFlags, debugMode, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
-		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static bool ClaimWindowForGPUDevice(ref SDLGPUDevice device, SDLWindow* window)
 		{
-			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
-		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
-				return ret;
+				byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, window);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a GPU context.<br/>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
-		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static bool ClaimWindowForGPUDevice(SDLGPUDevice* device, ref SDLWindow window)
 		{
-			fixed (byte* pname = name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
-				return ret;
+				byte ret = ClaimWindowForGPUDeviceNative(device, (SDLWindow*)pwindow);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a GPU context.<br/>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
-		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static bool ClaimWindowForGPUDevice(ref SDLGPUDevice device, ref SDLWindow window)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+					return ret != 0;
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseWindowFromGPUDeviceNative(SDLGPUDevice* device, SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, void>)funcTable[905])(device, window);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[905])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseWindowFromGPUDevice(SDLGPUDevice* device, SDLWindow* window)
+		{
+			ReleaseWindowFromGPUDeviceNative(device, window);
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseWindowFromGPUDevice(ref SDLGPUDevice device, SDLWindow* window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, window);
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseWindowFromGPUDevice(SDLGPUDevice* device, ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ReleaseWindowFromGPUDeviceNative(device, (SDLWindow*)pwindow);
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseWindowFromGPUDevice(ref SDLGPUDevice device, ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
-		/// properties and validations, defaults to true.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
-		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
-		/// use, if a specific one is desired.<br/>
-		/// These are the current shader format properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
-		/// provide shaders for an NDA platform.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
-		/// provide SPIR-V shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
-		/// provide DXBC shaders if applicable<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
-		/// provide DXIL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
-		/// provide MSL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
-		/// provide Metal shader libraries if applicable.<br/>
-		/// With the D3D12 renderer:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
-		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUDeviceWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUDevice* CreateGPUDeviceWithPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		internal static byte SetGPUSwapchainParametersNative(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLGPUDevice*>)funcTable[834])(props);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[906])(device, window, swapchainComposition, presentMode);
 			#else
-			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[834])(props);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[906])((nint)device, (nint)window, swapchainComposition, presentMode);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
-		/// properties and validations, defaults to true.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
-		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
-		/// use, if a specific one is desired.<br/>
-		/// These are the current shader format properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
-		/// provide shaders for an NDA platform.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
-		/// provide SPIR-V shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
-		/// provide DXBC shaders if applicable<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
-		/// provide DXIL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
-		/// provide MSL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
-		/// provide Metal shader libraries if applicable.<br/>
-		/// With the D3D12 renderer:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
-		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUDeviceWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
-		public static SDLGPUDevice* CreateGPUDeviceWithProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		public static bool SetGPUSwapchainParameters(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
 		{
-			SDLGPUDevice* ret = CreateGPUDeviceWithPropertiesNative(props);
-			return ret;
+			byte ret = SetGPUSwapchainParametersNative(device, window, swapchainComposition, presentMode);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyGPUDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, void>)funcTable[835])(device);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[835])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			DestroyGPUDeviceNative(device);
-		}
-
-		/// <summary>
-		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		public static bool SetGPUSwapchainParameters(ref SDLGPUDevice device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
 		{
 			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				DestroyGPUDeviceNative((SDLGPUDevice*)pdevice);
+				byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, window, swapchainComposition, presentMode);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGPUDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumGPUDriversNative()
+		public static bool SetGPUSwapchainParameters(SDLGPUDevice* device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[836])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[836])();
-			#endif
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetGPUSwapchainParametersNative(device, (SDLWindow*)pwindow, swapchainComposition, presentMode);
+				return ret != 0;
+			}
 		}
 
 		/// <summary>
-		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// supported.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGPUDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumGPUDrivers()
-		{
-			int ret = GetNumGPUDriversNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a built in GPU driver.<br/>
-		/// The GPU drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
-		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGPUDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[837])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[837])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a built in GPU driver.<br/>
-		/// The GPU drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
-		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGPUDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			byte* ret = GetGPUDriverNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a built in GPU driver.<br/>
-		/// The GPU drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
-		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGPUDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGPUDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGPUDeviceDriverNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte*>)funcTable[838])(device);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[838])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGPUDeviceDriver([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			byte* ret = GetGPUDeviceDriverNative(device);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGPUDeviceDriverS([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative(device));
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGPUDeviceDriver([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		public static bool SetGPUSwapchainParameters(ref SDLGPUDevice device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
 		{
 			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				byte* ret = GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGPUDeviceDriverS([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Returns the supported shader formats for this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUShaderFormat GetGPUShaderFormatsNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderFormat>)funcTable[839])(device);
-			#else
-			return (SDLGPUShaderFormat)((delegate* unmanaged[Cdecl]<nint, SDLGPUShaderFormat>)funcTable[839])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns the supported shader formats for this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
-		public static SDLGPUShaderFormat GetGPUShaderFormats([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
-		{
-			SDLGPUShaderFormat ret = GetGPUShaderFormatsNative(device);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the supported shader formats for this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
-		public static SDLGPUShaderFormat GetGPUShaderFormats([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUShaderFormat ret = GetGPUShaderFormatsNative((SDLGPUDevice*)pdevice);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUComputePipeline* CreateGPUComputePipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipelineCreateInfo*, SDLGPUComputePipeline*>)funcTable[840])(device, createinfo);
-			#else
-			return (SDLGPUComputePipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[840])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfo* createinfo)
-		{
-			SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] ref SDLGPUComputePipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] ref SDLGPUComputePipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
+					byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition, presentMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetGPUAllowedFramesInFlightNative(SDLGPUDevice* device, uint allowedFramesInFlight)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, uint, byte>)funcTable[907])(device, allowedFramesInFlight);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[907])((nint)device, allowedFramesInFlight);
+			#endif
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetGPUAllowedFramesInFlight(SDLGPUDevice* device, uint allowedFramesInFlight)
+		{
+			byte ret = SetGPUAllowedFramesInFlightNative(device, allowedFramesInFlight);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetGPUAllowedFramesInFlight(ref SDLGPUDevice device, uint allowedFramesInFlight)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = SetGPUAllowedFramesInFlightNative((SDLGPUDevice*)pdevice, allowedFramesInFlight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUTextureFormat GetGPUSwapchainTextureFormatNative(SDLGPUDevice* device, SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUTextureFormat>)funcTable[908])(device, window);
+			#else
+			return (SDLGPUTextureFormat)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUTextureFormat>)funcTable[908])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(SDLGPUDevice* device, SDLWindow* window)
+		{
+			SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative(device, window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(ref SDLGPUDevice device, SDLWindow* window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, window);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(SDLGPUDevice* device, ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative(device, (SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(ref SDLGPUDevice device, ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] SDLGPUGraphicsPipelineCreateInfo* createinfo)
+		internal static byte AcquireGPUSwapchainTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipelineCreateInfo*, SDLGPUGraphicsPipeline*>)funcTable[841])(device, createinfo);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[909])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 			#else
-			return (SDLGPUGraphicsPipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[841])((nint)device, (nint)createinfo);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[909])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] SDLGPUGraphicsPipelineCreateInfo* createinfo)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, createinfo);
-			return ret;
+			byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] SDLGPUGraphicsPipelineCreateInfo* createinfo)
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
+				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] ref SDLGPUGraphicsPipelineCreateInfo createinfo)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
-				return ret;
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")]
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineCreateInfo const *")] ref SDLGPUGraphicsPipelineCreateInfo createinfo)
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
-					return ret;
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUSampler* CreateGPUSamplerNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] SDLGPUSamplerCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSamplerCreateInfo*, SDLGPUSampler*>)funcTable[842])(device, createinfo);
-			#else
-			return (SDLGPUSampler*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[842])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] SDLGPUSamplerCreateInfo* createinfo)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			SDLGPUSampler* ret = CreateGPUSamplerNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] SDLGPUSamplerCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] ref SDLGPUSamplerCreateInfo createinfo)
-		{
-			fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUSampler* ret = CreateGPUSamplerNative(device, (SDLGPUSamplerCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
-		public static SDLGPUSampler* CreateGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUSamplerCreateInfo const *")] ref SDLGPUSamplerCreateInfo createinfo)
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSamplerCreateInfo*)pcreateinfo);
-					return ret;
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUShader* CreateGPUShaderNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] SDLGPUShaderCreateInfo* createinfo)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderCreateInfo*, SDLGPUShader*>)funcTable[843])(device, createinfo);
-			#else
-			return (SDLGPUShader*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[843])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] SDLGPUShaderCreateInfo* createinfo)
-		{
-			SDLGPUShader* ret = CreateGPUShaderNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] SDLGPUShaderCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] ref SDLGPUShaderCreateInfo createinfo)
-		{
-			fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUShader* ret = CreateGPUShaderNative(device, (SDLGPUShaderCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUShader")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUShader *")]
-		public static SDLGPUShader* CreateGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUShaderCreateInfo const *")] ref SDLGPUShaderCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShaderCreateInfo*)pcreateinfo);
-					return ret;
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUTexture* CreateGPUTextureNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] SDLGPUTextureCreateInfo* createinfo)
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureCreateInfo*, SDLGPUTexture*>)funcTable[844])(device, createinfo);
-			#else
-			return (SDLGPUTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[844])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] SDLGPUTextureCreateInfo* createinfo)
-		{
-			SDLGPUTexture* ret = CreateGPUTextureNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] SDLGPUTextureCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] ref SDLGPUTextureCreateInfo createinfo)
-		{
-			fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUTexture* ret = CreateGPUTextureNative(device, (SDLGPUTextureCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
-		public static SDLGPUTexture* CreateGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTextureCreateInfo const *")] ref SDLGPUTextureCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTextureCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUBuffer* CreateGPUBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] SDLGPUBufferCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBufferCreateInfo*, SDLGPUBuffer*>)funcTable[845])(device, createinfo);
-			#else
-			return (SDLGPUBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[845])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] SDLGPUBufferCreateInfo* createinfo)
-		{
-			SDLGPUBuffer* ret = CreateGPUBufferNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] SDLGPUBufferCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] ref SDLGPUBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUBuffer* ret = CreateGPUBufferNative(device, (SDLGPUBufferCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
-		public static SDLGPUBuffer* CreateGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUBufferCreateInfo const *")] ref SDLGPUBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBufferCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUTransferBuffer* CreateGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] SDLGPUTransferBufferCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBufferCreateInfo*, SDLGPUTransferBuffer*>)funcTable[846])(device, createinfo);
-			#else
-			return (SDLGPUTransferBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[846])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] SDLGPUTransferBufferCreateInfo* createinfo)
-		{
-			SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] SDLGPUTransferBufferCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] ref SDLGPUTransferBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferCreateInfo const *")] ref SDLGPUTransferBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUBufferNameNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, byte*, void>)funcTable[847])(device, buffer, text);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[847])((nint)device, (nint)buffer, (nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			SetGPUBufferNameNative(device, buffer, text);
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, text);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetGPUBufferNameNative(device, buffer, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					fixed (byte* ptext = &text)
-					{
-						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (byte* ptext = text)
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBufferName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBufferName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte* pStr0 = null;
-					int pStrSize0 = 0;
-					if (text != null)
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						pStrSize0 = Utils.GetByteCountUTF8(text);
-						if (pStrSize0 >= Utils.MaxStackallocSize)
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 						{
-							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+							return ret != 0;
 						}
-						else
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-							pStr0 = pStrStack0;
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
 						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-						pStr0[pStrOffset0] = 0;
-					}
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, pStr0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUTextureNameNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, byte*, void>)funcTable[848])(device, texture, text);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[848])((nint)device, (nint)texture, (nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			SetGPUTextureNameNative(device, texture, text);
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, text);
+					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				SetGPUTextureNameNative(device, texture, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			fixed (byte* ptext = text)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				SetGPUTextureNameNative(device, texture, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetGPUTextureNameNative(device, texture, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
-				{
-					fixed (byte* ptext = &text)
-					{
-						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (byte* ptext = text)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUTextureName")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUTextureName([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					byte* pStr0 = null;
-					int pStrSize0 = 0;
-					if (text != null)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						pStrSize0 = Utils.GetByteCountUTF8(text);
-						if (pStrSize0 >= Utils.MaxStackallocSize)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
 						}
-						else
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-							pStr0 = pStrStack0;
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
 						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-						pStr0[pStrOffset0] = 0;
 					}
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, pStr0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						Utils.Free(pStr0);
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void InsertGPUDebugLabelNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[849])(commandBuffer, text);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[849])((nint)commandBuffer, (nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
-		{
-			InsertGPUDebugLabelNative(commandBuffer, text);
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
+		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
 			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, text);
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			InsertGPUDebugLabelNative(commandBuffer, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ref byte text)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (byte* ptext = &text)
-				{
-					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (byte* ptext = text)
-				{
-					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InsertGPUDebugLabel")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void InsertGPUDebugLabel([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+							{
+								byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+								return ret != 0;
+							}
+						}
 					}
-					else
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitForGPUSwapchainNative(SDLGPUDevice* device, SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[910])(device, window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[910])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitForGPUSwapchain(SDLGPUDevice* device, SDLWindow* window)
+		{
+			byte ret = WaitForGPUSwapchainNative(device, window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitForGPUSwapchain(ref SDLGPUDevice device, SDLWindow* window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, window);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitForGPUSwapchain(SDLGPUDevice* device, ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WaitForGPUSwapchainNative(device, (SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitForGPUSwapchain(ref SDLGPUDevice device, ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitAndAcquireGPUSwapchainTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[911])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[911])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
+			#endif
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUDebugGroupNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[850])(commandBuffer, name);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[850])((nint)commandBuffer, (nint)name);
-			#endif
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+			{
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			PushGPUDebugGroupNative(commandBuffer, name);
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
 			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, name);
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			PushGPUDebugGroupNative(commandBuffer, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
 			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (byte* pname = &name)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (byte* pname = name)
-				{
-					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
 					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PopGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PopGPUDebugGroupNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, void>)funcTable[851])(commandBuffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[851])((nint)commandBuffer);
-			#endif
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
 		}
 
 		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PopGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PopGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
-		{
-			PopGPUDebugGroupNative(commandBuffer);
-		}
-
-		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PopGPUDebugGroup")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PopGPUDebugGroup([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
 			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				PopGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUTextureNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, void>)funcTable[852])(device, texture);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[852])((nint)device, (nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
-		{
-			ReleaseGPUTextureNative(device, texture);
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, texture);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				ReleaseGPUTextureNative(device, (SDLGPUTexture*)ptexture);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTexture([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture);
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUSamplerNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] SDLGPUSampler* sampler)
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSampler*, void>)funcTable[853])(device, sampler);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[853])((nint)device, (nint)sampler);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] SDLGPUSampler* sampler)
-		{
-			ReleaseGPUSamplerNative(device, sampler);
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] SDLGPUSampler* sampler)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, sampler);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] ref SDLGPUSampler sampler)
-		{
-			fixed (SDLGPUSampler* psampler = &sampler)
-			{
-				ReleaseGPUSamplerNative(device, (SDLGPUSampler*)psampler);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUSampler")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUSampler([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "SDL_GPUSampler *")] ref SDLGPUSampler sampler)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUSampler* psampler = &sampler)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSampler*)psampler);
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer)
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, void>)funcTable[854])(device, buffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[854])((nint)device, (nint)buffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer)
-		{
-			ReleaseGPUBufferNative(device, buffer);
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, buffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				ReleaseGPUBufferNative(device, (SDLGPUBuffer*)pbuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer);
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+							return ret != 0;
+						}
+					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[855])(device, transferBuffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[855])((nint)device, (nint)transferBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
-		{
-			ReleaseGPUTransferBufferNative(device, transferBuffer);
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 			{
-				ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer);
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				ReleaseGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUTransferBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUComputePipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipeline*, void>)funcTable[856])(device, computePipeline);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[856])((nint)device, (nint)computePipeline);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
-		{
-			ReleaseGPUComputePipelineNative(device, computePipeline);
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, computePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
-			{
-				ReleaseGPUComputePipelineNative(device, (SDLGPUComputePipeline*)pcomputePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUComputePipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipeline*)pcomputePipeline);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUShaderNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] SDLGPUShader* shader)
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShader*, void>)funcTable[857])(device, shader);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[857])((nint)device, (nint)shader);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] SDLGPUShader* shader)
-		{
-			ReleaseGPUShaderNative(device, shader);
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] SDLGPUShader* shader)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, shader);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] ref SDLGPUShader shader)
-		{
-			fixed (SDLGPUShader* pshader = &shader)
-			{
-				ReleaseGPUShaderNative(device, (SDLGPUShader*)pshader);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUShader")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUShader([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "shader")] [NativeName(NativeNameType.Type, "SDL_GPUShader *")] ref SDLGPUShader shader)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUShader* pshader = &shader)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShader*)pshader);
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUGraphicsPipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipeline*, void>)funcTable[858])(device, graphicsPipeline);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[858])((nint)device, (nint)graphicsPipeline);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			ReleaseGPUGraphicsPipelineNative(device, graphicsPipeline);
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, graphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-			{
-				ReleaseGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ReleaseGPUGraphicsPipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
-		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
-		/// where one is dedicated to render and compute passes and the other is<br/>
-		/// dedicated to copy passes and other preparatory work such as generating<br/>
-		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
-		/// total amount of passes overall which improves rendering performance.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+				{
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+					{
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+						{
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
+							{
+								byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AcquireGPUCommandBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUCommandBuffer* AcquireGPUCommandBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		internal static byte SubmitGPUCommandBufferNative(SDLGPUCommandBuffer* commandBuffer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUCommandBuffer*>)funcTable[859])(device);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[912])(commandBuffer);
 			#else
-			return (SDLGPUCommandBuffer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[859])((nint)device);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[912])((nint)commandBuffer);
 			#endif
 		}
 
 		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
-		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
-		/// where one is dedicated to render and compute passes and the other is<br/>
-		/// dedicated to copy passes and other preparatory work such as generating<br/>
-		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
-		/// total amount of passes overall which improves rendering performance.<br/>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AcquireGPUCommandBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")]
-		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		public static bool SubmitGPUCommandBuffer(SDLGPUCommandBuffer* commandBuffer)
 		{
-			SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative(device);
+			byte ret = SubmitGPUCommandBufferNative(commandBuffer);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SubmitGPUCommandBuffer(ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte ret = SubmitGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFenceNative(SDLGPUCommandBuffer* commandBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUFence*>)funcTable[913])(commandBuffer);
+			#else
+			return (SDLGPUFence*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[913])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFence(SDLGPUCommandBuffer* commandBuffer)
+		{
+			SDLGPUFence* ret = SubmitGPUCommandBufferAndAcquireFenceNative(commandBuffer);
 			return ret;
 		}
 
 		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
-		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
-		/// where one is dedicated to render and compute passes and the other is<br/>
-		/// dedicated to copy passes and other preparatory work such as generating<br/>
-		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
-		/// total amount of passes overall which improves rendering performance.<br/>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AcquireGPUCommandBuffer")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")]
-		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		public static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFence(ref SDLGPUCommandBuffer commandBuffer)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative((SDLGPUDevice*)pdevice);
+				SDLGPUFence* ret = SubmitGPUCommandBufferAndAcquireFenceNative((SDLGPUCommandBuffer*)pcommandBuffer);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUVertexUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUVertexUniformDataNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		internal static byte CancelGPUCommandBufferNative(SDLGPUCommandBuffer* commandBuffer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[860])(commandBuffer, slotIndex, data, length);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[914])(commandBuffer);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[860])((nint)commandBuffer, slotIndex, (nint)data, length);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[914])((nint)commandBuffer);
 			#endif
 		}
 
 		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUVertexUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUVertexUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static bool CancelGPUCommandBuffer(SDLGPUCommandBuffer* commandBuffer)
 		{
-			PushGPUVertexUniformDataNative(commandBuffer, slotIndex, data, length);
+			byte ret = CancelGPUCommandBufferNative(commandBuffer);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUVertexUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUVertexUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static bool CancelGPUCommandBuffer(ref SDLGPUCommandBuffer commandBuffer)
 		{
 			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				PushGPUVertexUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
+				byte ret = CancelGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUFragmentUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUFragmentUniformDataNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		internal static byte WaitForGPUIdleNative(SDLGPUDevice* device)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[861])(commandBuffer, slotIndex, data, length);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte>)funcTable[915])(device);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[861])((nint)commandBuffer, slotIndex, (nint)data, length);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[915])((nint)device);
 			#endif
 		}
 
 		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUFragmentUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUFragmentUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static bool WaitForGPUIdle(SDLGPUDevice* device)
 		{
-			PushGPUFragmentUniformDataNative(commandBuffer, slotIndex, data, length);
+			byte ret = WaitForGPUIdleNative(device);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUFragmentUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUFragmentUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static bool WaitForGPUIdle(ref SDLGPUDevice device)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				PushGPUFragmentUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
+				byte ret = WaitForGPUIdleNative((SDLGPUDevice*)pdevice);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUComputeUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUComputeUniformDataNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		internal static byte WaitForGPUFencesNative(SDLGPUDevice* device, byte waitAll, SDLGPUFence** fences, uint numFences)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[862])(commandBuffer, slotIndex, data, length);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte, SDLGPUFence**, uint, byte>)funcTable[916])(device, waitAll, fences, numFences);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[862])((nint)commandBuffer, slotIndex, (nint)data, length);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, uint, byte>)funcTable[916])((nint)device, waitAll, (nint)fences, numFences);
 			#endif
 		}
 
 		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUComputeUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUComputeUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static bool WaitForGPUFences(SDLGPUDevice* device, bool waitAll, SDLGPUFence** fences, uint numFences)
 		{
-			PushGPUComputeUniformDataNative(commandBuffer, slotIndex, data, length);
+			byte ret = WaitForGPUFencesNative(device, waitAll ? (byte)1 : (byte)0, fences, numFences);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushGPUComputeUniformData")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PushGPUComputeUniformData([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "slot_index")] [NativeName(NativeNameType.Type, "Uint32")] uint slotIndex, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static bool WaitForGPUFences(ref SDLGPUDevice device, bool waitAll, SDLGPUFence** fences, uint numFences)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				PushGPUComputeUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
+				byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, fences, numFences);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Blocks the thread until the given fences are signaled.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
+		public static bool WaitForGPUFences(SDLGPUDevice* device, bool waitAll, ref SDLGPUFence* fences, uint numFences)
+		{
+			fixed (SDLGPUFence** pfences = &fences)
+			{
+				byte ret = WaitForGPUFencesNative(device, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool WaitForGPUFences(ref SDLGPUDevice device, bool waitAll, ref SDLGPUFence* fences, uint numFences)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence** pfences = &fences)
+				{
+					byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPURenderPass* BeginGPURenderPassNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		internal static byte QueryGPUFenceNative(SDLGPUDevice* device, SDLGPUFence* fence)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUColorTargetInfo*, uint, SDLGPUDepthStencilTargetInfo*, SDLGPURenderPass*>)funcTable[863])(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, byte>)funcTable[917])(device, fence);
 			#else
-			return (SDLGPURenderPass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, nint>)funcTable[863])((nint)commandBuffer, (nint)colorTargetInfos, numColorTargets, (nint)depthStencilTargetInfo);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[917])((nint)device, (nint)fence);
 			#endif
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Checks the status of a fence.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		public static bool QueryGPUFence(SDLGPUDevice* device, SDLGPUFence* fence)
 		{
-			SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+			byte ret = QueryGPUFenceNative(device, fence);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool QueryGPUFence(ref SDLGPUDevice device, SDLGPUFence* fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, fence);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool QueryGPUFence(SDLGPUDevice* device, ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUFence* pfence = &fence)
+			{
+				byte ret = QueryGPUFenceNative(device, (SDLGPUFence*)pfence);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Checks the status of a fence.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool QueryGPUFence(ref SDLGPUDevice device, ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence* pfence = &fence)
+				{
+					byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUFenceNative(SDLGPUDevice* device, SDLGPUFence* fence)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, void>)funcTable[918])(device, fence);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[918])((nint)device, (nint)fence);
+			#endif
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUFence(SDLGPUDevice* device, SDLGPUFence* fence)
+		{
+			ReleaseGPUFenceNative(device, fence);
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUFence(ref SDLGPUDevice device, SDLGPUFence* fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, fence);
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUFence(SDLGPUDevice* device, ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUFence* pfence = &fence)
+			{
+				ReleaseGPUFenceNative(device, (SDLGPUFence*)pfence);
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUFence(ref SDLGPUDevice device, ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence* pfence = &fence)
+				{
+					ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texel block size for a texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GPUTextureFormatTexelBlockSizeNative(SDLGPUTextureFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[919])(format);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[919])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Obtains the texel block size for a texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GPUTextureFormatTexelBlockSize(SDLGPUTextureFormat format)
+		{
+			uint ret = GPUTextureFormatTexelBlockSizeNative(format);
 			return ret;
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUTextureSupportsFormatNative(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUTextureType type, SDLGPUTextureUsageFlags usage)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUTextureType, SDLGPUTextureUsageFlags, byte>)funcTable[920])(device, format, type, usage);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUTextureType, SDLGPUTextureUsageFlags, byte>)funcTable[920])((nint)device, format, type, usage);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GPUTextureSupportsFormat(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUTextureType type, SDLGPUTextureUsageFlags usage)
+		{
+			byte ret = GPUTextureSupportsFormatNative(device, format, type, usage);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GPUTextureSupportsFormat(ref SDLGPUDevice device, SDLGPUTextureFormat format, SDLGPUTextureType type, SDLGPUTextureUsageFlags usage)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = GPUTextureSupportsFormatNative((SDLGPUDevice*)pdevice, format, type, usage);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUTextureSupportsSampleCountNative(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUSampleCount sampleCount)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[921])(device, format, sampleCount);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[921])((nint)device, format, sampleCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GPUTextureSupportsSampleCount(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUSampleCount sampleCount)
+		{
+			byte ret = GPUTextureSupportsSampleCountNative(device, format, sampleCount);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GPUTextureSupportsSampleCount(ref SDLGPUDevice device, SDLGPUTextureFormat format, SDLGPUSampleCount sampleCount)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = GPUTextureSupportsSampleCountNative((SDLGPUDevice*)pdevice, format, sampleCount);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the size in bytes of a texture format with dimensions.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint CalculateGPUTextureFormatSizeNative(SDLGPUTextureFormat format, uint width, uint height, uint depthOrLayerCount)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[922])(format, width, height, depthOrLayerCount);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[922])(format, width, height, depthOrLayerCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the size in bytes of a texture format with dimensions.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint CalculateGPUTextureFormatSize(SDLGPUTextureFormat format, uint width, uint height, uint depthOrLayerCount)
+		{
+			uint ret = CalculateGPUTextureFormatSizeNative(format, width, height, depthOrLayerCount);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint* GetHapticsNative(int* count)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[923])(count);
+			#else
+			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[923])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint* GetHaptics(int* count)
+		{
+			uint* ret = GetHapticsNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint* GetHaptics(ref int count)
+		{
+			fixed (int* pcount = &count)
 			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+				uint* ret = GetHapticsNative((int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetHapticNameForIDNative(uint instanceId)
 		{
-			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[924])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[924])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetHapticNameForID(uint instanceId)
+		{
+			byte* ret = GetHapticNameForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetHapticNameForIDS(uint instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetHapticNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a haptic device for use.<br/>
+		/// The index passed as an argument refers to the N'th haptic device on this<br/>
+		/// system.<br/>
+		/// When opening a haptic device, its gain will be set to maximum and<br/>
+		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
+		/// and SDL_SetHapticAutocenter().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticNative(uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[925])(instanceId);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[925])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a haptic device for use.<br/>
+		/// The index passed as an argument refers to the N'th haptic device on this<br/>
+		/// system.<br/>
+		/// When opening a haptic device, its gain will be set to maximum and<br/>
+		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
+		/// and SDL_SetHapticAutocenter().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLHaptic* OpenHaptic(uint instanceId)
+		{
+			SDLHaptic* ret = OpenHapticNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* GetHapticFromIDNative(uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[926])(instanceId);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[926])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLHaptic* GetHapticFromID(uint instanceId)
+		{
+			SDLHaptic* ret = GetHapticFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetHapticIDNative(SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[927])(haptic);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[927])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetHapticID(SDLHaptic* haptic)
+		{
+			uint ret = GetHapticIDNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetHapticID(ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
+				uint ret = GetHapticIDNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the implementation dependent name of a haptic device.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetHapticNameNative(SDLHaptic* haptic)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
-				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
-					return ret;
-				}
-			}
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte*>)funcTable[928])(haptic);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[928])((nint)haptic);
+			#endif
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the implementation dependent name of a haptic device.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		public static byte* GetHapticName(SDLHaptic* haptic)
 		{
-			fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+			byte* ret = GetHapticNameNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetHapticNameS(SDLHaptic* haptic)
+		{
+			string ret = Utils.DecodeStringUTF8(GetHapticNameNative(haptic));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetHapticName(ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
+				byte* ret = GetHapticNameNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Get the implementation dependent name of a haptic device.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] SDLGPUColorTargetInfo* colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		public static string GetHapticNameS(ref SDLHaptic haptic)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+				string ret = Utils.DecodeStringUTF8(GetHapticNameNative((SDLHaptic*)phaptic));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether or not the current mouse has haptic capabilities.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsMouseHapticNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[929])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[929])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether or not the current mouse has haptic capabilities.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool IsMouseHaptic()
+		{
+			byte ret = IsMouseHapticNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Try to open a haptic device from the current mouse.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticFromMouseNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)funcTable[930])();
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint>)funcTable[930])();
+			#endif
+		}
+
+		/// <summary>
+		/// Try to open a haptic device from the current mouse.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLHaptic* OpenHapticFromMouse()
+		{
+			SDLHaptic* ret = OpenHapticFromMouseNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsJoystickHapticNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte>)funcTable[931])(joystick);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[931])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool IsJoystickHaptic(SDLJoystick* joystick)
+		{
+			byte ret = IsJoystickHapticNative(joystick);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool IsJoystickHaptic(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = IsJoystickHapticNative((SDLJoystick*)pjoystick);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticFromJoystickNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)funcTable[932])(joystick);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[932])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLHaptic* OpenHapticFromJoystick(SDLJoystick* joystick)
+		{
+			SDLHaptic* ret = OpenHapticFromJoystickNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLHaptic* OpenHapticFromJoystick(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLHaptic* ret = OpenHapticFromJoystickNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseHapticNative(SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)funcTable[933])(haptic);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[933])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CloseHaptic(SDLHaptic* haptic)
+		{
+			CloseHapticNative(haptic);
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CloseHaptic(ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				CloseHapticNative((SDLHaptic*)phaptic);
+			}
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetMaxHapticEffectsNative(SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[934])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[934])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetMaxHapticEffects(SDLHaptic* haptic)
+		{
+			int ret = GetMaxHapticEffectsNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetMaxHapticEffects(ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetMaxHapticEffectsNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetMaxHapticEffectsPlayingNative(SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[935])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[935])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetMaxHapticEffectsPlaying(SDLHaptic* haptic)
+		{
+			int ret = GetMaxHapticEffectsPlayingNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetMaxHapticEffectsPlaying(ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetMaxHapticEffectsPlayingNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetHapticFeaturesNative(SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[936])(haptic);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[936])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetHapticFeatures(SDLHaptic* haptic)
+		{
+			uint ret = GetHapticFeaturesNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetHapticFeatures(ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				uint ret = GetHapticFeaturesNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumHapticAxesNative(SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[937])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[937])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetNumHapticAxes(SDLHaptic* haptic)
+		{
+			int ret = GetNumHapticAxesNative(haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetNumHapticAxes(ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetNumHapticAxesNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HapticEffectSupportedNative(SDLHaptic* haptic, SDLHapticEffect* effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, byte>)funcTable[938])(haptic, effect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[938])((nint)haptic, (nint)effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool HapticEffectSupported(SDLHaptic* haptic, SDLHapticEffect* effect)
+		{
+			byte ret = HapticEffectSupportedNative(haptic, effect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool HapticEffectSupported(ref SDLHaptic haptic, SDLHapticEffect* effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool HapticEffectSupported(SDLHaptic* haptic, ref SDLHapticEffect effect)
+		{
+			fixed (SDLHapticEffect* peffect = &effect)
+			{
+				byte ret = HapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool HapticEffectSupported(ref SDLHaptic haptic, ref SDLHapticEffect effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				fixed (SDLHapticEffect* peffect = &effect)
 				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-					return ret;
+					byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
+		/// Create a new haptic effect on a specified device.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
-		{
-			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
-			{
-				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
-				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BeginGPURenderPass")]
-		[return: NativeName(NativeNameType.Type, "SDL_GPURenderPass *")]
-		public static SDLGPURenderPass* BeginGPURenderPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "color_target_infos")] [NativeName(NativeNameType.Type, "SDL_GPUColorTargetInfo const *")] ref SDLGPUColorTargetInfo colorTargetInfos, [NativeName(NativeNameType.Param, "num_color_targets")] [NativeName(NativeNameType.Type, "Uint32")] uint numColorTargets, [NativeName(NativeNameType.Param, "depth_stencil_target_info")] [NativeName(NativeNameType.Type, "SDL_GPUDepthStencilTargetInfo const *")] ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
-				{
-					fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
-					{
-						SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUGraphicsPipelineNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
+		internal static int CreateHapticEffectNative(SDLHaptic* haptic, SDLHapticEffect* effect)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUGraphicsPipeline*, void>)funcTable[864])(renderPass, graphicsPipeline);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[939])(haptic, effect);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[864])((nint)renderPass, (nint)graphicsPipeline);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[939])((nint)haptic, (nint)effect);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			BindGPUGraphicsPipelineNative(renderPass, graphicsPipeline);
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, graphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-			{
-				BindGPUGraphicsPipelineNative(renderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUGraphicsPipeline")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUGraphicsPipeline([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "graphics_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipeline *")] ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-				{
-					BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUViewportNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] SDLGPUViewport* viewport)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUViewport*, void>)funcTable[865])(renderPass, viewport);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[865])((nint)renderPass, (nint)viewport);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] SDLGPUViewport* viewport)
-		{
-			SetGPUViewportNative(renderPass, viewport);
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] SDLGPUViewport* viewport)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUViewportNative((SDLGPURenderPass*)prenderPass, viewport);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] ref SDLGPUViewport viewport)
-		{
-			fixed (SDLGPUViewport* pviewport = &viewport)
-			{
-				SetGPUViewportNative(renderPass, (SDLGPUViewport*)pviewport);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUViewport([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "SDL_GPUViewport const *")] ref SDLGPUViewport viewport)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUViewport* pviewport = &viewport)
-				{
-					SetGPUViewportNative((SDLGPURenderPass*)prenderPass, (SDLGPUViewport*)pviewport);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUScissorNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* scissor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLRect*, void>)funcTable[866])(renderPass, scissor);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[866])((nint)renderPass, (nint)scissor);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* scissor)
-		{
-			SetGPUScissorNative(renderPass, scissor);
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* scissor)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUScissorNative((SDLGPURenderPass*)prenderPass, scissor);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect scissor)
-		{
-			fixed (SDLRect* pscissor = &scissor)
-			{
-				SetGPUScissorNative(renderPass, (SDLRect*)pscissor);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUScissor([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "scissor")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect scissor)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLRect* pscissor = &scissor)
-				{
-					SetGPUScissorNative((SDLGPURenderPass*)prenderPass, (SDLRect*)pscissor);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
+		/// Create a new haptic effect on a specified device.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBlendConstants")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUBlendConstantsNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "blend_constants")] [NativeName(NativeNameType.Type, "SDL_FColor")] SDLFColor blendConstants)
+		public static int CreateHapticEffect(SDLHaptic* haptic, SDLHapticEffect* effect)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLFColor, void>)funcTable[867])(renderPass, blendConstants);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLFColor, void>)funcTable[867])((nint)renderPass, blendConstants);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBlendConstants")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBlendConstants([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "blend_constants")] [NativeName(NativeNameType.Type, "SDL_FColor")] SDLFColor blendConstants)
-		{
-			SetGPUBlendConstantsNative(renderPass, blendConstants);
-		}
-
-		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUBlendConstants")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUBlendConstants([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "blend_constants")] [NativeName(NativeNameType.Type, "SDL_FColor")] SDLFColor blendConstants)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUBlendConstantsNative((SDLGPURenderPass*)prenderPass, blendConstants);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUStencilReference")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUStencilReferenceNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "Uint8")] byte reference)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, byte, void>)funcTable[868])(renderPass, reference);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, byte, void>)funcTable[868])((nint)renderPass, reference);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUStencilReference")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUStencilReference([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "Uint8")] byte reference)
-		{
-			SetGPUStencilReferenceNative(renderPass, reference);
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGPUStencilReference")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetGPUStencilReference([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "Uint8")] byte reference)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUStencilReferenceNative((SDLGPURenderPass*)prenderPass, reference);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexBuffersNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBufferBinding*, uint, void>)funcTable[869])(renderPass, firstSlot, bindings, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[869])((nint)renderPass, firstSlot, (nint)bindings, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			BindGPUVertexBuffersNative(renderPass, firstSlot, bindings, numBindings);
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] SDLGPUBufferBinding* bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, bindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BindGPUVertexBuffers")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void BindGPUVertexBuffers([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "bindings")] [NativeName(NativeNameType.Type, "SDL_GPUBufferBinding const *")] ref SDLGPUBufferBinding bindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
-		{
-			fixed (SDLGPUBufferBinding* pbindings = &bindings)
-			{
-				BindGPUVertexBuffersNative(renderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
-			}
+			int ret = CreateHapticEffectNative(haptic, effect);
+			return ret;
 		}
 	}
 }

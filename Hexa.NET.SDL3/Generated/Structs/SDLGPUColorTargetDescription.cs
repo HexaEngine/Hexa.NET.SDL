@@ -21,22 +21,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUColorTargetDescription")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUColorTargetDescription
 	{
 		/// <summary>
 		/// The pixel format of the texture to be used as a color target. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
 		public SDLGPUTextureFormat Format;
 
 		/// <summary>
 		/// The blend state to be used for the color target. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "blend_state")]
-		[NativeName(NativeNameType.Type, "SDL_GPUColorTargetBlendState")]
 		public SDLGPUColorTargetBlendState BlendState;
 
 

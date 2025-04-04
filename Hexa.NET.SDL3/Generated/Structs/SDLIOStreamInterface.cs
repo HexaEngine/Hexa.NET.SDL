@@ -25,23 +25,18 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_IOStreamInterface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLIOStreamInterface
 	{
 		/// <summary>
 		/// The version of this interface <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "version")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
 
 		/// <summary>
 		/// Return the number of bytes in this SDL_IOStream<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "size")]
-		[NativeName(NativeNameType.Type, "Sint64 (*)(void * userdata) *")]
 		public unsafe void* Size;
 
 		/// <summary>
@@ -49,8 +44,6 @@ namespace Hexa.NET.SDL3
 		/// SDL_IO_SEEK_SET, SDL_IO_SEEK_CUR, SDL_IO_SEEK_END<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "seek")]
-		[NativeName(NativeNameType.Type, "Sint64 (*)(void * userdata, Sint64 offset, SDL_IOWhence whence) *")]
 		public unsafe void* Seek;
 
 		/// <summary>
@@ -61,8 +54,6 @@ namespace Hexa.NET.SDL3
 		/// a complete, successful read.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "read")]
-		[NativeName(NativeNameType.Type, "size_t (*)(void * userdata, void * ptr, size_t size, SDL_IOStatus * status) *")]
 		public unsafe void* Read;
 
 		/// <summary>
@@ -73,8 +64,6 @@ namespace Hexa.NET.SDL3
 		/// a complete, successful write.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "write")]
-		[NativeName(NativeNameType.Type, "size_t (*)(void * userdata, void const * ptr, size_t size, SDL_IOStatus * status) *")]
 		public unsafe void* Write;
 
 		/// <summary>
@@ -84,8 +73,6 @@ namespace Hexa.NET.SDL3
 		/// a successful flush.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "flush")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, SDL_IOStatus * status) *")]
 		public unsafe void* Flush;
 
 		/// <summary>
@@ -96,8 +83,6 @@ namespace Hexa.NET.SDL3
 		/// even if flushing buffers, etc, returns an error.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "close")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Close;
 
 

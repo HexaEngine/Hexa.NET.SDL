@@ -30,18 +30,11 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUPresentMode")]
 	[Flags]
 	public enum SDLGPUPresentMode : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRESENTMODE_VSYNC")]
-		[NativeName(NativeNameType.Value, "0")]
 		Vsync = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRESENTMODE_IMMEDIATE")]
-		[NativeName(NativeNameType.Value, "1")]
 		Immediate = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRESENTMODE_MAILBOX")]
-		[NativeName(NativeNameType.Value, "2")]
 		Mailbox = unchecked(2),
 	}
 }

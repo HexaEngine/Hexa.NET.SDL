@@ -22,36 +22,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUVertexAttribute")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUVertexAttribute
 	{
 		/// <summary>
 		/// The shader input location index. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "location")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Location;
 
 		/// <summary>
 		/// The binding slot of the associated vertex buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "buffer_slot")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint BufferSlot;
 
 		/// <summary>
 		/// The size and type of the attribute data. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_GPUVertexElementFormat")]
 		public SDLGPUVertexElementFormat Format;
 
 		/// <summary>
 		/// The byte offset of this attribute relative to the start of the vertex element. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "offset")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 

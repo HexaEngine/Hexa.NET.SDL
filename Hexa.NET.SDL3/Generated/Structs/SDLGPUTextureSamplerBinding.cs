@@ -20,22 +20,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureSamplerBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureSamplerBinding
 	{
 		/// <summary>
 		/// The texture to bind. Must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "texture")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The sampler to bind. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "sampler")]
-		[NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
 		public unsafe SDLGPUSampler* Sampler;
 
 

@@ -93,22 +93,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_HapticDirection")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticDirection
 	{
 		/// <summary>
 		/// The type of encoding. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Type;
 
 		/// <summary>
 		/// The encoded direction. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "dir")]
-		[NativeName(NativeNameType.Type, "Sint32[3]")]
 		public int Dir_0;
 		public int Dir_1;
 		public int Dir_2;

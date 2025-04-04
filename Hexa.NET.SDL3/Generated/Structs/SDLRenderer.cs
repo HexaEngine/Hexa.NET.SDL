@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// A structure representing rendering state<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Renderer")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRenderer
 	{

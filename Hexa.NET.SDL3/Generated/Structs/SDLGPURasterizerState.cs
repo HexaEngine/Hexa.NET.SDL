@@ -27,71 +27,50 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPURasterizerState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPURasterizerState
 	{
 		/// <summary>
 		/// Whether polygons will be filled in or drawn as lines. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "fill_mode")]
-		[NativeName(NativeNameType.Type, "SDL_GPUFillMode")]
 		public SDLGPUFillMode FillMode;
 
 		/// <summary>
 		/// The facing direction in which triangles will be culled. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "cull_mode")]
-		[NativeName(NativeNameType.Type, "SDL_GPUCullMode")]
 		public SDLGPUCullMode CullMode;
 
 		/// <summary>
 		/// The vertex winding that will cause a triangle to be determined as front-facing. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "front_face")]
-		[NativeName(NativeNameType.Type, "SDL_GPUFrontFace")]
 		public SDLGPUFrontFace FrontFace;
 
 		/// <summary>
 		/// A scalar factor controlling the depth value added to each fragment. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "depth_bias_constant_factor")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float DepthBiasConstantFactor;
 
 		/// <summary>
 		/// The maximum depth bias of a fragment. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "depth_bias_clamp")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float DepthBiasClamp;
 
 		/// <summary>
 		/// A scalar factor applied to a fragment's slope in depth calculations. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "depth_bias_slope_factor")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float DepthBiasSlopeFactor;
 
 		/// <summary>
 		/// true to bias fragment depth values. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "enable_depth_bias")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte EnableDepthBias;
 
 		/// <summary>
 		/// true to enable depth clip, false to enable depth clamp. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "enable_depth_clip")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte EnableDepthClip;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
 
 		public unsafe SDLGPURasterizerState(SDLGPUFillMode fillMode = default, SDLGPUCullMode cullMode = default, SDLGPUFrontFace frontFace = default, float depthBiasConstantFactor = default, float depthBiasClamp = default, float depthBiasSlopeFactor = default, bool enableDepthBias = default, bool enableDepthClip = default, byte padding1 = default, byte padding2 = default)

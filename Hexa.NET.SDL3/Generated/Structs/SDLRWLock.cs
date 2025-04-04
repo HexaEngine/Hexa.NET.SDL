@@ -29,7 +29,6 @@ namespace Hexa.NET.SDL3
 	/// These are documented in the other rwlock functions.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_RWLock")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRWLock
 	{

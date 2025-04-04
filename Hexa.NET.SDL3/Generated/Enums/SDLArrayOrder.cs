@@ -16,30 +16,15 @@ namespace Hexa.NET.SDL3
 	/// Array component order, low byte -> high byte.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_ArrayOrder")]
 	[Flags]
 	public enum SDLArrayOrder : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_NONE")]
-		[NativeName(NativeNameType.Value, "0")]
 		None = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_RGB")]
-		[NativeName(NativeNameType.Value, "1")]
 		Rgb = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_RGBA")]
-		[NativeName(NativeNameType.Value, "2")]
 		Rgba = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_ARGB")]
-		[NativeName(NativeNameType.Value, "3")]
 		Argb = unchecked(3),
-		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_BGR")]
-		[NativeName(NativeNameType.Value, "4")]
 		Bgr = unchecked(4),
-		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_BGRA")]
-		[NativeName(NativeNameType.Value, "5")]
 		Bgra = unchecked(5),
-		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_ABGR")]
-		[NativeName(NativeNameType.Value, "6")]
 		Abgr = unchecked(6),
 	}
 }

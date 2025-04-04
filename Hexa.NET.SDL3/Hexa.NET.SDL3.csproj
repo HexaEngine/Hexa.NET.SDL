@@ -14,9 +14,9 @@
 		<IsAotCompatible>true</IsAotCompatible>
 		
 		<PackageId>Hexa.NET.SDL3</PackageId>
-		<AssemblyVersion>3.2.4</AssemblyVersion>
-		<PackageVersion>1.2.13</PackageVersion>
-		<Description>A .NET Wrapper for SDL3 (v 3.2.6), generated with the HexaGen code generator. HexaGen allows users to access native libraries easily and with high performance.</Description>
+		<AssemblyVersion>3.2.10</AssemblyVersion>
+		<PackageVersion>1.2.14</PackageVersion>
+		<Description>A .NET Wrapper for SDL3 (v 3.2.10), generated with the HexaGen code generator. HexaGen allows users to access native libraries easily and with high performance.</Description>
 		<PackageTags>SDL SDL3 Hexa HexaGen Source Generator C# .NET DotNet Sharp Windows macOS Android Bindings Wrapper Native</PackageTags>
 		<Authors>Juna Meinhold</Authors>
 		<Copyright>Copyright (c) 2024 Juna Meinhold</Copyright>
@@ -33,7 +33,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HexaGen.Runtime" Version="1.1.17" />
+		<PackageReference Include="HexaGen.Runtime" Version="1.1.18" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

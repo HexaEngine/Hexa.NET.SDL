@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// An opaque handle representing a menu/submenu on a system tray object.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_TrayMenu")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTrayMenu
 	{

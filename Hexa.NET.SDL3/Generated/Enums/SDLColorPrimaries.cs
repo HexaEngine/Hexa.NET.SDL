@@ -17,95 +17,66 @@ namespace Hexa.NET.SDL3
 	/// https://www.itu.int/rec/T-REC-H.273-201612-S/en<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_ColorPrimaries")]
 	[Flags]
 	public enum SDLColorPrimaries : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
 		/// <summary>
 		/// ITU-R BT.709-6 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_BT709")]
-		[NativeName(NativeNameType.Value, "1")]
 		Bt709 = unchecked(1),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_UNSPECIFIED")]
-		[NativeName(NativeNameType.Value, "2")]
 		Unspecified = unchecked(2),
 		/// <summary>
 		/// ITU-R BT.470-6 System M <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_BT470M")]
-		[NativeName(NativeNameType.Value, "4")]
 		Bt470M = unchecked(4),
 
 		/// <summary>
 		/// ITU-R BT.470-6 System B, G / ITU-R BT.601-7 625 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_BT470BG")]
-		[NativeName(NativeNameType.Value, "5")]
 		Bt470Bg = unchecked(5),
 
 		/// <summary>
 		/// ITU-R BT.601-7 525, SMPTE 170M <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_BT601")]
-		[NativeName(NativeNameType.Value, "6")]
 		Bt601 = unchecked(6),
 
 		/// <summary>
 		/// SMPTE 240M, functionally the same as SDL_COLOR_PRIMARIES_BT601 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_SMPTE240")]
-		[NativeName(NativeNameType.Value, "7")]
 		Smpte240 = unchecked(7),
 
 		/// <summary>
 		/// Generic film (color filters using Illuminant C) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_GENERIC_FILM")]
-		[NativeName(NativeNameType.Value, "8")]
 		GenericFilm = unchecked(8),
 
 		/// <summary>
 		/// ITU-R BT.2020-2 / ITU-R BT.2100-0 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_BT2020")]
-		[NativeName(NativeNameType.Value, "9")]
 		Bt2020 = unchecked(9),
 
 		/// <summary>
 		/// SMPTE ST 428-1 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_XYZ")]
-		[NativeName(NativeNameType.Value, "10")]
 		Xyz = unchecked(10),
 
 		/// <summary>
 		/// SMPTE RP 431-2 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_SMPTE431")]
-		[NativeName(NativeNameType.Value, "11")]
 		Smpte431 = unchecked(11),
 
 		/// <summary>
 		/// SMPTE EG 432-1 / DCI P3 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_SMPTE432")]
-		[NativeName(NativeNameType.Value, "12")]
 		Smpte432 = unchecked(12),
 
 		/// <summary>
 		/// EBU Tech. 3213-E <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_EBU3213")]
-		[NativeName(NativeNameType.Value, "22")]
 		Ebu3213 = unchecked(22),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_PRIMARIES_CUSTOM")]
-		[NativeName(NativeNameType.Value, "31")]
 		Custom = unchecked(31),
 	}
 }

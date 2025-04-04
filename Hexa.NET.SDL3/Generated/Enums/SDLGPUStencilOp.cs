@@ -18,67 +18,48 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUStencilOp")]
 	[Flags]
 	public enum SDLGPUStencilOp : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_INVALID")]
-		[NativeName(NativeNameType.Value, "0")]
 		Invalid = unchecked(0),
 		/// <summary>
 		/// Keeps the current value. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_KEEP")]
-		[NativeName(NativeNameType.Value, "1")]
 		Keep = unchecked(1),
 
 		/// <summary>
 		/// Sets the value to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_ZERO")]
-		[NativeName(NativeNameType.Value, "2")]
 		Zero = unchecked(2),
 
 		/// <summary>
 		/// Sets the value to reference. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_REPLACE")]
-		[NativeName(NativeNameType.Value, "3")]
 		Replace = unchecked(3),
 
 		/// <summary>
 		/// Increments the current value and clamps to the maximum value. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_INCREMENT_AND_CLAMP")]
-		[NativeName(NativeNameType.Value, "4")]
 		IncrementAndClamp = unchecked(4),
 
 		/// <summary>
 		/// Decrements the current value and clamps to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_DECREMENT_AND_CLAMP")]
-		[NativeName(NativeNameType.Value, "5")]
 		DecrementAndClamp = unchecked(5),
 
 		/// <summary>
 		/// Bitwise-inverts the current value. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_INVERT")]
-		[NativeName(NativeNameType.Value, "6")]
 		Invert = unchecked(6),
 
 		/// <summary>
 		/// Increments the current value and wraps back to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_INCREMENT_AND_WRAP")]
-		[NativeName(NativeNameType.Value, "7")]
 		IncrementAndWrap = unchecked(7),
 
 		/// <summary>
 		/// Decrements the current value and wraps to the maximum value. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STENCILOP_DECREMENT_AND_WRAP")]
-		[NativeName(NativeNameType.Value, "8")]
 		DecrementAndWrap = unchecked(8),
 	}
 }

@@ -17,50 +17,37 @@ namespace Hexa.NET.SDL3
 	/// These are results returned by SDL_GetPowerInfo().<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_PowerState")]
 	[Flags]
 	public enum SDLPowerState : int
 	{
 		/// <summary>
 		/// error determining power status <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_POWERSTATE_ERROR")]
-		[NativeName(NativeNameType.Value, "-1")]
 		Error = unchecked(-1),
 
 		/// <summary>
 		/// cannot determine power status <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_POWERSTATE_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
 
 		/// <summary>
 		/// Not plugged in, running on the battery <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_POWERSTATE_ON_BATTERY")]
-		[NativeName(NativeNameType.Value, "1")]
 		OnBattery = unchecked(1),
 
 		/// <summary>
 		/// Plugged in, no battery available <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_POWERSTATE_NO_BATTERY")]
-		[NativeName(NativeNameType.Value, "2")]
 		NoBattery = unchecked(2),
 
 		/// <summary>
 		/// Plugged in, charging battery <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_POWERSTATE_CHARGING")]
-		[NativeName(NativeNameType.Value, "3")]
 		Charging = unchecked(3),
 
 		/// <summary>
 		/// Plugged in, battery charged <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_POWERSTATE_CHARGED")]
-		[NativeName(NativeNameType.Value, "4")]
 		Charged = unchecked(4),
 	}
 }

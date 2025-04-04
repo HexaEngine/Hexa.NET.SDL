@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// An opaque handle representing an open HID device.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_hid_device")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHidDevice
 	{

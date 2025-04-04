@@ -18,2358 +18,2823 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Convert from an SDL_GamepadButton enum to a string.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadStringForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadStringForButton([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		public static string GetPrefPathS(string org, byte* app)
 		{
-			byte* ret = GetGamepadStringForButtonNative(button);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert from an SDL_GamepadButton enum to a string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadStringForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadStringForButtonS([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGamepadStringForButtonNative(button));
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether a gamepad has a given button.<br/>
-		/// This merely reports whether the gamepad's mapping defined this button, as<br/>
-		/// that is all the information SDL has about the physical device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasButton")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GamepadHasButtonNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, byte>)funcTable[732])(gamepad, button);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, byte>)funcTable[732])((nint)gamepad, button);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether a gamepad has a given button.<br/>
-		/// This merely reports whether the gamepad's mapping defined this button, as<br/>
-		/// that is all the information SDL has about the physical device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasButton")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadHasButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			byte ret = GamepadHasButtonNative(gamepad, button);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query whether a gamepad has a given button.<br/>
-		/// This merely reports whether the gamepad's mapping defined this button, as<br/>
-		/// that is all the information SDL has about the physical device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasButton")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadHasButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
 			{
-				byte ret = GamepadHasButtonNative((SDLGamepad*)pgamepad, button);
-				return ret != 0;
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-		}
-
-		/// <summary>
-		/// Get the current state of a button on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButton")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetGamepadButtonNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, byte>)funcTable[733])(gamepad, button);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, byte>)funcTable[733])((nint)gamepad, button);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of a button on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButton")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			byte ret = GetGamepadButtonNative(gamepad, button);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the current state of a button on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButton")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, app));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				byte ret = GetGamepadButtonNative((SDLGamepad*)pgamepad, button);
-				return ret != 0;
+				Utils.Free(pStr0);
 			}
-		}
-
-		/// <summary>
-		/// Get the label of a button on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabelForType")]
-		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGamepadButtonLabel GetGamepadButtonLabelForTypeNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GamepadType")] SDLGamepadType type, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepadType, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[734])(type, button);
-			#else
-			return (SDLGamepadButtonLabel)((delegate* unmanaged[Cdecl]<SDLGamepadType, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[734])(type, button);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the label of a button on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabelForType")]
-		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
-		public static SDLGamepadButtonLabel GetGamepadButtonLabelForType([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GamepadType")] SDLGamepadType type, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			SDLGamepadButtonLabel ret = GetGamepadButtonLabelForTypeNative(type, button);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the label of a button on a gamepad.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabel")]
-		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGamepadButtonLabel GetGamepadButtonLabelNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
+		public static byte* GetPrefPath(byte* org, ref byte app)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[735])(gamepad, button);
-			#else
-			return (SDLGamepadButtonLabel)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, SDLGamepadButtonLabel>)funcTable[735])((nint)gamepad, button);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the label of a button on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabel")]
-		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
-		public static SDLGamepadButtonLabel GetGamepadButtonLabel([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			SDLGamepadButtonLabel ret = GetGamepadButtonLabelNative(gamepad, button);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the label of a button on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadButtonLabel")]
-		[return: NativeName(NativeNameType.Type, "SDL_GamepadButtonLabel")]
-		public static SDLGamepadButtonLabel GetGamepadButtonLabel([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* papp = &app)
 			{
-				SDLGamepadButtonLabel ret = GetGamepadButtonLabelNative((SDLGamepad*)pgamepad, button);
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the number of touchpads on a gamepad.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpads")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumGamepadTouchpadsNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
+		public static string GetPrefPathS(byte* org, ref byte app)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int>)funcTable[736])(gamepad);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[736])((nint)gamepad);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of touchpads on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpads")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumGamepadTouchpads([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
-		{
-			int ret = GetNumGamepadTouchpadsNative(gamepad);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of touchpads on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpads")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumGamepadTouchpads([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* papp = &app)
 			{
-				int ret = GetNumGamepadTouchpadsNative((SDLGamepad*)pgamepad);
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
-		/// gamepad.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpadFingers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumGamepadTouchpadFingersNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
+		public static byte* GetPrefPath(byte* org, ReadOnlySpan<byte> app)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int, int>)funcTable[737])(gamepad, touchpad);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[737])((nint)gamepad, touchpad);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
-		/// gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpadFingers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumGamepadTouchpadFingers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
-		{
-			int ret = GetNumGamepadTouchpadFingersNative(gamepad, touchpad);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
-		/// gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumGamepadTouchpadFingers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumGamepadTouchpadFingers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* papp = app)
 			{
-				int ret = GetNumGamepadTouchpadFingersNative((SDLGamepad*)pgamepad, touchpad);
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetGamepadTouchpadFingerNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
+		public static string GetPrefPathS(byte* org, ReadOnlySpan<byte> app)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int, int, bool*, float*, float*, float*, byte>)funcTable[738])(gamepad, touchpad, finger, down, x, y, pressure);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, nint, nint, byte>)funcTable[738])((nint)gamepad, touchpad, finger, (nint)down, (nint)x, (nint)y, (nint)pressure);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, y, pressure);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* papp = app)
 			{
-				byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, y, pressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, y, pressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, y, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (float* px = &x)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, y, pressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, y, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, y, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, y, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (float* py = &y)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, (float*)py, pressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* py = &y)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, (float*)py, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* py = &y)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, (float*)py, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* py = &y)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, (float*)py, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, (float*)py, pressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, (float*)py, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, pressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] float* pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* py = &y)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, pressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* ppressure = &pressure)
-			{
-				byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, y, (float*)ppressure);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, y, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, y, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, y, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, y, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, y, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, y, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, y, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* py = &y)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, x, (float*)py, (float*)ppressure);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, x, (float*)py, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, x, (float*)py, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, x, (float*)py, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, down, (float*)px, (float*)py, (float*)ppressure);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] bool* down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, down, (float*)px, (float*)py, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (bool* pdown = &down)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							byte ret = GetGamepadTouchpadFingerNative(gamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, (float*)ppressure);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadTouchpadFinger")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadTouchpadFinger([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool *")] ref bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float *")] ref float pressure)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				fixed (bool* pdown = &down)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* py = &y)
-						{
-							fixed (float* ppressure = &pressure)
-							{
-								byte ret = GetGamepadTouchpadFingerNative((SDLGamepad*)pgamepad, touchpad, finger, (bool*)pdown, (float*)px, (float*)py, (float*)ppressure);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Return whether a gamepad has a particular sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GamepadHasSensorNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte>)funcTable[739])(gamepad, type);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte>)funcTable[739])((nint)gamepad, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether a gamepad has a particular sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadHasSensor([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			byte ret = GamepadHasSensorNative(gamepad, type);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Return whether a gamepad has a particular sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadHasSensor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadHasSensor([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = GamepadHasSensorNative((SDLGamepad*)pgamepad, type);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetGamepadSensorEnabledNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte, byte>)funcTable[740])(gamepad, type, enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte, byte>)funcTable[740])((nint)gamepad, type, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			byte ret = SetGamepadSensorEnabledNative(gamepad, type, enabled ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a gamepad sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = SetGamepadSensorEnabledNative((SDLGamepad*)pgamepad, type, enabled ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GamepadSensorEnabledNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, byte>)funcTable[741])(gamepad, type);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, byte>)funcTable[741])((nint)gamepad, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			byte ret = GamepadSensorEnabledNative(gamepad, type);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a gamepad.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GamepadSensorEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GamepadSensorEnabled([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = GamepadSensorEnabledNative((SDLGamepad*)pgamepad, type);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetGamepadSensorDataRateNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, float>)funcTable[742])(gamepad, type);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, float>)funcTable[742])((nint)gamepad, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetGamepadSensorDataRate([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			float ret = GetGamepadSensorDataRateNative(gamepad, type);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a gamepad sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorDataRate")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetGamepadSensorDataRate([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				float ret = GetGamepadSensorDataRateNative((SDLGamepad*)pgamepad, type);
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		public static byte* GetPrefPath(byte* org, string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetPrefPathNative(org, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(byte* org, string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrefPath(ref byte org, ref byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(ref byte org, ref byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrefPath(ReadOnlySpan<byte> org, ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(ReadOnlySpan<byte> org, ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrefPath(string org, string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (app != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(app);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = GetPrefPathNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(string org, string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (app != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(app);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, pStr1));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetGamepadSensorDataNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		internal static byte* GetUserFolderNative(SDLFolder folder)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLSensorType, float*, int, byte>)funcTable[743])(gamepad, type, data, numValues);
+			return ((delegate* unmanaged[Cdecl]<SDLFolder, byte*>)funcTable[822])(folder);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, nint, int, byte>)funcTable[743])((nint)gamepad, type, (nint)data, numValues);
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLFolder, nint>)funcTable[822])(folder);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static byte* GetUserFolder(SDLFolder folder)
 		{
-			byte ret = GetGamepadSensorDataNative(gamepad, type, data, numValues);
+			byte* ret = GetUserFolderNative(folder);
+			return ret;
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetUserFolderS(SDLFolder folder)
+		{
+			string ret = Utils.DecodeStringUTF8(GetUserFolderNative(folder));
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CreateDirectoryNative(byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[823])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[823])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CreateDirectory(byte* path)
+		{
+			byte ret = CreateDirectoryNative(path);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static bool CreateDirectory(ref byte path)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* ppath = &path)
 			{
-				byte ret = GetGamepadSensorDataNative((SDLGamepad*)pgamepad, type, data, numValues);
+				byte ret = CreateDirectoryNative((byte*)ppath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static bool CreateDirectory(ReadOnlySpan<byte> path)
 		{
-			fixed (float* pdata = &data)
+			fixed (byte* ppath = path)
 			{
-				byte ret = GetGamepadSensorDataNative(gamepad, type, (float*)pdata, numValues);
+				byte ret = CreateDirectoryNative((byte*)ppath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of a gamepad sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadSensorData")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetGamepadSensorData([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static bool CreateDirectory(string path)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
 			{
-				fixed (float* pdata = &data)
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					byte ret = GetGamepadSensorDataNative((SDLGamepad*)pgamepad, type, (float*)pdata, numValues);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CreateDirectoryNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte EnumerateDirectoryNative(byte* path, SDLEnumerateDirectoryCallback callback, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, byte>)funcTable[824])(path, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[824])((nint)path, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool EnumerateDirectory(byte* path, SDLEnumerateDirectoryCallback callback, void* userdata)
+		{
+			byte ret = EnumerateDirectoryNative(path, callback, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool EnumerateDirectory(ref byte path, SDLEnumerateDirectoryCallback callback, void* userdata)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool EnumerateDirectory(ReadOnlySpan<byte> path, SDLEnumerateDirectoryCallback callback, void* userdata)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool EnumerateDirectory(string path, SDLEnumerateDirectoryCallback callback, void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = EnumerateDirectoryNative(pStr0, callback, userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RemovePathNative(byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[825])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[825])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RemovePath(byte* path)
+		{
+			byte ret = RemovePathNative(path);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RemovePath(ref byte path)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = RemovePathNative((byte*)ppath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RemovePath(ReadOnlySpan<byte> path)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = RemovePathNative((byte*)ppath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RemovePath(string path)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RemovePathNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenamePathNative(byte* oldpath, byte* newpath)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[826])(oldpath, newpath);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[826])((nint)oldpath, (nint)newpath);
+			#endif
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(byte* oldpath, byte* newpath)
+		{
+			byte ret = RenamePathNative(oldpath, newpath);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(ref byte oldpath, byte* newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				byte ret = RenamePathNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(ReadOnlySpan<byte> oldpath, byte* newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				byte ret = RenamePathNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(string oldpath, byte* newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RenamePathNative(pStr0, newpath);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(byte* oldpath, ref byte newpath)
+		{
+			fixed (byte* pnewpath = &newpath)
+			{
+				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(byte* oldpath, ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* pnewpath = newpath)
+			{
+				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(byte* oldpath, string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (newpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RenamePathNative(oldpath, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenamePath(ref byte oldpath, ref byte newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				fixed (byte* pnewpath = &newpath)
+				{
+					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Start a rumble effect on a gamepad.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RumbleGamepadNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static bool RenamePath(ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, ushort, ushort, uint, byte>)funcTable[744])(gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[744])((nint)gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#endif
+			fixed (byte* poldpath = oldpath)
+			{
+				fixed (byte* pnewpath = newpath)
+				{
+					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
 		}
 
 		/// <summary>
-		/// Start a rumble effect on a gamepad.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static bool RenamePath(string oldpath, string newpath)
 		{
-			byte ret = RumbleGamepadNative(gamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (newpath != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte ret = RenamePathNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Start a rumble effect on a gamepad.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepad")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CopyFileNative(byte* oldpath, byte* newpath)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[827])(oldpath, newpath);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[827])((nint)oldpath, (nint)newpath);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CopyFile(byte* oldpath, byte* newpath)
+		{
+			byte ret = CopyFileNative(oldpath, newpath);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CopyFile(ref byte oldpath, byte* newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
 			{
-				byte ret = RumbleGamepadNative((SDLGamepad*)pgamepad, lowFrequencyRumble, highFrequencyRumble, durationMs);
+				byte ret = CopyFileNative((byte*)poldpath, newpath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Start a rumble effect in the gamepad's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
-		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
-		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RumbleGamepadTriggersNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, ushort, ushort, uint, byte>)funcTable[745])(gamepad, leftRumble, rightRumble, durationMs);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[745])((nint)gamepad, leftRumble, rightRumble, durationMs);
-			#endif
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the gamepad's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
-		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
-		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepadTriggers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static bool CopyFile(ReadOnlySpan<byte> oldpath, byte* newpath)
 		{
-			byte ret = RumbleGamepadTriggersNative(gamepad, leftRumble, rightRumble, durationMs);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the gamepad's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the gamepad as a<br/>
-		/// whole. This is currently only supported on Xbox One gamepads. If you want<br/>
-		/// the (more common) whole-gamepad rumble, use SDL_RumbleGamepad() instead.<br/>
-		/// This function requires you to process SDL events or call<br/>
-		/// SDL_UpdateJoysticks() to update rumble state.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RumbleGamepadTriggers")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RumbleGamepadTriggers([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* poldpath = oldpath)
 			{
-				byte ret = RumbleGamepadTriggersNative((SDLGamepad*)pgamepad, leftRumble, rightRumble, durationMs);
+				byte ret = CopyFileNative((byte*)poldpath, newpath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Update a gamepad's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
-		/// used as the LED brightness.<br/>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetGamepadLEDNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		public static bool CopyFile(string oldpath, byte* newpath)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, byte, byte, byte, byte>)funcTable[746])(gamepad, red, green, blue);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[746])((nint)gamepad, red, green, blue);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a gamepad's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
-		/// used as the LED brightness.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadLED([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
-		{
-			byte ret = SetGamepadLEDNative(gamepad, red, green, blue);
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CopyFileNative(pStr0, newpath);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Update a gamepad's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// For gamepads with a single color LED, the maximum of the RGB values will be<br/>
-		/// used as the LED brightness.<br/>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetGamepadLED")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetGamepadLED([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		public static bool CopyFile(byte* oldpath, ref byte newpath)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* pnewpath = &newpath)
 			{
-				byte ret = SetGamepadLEDNative((SDLGamepad*)pgamepad, red, green, blue);
+				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SendGamepadEffectNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		public static bool CopyFile(byte* oldpath, ReadOnlySpan<byte> newpath)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, void*, int, byte>)funcTable[747])(gamepad, data, size);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[747])((nint)gamepad, (nint)data, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SendGamepadEffect([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			byte ret = SendGamepadEffectNative(gamepad, data, size);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SendGamepadEffect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SendGamepadEffect([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			fixed (byte* pnewpath = newpath)
 			{
-				byte ret = SendGamepadEffectNative((SDLGamepad*)pgamepad, data, size);
+				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CloseGamepadNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGamepad*, void>)funcTable[748])(gamepad);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[748])((nint)gamepad);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void CloseGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
-		{
-			CloseGamepadNative(gamepad);
-		}
-
-		/// <summary>
-		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
-		/// <br/>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseGamepad")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void CloseGamepad([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
+		public static bool CopyFile(byte* oldpath, string newpath)
 		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (newpath != null)
 			{
-				CloseGamepadNative((SDLGamepad*)pgamepad);
+				pStrSize0 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGamepadAppleSFSymbolsNameForButtonNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadButton, byte*>)funcTable[749])(gamepad, button);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGamepadButton, nint>)funcTable[749])((nint)gamepad, button);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			byte* ret = GetGamepadAppleSFSymbolsNameForButtonNative(gamepad, button);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForButtonNative(gamepad, button));
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
+			byte ret = CopyFileNative(oldpath, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				byte* ret = GetGamepadAppleSFSymbolsNameForButtonNative((SDLGamepad*)pgamepad, button);
-				return ret;
+				Utils.Free(pStr0);
 			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a gamepad on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForButton")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GamepadButton")] SDLGamepadButton button)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForButtonNative((SDLGamepad*)pgamepad, button));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGamepadAppleSFSymbolsNameForAxisNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, SDLGamepadAxis, byte*>)funcTable[750])(gamepad, axis);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGamepadAxis, nint>)funcTable[750])((nint)gamepad, axis);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
-		{
-			byte* ret = GetGamepadAppleSFSymbolsNameForAxisNative(gamepad, axis);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForAxisNative(gamepad, axis));
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetGamepadAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte* ret = GetGamepadAppleSFSymbolsNameForAxisNative((SDLGamepad*)pgamepad, axis);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a gamepad on Apple platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGamepadAppleSFSymbolsNameForAxis")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetGamepadAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GamepadAxis")] SDLGamepadAxis axis)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				string ret = Utils.DecodeStringUTF8(GetGamepadAppleSFSymbolsNameForAxisNative((SDLGamepad*)pgamepad, axis));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return whether a keyboard is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasKeyboard")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasKeyboardNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[751])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[751])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether a keyboard is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasKeyboard")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasKeyboard()
-		{
-			byte ret = HasKeyboardNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected keyboards.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
-		/// power buttons, etc. You should wait for input from a device before you<br/>
-		/// consider it actively in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
-		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
+		public static bool CopyFile(ref byte oldpath, ref byte newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				fixed (byte* pnewpath = &newpath)
+				{
+					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CopyFile(ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				fixed (byte* pnewpath = newpath)
+				{
+					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CopyFile(string oldpath, string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (newpath != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte ret = CopyFileNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetKeyboardsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		internal static byte GetPathInfoNative(byte* path, SDLPathInfo* info)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[752])(count);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLPathInfo*, byte>)funcTable[828])(path, info);
 			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[752])((nint)count);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[828])((nint)path, (nint)info);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a list of currently connected keyboards.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
-		/// power buttons, etc. You should wait for input from a device before you<br/>
-		/// consider it actively in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get information about a filesystem path.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
-		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
-		public static uint* GetKeyboards([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		public static bool GetPathInfo(byte* path, SDLPathInfo* info)
 		{
-			uint* ret = GetKeyboardsNative(count);
+			byte ret = GetPathInfoNative(path, info);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetPathInfo(ref byte path, SDLPathInfo* info)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = GetPathInfoNative((byte*)ppath, info);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetPathInfo(ReadOnlySpan<byte> path, SDLPathInfo* info)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = GetPathInfoNative((byte*)ppath, info);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetPathInfo(string path, SDLPathInfo* info)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = GetPathInfoNative(pStr0, info);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetPathInfo(byte* path, ref SDLPathInfo info)
+		{
+			fixed (SDLPathInfo* pinfo = &info)
+			{
+				byte ret = GetPathInfoNative(path, (SDLPathInfo*)pinfo);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetPathInfo(ref byte path, ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetPathInfo(ReadOnlySpan<byte> path, ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetPathInfo(string path, ref SDLPathInfo info)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLPathInfo* pinfo = &info)
+			{
+				byte ret = GetPathInfoNative(pStr0, (SDLPathInfo*)pinfo);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte** GlobDirectoryNative(byte* path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLGlobFlags, int*, byte**>)funcTable[829])(path, pattern, flags, count);
+			#else
+			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint, SDLGlobFlags, nint, nint>)funcTable[829])((nint)path, (nint)pattern, flags, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(byte* path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			byte** ret = GlobDirectoryNative(path, pattern, flags, count);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected keyboards.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// keyboard functionality, including some mice, KVM switches, motherboard<br/>
-		/// power buttons, etc. You should wait for input from a device before you<br/>
-		/// consider it actively in use.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboards")]
-		[return: NativeName(NativeNameType.Type, "SDL_KeyboardID *")]
-		public static uint* GetKeyboards([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		public static byte** GlobDirectory(ref byte path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(string path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobDirectoryNative(pStr0, pattern, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(byte* path, ref byte pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppattern = &pattern)
+			{
+				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(byte* path, string pattern, SDLGlobFlags flags, int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pattern != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobDirectoryNative(path, pStr0, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(ref byte path, ref byte pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(string path, string pattern, SDLGlobFlags flags, int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (pattern != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, count);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(byte* path, byte* pattern, SDLGlobFlags flags, ref int count)
 		{
 			fixed (int* pcount = &count)
 			{
-				uint* ret = GetKeyboardsNative((int*)pcount);
+				byte** ret = GlobDirectoryNative(path, pattern, flags, (int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the name of a keyboard.<br/>
-		/// This function returns "" if the keyboard doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetKeyboardNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[753])(instanceId);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[753])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a keyboard.<br/>
-		/// This function returns "" if the keyboard doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetKeyboardNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
-		{
-			byte* ret = GetKeyboardNameForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a keyboard.<br/>
-		/// This function returns "" if the keyboard doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetKeyboardNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_KeyboardID")] uint instanceId)
-		{
-			string ret = Utils.DecodeStringUTF8(GetKeyboardNameForIDNative(instanceId));
-			return ret;
-		}
-
-		/// <summary>
-		/// Query the window which currently has keyboard focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetKeyboardFocusNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[754])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[754])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query the window which currently has keyboard focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetKeyboardFocus()
-		{
-			SDLWindow* ret = GetKeyboardFocusNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of true means that the key is pressed and a<br/>
-		/// value of false means that it is not. Indexes into this array are obtained<br/>
-		/// by using SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
-		[return: NativeName(NativeNameType.Type, "bool const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static bool* GetKeyboardStateNative([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] int* numkeys)
+		public static byte** GlobDirectory(ref byte path, byte* pattern, SDLGlobFlags flags, ref int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, bool*>)funcTable[755])(numkeys);
-			#else
-			return (bool*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[755])((nint)numkeys);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of true means that the key is pressed and a<br/>
-		/// value of false means that it is not. Indexes into this array are obtained<br/>
-		/// by using SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
-		[return: NativeName(NativeNameType.Type, "bool const *")]
-		public static bool* GetKeyboardState([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] int* numkeys)
-		{
-			bool* ret = GetKeyboardStateNative(numkeys);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of true means that the key is pressed and a<br/>
-		/// value of false means that it is not. Indexes into this array are obtained<br/>
-		/// by using SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
-		[return: NativeName(NativeNameType.Type, "bool const *")]
-		public static bool* GetKeyboardState([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int *")] ref int numkeys)
-		{
-			fixed (int* pnumkeys = &numkeys)
+			fixed (byte* ppath = &path)
 			{
-				bool* ret = GetKeyboardStateNative((int*)pnumkeys);
-				return ret;
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
+					return ret;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Clear the state of the keyboard.<br/>
-		/// This function will generate key up events for all pressed keys.<br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetKeyboard")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetKeyboardNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[756])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[756])();
-			#endif
-		}
-
-		/// <summary>
-		/// Clear the state of the keyboard.<br/>
-		/// This function will generate key up events for all pressed keys.<br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetKeyboard")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ResetKeyboard()
-		{
-			ResetKeyboardNative();
-		}
-
-		/// <summary>
-		/// Get the current key modifier state for the keyboard.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetModState")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keymod")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLKeymod GetModStateNative()
+		public static byte** GlobDirectory(ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, ref int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[757])();
-			#else
-			return (SDLKeymod)((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[757])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current key modifier state for the keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetModState")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keymod")]
-		public static SDLKeymod GetModState()
-		{
-			SDLKeymod ret = GetModStateNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the current key modifier state for the keyboard.<br/>
-		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
-		/// modifier key states on your application. Simply pass your desired modifier<br/>
-		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
-		/// SDL_Keymod values.<br/>
-		/// This does not change the keyboard state, only the key modifier flags that<br/>
-		/// SDL reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetModState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetModStateNative([NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[758])(modstate);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[758])(modstate);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the current key modifier state for the keyboard.<br/>
-		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
-		/// modifier key states on your application. Simply pass your desired modifier<br/>
-		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
-		/// SDL_Keymod values.<br/>
-		/// This does not change the keyboard state, only the key modifier flags that<br/>
-		/// SDL reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetModState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetModState([NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate)
-		{
-			SetModStateNative(modstate);
-		}
-
-		/// <summary>
-		/// Get the key code corresponding to the given scancode according to the<br/>
-		/// current keyboard layout.<br/>
-		/// If you want to get the keycode as it would be delivered in key events,<br/>
-		/// including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should<br/>
-		/// pass `key_event` as true. Otherwise this function simply translates the<br/>
-		/// scancode based on the given modifier state.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromScancode")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetKeyFromScancodeNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate, [NativeName(NativeNameType.Param, "key_event")] [NativeName(NativeNameType.Type, "bool")] byte keyEvent)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, SDLKeymod, byte, int>)funcTable[759])(scancode, modstate, keyEvent);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLScancode, SDLKeymod, byte, int>)funcTable[759])(scancode, modstate, keyEvent);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the key code corresponding to the given scancode according to the<br/>
-		/// current keyboard layout.<br/>
-		/// If you want to get the keycode as it would be delivered in key events,<br/>
-		/// including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should<br/>
-		/// pass `key_event` as true. Otherwise this function simply translates the<br/>
-		/// scancode based on the given modifier state.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromScancode")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromScancode([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate, [NativeName(NativeNameType.Param, "key_event")] [NativeName(NativeNameType.Type, "bool")] bool keyEvent)
-		{
-			int ret = GetKeyFromScancodeNative(scancode, modstate, keyEvent ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// Note that there may be multiple scancode+modifier states that can generate<br/>
-		/// this keycode, this will just return the first one found.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLScancode GetScancodeFromKeyNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] SDLKeymod* modstate)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLKeymod*, SDLScancode>)funcTable[760])(key, modstate);
-			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<int, nint, SDLScancode>)funcTable[760])(key, (nint)modstate);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// Note that there may be multiple scancode+modifier states that can generate<br/>
-		/// this keycode, this will just return the first one found.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromKey([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] SDLKeymod* modstate)
-		{
-			SDLScancode ret = GetScancodeFromKeyNative(key, modstate);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// Note that there may be multiple scancode+modifier states that can generate<br/>
-		/// this keycode, this will just return the first one found.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromKey([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key, [NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod *")] ref SDLKeymod modstate)
-		{
-			fixed (SDLKeymod* pmodstate = &modstate)
+			fixed (byte* ppath = path)
 			{
-				SDLScancode ret = GetScancodeFromKeyNative(key, (SDLKeymod*)pmodstate);
-				return ret;
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
+					return ret;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetScancodeNameNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*, byte>)funcTable[761])(scancode, name);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLScancode, nint, byte>)funcTable[761])(scancode, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			byte ret = SetScancodeNameNative(scancode, name);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = SetScancodeNameNative(scancode, (byte*)pname);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = SetScancodeNameNative(scancode, (byte*)pname);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a human-readable name for a scancode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static byte** GlobDirectory(string path, byte* pattern, SDLGlobFlags flags, ref int count)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (name != null)
+			if (path != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
+				pStrSize0 = Utils.GetByteCountUTF8(path);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2379,184 +2844,117 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = SetScancodeNameNative(scancode, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
+			fixed (int* pcount = &count)
 			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetScancodeNameNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*>)funcTable[762])(scancode);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<SDLScancode, nint>)funcTable[762])(scancode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetScancodeName([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
-		{
-			byte* ret = GetScancodeNameNative(scancode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetScancodeNameS([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
-		{
-			string ret = Utils.DecodeStringUTF8(GetScancodeNameNative(scancode));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLScancode GetScancodeFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLScancode>)funcTable[763])(name);
-			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<nint, SDLScancode>)funcTable[763])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			SDLScancode ret = GetScancodeFromNameNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
+				byte** ret = GlobDirectoryNative(pStr0, pattern, flags, (int*)pcount);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static byte** GlobDirectory(byte* path, ref byte pattern, SDLGlobFlags flags, ref int count)
 		{
-			fixed (byte* pname = name)
+			fixed (byte* ppattern = &pattern)
 			{
-				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
-				return ret;
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
-		public static SDLScancode GetScancodeFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static byte** GlobDirectory(byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(byte* path, string pattern, SDLGlobFlags flags, ref int count)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (name != null)
+			if (pattern != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2566,2460 +2964,2076 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLScancode ret = GetScancodeFromNameNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
+			fixed (int* pcount = &count)
 			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
-		/// Letters will be presented in their uppercase form, if applicable.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetKeyNameNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[764])(key);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[764])(key);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
-		/// Letters will be presented in their uppercase form, if applicable.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetKeyName([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
-		{
-			byte* ret = GetKeyNameNative(key);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// If the key doesn't have a name, this function returns an empty string ("").<br/>
-		/// Letters will be presented in their uppercase form, if applicable.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetKeyNameS([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
-		{
-			string ret = Utils.DecodeStringUTF8(GetKeyNameNative(key));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetKeyFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[765])(name);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[765])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			int ret = GetKeyFromNameNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
-		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
-		public static int GetKeyFromName([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
+				byte** ret = GlobDirectoryNative(path, pStr0, flags, (int*)pcount);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					Utils.Free(pStr0);
 				}
-				else
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobDirectory(ref byte path, ref byte pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GetKeyFromNameNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard and/or<br/>
-		/// activates an IME, which can prevent some key press events from being passed<br/>
-		/// through.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StartTextInputNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[766])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[766])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard and/or<br/>
-		/// activates an IME, which can prevent some key press events from being passed<br/>
-		/// through.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = StartTextInputNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard and/or<br/>
-		/// activates an IME, which can prevent some key press events from being passed<br/>
-		/// through.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = StartTextInputNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window, with properties<br/>
-		/// describing the input.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard and/or<br/>
-		/// activates an IME, which can prevent some key press events from being passed<br/>
-		/// through.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
-		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
-		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
-		/// that describes how text should be capitalized, defaults to<br/>
-		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
-		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
-		/// addresses, usernames, and passwords.<br/>
-		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
-		/// and auto correction, defaults to true.<br/>
-		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
-		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
-		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
-		/// is "1".<br/>
-		/// On Android you can directly specify the input type:<br/>
-		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
-		/// use, overriding other properties. This is documented at<br/>
-		/// https://developer.android.com/reference/android/text/InputType<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StartTextInputWithPropertiesNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint, byte>)funcTable[767])(window, props);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[767])((nint)window, props);
-			#endif
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window, with properties<br/>
-		/// describing the input.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard and/or<br/>
-		/// activates an IME, which can prevent some key press events from being passed<br/>
-		/// through.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
-		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
-		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
-		/// that describes how text should be capitalized, defaults to<br/>
-		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
-		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
-		/// addresses, usernames, and passwords.<br/>
-		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
-		/// and auto correction, defaults to true.<br/>
-		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
-		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
-		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
-		/// is "1".<br/>
-		/// On Android you can directly specify the input type:<br/>
-		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
-		/// use, overriding other properties. This is documented at<br/>
-		/// https://developer.android.com/reference/android/text/InputType<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			byte ret = StartTextInputWithPropertiesNative(window, props);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events in a window, with properties<br/>
-		/// describing the input.<br/>
-		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
-		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
-		/// function paired with SDL_StopTextInput().<br/>
-		/// Text input events are not received by default.<br/>
-		/// On some platforms using this function shows the screen keyboard and/or<br/>
-		/// activates an IME, which can prevent some key press events from being passed<br/>
-		/// through.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
-		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
-		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
-		/// that describes how text should be capitalized, defaults to<br/>
-		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
-		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
-		/// addresses, usernames, and passwords.<br/>
-		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
-		/// and auto correction, defaults to true.<br/>
-		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
-		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
-		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
-		/// is "1".<br/>
-		/// On Android you can directly specify the input type:<br/>
-		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
-		/// use, overriding other properties. This is documented at<br/>
-		/// https://developer.android.com/reference/android/text/InputType<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = StartTextInputWithPropertiesNative((SDLWindow*)pwindow, props);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TextInputActiveNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[768])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[768])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = TextInputActiveNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = TextInputActiveNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events in a window.<br/>
-		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
-		/// it.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StopTextInputNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[769])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[769])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events in a window.<br/>
-		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
-		/// it.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = StopTextInputNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events in a window.<br/>
-		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
-		/// it.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = StopTextInputNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ClearCompositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[770])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[770])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = ClearCompositionNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ClearCompositionNative((SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int, byte>)funcTable[771])(window, rect, cursor);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[771])((nint)window, (nint)rect, cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			byte ret = SetTextInputAreaNative(window, rect, cursor);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, rect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = SetTextInputAreaNative(window, (SDLRect*)prect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the area used to type Unicode text input.<br/>
-		/// Native input methods may place a window with word suggestions near the<br/>
-		/// cursor, without covering the text being entered.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int*, byte>)funcTable[772])(window, rect, cursor);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[772])((nint)window, (nint)rect, (nint)cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			byte ret = GetTextInputAreaNative(window, rect, cursor);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, rect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = GetTextInputAreaNative(window, (SDLRect*)prect, cursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (int* pcursor = &cursor)
-			{
-				byte ret = GetTextInputAreaNative(window, rect, (int*)pcursor);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pcursor = &cursor)
-				{
-					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, rect, (int*)pcursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* pcursor = &cursor)
-				{
-					byte ret = GetTextInputAreaNative(window, (SDLRect*)prect, (int*)pcursor);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the area used to type Unicode text input.<br/>
-		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (int* pcursor = &cursor)
+					fixed (int* pcount = &count)
 					{
-						byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, (int*)pcursor);
-						return ret != 0;
+						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasScreenKeyboardSupportNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[773])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[773])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasScreenKeyboardSupport()
+		public static byte** GlobDirectory(ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
 		{
-			byte ret = HasScreenKeyboardSupportNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ScreenKeyboardShownNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[774])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[774])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = ScreenKeyboardShownNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* ppath = path)
 			{
-				byte ret = ScreenKeyboardShownNative((SDLWindow*)pwindow);
-				return ret != 0;
+				fixed (byte* ppattern = pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
 			}
 		}
 
 		/// <summary>
-		/// Return whether a mouse is currently connected.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '<br/>
+		/// \<br/>
+		/// *' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '<br/>
+		/// \<br/>
+		/// *' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasMouseNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[775])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[775])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether a mouse is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasMouse()
+		public static byte** GlobDirectory(string path, string pattern, SDLGlobFlags flags, ref int count)
 		{
-			byte ret = HasMouseNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get a list of currently connected mice.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
-		/// You should wait for input from a device before you consider it actively in<br/>
-		/// use.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMice")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetMiceNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[776])(count);
-			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[776])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of currently connected mice.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
-		/// You should wait for input from a device before you consider it actively in<br/>
-		/// use.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMice")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
-		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			uint* ret = GetMiceNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of currently connected mice.<br/>
-		/// Note that this will include any device or virtual driver that includes<br/>
-		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
-		/// You should wait for input from a device before you consider it actively in<br/>
-		/// use.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMice")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
-		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (pattern != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
 			fixed (int* pcount = &count)
 			{
-				uint* ret = GetMiceNative((int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the name of a mouse.<br/>
-		/// This function returns "" if the mouse doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetMouseNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[777])(instanceId);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[777])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a mouse.<br/>
-		/// This function returns "" if the mouse doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetMouseNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
-		{
-			byte* ret = GetMouseNameForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a mouse.<br/>
-		/// This function returns "" if the mouse doesn't have a name.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetMouseNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
-		{
-			string ret = Utils.DecodeStringUTF8(GetMouseNameForIDNative(instanceId));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetMouseFocusNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[778])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[778])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetMouseFocus()
-		{
-			SDLWindow* ret = GetMouseFocusNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and the<br/>
-		/// window-relative SDL-cursor position.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the focused window.<br/>
-		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
-		/// platform-cursor's position as manually calculated from<br/>
-		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMouseButtonFlags GetMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[779])(x, y);
-			#else
-			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[779])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and the<br/>
-		/// window-relative SDL-cursor position.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the focused window.<br/>
-		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
-		/// platform-cursor's position as manually calculated from<br/>
-		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			SDLMouseButtonFlags ret = GetMouseStateNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and the<br/>
-		/// window-relative SDL-cursor position.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the focused window.<br/>
-		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
-		/// platform-cursor's position as manually calculated from<br/>
-		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			fixed (float* px = &x)
-			{
-				SDLMouseButtonFlags ret = GetMouseStateNative((float*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and the<br/>
-		/// window-relative SDL-cursor position.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the focused window.<br/>
-		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
-		/// platform-cursor's position as manually calculated from<br/>
-		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* py = &y)
-			{
-				SDLMouseButtonFlags ret = GetMouseStateNative(x, (float*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and the<br/>
-		/// window-relative SDL-cursor position.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the focused window.<br/>
-		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
-		/// platform-cursor's position as manually calculated from<br/>
-		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
+				byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, (int*)pcount);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
 				{
-					SDLMouseButtonFlags ret = GetMouseStateNative((float*)px, (float*)py);
-					return ret;
+					Utils.Free(pStr1);
 				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Query the platform for the asynchronous mouse button state and the<br/>
-		/// desktop-relative platform-cursor position.<br/>
-		/// This function immediately queries the platform for the most recent<br/>
-		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
-		/// SDL_GetMouseState().<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the desktop.<br/>
-		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
-		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
-		/// SDL_GetWindowPosition.<br/>
-		/// This function can be useful if you need to track the mouse outside of a<br/>
-		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
-		/// it could be useful if you need to track the mouse while dragging a window,<br/>
-		/// where coordinates relative to a window might not be in sync at all times.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get what the system believes is the "current working directory."<br/>
+		/// For systems without a concept of a current working directory, this will<br/>
+		/// still attempt to provide something reasonable.<br/>
+		/// SDL does not provide a means to _change_ the current working directory; for<br/>
+		/// platforms without this concept, this would cause surprises with file access<br/>
+		/// outside of SDL.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMouseButtonFlags GetGlobalMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		internal static byte* GetCurrentDirectoryNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[780])(x, y);
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[830])();
 			#else
-			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[780])((nint)x, (nint)y);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[830])();
 			#endif
 		}
 
 		/// <summary>
-		/// Query the platform for the asynchronous mouse button state and the<br/>
-		/// desktop-relative platform-cursor position.<br/>
-		/// This function immediately queries the platform for the most recent<br/>
-		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
-		/// SDL_GetMouseState().<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the desktop.<br/>
-		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
-		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
-		/// SDL_GetWindowPosition.<br/>
-		/// This function can be useful if you need to track the mouse outside of a<br/>
-		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
-		/// it could be useful if you need to track the mouse while dragging a window,<br/>
-		/// where coordinates relative to a window might not be in sync at all times.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get what the system believes is the "current working directory."<br/>
+		/// For systems without a concept of a current working directory, this will<br/>
+		/// still attempt to provide something reasonable.<br/>
+		/// SDL does not provide a means to _change_ the current working directory; for<br/>
+		/// platforms without this concept, this would cause surprises with file access<br/>
+		/// outside of SDL.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		public static byte* GetCurrentDirectory()
 		{
-			SDLMouseButtonFlags ret = GetGlobalMouseStateNative(x, y);
+			byte* ret = GetCurrentDirectoryNative();
 			return ret;
 		}
 
 		/// <summary>
-		/// Query the platform for the asynchronous mouse button state and the<br/>
-		/// desktop-relative platform-cursor position.<br/>
-		/// This function immediately queries the platform for the most recent<br/>
-		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
-		/// SDL_GetMouseState().<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the desktop.<br/>
-		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
-		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
-		/// SDL_GetWindowPosition.<br/>
-		/// This function can be useful if you need to track the mouse outside of a<br/>
-		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
-		/// it could be useful if you need to track the mouse while dragging a window,<br/>
-		/// where coordinates relative to a window might not be in sync at all times.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get what the system believes is the "current working directory."<br/>
+		/// For systems without a concept of a current working directory, this will<br/>
+		/// still attempt to provide something reasonable.<br/>
+		/// SDL does not provide a means to _change_ the current working directory; for<br/>
+		/// platforms without this concept, this would cause surprises with file access<br/>
+		/// outside of SDL.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		public static string GetCurrentDirectoryS()
 		{
-			fixed (float* px = &x)
-			{
-				SDLMouseButtonFlags ret = GetGlobalMouseStateNative((float*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the platform for the asynchronous mouse button state and the<br/>
-		/// desktop-relative platform-cursor position.<br/>
-		/// This function immediately queries the platform for the most recent<br/>
-		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
-		/// SDL_GetMouseState().<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the desktop.<br/>
-		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
-		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
-		/// SDL_GetWindowPosition.<br/>
-		/// This function can be useful if you need to track the mouse outside of a<br/>
-		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
-		/// it could be useful if you need to track the mouse while dragging a window,<br/>
-		/// where coordinates relative to a window might not be in sync at all times.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* py = &y)
-			{
-				SDLMouseButtonFlags ret = GetGlobalMouseStateNative(x, (float*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the platform for the asynchronous mouse button state and the<br/>
-		/// desktop-relative platform-cursor position.<br/>
-		/// This function immediately queries the platform for the most recent<br/>
-		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
-		/// SDL_GetMouseState().<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y coordinates relative to the desktop.<br/>
-		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
-		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
-		/// SDL_GetWindowPosition.<br/>
-		/// This function can be useful if you need to track the mouse outside of a<br/>
-		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
-		/// it could be useful if you need to track the mouse while dragging a window,<br/>
-		/// where coordinates relative to a window might not be in sync at all times.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					SDLMouseButtonFlags ret = GetGlobalMouseStateNative((float*)px, (float*)py);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
-		/// mouse delta since last call.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y deltas accumulated since the last call to this function<br/>
-		/// (or since event initialization).<br/>
-		/// This function is useful for reducing overhead by processing relative mouse<br/>
-		/// inputs in one go per-frame instead of individually per-event, at the<br/>
-		/// expense of losing the order between events within the frame (e.g. quickly<br/>
-		/// pressing and releasing a button within the same frame).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMouseButtonFlags GetRelativeMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float*, float*, SDLMouseButtonFlags>)funcTable[781])(x, y);
-			#else
-			return (SDLMouseButtonFlags)((delegate* unmanaged[Cdecl]<nint, nint, SDLMouseButtonFlags>)funcTable[781])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
-		/// mouse delta since last call.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y deltas accumulated since the last call to this function<br/>
-		/// (or since event initialization).<br/>
-		/// This function is useful for reducing overhead by processing relative mouse<br/>
-		/// inputs in one go per-frame instead of individually per-event, at the<br/>
-		/// expense of losing the order between events within the frame (e.g. quickly<br/>
-		/// pressing and releasing a button within the same frame).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			SDLMouseButtonFlags ret = GetRelativeMouseStateNative(x, y);
+			string ret = Utils.DecodeStringUTF8(GetCurrentDirectoryNative());
 			return ret;
 		}
 
 		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
-		/// mouse delta since last call.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y deltas accumulated since the last call to this function<br/>
-		/// (or since event initialization).<br/>
-		/// This function is useful for reducing overhead by processing relative mouse<br/>
-		/// inputs in one go per-frame instead of individually per-event, at the<br/>
-		/// expense of losing the order between events within the frame (e.g. quickly<br/>
-		/// pressing and releasing a button within the same frame).<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
-		{
-			fixed (float* px = &x)
-			{
-				SDLMouseButtonFlags ret = GetRelativeMouseStateNative((float*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
-		/// mouse delta since last call.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y deltas accumulated since the last call to this function<br/>
-		/// (or since event initialization).<br/>
-		/// This function is useful for reducing overhead by processing relative mouse<br/>
-		/// inputs in one go per-frame instead of individually per-event, at the<br/>
-		/// expense of losing the order between events within the frame (e.g. quickly<br/>
-		/// pressing and releasing a button within the same frame).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* py = &y)
-			{
-				SDLMouseButtonFlags ret = GetRelativeMouseStateNative(x, (float*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
-		/// mouse delta since last call.<br/>
-		/// This function returns the cached synchronous state as SDL understands it<br/>
-		/// from the last pump of the event queue.<br/>
-		/// To query the platform for immediate asynchronous state, use<br/>
-		/// SDL_GetGlobalMouseState.<br/>
-		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
-		/// respective x or y deltas accumulated since the last call to this function<br/>
-		/// (or since event initialization).<br/>
-		/// This function is useful for reducing overhead by processing relative mouse<br/>
-		/// inputs in one go per-frame instead of individually per-event, at the<br/>
-		/// expense of losing the order between events within the frame (e.g. quickly<br/>
-		/// pressing and releasing a button within the same frame).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
-		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
-		public static SDLMouseButtonFlags GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					SDLMouseButtonFlags ret = GetRelativeMouseStateNative((float*)px, (float*)py);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Move the mouse cursor to the given position within the window.<br/>
-		/// This function generates a mouse motion event if relative mode is not<br/>
-		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
-		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void WarpMouseInWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		internal static byte GPUSupportsShaderFormatsNative(SDLGPUShaderFormat formatFlags, byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, float, float, void>)funcTable[782])(window, x, y);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte*, byte>)funcTable[831])(formatFlags, name);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, float, float, void>)funcTable[782])((nint)window, x, y);
+			return (byte)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, nint, byte>)funcTable[831])(formatFlags, (nint)name);
 			#endif
 		}
 
 		/// <summary>
-		/// Move the mouse cursor to the given position within the window.<br/>
-		/// This function generates a mouse motion event if relative mode is not<br/>
-		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
-		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, byte* name)
 		{
-			WarpMouseInWindowNative(window, x, y);
-		}
-
-		/// <summary>
-		/// Move the mouse cursor to the given position within the window.<br/>
-		/// This function generates a mouse motion event if relative mode is not<br/>
-		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
-		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				WarpMouseInWindowNative((SDLWindow*)pwindow, x, y);
-			}
-		}
-
-		/// <summary>
-		/// Move the mouse to the given position in global screen space.<br/>
-		/// This function generates a mouse motion event.<br/>
-		/// A failure of this function usually means that it is unsupported by a<br/>
-		/// platform.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WarpMouseGlobalNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[783])(x, y);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[783])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Move the mouse to the given position in global screen space.<br/>
-		/// This function generates a mouse motion event.<br/>
-		/// A failure of this function usually means that it is unsupported by a<br/>
-		/// platform.<br/>
-		/// Note that this function will appear to succeed, but not actually move the<br/>
-		/// mouse when used over Microsoft Remote Desktop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WarpMouseGlobal([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			byte ret = WarpMouseGlobalNative(x, y);
+			byte ret = GPUSupportsShaderFormatsNative(formatFlags, name);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set relative mouse mode for a window.<br/>
-		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
-		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
-		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
-		/// the window.<br/>
-		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
-		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
-		/// specific location when relative mode ends, you should use<br/>
-		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
-		/// This function will flush any pending mouse motion for this window.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, ref byte name)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte, byte>)funcTable[784])(window, enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[784])((nint)window, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set relative mouse mode for a window.<br/>
-		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
-		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
-		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
-		/// the window.<br/>
-		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
-		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
-		/// specific location when relative mode ends, you should use<br/>
-		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
-		/// This function will flush any pending mouse motion for this window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			byte ret = SetWindowRelativeMouseModeNative(window, enabled ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set relative mouse mode for a window.<br/>
-		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
-		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
-		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
-		/// the window.<br/>
-		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
-		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
-		/// specific location when relative mode ends, you should use<br/>
-		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
-		/// This function will flush any pending mouse motion for this window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pname = &name)
 			{
-				byte ret = SetWindowRelativeMouseModeNative((SDLWindow*)pwindow, enabled ? (byte)1 : (byte)0);
+				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Query whether relative mouse mode is enabled for a window.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, ReadOnlySpan<byte> name)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[785])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[785])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether relative mouse mode is enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = GetWindowRelativeMouseModeNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query whether relative mouse mode is enabled for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pname = name)
 			{
-				byte ret = GetWindowRelativeMouseModeNative((SDLWindow*)pwindow);
+				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Capture the mouse and to track input outside an SDL window.<br/>
-		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
-		/// within your window. Not all video targets support this function. When<br/>
-		/// capturing is enabled, the current window will get all mouse events, but<br/>
-		/// unlike relative mode, no change is made to the cursor and it is not<br/>
-		/// restrained to your window.<br/>
-		/// This function may also deny mouse input to other windows--both those in<br/>
-		/// your application and others on the system--so you should use this function<br/>
-		/// sparingly, and in small bursts. For example, you might want to track the<br/>
-		/// mouse while the user is dragging something, until the user releases a mouse<br/>
-		/// button. It is not recommended that you capture the mouse for long periods<br/>
-		/// of time, such as the entire time your app is running. For that, you should<br/>
-		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
-		/// depending on your goals.<br/>
-		/// While captured, mouse events still report coordinates relative to the<br/>
-		/// current (foreground) window, but those coordinates may be outside the<br/>
-		/// bounds of the window (including negative values). Capturing is only allowed<br/>
-		/// for the foreground window. If the window loses focus while capturing, the<br/>
-		/// capture will be disabled automatically.<br/>
-		/// While capturing is enabled, the current window will have the<br/>
-		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
-		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
-		/// user is pressing a button; this is to try and make mouse behavior more<br/>
-		/// consistent between platforms, and deal with the common case of a user<br/>
-		/// dragging the mouse outside of the window. This means that if you are<br/>
-		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
-		/// have to (although it is safe to do so). If this causes problems for your<br/>
-		/// app, you can disable auto capture by setting the<br/>
-		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CaptureMouseNative([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, string name)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[786])(enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[786])(enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Capture the mouse and to track input outside an SDL window.<br/>
-		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
-		/// within your window. Not all video targets support this function. When<br/>
-		/// capturing is enabled, the current window will get all mouse events, but<br/>
-		/// unlike relative mode, no change is made to the cursor and it is not<br/>
-		/// restrained to your window.<br/>
-		/// This function may also deny mouse input to other windows--both those in<br/>
-		/// your application and others on the system--so you should use this function<br/>
-		/// sparingly, and in small bursts. For example, you might want to track the<br/>
-		/// mouse while the user is dragging something, until the user releases a mouse<br/>
-		/// button. It is not recommended that you capture the mouse for long periods<br/>
-		/// of time, such as the entire time your app is running. For that, you should<br/>
-		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
-		/// depending on your goals.<br/>
-		/// While captured, mouse events still report coordinates relative to the<br/>
-		/// current (foreground) window, but those coordinates may be outside the<br/>
-		/// bounds of the window (including negative values). Capturing is only allowed<br/>
-		/// for the foreground window. If the window loses focus while capturing, the<br/>
-		/// capture will be disabled automatically.<br/>
-		/// While capturing is enabled, the current window will have the<br/>
-		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
-		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
-		/// user is pressing a button; this is to try and make mouse behavior more<br/>
-		/// consistent between platforms, and deal with the common case of a user<br/>
-		/// dragging the mouse outside of the window. This means that if you are<br/>
-		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
-		/// have to (although it is safe to do so). If this causes problems for your<br/>
-		/// app, you can disable auto capture by setting the<br/>
-		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CaptureMouse([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			byte ret = CaptureMouseNative(enabled ? (byte)1 : (byte)0);
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = GPUSupportsShaderFormatsNative(formatFlags, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* CreateCursorNative([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		internal static byte GPUSupportsPropertiesNative(uint props)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int, int, int, SDLCursor*>)funcTable[787])(data, mask, w, h, hotX, hotY);
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[832])(props);
 			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int, int, nint>)funcTable[787])((nint)data, (nint)mask, w, h, hotX, hotY);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[832])(props);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		public static bool GPUSupportsProperties(uint props)
 		{
-			SDLCursor* ret = CreateCursorNative(data, mask, w, h, hotX, hotY);
+			byte ret = GPUSupportsPropertiesNative(props);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUDevice* CreateGPUDeviceNative(SDLGPUShaderFormat formatFlags, byte debugMode, byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, byte*, SDLGPUDevice*>)funcTable[833])(formatFlags, debugMode, name);
+			#else
+			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, nint, nint>)funcTable[833])(formatFlags, debugMode, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, byte* name)
+		{
+			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, name);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
+		/// Creates a GPU context.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, ref byte name)
 		{
-			fixed (byte* pdata = &data)
+			fixed (byte* pname = &name)
 			{
-				SDLCursor* ret = CreateCursorNative((byte*)pdata, mask, w, h, hotX, hotY);
+				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
+		/// Creates a GPU context.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, ReadOnlySpan<byte> name)
 		{
-			fixed (byte* pmask = &mask)
+			fixed (byte* pname = name)
 			{
-				SDLCursor* ret = CreateCursorNative(data, (byte*)pmask, w, h, hotX, hotY);
+				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
-		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
-		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
-		/// The cursor is created in black and white according to the following:<br/>
-		/// - data=0, mask=1: white<br/>
-		/// - data=1, mask=1: black<br/>
-		/// - data=0, mask=0: transparent<br/>
-		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
-		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
-		/// If you want to have a color cursor, or create your cursor from an<br/>
-		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
-		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
-		/// will be bound to the framerate.<br/>
-		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
-		/// readily-available system cursors to pick from.<br/>
+		/// Creates a GPU context.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] ref byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, string name)
 		{
-			fixed (byte* pdata = &data)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
 			{
-				fixed (byte* pmask = &mask)
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					SDLCursor* ret = CreateCursorNative((byte*)pdata, (byte*)pmask, w, h, hotX, hotY);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
+		/// properties and validations, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
+		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
+		/// use, if a specific one is desired.<br/>
+		/// These are the current shader format properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
+		/// provide shaders for an NDA platform.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
+		/// provide SPIR-V shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
+		/// provide DXBC shaders if applicable<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
+		/// provide DXIL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
+		/// provide MSL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
+		/// provide Metal shader libraries if applicable.<br/>
+		/// With the D3D12 renderer:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
+		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUDevice* CreateGPUDeviceWithPropertiesNative(uint props)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLGPUDevice*>)funcTable[834])(props);
+			#else
+			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[834])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
+		/// properties and validations, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
+		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
+		/// use, if a specific one is desired.<br/>
+		/// These are the current shader format properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
+		/// provide shaders for an NDA platform.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
+		/// provide SPIR-V shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
+		/// provide DXBC shaders if applicable<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
+		/// provide DXIL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
+		/// provide MSL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
+		/// provide Metal shader libraries if applicable.<br/>
+		/// With the D3D12 renderer:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
+		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUDevice* CreateGPUDeviceWithProperties(uint props)
+		{
+			SDLGPUDevice* ret = CreateGPUDeviceWithPropertiesNative(props);
+			return ret;
+		}
+
+		/// <summary>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyGPUDeviceNative(SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, void>)funcTable[835])(device);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[835])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyGPUDevice(SDLGPUDevice* device)
+		{
+			DestroyGPUDeviceNative(device);
+		}
+
+		/// <summary>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyGPUDevice(ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				DestroyGPUDeviceNative((SDLGPUDevice*)pdevice);
+			}
+		}
+
+		/// <summary>
+		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumGPUDriversNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[836])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[836])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetNumGPUDrivers()
+		{
+			int ret = GetNumGPUDriversNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGPUDriverNative(int index)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[837])(index);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[837])(index);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetGPUDriver(int index)
+		{
+			byte* ret = GetGPUDriverNative(index);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetGPUDriverS(int index)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGPUDriverNative(index));
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGPUDeviceDriverNative(SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte*>)funcTable[838])(device);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[838])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetGPUDeviceDriver(SDLGPUDevice* device)
+		{
+			byte* ret = GetGPUDeviceDriverNative(device);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetGPUDeviceDriverS(SDLGPUDevice* device)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative(device));
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetGPUDeviceDriver(ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte* ret = GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetGPUDeviceDriverS(ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns the supported shader formats for this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUShaderFormat GetGPUShaderFormatsNative(SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderFormat>)funcTable[839])(device);
+			#else
+			return (SDLGPUShaderFormat)((delegate* unmanaged[Cdecl]<nint, SDLGPUShaderFormat>)funcTable[839])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns the supported shader formats for this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUShaderFormat GetGPUShaderFormats(SDLGPUDevice* device)
+		{
+			SDLGPUShaderFormat ret = GetGPUShaderFormatsNative(device);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the supported shader formats for this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUShaderFormat GetGPUShaderFormats(ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUShaderFormat ret = GetGPUShaderFormatsNative((SDLGPUDevice*)pdevice);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUComputePipeline* CreateGPUComputePipelineNative(SDLGPUDevice* device, SDLGPUComputePipelineCreateInfo* createinfo)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipelineCreateInfo*, SDLGPUComputePipeline*>)funcTable[840])(device, createinfo);
+			#else
+			return (SDLGPUComputePipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[840])((nint)device, (nint)createinfo);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePipeline* CreateGPUComputePipeline(SDLGPUDevice* device, SDLGPUComputePipelineCreateInfo* createinfo)
+		{
+			SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, createinfo);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePipeline* CreateGPUComputePipeline(ref SDLGPUDevice device, SDLGPUComputePipelineCreateInfo* createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, createinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePipeline* CreateGPUComputePipeline(SDLGPUDevice* device, ref SDLGPUComputePipelineCreateInfo createinfo)
+		{
+			fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
+			{
+				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePipeline* CreateGPUComputePipeline(ref SDLGPUDevice device, ref SDLGPUComputePipelineCreateInfo createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
+				{
+					SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Create a color cursor.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Creates a pipeline object to be used in a graphics workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* CreateColorCursorNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		internal static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipelineNative(SDLGPUDevice* device, SDLGPUGraphicsPipelineCreateInfo* createinfo)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLCursor*>)funcTable[788])(surface, hotX, hotY);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipelineCreateInfo*, SDLGPUGraphicsPipeline*>)funcTable[841])(device, createinfo);
 			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)funcTable[788])((nint)surface, hotX, hotY);
+			return (SDLGPUGraphicsPipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[841])((nint)device, (nint)createinfo);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a color cursor.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Creates a pipeline object to be used in a graphics workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(SDLGPUDevice* device, SDLGPUGraphicsPipelineCreateInfo* createinfo)
 		{
-			SDLCursor* ret = CreateColorCursorNative(surface, hotX, hotY);
+			SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, createinfo);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a color cursor.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Creates a pipeline object to be used in a graphics workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(ref SDLGPUDevice device, SDLGPUGraphicsPipelineCreateInfo* createinfo)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				SDLCursor* ret = CreateColorCursorNative((SDLSurface*)psurface, hotX, hotY);
+				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, createinfo);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a system cursor.<br/>
+		/// Creates a pipeline object to be used in a graphics workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* CreateSystemCursorNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSystemCursor, SDLCursor*>)funcTable[789])(id);
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<SDLSystemCursor, nint>)funcTable[789])(id);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a system cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* CreateSystemCursor([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
+		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(SDLGPUDevice* device, ref SDLGPUGraphicsPipelineCreateInfo createinfo)
 		{
-			SDLCursor* ret = CreateSystemCursorNative(id);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the active cursor.<br/>
-		/// This function sets the currently active cursor to the specified one. If the<br/>
-		/// cursor is currently visible, the change will be immediately represented on<br/>
-		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
-		/// this is desired for any reason.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*, byte>)funcTable[790])(cursor);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[790])((nint)cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the active cursor.<br/>
-		/// This function sets the currently active cursor to the specified one. If the<br/>
-		/// cursor is currently visible, the change will be immediately represented on<br/>
-		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
-		/// this is desired for any reason.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			byte ret = SetCursorNative(cursor);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the active cursor.<br/>
-		/// This function sets the currently active cursor to the specified one. If the<br/>
-		/// cursor is currently visible, the change will be immediately represented on<br/>
-		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
-		/// this is desired for any reason.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
-		{
-			fixed (SDLCursor* pcursor = &cursor)
+			fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
 			{
-				byte ret = SetCursorNative((SDLCursor*)pcursor);
-				return ret != 0;
+				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the active cursor.<br/>
-		/// This function returns a pointer to the current cursor which is owned by the<br/>
-		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
+		/// Creates a pipeline object to be used in a graphics workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* GetCursorNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[791])();
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[791])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the active cursor.<br/>
-		/// This function returns a pointer to the current cursor which is owned by the<br/>
-		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* GetCursor()
+		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(ref SDLGPUDevice device, ref SDLGPUGraphicsPipelineCreateInfo createinfo)
 		{
-			SDLCursor* ret = GetCursorNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the default cursor.<br/>
-		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
-		/// safe to do so.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCursor* GetDefaultCursorNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[792])();
-			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[792])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the default cursor.<br/>
-		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
-		/// safe to do so.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
-		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
-		public static SDLCursor* GetDefaultCursor()
-		{
-			SDLCursor* ret = GetDefaultCursorNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Free a previously-created cursor.<br/>
-		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
-		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)funcTable[793])(cursor);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[793])((nint)cursor);
-			#endif
-		}
-
-		/// <summary>
-		/// Free a previously-created cursor.<br/>
-		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
-		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
-		{
-			DestroyCursorNative(cursor);
-		}
-
-		/// <summary>
-		/// Free a previously-created cursor.<br/>
-		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
-		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
-		{
-			fixed (SDLCursor* pcursor = &cursor)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				DestroyCursorNative((SDLCursor*)pcursor);
+				fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
+				{
+					SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
+					return ret;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Show the cursor.<br/>
+		/// Creates a sampler object to be used when binding textures in a graphics<br/>
+		/// workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowCursorNative()
+		internal static SDLGPUSampler* CreateGPUSamplerNative(SDLGPUDevice* device, SDLGPUSamplerCreateInfo* createinfo)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[794])();
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSamplerCreateInfo*, SDLGPUSampler*>)funcTable[842])(device, createinfo);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[794])();
+			return (SDLGPUSampler*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[842])((nint)device, (nint)createinfo);
 			#endif
+		}
+
+		/// <summary>
+		/// Creates a sampler object to be used when binding textures in a graphics<br/>
+		/// workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUSampler* CreateGPUSampler(SDLGPUDevice* device, SDLGPUSamplerCreateInfo* createinfo)
+		{
+			SDLGPUSampler* ret = CreateGPUSamplerNative(device, createinfo);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a sampler object to be used when binding textures in a graphics<br/>
+		/// workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUSampler* CreateGPUSampler(ref SDLGPUDevice device, SDLGPUSamplerCreateInfo* createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, createinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a sampler object to be used when binding textures in a graphics<br/>
+		/// workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUSampler* CreateGPUSampler(SDLGPUDevice* device, ref SDLGPUSamplerCreateInfo createinfo)
+		{
+			fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
+			{
+				SDLGPUSampler* ret = CreateGPUSamplerNative(device, (SDLGPUSamplerCreateInfo*)pcreateinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a sampler object to be used when binding textures in a graphics<br/>
+		/// workflow.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUSampler* CreateGPUSampler(ref SDLGPUDevice device, ref SDLGPUSamplerCreateInfo createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
+				{
+					SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSamplerCreateInfo*)pcreateinfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Creates a shader to be used when creating a graphics pipeline.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// For vertex shaders:<br/>
+		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 1: Uniform buffers<br/>
+		/// For fragment shaders:<br/>
+		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 3: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// For vertex shaders:<br/>
+		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space1): Uniform buffers<br/>
+		/// For pixel shaders:<br/>
+		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space3): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
+		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
+		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
+		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
+		/// Rather than manually authoring vertex buffer indices, use the<br/>
+		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
+		/// information from the SDL_GPUGraphicsPipeline.<br/>
+		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
+		/// and for ease of use the SDL implementation assumes that non system-value<br/>
+		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
+		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
+		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
+		/// prefix to something other than TEXCOORD you can use<br/>
+		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
+		/// SDL_CreateGPUDeviceWithProperties().<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUShader* CreateGPUShaderNative(SDLGPUDevice* device, SDLGPUShaderCreateInfo* createinfo)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderCreateInfo*, SDLGPUShader*>)funcTable[843])(device, createinfo);
+			#else
+			return (SDLGPUShader*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[843])((nint)device, (nint)createinfo);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a shader to be used when creating a graphics pipeline.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// For vertex shaders:<br/>
+		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 1: Uniform buffers<br/>
+		/// For fragment shaders:<br/>
+		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 3: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// For vertex shaders:<br/>
+		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space1): Uniform buffers<br/>
+		/// For pixel shaders:<br/>
+		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space3): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
+		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
+		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
+		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
+		/// Rather than manually authoring vertex buffer indices, use the<br/>
+		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
+		/// information from the SDL_GPUGraphicsPipeline.<br/>
+		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
+		/// and for ease of use the SDL implementation assumes that non system-value<br/>
+		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
+		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
+		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
+		/// prefix to something other than TEXCOORD you can use<br/>
+		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
+		/// SDL_CreateGPUDeviceWithProperties().<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUShader* CreateGPUShader(SDLGPUDevice* device, SDLGPUShaderCreateInfo* createinfo)
+		{
+			SDLGPUShader* ret = CreateGPUShaderNative(device, createinfo);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a shader to be used when creating a graphics pipeline.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// For vertex shaders:<br/>
+		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 1: Uniform buffers<br/>
+		/// For fragment shaders:<br/>
+		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 3: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// For vertex shaders:<br/>
+		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space1): Uniform buffers<br/>
+		/// For pixel shaders:<br/>
+		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space3): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
+		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
+		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
+		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
+		/// Rather than manually authoring vertex buffer indices, use the<br/>
+		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
+		/// information from the SDL_GPUGraphicsPipeline.<br/>
+		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
+		/// and for ease of use the SDL implementation assumes that non system-value<br/>
+		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
+		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
+		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
+		/// prefix to something other than TEXCOORD you can use<br/>
+		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
+		/// SDL_CreateGPUDeviceWithProperties().<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUShader* CreateGPUShader(ref SDLGPUDevice device, SDLGPUShaderCreateInfo* createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, createinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a shader to be used when creating a graphics pipeline.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// For vertex shaders:<br/>
+		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 1: Uniform buffers<br/>
+		/// For fragment shaders:<br/>
+		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 3: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// For vertex shaders:<br/>
+		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space1): Uniform buffers<br/>
+		/// For pixel shaders:<br/>
+		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space3): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
+		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
+		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
+		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
+		/// Rather than manually authoring vertex buffer indices, use the<br/>
+		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
+		/// information from the SDL_GPUGraphicsPipeline.<br/>
+		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
+		/// and for ease of use the SDL implementation assumes that non system-value<br/>
+		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
+		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
+		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
+		/// prefix to something other than TEXCOORD you can use<br/>
+		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
+		/// SDL_CreateGPUDeviceWithProperties().<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUShader* CreateGPUShader(SDLGPUDevice* device, ref SDLGPUShaderCreateInfo createinfo)
+		{
+			fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
+			{
+				SDLGPUShader* ret = CreateGPUShaderNative(device, (SDLGPUShaderCreateInfo*)pcreateinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a shader to be used when creating a graphics pipeline.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// For vertex shaders:<br/>
+		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 1: Uniform buffers<br/>
+		/// For fragment shaders:<br/>
+		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
+		/// buffers<br/>
+		/// - 3: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// For vertex shaders:<br/>
+		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space1): Uniform buffers<br/>
+		/// For pixel shaders:<br/>
+		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
+		/// by storage buffers<br/>
+		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
+		/// textures<br/>
+		/// - (b[n], space3): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
+		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
+		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
+		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
+		/// Rather than manually authoring vertex buffer indices, use the<br/>
+		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
+		/// information from the SDL_GPUGraphicsPipeline.<br/>
+		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
+		/// and for ease of use the SDL implementation assumes that non system-value<br/>
+		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
+		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
+		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
+		/// prefix to something other than TEXCOORD you can use<br/>
+		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
+		/// SDL_CreateGPUDeviceWithProperties().<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUShader* CreateGPUShader(ref SDLGPUDevice device, ref SDLGPUShaderCreateInfo createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
+				{
+					SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShaderCreateInfo*)pcreateinfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Creates a texture object to be used in graphics or compute workflows.<br/>
+		/// The contents of this texture are undefined until data is written to the<br/>
+		/// texture.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
+		/// If you request a sample count higher than the hardware supports, the<br/>
+		/// implementation will automatically fall back to the highest available sample<br/>
+		/// count.<br/>
+		/// There are optional properties that can be provided through<br/>
+		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this red intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this green intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this blue intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this alpha intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
+		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
+		/// the texture to a depth of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
+		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUTexture* CreateGPUTextureNative(SDLGPUDevice* device, SDLGPUTextureCreateInfo* createinfo)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureCreateInfo*, SDLGPUTexture*>)funcTable[844])(device, createinfo);
+			#else
+			return (SDLGPUTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[844])((nint)device, (nint)createinfo);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a texture object to be used in graphics or compute workflows.<br/>
+		/// The contents of this texture are undefined until data is written to the<br/>
+		/// texture.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
+		/// If you request a sample count higher than the hardware supports, the<br/>
+		/// implementation will automatically fall back to the highest available sample<br/>
+		/// count.<br/>
+		/// There are optional properties that can be provided through<br/>
+		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this red intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this green intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this blue intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this alpha intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
+		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
+		/// the texture to a depth of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
+		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTexture* CreateGPUTexture(SDLGPUDevice* device, SDLGPUTextureCreateInfo* createinfo)
+		{
+			SDLGPUTexture* ret = CreateGPUTextureNative(device, createinfo);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a texture object to be used in graphics or compute workflows.<br/>
+		/// The contents of this texture are undefined until data is written to the<br/>
+		/// texture.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
+		/// If you request a sample count higher than the hardware supports, the<br/>
+		/// implementation will automatically fall back to the highest available sample<br/>
+		/// count.<br/>
+		/// There are optional properties that can be provided through<br/>
+		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this red intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this green intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this blue intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this alpha intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
+		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
+		/// the texture to a depth of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
+		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTexture* CreateGPUTexture(ref SDLGPUDevice device, SDLGPUTextureCreateInfo* createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, createinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a texture object to be used in graphics or compute workflows.<br/>
+		/// The contents of this texture are undefined until data is written to the<br/>
+		/// texture.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
+		/// If you request a sample count higher than the hardware supports, the<br/>
+		/// implementation will automatically fall back to the highest available sample<br/>
+		/// count.<br/>
+		/// There are optional properties that can be provided through<br/>
+		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this red intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this green intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this blue intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this alpha intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
+		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
+		/// the texture to a depth of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
+		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTexture* CreateGPUTexture(SDLGPUDevice* device, ref SDLGPUTextureCreateInfo createinfo)
+		{
+			fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
+			{
+				SDLGPUTexture* ret = CreateGPUTextureNative(device, (SDLGPUTextureCreateInfo*)pcreateinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a texture object to be used in graphics or compute workflows.<br/>
+		/// The contents of this texture are undefined until data is written to the<br/>
+		/// texture.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
+		/// If you request a sample count higher than the hardware supports, the<br/>
+		/// implementation will automatically fall back to the highest available sample<br/>
+		/// count.<br/>
+		/// There are optional properties that can be provided through<br/>
+		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this red intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this green intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this blue intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
+		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
+		/// to a color with this alpha intensity. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
+		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
+		/// the texture to a depth of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
+		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
+		/// in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTexture* CreateGPUTexture(ref SDLGPUDevice device, ref SDLGPUTextureCreateInfo createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
+				{
+					SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTextureCreateInfo*)pcreateinfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
+		/// The contents of this buffer are undefined until data is written to the<br/>
+		/// buffer.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
+		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
+		/// and vec4 fields are 16-byte aligned.<br/>
+		/// For better understanding of underlying concepts and memory management with<br/>
+		/// SDL GPU API, you may refer<br/>
+		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
+		/// .<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUBuffer* CreateGPUBufferNative(SDLGPUDevice* device, SDLGPUBufferCreateInfo* createinfo)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBufferCreateInfo*, SDLGPUBuffer*>)funcTable[845])(device, createinfo);
+			#else
+			return (SDLGPUBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[845])((nint)device, (nint)createinfo);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
+		/// The contents of this buffer are undefined until data is written to the<br/>
+		/// buffer.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
+		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
+		/// and vec4 fields are 16-byte aligned.<br/>
+		/// For better understanding of underlying concepts and memory management with<br/>
+		/// SDL GPU API, you may refer<br/>
+		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
+		/// .<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUBuffer* CreateGPUBuffer(SDLGPUDevice* device, SDLGPUBufferCreateInfo* createinfo)
+		{
+			SDLGPUBuffer* ret = CreateGPUBufferNative(device, createinfo);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
+		/// The contents of this buffer are undefined until data is written to the<br/>
+		/// buffer.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
+		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
+		/// and vec4 fields are 16-byte aligned.<br/>
+		/// For better understanding of underlying concepts and memory management with<br/>
+		/// SDL GPU API, you may refer<br/>
+		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
+		/// .<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUBuffer* CreateGPUBuffer(ref SDLGPUDevice device, SDLGPUBufferCreateInfo* createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, createinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
+		/// The contents of this buffer are undefined until data is written to the<br/>
+		/// buffer.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
+		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
+		/// and vec4 fields are 16-byte aligned.<br/>
+		/// For better understanding of underlying concepts and memory management with<br/>
+		/// SDL GPU API, you may refer<br/>
+		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
+		/// .<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUBuffer* CreateGPUBuffer(SDLGPUDevice* device, ref SDLGPUBufferCreateInfo createinfo)
+		{
+			fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
+			{
+				SDLGPUBuffer* ret = CreateGPUBufferNative(device, (SDLGPUBufferCreateInfo*)pcreateinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
+		/// The contents of this buffer are undefined until data is written to the<br/>
+		/// buffer.<br/>
+		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
+		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
+		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
+		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
+		/// and vec4 fields are 16-byte aligned.<br/>
+		/// For better understanding of underlying concepts and memory management with<br/>
+		/// SDL GPU API, you may refer<br/>
+		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
+		/// .<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
+		/// debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUBuffer* CreateGPUBuffer(ref SDLGPUDevice device, ref SDLGPUBufferCreateInfo createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
+				{
+					SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBufferCreateInfo*)pcreateinfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
+		/// graphics resources.<br/>
+		/// Download buffers can be particularly expensive to create, so it is good<br/>
+		/// practice to reuse them if data will be downloaded regularly.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUTransferBuffer* CreateGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBufferCreateInfo* createinfo)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBufferCreateInfo*, SDLGPUTransferBuffer*>)funcTable[846])(device, createinfo);
+			#else
+			return (SDLGPUTransferBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[846])((nint)device, (nint)createinfo);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
+		/// graphics resources.<br/>
+		/// Download buffers can be particularly expensive to create, so it is good<br/>
+		/// practice to reuse them if data will be downloaded regularly.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBufferCreateInfo* createinfo)
+		{
+			SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, createinfo);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
+		/// graphics resources.<br/>
+		/// Download buffers can be particularly expensive to create, so it is good<br/>
+		/// practice to reuse them if data will be downloaded regularly.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBufferCreateInfo* createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, createinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
+		/// graphics resources.<br/>
+		/// Download buffers can be particularly expensive to create, so it is good<br/>
+		/// practice to reuse them if data will be downloaded regularly.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBufferCreateInfo createinfo)
+		{
+			fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
+			{
+				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
+		/// graphics resources.<br/>
+		/// Download buffers can be particularly expensive to create, so it is good<br/>
+		/// practice to reuse them if data will be downloaded regularly.<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBufferCreateInfo createinfo)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
+				{
+					SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetGPUBufferNameNative(SDLGPUDevice* device, SDLGPUBuffer* buffer, byte* text)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, byte*, void>)funcTable[847])(device, buffer, text);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[847])((nint)device, (nint)buffer, (nint)text);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, byte* text)
+		{
+			SetGPUBufferNameNative(device, buffer, text);
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, byte* text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, text);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, byte* text)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, text);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, byte* text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, text);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, ref byte text)
+		{
+			fixed (byte* ptext = &text)
+			{
+				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, ReadOnlySpan<byte> text)
+		{
+			fixed (byte* ptext = text)
+			{
+				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, string text)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SetGPUBufferNameNative(device, buffer, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 		}
 	}
 }

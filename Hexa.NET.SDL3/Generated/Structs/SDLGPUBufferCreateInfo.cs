@@ -22,29 +22,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBufferCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBufferCreateInfo
 	{
 		/// <summary>
 		/// How the buffer is intended to be used by the client. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "usage")]
-		[NativeName(NativeNameType.Type, "SDL_GPUBufferUsageFlags")]
 		public SDLGPUBufferUsageFlags Usage;
 
 		/// <summary>
 		/// The size in bytes of the buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "size")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Size;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "props")]
-		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 

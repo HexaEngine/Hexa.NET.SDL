@@ -23,71 +23,52 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureCreateInfo
 	{
 		/// <summary>
 		/// The base dimensionality of the texture. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTextureType")]
 		public SDLGPUTextureType Type;
 
 		/// <summary>
 		/// The pixel format of the texture. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
 		public SDLGPUTextureFormat Format;
 
 		/// <summary>
 		/// How the texture is intended to be used by the client. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "usage")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")]
 		public SDLGPUTextureUsageFlags Usage;
 
 		/// <summary>
 		/// The width of the texture. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "width")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Width;
 
 		/// <summary>
 		/// The height of the texture. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "height")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Height;
 
 		/// <summary>
 		/// The layer count or depth of the texture. This value is treated as a layer count on 2D array textures, and as a depth value on 3D textures. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "layer_count_or_depth")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint LayerCountOrDepth;
 
 		/// <summary>
 		/// The number of mip levels in the texture. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_levels")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumLevels;
 
 		/// <summary>
 		/// The number of samples per texel. Only applies if the texture is used as a render target. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "sample_count")]
-		[NativeName(NativeNameType.Type, "SDL_GPUSampleCount")]
 		public SDLGPUSampleCount SampleCount;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "props")]
-		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 

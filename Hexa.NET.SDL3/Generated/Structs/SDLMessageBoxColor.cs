@@ -19,18 +19,11 @@ namespace Hexa.NET.SDL3
 	/// RGB value used in a message box color scheme<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MessageBoxColor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMessageBoxColor
 	{
-		[NativeName(NativeNameType.Field, "r")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte R;
-		[NativeName(NativeNameType.Field, "g")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte G;
-		[NativeName(NativeNameType.Field, "b")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte B;
 
 		public unsafe SDLMessageBoxColor(byte r = default, byte g = default, byte b = default)

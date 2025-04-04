@@ -39,7 +39,7 @@ for (int i = filesSdl3.Count - 1; i >= 0; i--)
 }
 
 BatchGenerator.Create()
-#if true
+#if false
     // SDL 2
     .Setup<CsCodeGenerator>("sdl2/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))

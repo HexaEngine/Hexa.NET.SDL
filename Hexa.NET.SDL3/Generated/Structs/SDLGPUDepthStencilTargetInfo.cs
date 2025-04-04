@@ -48,71 +48,50 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUDepthStencilTargetInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUDepthStencilTargetInfo
 	{
 		/// <summary>
 		/// The texture that will be used as the depth stencil target by the render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "texture")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The value to clear the depth component to at the beginning of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "clear_depth")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float ClearDepth;
 
 		/// <summary>
 		/// What is done with the depth contents at the beginning of the render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "load_op")]
-		[NativeName(NativeNameType.Type, "SDL_GPULoadOp")]
 		public SDLGPULoadOp LoadOp;
 
 		/// <summary>
 		/// What is done with the depth results of the render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "store_op")]
-		[NativeName(NativeNameType.Type, "SDL_GPUStoreOp")]
 		public SDLGPUStoreOp StoreOp;
 
 		/// <summary>
 		/// What is done with the stencil contents at the beginning of the render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "stencil_load_op")]
-		[NativeName(NativeNameType.Type, "SDL_GPULoadOp")]
 		public SDLGPULoadOp StencilLoadOp;
 
 		/// <summary>
 		/// What is done with the stencil results of the render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "stencil_store_op")]
-		[NativeName(NativeNameType.Type, "SDL_GPUStoreOp")]
 		public SDLGPUStoreOp StencilStoreOp;
 
 		/// <summary>
 		/// true cycles the texture if the texture is bound and any load ops are not LOAD <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "cycle")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
 		/// <summary>
 		/// The value to clear the stencil component to at the beginning of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "clear_stencil")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte ClearStencil;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
 
 		public unsafe SDLGPUDepthStencilTargetInfo(SDLGPUTexture* texture = default, float clearDepth = default, SDLGPULoadOp loadOp = default, SDLGPUStoreOp storeOp = default, SDLGPULoadOp stencilLoadOp = default, SDLGPUStoreOp stencilStoreOp = default, bool cycle = default, byte clearStencil = default, byte padding1 = default, byte padding2 = default)

@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// An opaque handle representing a toplevel system tray object.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Tray")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTray
 	{

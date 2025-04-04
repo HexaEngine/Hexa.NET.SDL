@@ -20,106 +20,77 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUComputePipelineCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUComputePipelineCreateInfo
 	{
 		/// <summary>
 		/// The size in bytes of the compute shader code pointed to. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "code_size")]
-		[NativeName(NativeNameType.Type, "size_t")]
 		public nuint CodeSize;
 
 		/// <summary>
 		/// A pointer to compute shader code. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "code")]
-		[NativeName(NativeNameType.Type, "Uint8 const *")]
 		public unsafe byte* Code;
 
 		/// <summary>
 		/// A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "entrypoint")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Entrypoint;
 
 		/// <summary>
 		/// The format of the compute shader code. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
 		public SDLGPUShaderFormat Format;
 
 		/// <summary>
 		/// The number of samplers defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_samplers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumSamplers;
 
 		/// <summary>
 		/// The number of readonly storage textures defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_readonly_storage_textures")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadonlyStorageTextures;
 
 		/// <summary>
 		/// The number of readonly storage buffers defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_readonly_storage_buffers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadonlyStorageBuffers;
 
 		/// <summary>
 		/// The number of read-write storage textures defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_readwrite_storage_textures")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadwriteStorageTextures;
 
 		/// <summary>
 		/// The number of read-write storage buffers defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_readwrite_storage_buffers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadwriteStorageBuffers;
 
 		/// <summary>
 		/// The number of uniform buffers defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_uniform_buffers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumUniformBuffers;
 
 		/// <summary>
 		/// The number of threads in the X dimension. This should match the value in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "threadcount_x")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ThreadcountX;
 
 		/// <summary>
 		/// The number of threads in the Y dimension. This should match the value in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "threadcount_y")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ThreadcountY;
 
 		/// <summary>
 		/// The number of threads in the Z dimension. This should match the value in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "threadcount_z")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ThreadcountZ;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "props")]
-		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 

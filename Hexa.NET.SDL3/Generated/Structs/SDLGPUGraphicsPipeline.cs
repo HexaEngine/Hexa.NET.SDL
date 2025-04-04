@@ -21,7 +21,6 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUGraphicsPipeline")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUGraphicsPipeline
 	{

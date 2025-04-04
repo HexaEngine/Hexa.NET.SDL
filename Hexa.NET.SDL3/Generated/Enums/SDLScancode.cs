@@ -22,12 +22,9 @@ namespace Hexa.NET.SDL3
 	/// https://usb.org/sites/default/files/hut1_5.pdf<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_Scancode")]
 	[Flags]
 	public enum SDLScancode : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
 		/// <summary>
 		/// <br/>
@@ -36,8 +33,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_A")]
-		[NativeName(NativeNameType.Value, "4")]
 		A = unchecked(4),
 
 		/// <summary>
@@ -47,8 +42,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_B")]
-		[NativeName(NativeNameType.Value, "5")]
 		B = unchecked(5),
 
 		/// <summary>
@@ -58,8 +51,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_C")]
-		[NativeName(NativeNameType.Value, "6")]
 		C = unchecked(6),
 
 		/// <summary>
@@ -69,8 +60,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_D")]
-		[NativeName(NativeNameType.Value, "7")]
 		D = unchecked(7),
 
 		/// <summary>
@@ -80,8 +69,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_E")]
-		[NativeName(NativeNameType.Value, "8")]
 		E = unchecked(8),
 
 		/// <summary>
@@ -91,8 +78,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F")]
-		[NativeName(NativeNameType.Value, "9")]
 		F = unchecked(9),
 
 		/// <summary>
@@ -102,8 +87,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_G")]
-		[NativeName(NativeNameType.Value, "10")]
 		G = unchecked(10),
 
 		/// <summary>
@@ -113,8 +96,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_H")]
-		[NativeName(NativeNameType.Value, "11")]
 		H = unchecked(11),
 
 		/// <summary>
@@ -124,8 +105,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_I")]
-		[NativeName(NativeNameType.Value, "12")]
 		I = unchecked(12),
 
 		/// <summary>
@@ -135,8 +114,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_J")]
-		[NativeName(NativeNameType.Value, "13")]
 		J = unchecked(13),
 
 		/// <summary>
@@ -146,8 +123,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_K")]
-		[NativeName(NativeNameType.Value, "14")]
 		K = unchecked(14),
 
 		/// <summary>
@@ -157,8 +132,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_L")]
-		[NativeName(NativeNameType.Value, "15")]
 		L = unchecked(15),
 
 		/// <summary>
@@ -168,8 +141,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_M")]
-		[NativeName(NativeNameType.Value, "16")]
 		M = unchecked(16),
 
 		/// <summary>
@@ -179,8 +150,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_N")]
-		[NativeName(NativeNameType.Value, "17")]
 		N = unchecked(17),
 
 		/// <summary>
@@ -190,8 +159,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_O")]
-		[NativeName(NativeNameType.Value, "18")]
 		O = unchecked(18),
 
 		/// <summary>
@@ -201,8 +168,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_P")]
-		[NativeName(NativeNameType.Value, "19")]
 		P = unchecked(19),
 
 		/// <summary>
@@ -212,8 +177,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_Q")]
-		[NativeName(NativeNameType.Value, "20")]
 		Q = unchecked(20),
 
 		/// <summary>
@@ -223,8 +186,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_R")]
-		[NativeName(NativeNameType.Value, "21")]
 		R = unchecked(21),
 
 		/// <summary>
@@ -234,8 +195,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_S")]
-		[NativeName(NativeNameType.Value, "22")]
 		S = unchecked(22),
 
 		/// <summary>
@@ -245,8 +204,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_T")]
-		[NativeName(NativeNameType.Value, "23")]
 		T = unchecked(23),
 
 		/// <summary>
@@ -256,8 +213,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_U")]
-		[NativeName(NativeNameType.Value, "24")]
 		U = unchecked(24),
 
 		/// <summary>
@@ -267,8 +222,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_V")]
-		[NativeName(NativeNameType.Value, "25")]
 		V = unchecked(25),
 
 		/// <summary>
@@ -278,8 +231,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_W")]
-		[NativeName(NativeNameType.Value, "26")]
 		W = unchecked(26),
 
 		/// <summary>
@@ -289,8 +240,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_X")]
-		[NativeName(NativeNameType.Value, "27")]
 		X = unchecked(27),
 
 		/// <summary>
@@ -300,8 +249,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_Y")]
-		[NativeName(NativeNameType.Value, "28")]
 		Y = unchecked(28),
 
 		/// <summary>
@@ -311,8 +258,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_Z")]
-		[NativeName(NativeNameType.Value, "29")]
 		Z = unchecked(29),
 
 		/// <summary>
@@ -322,8 +267,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_1")]
-		[NativeName(NativeNameType.Value, "30")]
 		Scancode1 = unchecked(30),
 
 		/// <summary>
@@ -333,8 +276,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_2")]
-		[NativeName(NativeNameType.Value, "31")]
 		Scancode2 = unchecked(31),
 
 		/// <summary>
@@ -344,8 +285,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_3")]
-		[NativeName(NativeNameType.Value, "32")]
 		Scancode3 = unchecked(32),
 
 		/// <summary>
@@ -355,8 +294,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_4")]
-		[NativeName(NativeNameType.Value, "33")]
 		Scancode4 = unchecked(33),
 
 		/// <summary>
@@ -366,8 +303,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_5")]
-		[NativeName(NativeNameType.Value, "34")]
 		Scancode5 = unchecked(34),
 
 		/// <summary>
@@ -377,8 +312,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_6")]
-		[NativeName(NativeNameType.Value, "35")]
 		Scancode6 = unchecked(35),
 
 		/// <summary>
@@ -388,8 +321,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_7")]
-		[NativeName(NativeNameType.Value, "36")]
 		Scancode7 = unchecked(36),
 
 		/// <summary>
@@ -399,8 +330,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_8")]
-		[NativeName(NativeNameType.Value, "37")]
 		Scancode8 = unchecked(37),
 
 		/// <summary>
@@ -410,8 +339,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_9")]
-		[NativeName(NativeNameType.Value, "38")]
 		Scancode9 = unchecked(38),
 
 		/// <summary>
@@ -421,8 +348,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_0")]
-		[NativeName(NativeNameType.Value, "39")]
 		Scancode0 = unchecked(39),
 
 		/// <summary>
@@ -432,8 +357,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RETURN")]
-		[NativeName(NativeNameType.Value, "40")]
 		Return = unchecked(40),
 
 		/// <summary>
@@ -443,8 +366,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_ESCAPE")]
-		[NativeName(NativeNameType.Value, "41")]
 		Escape = unchecked(41),
 
 		/// <summary>
@@ -454,8 +375,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_BACKSPACE")]
-		[NativeName(NativeNameType.Value, "42")]
 		Backspace = unchecked(42),
 
 		/// <summary>
@@ -465,8 +384,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_TAB")]
-		[NativeName(NativeNameType.Value, "43")]
 		Tab = unchecked(43),
 
 		/// <summary>
@@ -476,8 +393,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SPACE")]
-		[NativeName(NativeNameType.Value, "44")]
 		Space = unchecked(44),
 
 		/// <summary>
@@ -487,8 +402,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MINUS")]
-		[NativeName(NativeNameType.Value, "45")]
 		Minus = unchecked(45),
 
 		/// <summary>
@@ -498,8 +411,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_EQUALS")]
-		[NativeName(NativeNameType.Value, "46")]
 		Equals = unchecked(46),
 
 		/// <summary>
@@ -509,8 +420,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LEFTBRACKET")]
-		[NativeName(NativeNameType.Value, "47")]
 		Leftbracket = unchecked(47),
 
 		/// <summary>
@@ -520,8 +429,6 @@ namespace Hexa.NET.SDL3
 		/// @<br/>
 		/// { <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RIGHTBRACKET")]
-		[NativeName(NativeNameType.Value, "48")]
 		Rightbracket = unchecked(48),
 
 		/// <summary>
@@ -539,8 +446,6 @@ namespace Hexa.NET.SDL3
 		/// layout, and ASTERISK and MICRO SIGN in a<br/>
 		/// French Windows layout.<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_BACKSLASH")]
-		[NativeName(NativeNameType.Value, "49")]
 		Backslash = unchecked(49),
 
 		/// <summary>
@@ -556,15 +461,9 @@ namespace Hexa.NET.SDL3
 		/// will never generate it with most (all?)<br/>
 		/// keyboards.<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_NONUSHASH")]
-		[NativeName(NativeNameType.Value, "50")]
 		Nonushash = unchecked(50),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SEMICOLON")]
-		[NativeName(NativeNameType.Value, "51")]
 		Semicolon = unchecked(51),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_APOSTROPHE")]
-		[NativeName(NativeNameType.Value, "52")]
 		Apostrophe = unchecked(52),
 		/// <summary>
 		/// Located in the top left corner (on both ANSI<br/>
@@ -584,156 +483,62 @@ namespace Hexa.NET.SDL3
 		/// SIGN in a Swiss German, German, or French Mac<br/>
 		/// layout on ANSI keyboards.<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_GRAVE")]
-		[NativeName(NativeNameType.Value, "53")]
 		Grave = unchecked(53),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_COMMA")]
-		[NativeName(NativeNameType.Value, "54")]
 		Comma = unchecked(54),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_PERIOD")]
-		[NativeName(NativeNameType.Value, "55")]
 		Period = unchecked(55),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SLASH")]
-		[NativeName(NativeNameType.Value, "56")]
 		Slash = unchecked(56),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CAPSLOCK")]
-		[NativeName(NativeNameType.Value, "57")]
 		Capslock = unchecked(57),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F1")]
-		[NativeName(NativeNameType.Value, "58")]
 		F1 = unchecked(58),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F2")]
-		[NativeName(NativeNameType.Value, "59")]
 		F2 = unchecked(59),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F3")]
-		[NativeName(NativeNameType.Value, "60")]
 		F3 = unchecked(60),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F4")]
-		[NativeName(NativeNameType.Value, "61")]
 		F4 = unchecked(61),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F5")]
-		[NativeName(NativeNameType.Value, "62")]
 		F5 = unchecked(62),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F6")]
-		[NativeName(NativeNameType.Value, "63")]
 		F6 = unchecked(63),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F7")]
-		[NativeName(NativeNameType.Value, "64")]
 		F7 = unchecked(64),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F8")]
-		[NativeName(NativeNameType.Value, "65")]
 		F8 = unchecked(65),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F9")]
-		[NativeName(NativeNameType.Value, "66")]
 		F9 = unchecked(66),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F10")]
-		[NativeName(NativeNameType.Value, "67")]
 		F10 = unchecked(67),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F11")]
-		[NativeName(NativeNameType.Value, "68")]
 		F11 = unchecked(68),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F12")]
-		[NativeName(NativeNameType.Value, "69")]
 		F12 = unchecked(69),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_PRINTSCREEN")]
-		[NativeName(NativeNameType.Value, "70")]
 		Printscreen = unchecked(70),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SCROLLLOCK")]
-		[NativeName(NativeNameType.Value, "71")]
 		Scrolllock = unchecked(71),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_PAUSE")]
-		[NativeName(NativeNameType.Value, "72")]
 		Pause = unchecked(72),
 		/// <summary>
 		/// insert on PC, help on some Mac keyboards (but<br/>
 		/// does send code 73, not 117) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INSERT")]
-		[NativeName(NativeNameType.Value, "73")]
 		Insert = unchecked(73),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_HOME")]
-		[NativeName(NativeNameType.Value, "74")]
 		Home = unchecked(74),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_PAGEUP")]
-		[NativeName(NativeNameType.Value, "75")]
 		Pageup = unchecked(75),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_DELETE")]
-		[NativeName(NativeNameType.Value, "76")]
 		Delete = unchecked(76),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_END")]
-		[NativeName(NativeNameType.Value, "77")]
 		End = unchecked(77),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_PAGEDOWN")]
-		[NativeName(NativeNameType.Value, "78")]
 		Pagedown = unchecked(78),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RIGHT")]
-		[NativeName(NativeNameType.Value, "79")]
 		Right = unchecked(79),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LEFT")]
-		[NativeName(NativeNameType.Value, "80")]
 		Left = unchecked(80),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_DOWN")]
-		[NativeName(NativeNameType.Value, "81")]
 		Down = unchecked(81),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_UP")]
-		[NativeName(NativeNameType.Value, "82")]
 		Up = unchecked(82),
 		/// <summary>
 		/// num lock on PC, clear on Mac keyboards<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_NUMLOCKCLEAR")]
-		[NativeName(NativeNameType.Value, "83")]
 		Numlockclear = unchecked(83),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_DIVIDE")]
-		[NativeName(NativeNameType.Value, "84")]
 		KpDivide = unchecked(84),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MULTIPLY")]
-		[NativeName(NativeNameType.Value, "85")]
 		KpMultiply = unchecked(85),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MINUS")]
-		[NativeName(NativeNameType.Value, "86")]
 		KpMinus = unchecked(86),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_PLUS")]
-		[NativeName(NativeNameType.Value, "87")]
 		KpPlus = unchecked(87),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_ENTER")]
-		[NativeName(NativeNameType.Value, "88")]
 		KpEnter = unchecked(88),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_1")]
-		[NativeName(NativeNameType.Value, "89")]
 		Kp1 = unchecked(89),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_2")]
-		[NativeName(NativeNameType.Value, "90")]
 		Kp2 = unchecked(90),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_3")]
-		[NativeName(NativeNameType.Value, "91")]
 		Kp3 = unchecked(91),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_4")]
-		[NativeName(NativeNameType.Value, "92")]
 		Kp4 = unchecked(92),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_5")]
-		[NativeName(NativeNameType.Value, "93")]
 		Kp5 = unchecked(93),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_6")]
-		[NativeName(NativeNameType.Value, "94")]
 		Kp6 = unchecked(94),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_7")]
-		[NativeName(NativeNameType.Value, "95")]
 		Kp7 = unchecked(95),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_8")]
-		[NativeName(NativeNameType.Value, "96")]
 		Kp8 = unchecked(96),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_9")]
-		[NativeName(NativeNameType.Value, "97")]
 		Kp9 = unchecked(97),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_0")]
-		[NativeName(NativeNameType.Value, "98")]
 		Kp0 = unchecked(98),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_PERIOD")]
-		[NativeName(NativeNameType.Value, "99")]
 		KpPeriod = unchecked(99),
 		/// <summary>
 		/// This is the additional key that ISO<br/>
@@ -747,15 +552,11 @@ namespace Hexa.NET.SDL3
 		/// in a Swiss German, German, or French<br/>
 		/// layout. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_NONUSBACKSLASH")]
-		[NativeName(NativeNameType.Value, "100")]
 		Nonusbackslash = unchecked(100),
 
 		/// <summary>
 		/// windows contextual menu, compose <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_APPLICATION")]
-		[NativeName(NativeNameType.Value, "101")]
 		Application = unchecked(101),
 
 		/// <summary>
@@ -763,126 +564,70 @@ namespace Hexa.NET.SDL3
 		/// not a physical key - but some Mac keyboards<br/>
 		/// do have a power key. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_POWER")]
-		[NativeName(NativeNameType.Value, "102")]
 		Power = unchecked(102),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_EQUALS")]
-		[NativeName(NativeNameType.Value, "103")]
 		KpEquals = unchecked(103),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F13")]
-		[NativeName(NativeNameType.Value, "104")]
 		F13 = unchecked(104),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F14")]
-		[NativeName(NativeNameType.Value, "105")]
 		F14 = unchecked(105),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F15")]
-		[NativeName(NativeNameType.Value, "106")]
 		F15 = unchecked(106),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F16")]
-		[NativeName(NativeNameType.Value, "107")]
 		F16 = unchecked(107),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F17")]
-		[NativeName(NativeNameType.Value, "108")]
 		F17 = unchecked(108),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F18")]
-		[NativeName(NativeNameType.Value, "109")]
 		F18 = unchecked(109),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F19")]
-		[NativeName(NativeNameType.Value, "110")]
 		F19 = unchecked(110),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F20")]
-		[NativeName(NativeNameType.Value, "111")]
 		F20 = unchecked(111),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F21")]
-		[NativeName(NativeNameType.Value, "112")]
 		F21 = unchecked(112),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F22")]
-		[NativeName(NativeNameType.Value, "113")]
 		F22 = unchecked(113),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F23")]
-		[NativeName(NativeNameType.Value, "114")]
 		F23 = unchecked(114),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_F24")]
-		[NativeName(NativeNameType.Value, "115")]
 		F24 = unchecked(115),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_EXECUTE")]
-		[NativeName(NativeNameType.Value, "116")]
 		Execute = unchecked(116),
 		/// <summary>
 		/// AL Integrated Help Center <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_HELP")]
-		[NativeName(NativeNameType.Value, "117")]
 		Help = unchecked(117),
 
 		/// <summary>
 		/// Menu (show menu) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MENU")]
-		[NativeName(NativeNameType.Value, "118")]
 		Menu = unchecked(118),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SELECT")]
-		[NativeName(NativeNameType.Value, "119")]
 		Select = unchecked(119),
 		/// <summary>
 		/// AC Stop <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_STOP")]
-		[NativeName(NativeNameType.Value, "120")]
 		Stop = unchecked(120),
 
 		/// <summary>
 		/// AC Redo/Repeat <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AGAIN")]
-		[NativeName(NativeNameType.Value, "121")]
 		Again = unchecked(121),
 
 		/// <summary>
 		/// AC Undo <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_UNDO")]
-		[NativeName(NativeNameType.Value, "122")]
 		Undo = unchecked(122),
 
 		/// <summary>
 		/// AC Cut <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CUT")]
-		[NativeName(NativeNameType.Value, "123")]
 		Cut = unchecked(123),
 
 		/// <summary>
 		/// AC Copy <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_COPY")]
-		[NativeName(NativeNameType.Value, "124")]
 		Copy = unchecked(124),
 
 		/// <summary>
 		/// AC Paste <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_PASTE")]
-		[NativeName(NativeNameType.Value, "125")]
 		Paste = unchecked(125),
 
 		/// <summary>
 		/// AC Find <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_FIND")]
-		[NativeName(NativeNameType.Value, "126")]
 		Find = unchecked(126),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MUTE")]
-		[NativeName(NativeNameType.Value, "127")]
 		Mute = unchecked(127),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_VOLUMEUP")]
-		[NativeName(NativeNameType.Value, "128")]
 		Volumeup = unchecked(128),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_VOLUMEDOWN")]
-		[NativeName(NativeNameType.Value, "129")]
 		Volumedown = unchecked(129),
 		/// <summary>
 		/// not sure whether there's a reason to enable these <br/>
@@ -890,8 +635,6 @@ namespace Hexa.NET.SDL3
 		/// SDL_SCANCODE_LOCKINGNUMLOCK = 131, <br/>
 		/// SDL_SCANCODE_LOCKINGSCROLLLOCK = 132, <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_COMMA")]
-		[NativeName(NativeNameType.Value, "133")]
 		KpComma = unchecked(133),
 
 		/// <summary>
@@ -900,329 +643,159 @@ namespace Hexa.NET.SDL3
 		/// SDL_SCANCODE_LOCKINGNUMLOCK = 131, <br/>
 		/// SDL_SCANCODE_LOCKINGSCROLLLOCK = 132, <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_EQUALSAS400")]
-		[NativeName(NativeNameType.Value, "134")]
 		KpEqualsas400 = unchecked(134),
 
 		/// <summary>
 		/// used on Asian keyboards, see<br/>
 		/// footnotes in USB doc <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL1")]
-		[NativeName(NativeNameType.Value, "135")]
 		International1 = unchecked(135),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL2")]
-		[NativeName(NativeNameType.Value, "136")]
 		International2 = unchecked(136),
 		/// <summary>
 		/// Yen <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL3")]
-		[NativeName(NativeNameType.Value, "137")]
 		International3 = unchecked(137),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL4")]
-		[NativeName(NativeNameType.Value, "138")]
 		International4 = unchecked(138),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL5")]
-		[NativeName(NativeNameType.Value, "139")]
 		International5 = unchecked(139),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL6")]
-		[NativeName(NativeNameType.Value, "140")]
 		International6 = unchecked(140),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL7")]
-		[NativeName(NativeNameType.Value, "141")]
 		International7 = unchecked(141),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL8")]
-		[NativeName(NativeNameType.Value, "142")]
 		International8 = unchecked(142),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_INTERNATIONAL9")]
-		[NativeName(NativeNameType.Value, "143")]
 		International9 = unchecked(143),
 		/// <summary>
 		/// Hangul/English toggle <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG1")]
-		[NativeName(NativeNameType.Value, "144")]
 		Lang1 = unchecked(144),
 
 		/// <summary>
 		/// Hanja conversion <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG2")]
-		[NativeName(NativeNameType.Value, "145")]
 		Lang2 = unchecked(145),
 
 		/// <summary>
 		/// Katakana <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG3")]
-		[NativeName(NativeNameType.Value, "146")]
 		Lang3 = unchecked(146),
 
 		/// <summary>
 		/// Hiragana <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG4")]
-		[NativeName(NativeNameType.Value, "147")]
 		Lang4 = unchecked(147),
 
 		/// <summary>
 		/// Zenkaku/Hankaku <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG5")]
-		[NativeName(NativeNameType.Value, "148")]
 		Lang5 = unchecked(148),
 
 		/// <summary>
 		/// reserved <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG6")]
-		[NativeName(NativeNameType.Value, "149")]
 		Lang6 = unchecked(149),
 
 		/// <summary>
 		/// reserved <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG7")]
-		[NativeName(NativeNameType.Value, "150")]
 		Lang7 = unchecked(150),
 
 		/// <summary>
 		/// reserved <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG8")]
-		[NativeName(NativeNameType.Value, "151")]
 		Lang8 = unchecked(151),
 
 		/// <summary>
 		/// reserved <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LANG9")]
-		[NativeName(NativeNameType.Value, "152")]
 		Lang9 = unchecked(152),
 
 		/// <summary>
 		/// Erase-Eaze <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_ALTERASE")]
-		[NativeName(NativeNameType.Value, "153")]
 		Alterase = unchecked(153),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SYSREQ")]
-		[NativeName(NativeNameType.Value, "154")]
 		Sysreq = unchecked(154),
 		/// <summary>
 		/// AC Cancel <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CANCEL")]
-		[NativeName(NativeNameType.Value, "155")]
 		Cancel = unchecked(155),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CLEAR")]
-		[NativeName(NativeNameType.Value, "156")]
 		Clear = unchecked(156),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_PRIOR")]
-		[NativeName(NativeNameType.Value, "157")]
 		Prior = unchecked(157),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RETURN2")]
-		[NativeName(NativeNameType.Value, "158")]
 		Return2 = unchecked(158),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SEPARATOR")]
-		[NativeName(NativeNameType.Value, "159")]
 		Separator = unchecked(159),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_OUT")]
-		[NativeName(NativeNameType.Value, "160")]
 		Out = unchecked(160),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_OPER")]
-		[NativeName(NativeNameType.Value, "161")]
 		Oper = unchecked(161),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CLEARAGAIN")]
-		[NativeName(NativeNameType.Value, "162")]
 		Clearagain = unchecked(162),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CRSEL")]
-		[NativeName(NativeNameType.Value, "163")]
 		Crsel = unchecked(163),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_EXSEL")]
-		[NativeName(NativeNameType.Value, "164")]
 		Exsel = unchecked(164),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_00")]
-		[NativeName(NativeNameType.Value, "176")]
 		Kp00 = unchecked(176),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_000")]
-		[NativeName(NativeNameType.Value, "177")]
 		Kp000 = unchecked(177),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_THOUSANDSSEPARATOR")]
-		[NativeName(NativeNameType.Value, "178")]
 		Thousandsseparator = unchecked(178),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_DECIMALSEPARATOR")]
-		[NativeName(NativeNameType.Value, "179")]
 		Decimalseparator = unchecked(179),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CURRENCYUNIT")]
-		[NativeName(NativeNameType.Value, "180")]
 		Currencyunit = unchecked(180),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CURRENCYSUBUNIT")]
-		[NativeName(NativeNameType.Value, "181")]
 		Currencysubunit = unchecked(181),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_LEFTPAREN")]
-		[NativeName(NativeNameType.Value, "182")]
 		KpLeftparen = unchecked(182),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_RIGHTPAREN")]
-		[NativeName(NativeNameType.Value, "183")]
 		KpRightparen = unchecked(183),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_LEFTBRACE")]
-		[NativeName(NativeNameType.Value, "184")]
 		KpLeftbrace = unchecked(184),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_RIGHTBRACE")]
-		[NativeName(NativeNameType.Value, "185")]
 		KpRightbrace = unchecked(185),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_TAB")]
-		[NativeName(NativeNameType.Value, "186")]
 		KpTab = unchecked(186),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_BACKSPACE")]
-		[NativeName(NativeNameType.Value, "187")]
 		KpBackspace = unchecked(187),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_A")]
-		[NativeName(NativeNameType.Value, "188")]
 		KpA = unchecked(188),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_B")]
-		[NativeName(NativeNameType.Value, "189")]
 		KpB = unchecked(189),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_C")]
-		[NativeName(NativeNameType.Value, "190")]
 		KpC = unchecked(190),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_D")]
-		[NativeName(NativeNameType.Value, "191")]
 		KpD = unchecked(191),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_E")]
-		[NativeName(NativeNameType.Value, "192")]
 		KpE = unchecked(192),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_F")]
-		[NativeName(NativeNameType.Value, "193")]
 		KpF = unchecked(193),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_XOR")]
-		[NativeName(NativeNameType.Value, "194")]
 		KpXor = unchecked(194),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_POWER")]
-		[NativeName(NativeNameType.Value, "195")]
 		KpPower = unchecked(195),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_PERCENT")]
-		[NativeName(NativeNameType.Value, "196")]
 		KpPercent = unchecked(196),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_LESS")]
-		[NativeName(NativeNameType.Value, "197")]
 		KpLess = unchecked(197),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_GREATER")]
-		[NativeName(NativeNameType.Value, "198")]
 		KpGreater = unchecked(198),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_AMPERSAND")]
-		[NativeName(NativeNameType.Value, "199")]
 		KpAmpersand = unchecked(199),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_DBLAMPERSAND")]
-		[NativeName(NativeNameType.Value, "200")]
 		KpDblampersand = unchecked(200),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_VERTICALBAR")]
-		[NativeName(NativeNameType.Value, "201")]
 		KpVerticalbar = unchecked(201),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_DBLVERTICALBAR")]
-		[NativeName(NativeNameType.Value, "202")]
 		KpDblverticalbar = unchecked(202),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_COLON")]
-		[NativeName(NativeNameType.Value, "203")]
 		KpColon = unchecked(203),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_HASH")]
-		[NativeName(NativeNameType.Value, "204")]
 		KpHash = unchecked(204),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_SPACE")]
-		[NativeName(NativeNameType.Value, "205")]
 		KpSpace = unchecked(205),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_AT")]
-		[NativeName(NativeNameType.Value, "206")]
 		KpAt = unchecked(206),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_EXCLAM")]
-		[NativeName(NativeNameType.Value, "207")]
 		KpExclam = unchecked(207),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MEMSTORE")]
-		[NativeName(NativeNameType.Value, "208")]
 		KpMemstore = unchecked(208),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MEMRECALL")]
-		[NativeName(NativeNameType.Value, "209")]
 		KpMemrecall = unchecked(209),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MEMCLEAR")]
-		[NativeName(NativeNameType.Value, "210")]
 		KpMemclear = unchecked(210),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MEMADD")]
-		[NativeName(NativeNameType.Value, "211")]
 		KpMemadd = unchecked(211),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MEMSUBTRACT")]
-		[NativeName(NativeNameType.Value, "212")]
 		KpMemsubtract = unchecked(212),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MEMMULTIPLY")]
-		[NativeName(NativeNameType.Value, "213")]
 		KpMemmultiply = unchecked(213),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_MEMDIVIDE")]
-		[NativeName(NativeNameType.Value, "214")]
 		KpMemdivide = unchecked(214),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_PLUSMINUS")]
-		[NativeName(NativeNameType.Value, "215")]
 		KpPlusminus = unchecked(215),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_CLEAR")]
-		[NativeName(NativeNameType.Value, "216")]
 		KpClear = unchecked(216),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_CLEARENTRY")]
-		[NativeName(NativeNameType.Value, "217")]
 		KpClearentry = unchecked(217),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_BINARY")]
-		[NativeName(NativeNameType.Value, "218")]
 		KpBinary = unchecked(218),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_OCTAL")]
-		[NativeName(NativeNameType.Value, "219")]
 		KpOctal = unchecked(219),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_DECIMAL")]
-		[NativeName(NativeNameType.Value, "220")]
 		KpDecimal = unchecked(220),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_KP_HEXADECIMAL")]
-		[NativeName(NativeNameType.Value, "221")]
 		KpHexadecimal = unchecked(221),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LCTRL")]
-		[NativeName(NativeNameType.Value, "224")]
 		Lctrl = unchecked(224),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LSHIFT")]
-		[NativeName(NativeNameType.Value, "225")]
 		Lshift = unchecked(225),
 		/// <summary>
 		/// alt, option <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LALT")]
-		[NativeName(NativeNameType.Value, "226")]
 		Lalt = unchecked(226),
 
 		/// <summary>
 		/// windows, command (apple), meta <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_LGUI")]
-		[NativeName(NativeNameType.Value, "227")]
 		Lgui = unchecked(227),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RCTRL")]
-		[NativeName(NativeNameType.Value, "228")]
 		Rctrl = unchecked(228),
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RSHIFT")]
-		[NativeName(NativeNameType.Value, "229")]
 		Rshift = unchecked(229),
 		/// <summary>
 		/// alt gr, option <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RALT")]
-		[NativeName(NativeNameType.Value, "230")]
 		Ralt = unchecked(230),
 
 		/// <summary>
 		/// windows, command (apple), meta <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RGUI")]
-		[NativeName(NativeNameType.Value, "231")]
 		Rgui = unchecked(231),
 
 		/// <summary>
@@ -1230,211 +803,151 @@ namespace Hexa.NET.SDL3
 		/// by any of the above, but since there's a<br/>
 		/// special SDL_KMOD_MODE for it I'm adding it here<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MODE")]
-		[NativeName(NativeNameType.Value, "257")]
 		Mode = unchecked(257),
 
 		/// <summary>
 		/// Sleep <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SLEEP")]
-		[NativeName(NativeNameType.Value, "258")]
 		Sleep = unchecked(258),
 
 		/// <summary>
 		/// Wake <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_WAKE")]
-		[NativeName(NativeNameType.Value, "259")]
 		Wake = unchecked(259),
 
 		/// <summary>
 		/// Channel Increment <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CHANNEL_INCREMENT")]
-		[NativeName(NativeNameType.Value, "260")]
 		ChannelIncrement = unchecked(260),
 
 		/// <summary>
 		/// Channel Decrement <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CHANNEL_DECREMENT")]
-		[NativeName(NativeNameType.Value, "261")]
 		ChannelDecrement = unchecked(261),
 
 		/// <summary>
 		/// Play <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_PLAY")]
-		[NativeName(NativeNameType.Value, "262")]
 		MediaPlay = unchecked(262),
 
 		/// <summary>
 		/// Pause <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_PAUSE")]
-		[NativeName(NativeNameType.Value, "263")]
 		MediaPause = unchecked(263),
 
 		/// <summary>
 		/// Record <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_RECORD")]
-		[NativeName(NativeNameType.Value, "264")]
 		MediaRecord = unchecked(264),
 
 		/// <summary>
 		/// Fast Forward <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_FAST_FORWARD")]
-		[NativeName(NativeNameType.Value, "265")]
 		MediaFastForward = unchecked(265),
 
 		/// <summary>
 		/// Rewind <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_REWIND")]
-		[NativeName(NativeNameType.Value, "266")]
 		MediaRewind = unchecked(266),
 
 		/// <summary>
 		/// Next Track <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_NEXT_TRACK")]
-		[NativeName(NativeNameType.Value, "267")]
 		MediaNextTrack = unchecked(267),
 
 		/// <summary>
 		/// Previous Track <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_PREVIOUS_TRACK")]
-		[NativeName(NativeNameType.Value, "268")]
 		MediaPreviousTrack = unchecked(268),
 
 		/// <summary>
 		/// Stop <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_STOP")]
-		[NativeName(NativeNameType.Value, "269")]
 		MediaStop = unchecked(269),
 
 		/// <summary>
 		/// Eject <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_EJECT")]
-		[NativeName(NativeNameType.Value, "270")]
 		MediaEject = unchecked(270),
 
 		/// <summary>
 		/// Play / Pause <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_PLAY_PAUSE")]
-		[NativeName(NativeNameType.Value, "271")]
 		MediaPlayPause = unchecked(271),
 
 		/// <summary>
 		/// Media Select <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_MEDIA_SELECT")]
-		[NativeName(NativeNameType.Value, "272")]
 		MediaSelect = unchecked(272),
 
 		/// <summary>
 		/// AC New <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_NEW")]
-		[NativeName(NativeNameType.Value, "273")]
 		AcNew = unchecked(273),
 
 		/// <summary>
 		/// AC Open <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_OPEN")]
-		[NativeName(NativeNameType.Value, "274")]
 		AcOpen = unchecked(274),
 
 		/// <summary>
 		/// AC Close <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_CLOSE")]
-		[NativeName(NativeNameType.Value, "275")]
 		AcClose = unchecked(275),
 
 		/// <summary>
 		/// AC Exit <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_EXIT")]
-		[NativeName(NativeNameType.Value, "276")]
 		AcExit = unchecked(276),
 
 		/// <summary>
 		/// AC Save <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_SAVE")]
-		[NativeName(NativeNameType.Value, "277")]
 		AcSave = unchecked(277),
 
 		/// <summary>
 		/// AC Print <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_PRINT")]
-		[NativeName(NativeNameType.Value, "278")]
 		AcPrint = unchecked(278),
 
 		/// <summary>
 		/// AC Properties <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_PROPERTIES")]
-		[NativeName(NativeNameType.Value, "279")]
 		AcProperties = unchecked(279),
 
 		/// <summary>
 		/// AC Search <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_SEARCH")]
-		[NativeName(NativeNameType.Value, "280")]
 		AcSearch = unchecked(280),
 
 		/// <summary>
 		/// AC Home <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_HOME")]
-		[NativeName(NativeNameType.Value, "281")]
 		AcHome = unchecked(281),
 
 		/// <summary>
 		/// AC Back <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_BACK")]
-		[NativeName(NativeNameType.Value, "282")]
 		AcBack = unchecked(282),
 
 		/// <summary>
 		/// AC Forward <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_FORWARD")]
-		[NativeName(NativeNameType.Value, "283")]
 		AcForward = unchecked(283),
 
 		/// <summary>
 		/// AC Stop <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_STOP")]
-		[NativeName(NativeNameType.Value, "284")]
 		AcStop = unchecked(284),
 
 		/// <summary>
 		/// AC Refresh <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_REFRESH")]
-		[NativeName(NativeNameType.Value, "285")]
 		AcRefresh = unchecked(285),
 
 		/// <summary>
 		/// AC Bookmarks <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_AC_BOOKMARKS")]
-		[NativeName(NativeNameType.Value, "286")]
 		AcBookmarks = unchecked(286),
 
 		/// <summary>
@@ -1443,8 +956,6 @@ namespace Hexa.NET.SDL3
 		/// a software defined function shown on the bottom left<br/>
 		/// of the display. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SOFTLEFT")]
-		[NativeName(NativeNameType.Value, "287")]
 		Softleft = unchecked(287),
 
 		/// <summary>
@@ -1453,36 +964,26 @@ namespace Hexa.NET.SDL3
 		/// a software defined function shown on the bottom right<br/>
 		/// of the display. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_SOFTRIGHT")]
-		[NativeName(NativeNameType.Value, "288")]
 		Softright = unchecked(288),
 
 		/// <summary>
 		/// Used for accepting phone calls. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_CALL")]
-		[NativeName(NativeNameType.Value, "289")]
 		Call = unchecked(289),
 
 		/// <summary>
 		/// Used for rejecting phone calls. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_ENDCALL")]
-		[NativeName(NativeNameType.Value, "290")]
 		Endcall = unchecked(290),
 
 		/// <summary>
 		/// 400-500 reserved for dynamic keycodes <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_RESERVED")]
-		[NativeName(NativeNameType.Value, "400")]
 		Reserved = unchecked(400),
 
 		/// <summary>
 		/// not a key, just marks the number of scancodes for array bounds <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_COUNT")]
-		[NativeName(NativeNameType.Value, "512")]
 		Count = unchecked(512),
 	}
 }

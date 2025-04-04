@@ -28,36 +28,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUVertexBufferDescription")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUVertexBufferDescription
 	{
 		/// <summary>
 		/// The binding slot of the vertex buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "slot")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Slot;
 
 		/// <summary>
 		/// The byte pitch between consecutive elements of the vertex buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pitch")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Pitch;
 
 		/// <summary>
 		/// Whether attribute addressing is a function of the vertex index or instance index. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "input_rate")]
-		[NativeName(NativeNameType.Type, "SDL_GPUVertexInputRate")]
 		public SDLGPUVertexInputRate InputRate;
 
 		/// <summary>
 		/// Reserved for future use. Must be set to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "instance_step_rate")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint InstanceStepRate;
 
 

@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// The structure used to identify an SDL gamepad<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Gamepad")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepad
 	{

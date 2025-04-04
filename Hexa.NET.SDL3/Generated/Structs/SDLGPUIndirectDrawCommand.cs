@@ -26,36 +26,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUIndirectDrawCommand")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUIndirectDrawCommand
 	{
 		/// <summary>
 		/// The number of vertices to draw. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_vertices")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumVertices;
 
 		/// <summary>
 		/// The number of instances to draw. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_instances")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumInstances;
 
 		/// <summary>
 		/// The index of the first vertex to draw. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "first_vertex")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint FirstVertex;
 
 		/// <summary>
 		/// The ID of the first instance to draw. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "first_instance")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint FirstInstance;
 
 

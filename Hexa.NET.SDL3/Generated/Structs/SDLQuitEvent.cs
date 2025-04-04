@@ -19,25 +19,18 @@ namespace Hexa.NET.SDL3
 	/// The "quit requested" event<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_QuitEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLQuitEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_QUIT <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 

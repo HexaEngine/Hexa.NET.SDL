@@ -23,7 +23,6 @@ namespace Hexa.NET.SDL3
 	/// struct's abstract interface.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_IOStream")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLIOStream
 	{

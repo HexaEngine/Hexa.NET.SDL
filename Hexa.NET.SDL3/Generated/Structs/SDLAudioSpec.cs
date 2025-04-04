@@ -20,29 +20,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_AudioSpec")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioSpec
 	{
 		/// <summary>
 		/// Audio data format <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_AudioFormat")]
 		public SDLAudioFormat Format;
 
 		/// <summary>
 		/// Number of channels: 1 mono, 2 stereo, etc <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "channels")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Channels;
 
 		/// <summary>
 		/// sample rate: sample frames per second <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "freq")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Freq;
 
 

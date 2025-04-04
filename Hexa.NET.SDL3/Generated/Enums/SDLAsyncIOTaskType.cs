@@ -16,29 +16,22 @@ namespace Hexa.NET.SDL3
 	/// Types of asynchronous I/O tasks.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_AsyncIOTaskType")]
 	[Flags]
 	public enum SDLAsyncIOTaskType : int
 	{
 		/// <summary>
 		/// A read operation. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASYNCIO_TASK_READ")]
-		[NativeName(NativeNameType.Value, "0")]
 		Read = unchecked(0),
 
 		/// <summary>
 		/// A write operation. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASYNCIO_TASK_WRITE")]
-		[NativeName(NativeNameType.Value, "1")]
 		Write = unchecked(1),
 
 		/// <summary>
 		/// A close operation. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASYNCIO_TASK_CLOSE")]
-		[NativeName(NativeNameType.Value, "2")]
 		Close = unchecked(2),
 	}
 }

@@ -21,36 +21,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureTransferInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureTransferInfo
 	{
 		/// <summary>
 		/// The transfer buffer used in the transfer operation. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "transfer_buffer")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
 		public unsafe SDLGPUTransferBuffer* TransferBuffer;
 
 		/// <summary>
 		/// The starting byte of the image data in the transfer buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "offset")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 		/// <summary>
 		/// The number of pixels from one row to the next. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pixels_per_row")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint PixelsPerRow;
 
 		/// <summary>
 		/// The number of rows from one layer/depth-slice to the next. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "rows_per_layer")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint RowsPerLayer;
 
 

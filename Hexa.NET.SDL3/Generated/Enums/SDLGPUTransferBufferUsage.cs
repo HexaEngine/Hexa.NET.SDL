@@ -19,15 +19,10 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUTransferBufferUsage")]
 	[Flags]
 	public enum SDLGPUTransferBufferUsage : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD")]
-		[NativeName(NativeNameType.Value, "0")]
 		Upload = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD")]
-		[NativeName(NativeNameType.Value, "1")]
 		Download = unchecked(1),
 	}
 }

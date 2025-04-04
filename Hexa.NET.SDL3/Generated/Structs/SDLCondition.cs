@@ -24,7 +24,6 @@ namespace Hexa.NET.SDL3
 	/// https://en.wikipedia.org/wiki/Condition_variable<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Condition")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCondition
 	{

@@ -23,36 +23,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Finger")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLFinger
 	{
 		/// <summary>
 		/// the finger ID <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "id")]
-		[NativeName(NativeNameType.Type, "SDL_FingerID")]
 		public long Id;
 
 		/// <summary>
 		/// the x-axis location of the touch event, normalized (0...1) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// the y-axis location of the touch event, normalized (0...1) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// the quantity of pressure applied, normalized (0...1) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pressure")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Pressure;
 
 

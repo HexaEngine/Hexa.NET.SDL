@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL3
 	/// Opaque type for an EGL config.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Typedef, "SDL_EGLConfig")]
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]
 	#endif

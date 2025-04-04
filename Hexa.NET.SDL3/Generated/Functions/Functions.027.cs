@@ -18,5006 +18,5015 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
+		/// Get information about a filesystem path in a storage container.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static bool GetStoragePathInfo(SDLStorage* storage, byte* path, ref SDLPathInfo info)
 		{
-			byte ret = SetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLPathInfo* pinfo = &info)
 			{
-				byte ret = SetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
+				byte ret = GetStoragePathInfoNative(storage, path, (SDLPathInfo*)pinfo);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
+		/// Get information about a filesystem path in a storage container.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetStoragePathInfo(ref SDLStorage storage, byte* path, ref SDLPathInfo info)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, path, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path in a storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetStoragePathInfo(SDLStorage* storage, ref byte path, ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path in a storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetStoragePathInfo(SDLStorage* storage, ReadOnlySpan<byte> path, ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path in a storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetStoragePathInfo(SDLStorage* storage, string path, ref SDLPathInfo info)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLPathInfo* pinfo = &info)
+			{
+				byte ret = GetStoragePathInfoNative(storage, pStr0, (SDLPathInfo*)pinfo);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path in a storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetStoragePathInfo(ref SDLStorage storage, ref byte path, ref SDLPathInfo info)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = &path)
+				{
+					fixed (SDLPathInfo* pinfo = &info)
+					{
+						byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, (SDLPathInfo*)pinfo);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path in a storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetStoragePathInfo(ref SDLStorage storage, ReadOnlySpan<byte> path, ref SDLPathInfo info)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = path)
+				{
+					fixed (SDLPathInfo* pinfo = &info)
+					{
+						byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, (SDLPathInfo*)pinfo);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path in a storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetStoragePathInfo(ref SDLStorage storage, string path, ref SDLPathInfo info)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (path != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(path);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, pStr0, (SDLPathInfo*)pinfo);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Queries the remaining space in a storage container.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
+		internal static ulong GetStorageSpaceRemainingNative(SDLStorage* storage)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode*, byte>)funcTable[1092])(renderer, blendMode);
+			return ((delegate* unmanaged[Cdecl]<SDLStorage*, ulong>)funcTable[1136])(storage);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1092])((nint)renderer, (nint)blendMode);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[1136])((nint)storage);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
+		/// Queries the remaining space in a storage container.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
+		public static ulong GetStorageSpaceRemaining(SDLStorage* storage)
 		{
-			byte ret = GetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret != 0;
+			ulong ret = GetStorageSpaceRemainingNative(storage);
+			return ret;
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
+		/// Queries the remaining space in a storage container.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] SDLBlendMode* blendMode)
+		public static ulong GetStorageSpaceRemaining(ref SDLStorage storage)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLStorage* pstorage = &storage)
 			{
-				byte ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret != 0;
+				ulong ret = GetStorageSpaceRemainingNative((SDLStorage*)pstorage);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				byte ret = GetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					byte ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderClearNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
+		internal static byte** GlobStorageDirectoryNative(SDLStorage* storage, byte* path, byte* pattern, SDLGlobFlags flags, int* count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte>)funcTable[1093])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte*, SDLGlobFlags, int*, byte**>)funcTable[1137])(storage, path, pattern, flags, count);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1093])((nint)renderer);
+			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLGlobFlags, nint, nint>)funcTable[1137])((nint)storage, (nint)path, (nint)pattern, flags, (nint)count);
 			#endif
 		}
 
 		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer)
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, byte* pattern, SDLGlobFlags flags, int* count)
 		{
-			byte ret = RenderClearNative(renderer);
-			return ret != 0;
+			byte** ret = GlobStorageDirectoryNative(storage, path, pattern, flags, count);
+			return ret;
 		}
 
 		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer)
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, byte* pattern, SDLGlobFlags flags, int* count)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLStorage* pstorage = &storage)
 			{
-				byte ret = RenderClearNative((SDLRenderer*)prenderer);
-				return ret != 0;
+				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pattern, flags, count);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ref byte path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, string path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobStorageDirectoryNative(storage, pStr0, pattern, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ref byte path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = &path)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = path)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, string path, byte* pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (path != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(path);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pattern, flags, count);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, ref byte pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppattern = &pattern)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, string pattern, SDLGlobFlags flags, int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pattern != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobStorageDirectoryNative(storage, path, pStr0, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, ref byte pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, string pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (pattern != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(pattern);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pStr0, flags, count);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ref byte path, ref byte pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, string path, string pattern, SDLGlobFlags flags, int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (pattern != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte** ret = GlobStorageDirectoryNative(storage, pStr0, pStr1, flags, count);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ref byte path, ref byte pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = &path)
+				{
+					fixed (byte* ppattern = &pattern)
+					{
+						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, count);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = path)
+				{
+					fixed (byte* ppattern = pattern)
+					{
+						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, count);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, string path, string pattern, SDLGlobFlags flags, int* count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (path != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(path);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				byte* pStr1 = null;
+				int pStrSize1 = 0;
+				if (pattern != null)
+				{
+					pStrSize1 = Utils.GetByteCountUTF8(pattern);
+					if (pStrSize1 >= Utils.MaxStackallocSize)
+					{
+						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+					}
+					else
+					{
+						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+						pStr1 = pStrStack1;
+					}
+					int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+					pStr1[pStrOffset1] = 0;
+				}
+				byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pStr1, flags, count);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, path, pattern, flags, (int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ref byte path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, pattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, string path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, pStr0, pattern, flags, (int*)pcount);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ref byte path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = &path)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = path)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, pattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, string path, byte* pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (path != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(path);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pattern, flags, (int*)pcount);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, ref byte pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppattern = &pattern)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative(storage, path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, byte* path, string pattern, SDLGlobFlags flags, ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pattern != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, path, pStr0, flags, (int*)pcount);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, ref byte pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, byte* path, string pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (pattern != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(pattern);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, path, pStr0, flags, (int*)pcount);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ref byte path, ref byte pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobStorageDirectoryNative(storage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(SDLStorage* storage, string path, string pattern, SDLGlobFlags flags, ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (pattern != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobStorageDirectoryNative(storage, pStr0, pStr1, flags, (int*)pcount);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ref byte path, ref byte pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = &path)
+				{
+					fixed (byte* ppattern = &pattern)
+					{
+						fixed (int* pcount = &count)
+						{
+							byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				fixed (byte* ppath = path)
+				{
+					fixed (byte* ppattern = pattern)
+					{
+						fixed (int* pcount = &count)
+						{
+							byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
+		/// the storage container's tree. An empty string also works for this.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, assuming<br/>
+		/// the `storage` object is thread-safe.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte** GlobStorageDirectory(ref SDLStorage storage, string path, string pattern, SDLGlobFlags flags, ref int count)
+		{
+			fixed (SDLStorage* pstorage = &storage)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (path != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(path);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				byte* pStr1 = null;
+				int pStrSize1 = 0;
+				if (pattern != null)
+				{
+					pStrSize1 = Utils.GetByteCountUTF8(pattern);
+					if (pStrSize1 >= Utils.MaxStackallocSize)
+					{
+						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+					}
+					else
+					{
+						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+						pStr1 = pStrStack1;
+					}
+					int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+					pStr1[pStrOffset1] = 0;
+				}
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobStorageDirectoryNative((SDLStorage*)pstorage, pStr0, pStr1, flags, (int*)pcount);
+					if (pStrSize1 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr1);
+					}
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
+		/// The callback may modify the message, and should return true if the message<br/>
+		/// should continue to be processed, or false to prevent further processing.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderPointNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		internal static void SetWindowsMessageHookNative(SDLWindowsMessageHook callback, void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, byte>)funcTable[1094])(renderer, x, y);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, Msg*, bool>, void*, void>)funcTable[1138])((delegate*<void*, Msg*, bool>)Utils.GetFunctionPointerForDelegate(callback), userdata);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, byte>)funcTable[1094])((nint)renderer, x, y);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1138])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
 			#endif
 		}
 
 		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
+		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
+		/// The callback may modify the message, and should return true if the message<br/>
+		/// should continue to be processed, or false to prevent further processing.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		public static void SetWindowsMessageHook(SDLWindowsMessageHook callback, void* userdata)
 		{
-			byte ret = RenderPointNative(renderer, x, y);
-			return ret != 0;
+			SetWindowsMessageHookNative(callback, userdata);
 		}
 
 		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderPointNative((SDLRenderer*)prenderer, x, y);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the D3D9 adapter index that matches the specified display.<br/>
+		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
+		/// controls on which monitor a full screen application will appear.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderPointsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int GetDirect3D9AdapterIndexNative(uint displayID)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, byte>)funcTable[1095])(renderer, points, count);
+			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[1139])(displayID);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1095])((nint)renderer, (nint)points, count);
+			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[1139])(displayID);
 			#endif
 		}
 
 		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the D3D9 adapter index that matches the specified display.<br/>
+		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
+		/// controls on which monitor a full screen application will appear.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int GetDirect3D9AdapterIndex(uint displayID)
 		{
-			byte ret = RenderPointsNative(renderer, points, count);
-			return ret != 0;
+			int ret = GetDirect3D9AdapterIndexNative(displayID);
+			return ret;
 		}
 
 		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderPointsNative((SDLRenderer*)prenderer, points, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				byte ret = RenderPointsNative(renderer, (SDLFPoint*)ppoints, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderPoints")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* ppoints = &points)
-				{
-					byte ret = RenderPointsNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderLineNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		internal static byte GetDXGIOutputInfoNative(uint displayID, int* adapterIndex, int* outputIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float, float, byte>)funcTable[1096])(renderer, x1, y1, x2, y2);
+			return ((delegate* unmanaged[Cdecl]<uint, int*, int*, byte>)funcTable[1140])(displayID, adapterIndex, outputIndex);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, byte>)funcTable[1096])((nint)renderer, x1, y1, x2, y2);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[1140])(displayID, (nint)adapterIndex, (nint)outputIndex);
 			#endif
 		}
 
 		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		public static bool GetDXGIOutputInfo(uint displayID, int* adapterIndex, int* outputIndex)
 		{
-			byte ret = RenderLineNative(renderer, x1, y1, x2, y2);
+			byte ret = GetDXGIOutputInfoNative(displayID, adapterIndex, outputIndex);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		public static bool GetDXGIOutputInfo(uint displayID, ref int adapterIndex, int* outputIndex)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (int* padapterIndex = &adapterIndex)
 			{
-				byte ret = RenderLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
+				byte ret = GetDXGIOutputInfoNative(displayID, (int*)padapterIndex, outputIndex);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
-		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetDXGIOutputInfo(uint displayID, int* adapterIndex, ref int outputIndex)
+		{
+			fixed (int* poutputIndex = &outputIndex)
+			{
+				byte ret = GetDXGIOutputInfoNative(displayID, adapterIndex, (int*)poutputIndex);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the DXGI Adapter and Output indices for the specified display.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetDXGIOutputInfo(uint displayID, ref int adapterIndex, ref int outputIndex)
+		{
+			fixed (int* padapterIndex = &adapterIndex)
+			{
+				fixed (int* poutputIndex = &outputIndex)
+				{
+					byte ret = GetDXGIOutputInfoNative(displayID, (int*)padapterIndex, (int*)poutputIndex);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set a callback for every X11 event.<br/>
+		/// The callback may modify the event, and should return true if the event<br/>
+		/// should continue to be processed, or false to prevent further processing.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderLinesNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void SetX11EventHookNative(SDLX11EventHook callback, void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, byte>)funcTable[1097])(renderer, points, count);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, XEvent*, bool>, void*, void>)funcTable[1141])((delegate*<void*, XEvent*, bool>)Utils.GetFunctionPointerForDelegate(callback), userdata);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1097])((nint)renderer, (nint)points, count);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1141])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
 			#endif
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Set a callback for every X11 event.<br/>
+		/// The callback may modify the event, and should return true if the event<br/>
+		/// should continue to be processed, or false to prevent further processing.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void SetX11EventHook(SDLX11EventHook callback, void* userdata)
 		{
-			byte ret = RenderLinesNative(renderer, points, count);
-			return ret != 0;
+			SetX11EventHookNative(callback, userdata);
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Query if the current device is a tablet.<br/>
+		/// If SDL can't determine this, it will return false.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderLinesNative((SDLRenderer*)prenderer, points, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				byte ret = RenderLinesNative(renderer, (SDLFPoint*)ppoints, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLines")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* ppoints = &points)
-				{
-					byte ret = RenderLinesNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		internal static byte IsTabletNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, byte>)funcTable[1098])(renderer, rect);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[1142])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1098])((nint)renderer, (nint)rect);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[1142])();
 			#endif
 		}
 
 		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Query if the current device is a tablet.<br/>
+		/// If SDL can't determine this, it will return false.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		public static bool IsTablet()
 		{
-			byte ret = RenderRectNative(renderer, rect);
+			byte ret = IsTabletNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderRectNative((SDLRenderer*)prenderer, rect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Query if the current device is a TV.<br/>
+		/// If SDL can't determine this, it will return false.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				byte ret = RenderRectNative(renderer, (SDLFRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prect = &rect)
-				{
-					byte ret = RenderRectNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static byte IsTVNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, byte>)funcTable[1099])(renderer, rects, count);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[1143])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1099])((nint)renderer, (nint)rects, count);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[1143])();
 			#endif
 		}
 
 		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Query if the current device is a TV.<br/>
+		/// If SDL can't determine this, it will return false.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static bool IsTV()
 		{
-			byte ret = RenderRectsNative(renderer, rects, count);
+			byte ret = IsTVNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the application sandbox environment, if any.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFRect* prects = &rects)
-			{
-				byte ret = RenderRectsNative(renderer, (SDLFRect*)prects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prects = &rects)
-				{
-					byte ret = RenderRectsNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderFillRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		internal static SDLSandbox GetSandboxNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, byte>)funcTable[1100])(renderer, rect);
+			return ((delegate* unmanaged[Cdecl]<SDLSandbox>)funcTable[1144])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1100])((nint)renderer, (nint)rect);
+			return (SDLSandbox)((delegate* unmanaged[Cdecl]<SDLSandbox>)funcTable[1144])();
 			#endif
 		}
 
 		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get the application sandbox environment, if any.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
+		public static SDLSandbox GetSandbox()
 		{
-			byte ret = RenderFillRectNative(renderer, rect);
-			return ret != 0;
+			SDLSandbox ret = GetSandboxNative();
+			return ret;
 		}
 
 		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationWillTerminate.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderFillRectNative((SDLRenderer*)prenderer, rect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				byte ret = RenderFillRectNative(renderer, (SDLFRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prect = &rect)
-				{
-					byte ret = RenderFillRectNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderFillRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void OnApplicationWillTerminateNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, byte>)funcTable[1101])(renderer, rects, count);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1145])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1101])((nint)renderer, (nint)rects, count);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1145])();
 			#endif
 		}
 
 		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationWillTerminate.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void OnApplicationWillTerminate()
 		{
-			byte ret = RenderFillRectsNative(renderer, rects, count);
-			return ret != 0;
+			OnApplicationWillTerminateNative();
 		}
 
 		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationDidReceiveMemoryWarning.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFRect* prects = &rects)
-			{
-				byte ret = RenderFillRectsNative(renderer, (SDLFRect*)prects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prects = &rects)
-				{
-					byte ret = RenderFillRectsNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		internal static void OnApplicationDidReceiveMemoryWarningNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFRect*, byte>)funcTable[1102])(renderer, texture, srcrect, dstrect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1146])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1102])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1146])();
 			#endif
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationDidReceiveMemoryWarning.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		public static void OnApplicationDidReceiveMemoryWarning()
 		{
-			byte ret = RenderTextureNative(renderer, texture, srcrect, dstrect);
-			return ret != 0;
+			OnApplicationDidReceiveMemoryWarningNative();
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationWillResignActive.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTextureNative(renderer, texture, (SDLFRect*)psrcrect, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				byte ret = RenderTextureNative(renderer, texture, srcrect, (SDLFRect*)pdstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureRotatedNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		internal static void OnApplicationWillEnterBackgroundNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFRect*, double, SDLFPoint*, SDLFlipMode, byte>)funcTable[1103])(renderer, texture, srcrect, dstrect, angle, center, flip);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1147])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, double, nint, SDLFlipMode, byte>)funcTable[1103])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect, angle, (nint)center, flip);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1147])();
 			#endif
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationWillResignActive.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
+		public static void OnApplicationWillEnterBackground()
 		{
-			byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, dstrect, angle, center, flip);
-			return ret != 0;
+			OnApplicationWillEnterBackgroundNative();
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationDidEnterBackground.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLFPoint* pcenter = &center)
-			{
-				byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureRotated")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureRotated([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "SDL_FlipMode")] SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							fixed (SDLFPoint* pcenter = &center)
-							{
-								byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureAffineNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
+		internal static void OnApplicationDidEnterBackgroundNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFPoint*, SDLFPoint*, SDLFPoint*, byte>)funcTable[1104])(renderer, texture, srcrect, origin, right, down);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1148])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint, byte>)funcTable[1104])((nint)renderer, (nint)texture, (nint)srcrect, (nint)origin, (nint)right, (nint)down);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1148])();
 			#endif
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationDidEnterBackground.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, right, down);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, right, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, right, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, right, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, right, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLFPoint* pright = &right)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, (SDLFPoint*)pright, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							fixed (SDLFPoint* pright = &right)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLFPoint* pdown = &down)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, right, (SDLFPoint*)pdown);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLFPoint* pright = &right)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
+		public static void OnApplicationDidEnterBackground()
 		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
+			OnApplicationDidEnterBackgroundNative();
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureAffine")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureAffine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "origin")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint origin, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint right, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							fixed (SDLFPoint* pright = &right)
-							{
-								fixed (SDLFPoint* pdown = &down)
-								{
-									byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-									return ret != 0;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationWillEnterForeground.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureTiledNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		internal static void OnApplicationWillEnterForegroundNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, float, SDLFRect*, byte>)funcTable[1105])(renderer, texture, srcrect, scale, dstrect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1149])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, float, nint, byte>)funcTable[1105])((nint)renderer, (nint)texture, (nint)srcrect, scale, (nint)dstrect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1149])();
 			#endif
 		}
 
 		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationWillEnterForeground.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		public static void OnApplicationWillEnterForeground()
 		{
-			byte ret = RenderTextureTiledNative(renderer, texture, srcrect, scale, dstrect);
-			return ret != 0;
+			OnApplicationWillEnterForegroundNative();
 		}
 
 		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationDidBecomeActive.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, srcrect, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, srcrect, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTextureTiledNative(renderer, texture, (SDLFRect*)psrcrect, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, dstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				byte ret = RenderTextureTiledNative(renderer, texture, srcrect, scale, (SDLFRect*)pdstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, srcrect, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, srcrect, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureTiledNative(renderer, texture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTextureTiled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTextureTiled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTexture9GridNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		internal static void OnApplicationDidEnterForegroundNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, float, float, float, float, float, SDLFRect*, byte>)funcTable[1106])(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1150])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, float, float, float, float, float, nint, byte>)funcTable[1106])((nint)renderer, (nint)texture, (nint)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (nint)dstrect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1150])();
 			#endif
 		}
 
 		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
+		/// Let iOS apps with external event handling report<br/>
+		/// onApplicationDidBecomeActive.<br/>
+		/// This functions allows iOS apps that have their own event handling to hook<br/>
+		/// into SDL to generate SDL events. This maps directly to an iOS-specific<br/>
+		/// event, but since it doesn't do anything iOS-specific internally, it is<br/>
+		/// available on all platforms, in case it might be useful for some specific<br/>
+		/// paradigm. Most apps do not need to use this directly; SDL's internal event<br/>
+		/// code will handle all this for windows created by SDL_CreateWindow!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
+		public static void OnApplicationDidEnterForeground()
 		{
-			byte ret = RenderTexture9GridNative(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-			return ret != 0;
+			OnApplicationDidEnterForegroundNative();
 		}
 
 		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Gets the current preferred date and time format for the system locale.<br/>
+		/// This might be a "slow" call that has to query the operating system. It's<br/>
+		/// best to ask for this once and save the results. However, the preferred<br/>
+		/// formats can change, usually because the user has changed a system<br/>
+		/// preference outside of your program.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTexture9GridNative(renderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				byte ret = RenderTexture9GridNative(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTexture9GridNative(renderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTexture9Grid")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderTexture9Grid([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "float")] float leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "float")] float rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "float")] float topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "float")] float bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderGeometryNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		internal static byte GetDateTimeLocalePreferencesNative(SDLDateFormat* dateFormat, SDLTimeFormat* timeFormat)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLVertex*, int, int*, int, byte>)funcTable[1107])(renderer, texture, vertices, numVertices, indices, numIndices);
+			return ((delegate* unmanaged[Cdecl]<SDLDateFormat*, SDLTimeFormat*, byte>)funcTable[1151])(dateFormat, timeFormat);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, byte>)funcTable[1107])((nint)renderer, (nint)texture, (nint)vertices, numVertices, (nint)indices, numIndices);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1151])((nint)dateFormat, (nint)timeFormat);
 			#endif
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Gets the current preferred date and time format for the system locale.<br/>
+		/// This might be a "slow" call that has to query the operating system. It's<br/>
+		/// best to ask for this once and save the results. However, the preferred<br/>
+		/// formats can change, usually because the user has changed a system<br/>
+		/// preference outside of your program.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static bool GetDateTimeLocalePreferences(SDLDateFormat* dateFormat, SDLTimeFormat* timeFormat)
 		{
-			byte ret = RenderGeometryNative(renderer, texture, vertices, numVertices, indices, numIndices);
+			byte ret = GetDateTimeLocalePreferencesNative(dateFormat, timeFormat);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Gets the current preferred date and time format for the system locale.<br/>
+		/// This might be a "slow" call that has to query the operating system. It's<br/>
+		/// best to ask for this once and save the results. However, the preferred<br/>
+		/// formats can change, usually because the user has changed a system<br/>
+		/// preference outside of your program.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static bool GetDateTimeLocalePreferences(ref SDLDateFormat dateFormat, SDLTimeFormat* timeFormat)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLDateFormat* pdateFormat = &dateFormat)
 			{
-				byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, indices, numIndices);
+				byte ret = GetDateTimeLocalePreferencesNative((SDLDateFormat*)pdateFormat, timeFormat);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Gets the current preferred date and time format for the system locale.<br/>
+		/// This might be a "slow" call that has to query the operating system. It's<br/>
+		/// best to ask for this once and save the results. However, the preferred<br/>
+		/// formats can change, usually because the user has changed a system<br/>
+		/// preference outside of your program.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static bool GetDateTimeLocalePreferences(SDLDateFormat* dateFormat, ref SDLTimeFormat timeFormat)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLTimeFormat* ptimeFormat = &timeFormat)
 			{
-				byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
+				byte ret = GetDateTimeLocalePreferencesNative(dateFormat, (SDLTimeFormat*)ptimeFormat);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Gets the current preferred date and time format for the system locale.<br/>
+		/// This might be a "slow" call that has to query the operating system. It's<br/>
+		/// best to ask for this once and save the results. However, the preferred<br/>
+		/// formats can change, usually because the user has changed a system<br/>
+		/// preference outside of your program.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static bool GetDateTimeLocalePreferences(ref SDLDateFormat dateFormat, ref SDLTimeFormat timeFormat)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLDateFormat* pdateFormat = &dateFormat)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLTimeFormat* ptimeFormat = &timeFormat)
 				{
-					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
+					byte ret = GetDateTimeLocalePreferencesNative((SDLDateFormat*)pdateFormat, (SDLTimeFormat*)ptimeFormat);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Gets the current value of the system realtime clock in nanoseconds since<br/>
+		/// Jan 1, 1970 in Universal Coordinated Time (UTC).<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetCurrentTimeNative(long* ticks)
 		{
-			fixed (SDLVertex* pvertices = &vertices)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long*, byte>)funcTable[1152])(ticks);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1152])((nint)ticks);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets the current value of the system realtime clock in nanoseconds since<br/>
+		/// Jan 1, 1970 in Universal Coordinated Time (UTC).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentTime(long* ticks)
+		{
+			byte ret = GetCurrentTimeNative(ticks);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Gets the current value of the system realtime clock in nanoseconds since<br/>
+		/// Jan 1, 1970 in Universal Coordinated Time (UTC).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentTime(ref long ticks)
+		{
+			fixed (long* pticks = &ticks)
 			{
-				byte ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+				byte ret = GetCurrentTimeNative((long*)pticks);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Converts an SDL_Time in nanoseconds since the epoch to a calendar time in<br/>
+		/// the SDL_DateTime format.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TimeToDateTimeNative(long ticks, SDLDateTime* dt, byte localTime)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, SDLDateTime*, byte, byte>)funcTable[1153])(ticks, dt, localTime);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<long, nint, byte, byte>)funcTable[1153])(ticks, (nint)dt, localTime);
+			#endif
+		}
+
+		/// <summary>
+		/// Converts an SDL_Time in nanoseconds since the epoch to a calendar time in<br/>
+		/// the SDL_DateTime format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool TimeToDateTime(long ticks, SDLDateTime* dt, bool localTime)
+		{
+			byte ret = TimeToDateTimeNative(ticks, dt, localTime ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Converts an SDL_Time in nanoseconds since the epoch to a calendar time in<br/>
+		/// the SDL_DateTime format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool TimeToDateTime(long ticks, ref SDLDateTime dt, bool localTime)
+		{
+			fixed (SDLDateTime* pdt = &dt)
 			{
-				fixed (SDLVertex* pvertices = &vertices)
+				byte ret = TimeToDateTimeNative(ticks, (SDLDateTime*)pdt, localTime ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
+		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
+		/// it may remain unset.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte DateTimeToTimeNative(SDLDateTime* dt, long* ticks)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLDateTime*, long*, byte>)funcTable[1154])(dt, ticks);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1154])((nint)dt, (nint)ticks);
+			#endif
+		}
+
+		/// <summary>
+		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
+		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
+		/// it may remain unset.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool DateTimeToTime(SDLDateTime* dt, long* ticks)
+		{
+			byte ret = DateTimeToTimeNative(dt, ticks);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
+		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
+		/// it may remain unset.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool DateTimeToTime(ref SDLDateTime dt, long* ticks)
+		{
+			fixed (SDLDateTime* pdt = &dt)
+			{
+				byte ret = DateTimeToTimeNative((SDLDateTime*)pdt, ticks);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
+		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
+		/// it may remain unset.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool DateTimeToTime(SDLDateTime* dt, ref long ticks)
+		{
+			fixed (long* pticks = &ticks)
+			{
+				byte ret = DateTimeToTimeNative(dt, (long*)pticks);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Converts a calendar time to an SDL_Time in nanoseconds since the epoch.<br/>
+		/// This function ignores the day_of_week member of the SDL_DateTime struct, so<br/>
+		/// it may remain unset.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool DateTimeToTime(ref SDLDateTime dt, ref long ticks)
+		{
+			fixed (SDLDateTime* pdt = &dt)
+			{
+				fixed (long* pticks = &ticks)
 				{
-					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					byte ret = DateTimeToTimeNative((SDLDateTime*)pdt, (long*)pticks);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
+		/// since January 1, 1601).<br/>
+		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TimeToWindowsNative(long ticks, uint* dwLowDateTime, uint* dwHighDateTime)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<long, uint*, uint*, void>)funcTable[1155])(ticks, dwLowDateTime, dwHighDateTime);
+			#else
+			((delegate* unmanaged[Cdecl]<long, nint, nint, void>)funcTable[1155])(ticks, (nint)dwLowDateTime, (nint)dwHighDateTime);
+			#endif
+		}
+
+		/// <summary>
+		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
+		/// since January 1, 1601).<br/>
+		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void TimeToWindows(long ticks, uint* dwLowDateTime, uint* dwHighDateTime)
+		{
+			TimeToWindowsNative(ticks, dwLowDateTime, dwHighDateTime);
+		}
+
+		/// <summary>
+		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
+		/// since January 1, 1601).<br/>
+		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void TimeToWindows(long ticks, ref uint dwLowDateTime, uint* dwHighDateTime)
+		{
+			fixed (uint* pdwLowDateTime = &dwLowDateTime)
 			{
-				fixed (SDLVertex* pvertices = &vertices)
+				TimeToWindowsNative(ticks, (uint*)pdwLowDateTime, dwHighDateTime);
+			}
+		}
+
+		/// <summary>
+		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
+		/// since January 1, 1601).<br/>
+		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void TimeToWindows(long ticks, uint* dwLowDateTime, ref uint dwHighDateTime)
+		{
+			fixed (uint* pdwHighDateTime = &dwHighDateTime)
+			{
+				TimeToWindowsNative(ticks, dwLowDateTime, (uint*)pdwHighDateTime);
+			}
+		}
+
+		/// <summary>
+		/// Converts an SDL time into a Windows FILETIME (100-nanosecond intervals<br/>
+		/// since January 1, 1601).<br/>
+		/// This function fills in the two 32-bit values of the FILETIME structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void TimeToWindows(long ticks, ref uint dwLowDateTime, ref uint dwHighDateTime)
+		{
+			fixed (uint* pdwLowDateTime = &dwLowDateTime)
+			{
+				fixed (uint* pdwHighDateTime = &dwHighDateTime)
 				{
-					byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
-					return ret != 0;
+					TimeToWindowsNative(ticks, (uint*)pdwLowDateTime, (uint*)pdwHighDateTime);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Converts a Windows FILETIME (100-nanosecond intervals since January 1,<br/>
+		/// 1601) to an SDL time.<br/>
+		/// This function takes the two 32-bit values of the FILETIME structure as<br/>
+		/// parameters.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long TimeFromWindowsNative(uint dwLowDateTime, uint dwHighDateTime)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint, long>)funcTable[1156])(dwLowDateTime, dwHighDateTime);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<uint, uint, long>)funcTable[1156])(dwLowDateTime, dwHighDateTime);
+			#endif
+		}
+
+		/// <summary>
+		/// Converts a Windows FILETIME (100-nanosecond intervals since January 1,<br/>
+		/// 1601) to an SDL time.<br/>
+		/// This function takes the two 32-bit values of the FILETIME structure as<br/>
+		/// parameters.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long TimeFromWindows(uint dwLowDateTime, uint dwHighDateTime)
+		{
+			long ret = TimeFromWindowsNative(dwLowDateTime, dwHighDateTime);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of days in a month for a given year.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetDaysInMonthNative(int year, int month)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1157])(year, month);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1157])(year, month);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of days in a month for a given year.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetDaysInMonth(int year, int month)
+		{
+			int ret = GetDaysInMonthNative(year, month);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the day of year for a calendar date.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetDayOfYearNative(int year, int month, int day)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1158])(year, month, day);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1158])(year, month, day);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the day of year for a calendar date.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetDayOfYear(int year, int month, int day)
+		{
+			int ret = GetDayOfYearNative(year, month, day);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the day of week for a calendar date.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetDayOfWeekNative(int year, int month, int day)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1159])(year, month, day);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, int, int>)funcTable[1159])(year, month, day);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the day of week for a calendar date.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetDayOfWeek(int year, int month, int day)
+		{
+			int ret = GetDayOfWeekNative(year, month, day);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of milliseconds since SDL library initialization.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetTicksNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1160])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1160])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of milliseconds since SDL library initialization.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static ulong GetTicks()
+		{
+			ulong ret = GetTicksNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of nanoseconds since SDL library initialization.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetTicksNSNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1161])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1161])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of nanoseconds since SDL library initialization.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static ulong GetTicksNS()
+		{
+			ulong ret = GetTicksNSNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current value of the high resolution counter.<br/>
+		/// This function is typically used for profiling.<br/>
+		/// The counter values are only meaningful relative to each other. Differences<br/>
+		/// between values can be converted to times by using<br/>
+		/// SDL_GetPerformanceFrequency().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetPerformanceCounterNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1162])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1162])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current value of the high resolution counter.<br/>
+		/// This function is typically used for profiling.<br/>
+		/// The counter values are only meaningful relative to each other. Differences<br/>
+		/// between values can be converted to times by using<br/>
+		/// SDL_GetPerformanceFrequency().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong GetPerformanceCounter()
+		{
+			ulong ret = GetPerformanceCounterNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the count per second of the high resolution counter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetPerformanceFrequencyNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1163])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1163])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the count per second of the high resolution counter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong GetPerformanceFrequency()
+		{
+			ulong ret = GetPerformanceFrequencyNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Wait a specified number of milliseconds before returning.<br/>
+		/// This function waits a specified number of milliseconds before returning. It<br/>
+		/// waits at least the specified time, but possibly longer due to OS<br/>
+		/// scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DelayNative(uint ms)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1164])(ms);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1164])(ms);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait a specified number of milliseconds before returning.<br/>
+		/// This function waits a specified number of milliseconds before returning. It<br/>
+		/// waits at least the specified time, but possibly longer due to OS<br/>
+		/// scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void Delay(uint ms)
+		{
+			DelayNative(ms);
+		}
+
+		/// <summary>
+		/// Wait a specified number of nanoseconds before returning.<br/>
+		/// This function waits a specified number of nanoseconds before returning. It<br/>
+		/// waits at least the specified time, but possibly longer due to OS<br/>
+		/// scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DelayNSNative(ulong ns)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1165])(ns);
+			#else
+			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1165])(ns);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait a specified number of nanoseconds before returning.<br/>
+		/// This function waits a specified number of nanoseconds before returning. It<br/>
+		/// waits at least the specified time, but possibly longer due to OS<br/>
+		/// scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DelayNS(ulong ns)
+		{
+			DelayNSNative(ns);
+		}
+
+		/// <summary>
+		/// Wait a specified number of nanoseconds before returning.<br/>
+		/// This function waits a specified number of nanoseconds before returning. It<br/>
+		/// will attempt to wait as close to the requested time as possible, busy<br/>
+		/// waiting if necessary, but could return later due to OS scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DelayPreciseNative(ulong ns)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1166])(ns);
+			#else
+			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1166])(ns);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait a specified number of nanoseconds before returning.<br/>
+		/// This function waits a specified number of nanoseconds before returning. It<br/>
+		/// will attempt to wait as close to the requested time as possible, busy<br/>
+		/// waiting if necessary, but could return later due to OS scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DelayPrecise(ulong ns)
+		{
+			DelayPreciseNative(ns);
+		}
+
+		/// <summary>
+		/// Call a callback function at a future time.<br/>
+		/// The callback function is passed the current timer interval and the user<br/>
+		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
+		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
+		/// canceled and will be removed.<br/>
+		/// The callback is run on a separate thread, and for short timeouts can<br/>
+		/// potentially be called before this function returns.<br/>
+		/// Timers take into account the amount of time it took to execute the<br/>
+		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
+		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
+		/// iteration.<br/>
+		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
+		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
+		/// callback needs to adjust for variances.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AddTimerNative(uint interval, SDLTimerCallback callback, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void*, int, uint, uint>, void*, int>)funcTable[1167])(interval, (delegate*<void*, int, uint, uint>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[1167])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Call a callback function at a future time.<br/>
+		/// The callback function is passed the current timer interval and the user<br/>
+		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
+		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
+		/// canceled and will be removed.<br/>
+		/// The callback is run on a separate thread, and for short timeouts can<br/>
+		/// potentially be called before this function returns.<br/>
+		/// Timers take into account the amount of time it took to execute the<br/>
+		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
+		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
+		/// iteration.<br/>
+		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
+		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
+		/// callback needs to adjust for variances.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AddTimer(uint interval, SDLTimerCallback callback, void* userdata)
+		{
+			int ret = AddTimerNative(interval, callback, userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Call a callback function at a future time.<br/>
+		/// The callback function is passed the current timer interval and the user<br/>
+		/// supplied parameter from the SDL_AddTimerNS() call and should return the<br/>
+		/// next timer interval. If the value returned from the callback is 0, the<br/>
+		/// timer is canceled and will be removed.<br/>
+		/// The callback is run on a separate thread, and for short timeouts can<br/>
+		/// potentially be called before this function returns.<br/>
+		/// Timers take into account the amount of time it took to execute the<br/>
+		/// callback. For example, if the callback took 250 ns to execute and returned<br/>
+		/// 1000 (ns), the timer would only wait another 750 ns before its next<br/>
+		/// iteration.<br/>
+		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
+		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
+		/// callback needs to adjust for variances.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AddTimerNSNative(ulong interval, SDLNSTimerCallback callback, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong, delegate*<void*, int, ulong, ulong>, void*, int>)funcTable[1168])(interval, (delegate*<void*, int, ulong, ulong>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<ulong, nint, nint, int>)funcTable[1168])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Call a callback function at a future time.<br/>
+		/// The callback function is passed the current timer interval and the user<br/>
+		/// supplied parameter from the SDL_AddTimerNS() call and should return the<br/>
+		/// next timer interval. If the value returned from the callback is 0, the<br/>
+		/// timer is canceled and will be removed.<br/>
+		/// The callback is run on a separate thread, and for short timeouts can<br/>
+		/// potentially be called before this function returns.<br/>
+		/// Timers take into account the amount of time it took to execute the<br/>
+		/// callback. For example, if the callback took 250 ns to execute and returned<br/>
+		/// 1000 (ns), the timer would only wait another 750 ns before its next<br/>
+		/// iteration.<br/>
+		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
+		/// time with SDL_GetTicksNS() or SDL_GetPerformanceCounter() in case your<br/>
+		/// callback needs to adjust for variances.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AddTimerNS(ulong interval, SDLNSTimerCallback callback, void* userdata)
+		{
+			int ret = AddTimerNSNative(interval, callback, userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Remove a timer created with SDL_AddTimer().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RemoveTimerNative(int id)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[1169])(id);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[1169])(id);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove a timer created with SDL_AddTimer().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RemoveTimer(int id)
+		{
+			byte ret = RemoveTimerNative(id);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTray* CreateTrayNative(SDLSurface* icon, byte* tooltip)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, SDLTray*>)funcTable[1170])(icon, tooltip);
+			#else
+			return (SDLTray*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1170])((nint)icon, (nint)tooltip);
+			#endif
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(SDLSurface* icon, byte* tooltip)
+		{
+			SDLTray* ret = CreateTrayNative(icon, tooltip);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(ref SDLSurface icon, byte* tooltip)
+		{
+			fixed (SDLSurface* picon = &icon)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				SDLTray* ret = CreateTrayNative((SDLSurface*)picon, tooltip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(SDLSurface* icon, ref byte tooltip)
+		{
+			fixed (byte* ptooltip = &tooltip)
+			{
+				SDLTray* ret = CreateTrayNative(icon, (byte*)ptooltip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(SDLSurface* icon, ReadOnlySpan<byte> tooltip)
+		{
+			fixed (byte* ptooltip = tooltip)
+			{
+				SDLTray* ret = CreateTrayNative(icon, (byte*)ptooltip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(SDLSurface* icon, string tooltip)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tooltip != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tooltip);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					fixed (SDLVertex* pvertices = &vertices)
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLTray* ret = CreateTrayNative(icon, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(ref SDLSurface icon, ref byte tooltip)
+		{
+			fixed (SDLSurface* picon = &icon)
+			{
+				fixed (byte* ptooltip = &tooltip)
+				{
+					SDLTray* ret = CreateTrayNative((SDLSurface*)picon, (byte*)ptooltip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(ref SDLSurface icon, ReadOnlySpan<byte> tooltip)
+		{
+			fixed (SDLSurface* picon = &icon)
+			{
+				fixed (byte* ptooltip = tooltip)
+				{
+					SDLTray* ret = CreateTrayNative((SDLSurface*)picon, (byte*)ptooltip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create an icon to be placed in the operating system's tray, or equivalent.<br/>
+		/// Many platforms advise not using a system tray unless persistence is a<br/>
+		/// necessary feature. Avoid needlessly creating a tray icon, as the user may<br/>
+		/// feel like it clutters their interface.<br/>
+		/// Using tray icons require the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTray* CreateTray(ref SDLSurface icon, string tooltip)
+		{
+			fixed (SDLSurface* picon = &icon)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (tooltip != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(tooltip);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
-						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
-						return ret != 0;
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SDLTray* ret = CreateTrayNative((SDLSurface*)picon, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTrayIconNative(SDLTray* tray, SDLSurface* icon)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTray*, SDLSurface*, void>)funcTable[1171])(tray, icon);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1171])((nint)tray, (nint)icon);
+			#endif
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayIcon(SDLTray* tray, SDLSurface* icon)
+		{
+			SetTrayIconNative(tray, icon);
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayIcon(ref SDLTray tray, SDLSurface* icon)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				SetTrayIconNative((SDLTray*)ptray, icon);
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayIcon(SDLTray* tray, ref SDLSurface icon)
+		{
+			fixed (SDLSurface* picon = &icon)
+			{
+				SetTrayIconNative(tray, (SDLSurface*)picon);
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayIcon(ref SDLTray tray, ref SDLSurface icon)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				fixed (SDLSurface* picon = &icon)
+				{
+					SetTrayIconNative((SDLTray*)ptray, (SDLSurface*)picon);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Updates the system tray icon's tooltip.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTrayTooltipNative(SDLTray* tray, byte* tooltip)
 		{
-			fixed (int* pindices = &indices)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTray*, byte*, void>)funcTable[1172])(tray, tooltip);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1172])((nint)tray, (nint)tooltip);
+			#endif
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(SDLTray* tray, byte* tooltip)
+		{
+			SetTrayTooltipNative(tray, tooltip);
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(ref SDLTray tray, byte* tooltip)
+		{
+			fixed (SDLTray* ptray = &tray)
 			{
-				byte ret = RenderGeometryNative(renderer, texture, vertices, numVertices, (int*)pindices, numIndices);
+				SetTrayTooltipNative((SDLTray*)ptray, tooltip);
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(SDLTray* tray, ref byte tooltip)
+		{
+			fixed (byte* ptooltip = &tooltip)
+			{
+				SetTrayTooltipNative(tray, (byte*)ptooltip);
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(SDLTray* tray, ReadOnlySpan<byte> tooltip)
+		{
+			fixed (byte* ptooltip = tooltip)
+			{
+				SetTrayTooltipNative(tray, (byte*)ptooltip);
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(SDLTray* tray, string tooltip)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tooltip != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tooltip);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SetTrayTooltipNative(tray, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(ref SDLTray tray, ref byte tooltip)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				fixed (byte* ptooltip = &tooltip)
+				{
+					SetTrayTooltipNative((SDLTray*)ptray, (byte*)ptooltip);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(ref SDLTray tray, ReadOnlySpan<byte> tooltip)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				fixed (byte* ptooltip = tooltip)
+				{
+					SetTrayTooltipNative((SDLTray*)ptray, (byte*)ptooltip);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Updates the system tray icon's tooltip.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayTooltip(ref SDLTray tray, string tooltip)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (tooltip != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(tooltip);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(tooltip, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SetTrayTooltipNative((SDLTray*)ptray, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a menu for a system tray.<br/>
+		/// This should be called at most once per tray icon.<br/>
+		/// This function does the same thing as SDL_CreateTraySubmenu(), except that<br/>
+		/// it takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayMenu* CreateTrayMenuNative(SDLTray* tray)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTray*, SDLTrayMenu*>)funcTable[1173])(tray);
+			#else
+			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1173])((nint)tray);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a menu for a system tray.<br/>
+		/// This should be called at most once per tray icon.<br/>
+		/// This function does the same thing as SDL_CreateTraySubmenu(), except that<br/>
+		/// it takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* CreateTrayMenu(SDLTray* tray)
+		{
+			SDLTrayMenu* ret = CreateTrayMenuNative(tray);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a menu for a system tray.<br/>
+		/// This should be called at most once per tray icon.<br/>
+		/// This function does the same thing as SDL_CreateTraySubmenu(), except that<br/>
+		/// it takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* CreateTrayMenu(ref SDLTray tray)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				SDLTrayMenu* ret = CreateTrayMenuNative((SDLTray*)ptray);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a submenu for a system tray entry.<br/>
+		/// This should be called at most once per tray entry.<br/>
+		/// This function does the same thing as SDL_CreateTrayMenu, except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayMenu* CreateTraySubmenuNative(SDLTrayEntry* entry)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, SDLTrayMenu*>)funcTable[1174])(entry);
+			#else
+			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1174])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a submenu for a system tray entry.<br/>
+		/// This should be called at most once per tray entry.<br/>
+		/// This function does the same thing as SDL_CreateTrayMenu, except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* CreateTraySubmenu(SDLTrayEntry* entry)
+		{
+			SDLTrayMenu* ret = CreateTraySubmenuNative(entry);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a submenu for a system tray entry.<br/>
+		/// This should be called at most once per tray entry.<br/>
+		/// This function does the same thing as SDL_CreateTrayMenu, except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* CreateTraySubmenu(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				SDLTrayMenu* ret = CreateTraySubmenuNative((SDLTrayEntry*)pentry);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Gets a previously created tray menu.<br/>
+		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
+		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayMenu* GetTrayMenuNative(SDLTray* tray)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTray*, SDLTrayMenu*>)funcTable[1175])(tray);
+			#else
+			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1175])((nint)tray);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets a previously created tray menu.<br/>
+		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
+		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* GetTrayMenu(SDLTray* tray)
+		{
+			SDLTrayMenu* ret = GetTrayMenuNative(tray);
+			return ret;
+		}
+
+		/// <summary>
+		/// Gets a previously created tray menu.<br/>
+		/// You should have called SDL_CreateTrayMenu() on the tray object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTraySubmenu(), except that it<br/>
+		/// takes a SDL_Tray instead of a SDL_TrayEntry.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* GetTrayMenu(ref SDLTray tray)
+		{
+			fixed (SDLTray* ptray = &tray)
+			{
+				SDLTrayMenu* ret = GetTrayMenuNative((SDLTray*)ptray);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Gets a previously created tray entry submenu.<br/>
+		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayMenu* GetTraySubmenuNative(SDLTrayEntry* entry)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, SDLTrayMenu*>)funcTable[1176])(entry);
+			#else
+			return (SDLTrayMenu*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1176])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets a previously created tray entry submenu.<br/>
+		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* GetTraySubmenu(SDLTrayEntry* entry)
+		{
+			SDLTrayMenu* ret = GetTraySubmenuNative(entry);
+			return ret;
+		}
+
+		/// <summary>
+		/// Gets a previously created tray entry submenu.<br/>
+		/// You should have called SDL_CreateTraySubmenu() on the entry object. This<br/>
+		/// function allows you to fetch it again later.<br/>
+		/// This function does the same thing as SDL_GetTrayMenu(), except that it<br/>
+		/// takes a SDL_TrayEntry instead of a SDL_Tray.<br/>
+		/// A menu does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayMenu* GetTraySubmenu(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				SDLTrayMenu* ret = GetTraySubmenuNative((SDLTrayEntry*)pentry);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns a list of entries in the menu, in order.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayEntry** GetTrayEntriesNative(SDLTrayMenu* menu, int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayMenu*, int*, SDLTrayEntry**>)funcTable[1177])(menu, count);
+			#else
+			return (SDLTrayEntry**)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1177])((nint)menu, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns a list of entries in the menu, in order.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry** GetTrayEntries(SDLTrayMenu* menu, int* count)
+		{
+			SDLTrayEntry** ret = GetTrayEntriesNative(menu, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns a list of entries in the menu, in order.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry** GetTrayEntries(ref SDLTrayMenu menu, int* count)
+		{
+			fixed (SDLTrayMenu* pmenu = &menu)
+			{
+				SDLTrayEntry** ret = GetTrayEntriesNative((SDLTrayMenu*)pmenu, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns a list of entries in the menu, in order.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry** GetTrayEntries(SDLTrayMenu* menu, ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				SDLTrayEntry** ret = GetTrayEntriesNative(menu, (int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns a list of entries in the menu, in order.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry** GetTrayEntries(ref SDLTrayMenu menu, ref int count)
+		{
+			fixed (SDLTrayMenu* pmenu = &menu)
+			{
+				fixed (int* pcount = &count)
+				{
+					SDLTrayEntry** ret = GetTrayEntriesNative((SDLTrayMenu*)pmenu, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Removes a tray entry.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RemoveTrayEntryNative(SDLTrayEntry* entry)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTrayEntry*, void>)funcTable[1178])(entry);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1178])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Removes a tray entry.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RemoveTrayEntry(SDLTrayEntry* entry)
+		{
+			RemoveTrayEntryNative(entry);
+		}
+
+		/// <summary>
+		/// Removes a tray entry.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RemoveTrayEntry(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				RemoveTrayEntryNative((SDLTrayEntry*)pentry);
+			}
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTrayEntry* InsertTrayEntryAtNative(SDLTrayMenu* menu, int pos, byte* label, SDLTrayEntryFlags flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayMenu*, int, byte*, SDLTrayEntryFlags, SDLTrayEntry*>)funcTable[1179])(menu, pos, label, flags);
+			#else
+			return (SDLTrayEntry*)((delegate* unmanaged[Cdecl]<nint, int, nint, SDLTrayEntryFlags, nint>)funcTable[1179])((nint)menu, pos, (nint)label, flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(SDLTrayMenu* menu, int pos, byte* label, SDLTrayEntryFlags flags)
+		{
+			SDLTrayEntry* ret = InsertTrayEntryAtNative(menu, pos, label, flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(ref SDLTrayMenu menu, int pos, byte* label, SDLTrayEntryFlags flags)
+		{
+			fixed (SDLTrayMenu* pmenu = &menu)
+			{
+				SDLTrayEntry* ret = InsertTrayEntryAtNative((SDLTrayMenu*)pmenu, pos, label, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(SDLTrayMenu* menu, int pos, ref byte label, SDLTrayEntryFlags flags)
+		{
+			fixed (byte* plabel = &label)
+			{
+				SDLTrayEntry* ret = InsertTrayEntryAtNative(menu, pos, (byte*)plabel, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(SDLTrayMenu* menu, int pos, ReadOnlySpan<byte> label, SDLTrayEntryFlags flags)
+		{
+			fixed (byte* plabel = label)
+			{
+				SDLTrayEntry* ret = InsertTrayEntryAtNative(menu, pos, (byte*)plabel, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(SDLTrayMenu* menu, int pos, string label, SDLTrayEntryFlags flags)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (label != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(label);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(label, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLTrayEntry* ret = InsertTrayEntryAtNative(menu, pos, pStr0, flags);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(ref SDLTrayMenu menu, int pos, ref byte label, SDLTrayEntryFlags flags)
+		{
+			fixed (SDLTrayMenu* pmenu = &menu)
+			{
+				fixed (byte* plabel = &label)
+				{
+					SDLTrayEntry* ret = InsertTrayEntryAtNative((SDLTrayMenu*)pmenu, pos, (byte*)plabel, flags);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(ref SDLTrayMenu menu, int pos, ReadOnlySpan<byte> label, SDLTrayEntryFlags flags)
+		{
+			fixed (SDLTrayMenu* pmenu = &menu)
+			{
+				fixed (byte* plabel = label)
+				{
+					SDLTrayEntry* ret = InsertTrayEntryAtNative((SDLTrayMenu*)pmenu, pos, (byte*)plabel, flags);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Insert a tray entry at a given position.<br/>
+		/// If label is NULL, the entry will be a separator. Many functions won't work<br/>
+		/// for an entry that is a separator.<br/>
+		/// An entry does not need to be destroyed; it will be destroyed with the tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTrayEntry* InsertTrayEntryAt(ref SDLTrayMenu menu, int pos, string label, SDLTrayEntryFlags flags)
+		{
+			fixed (SDLTrayMenu* pmenu = &menu)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (label != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(label);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(label, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SDLTrayEntry* ret = InsertTrayEntryAtNative((SDLTrayMenu*)pmenu, pos, pStr0, flags);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTrayEntryLabelNative(SDLTrayEntry* entry, byte* label)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTrayEntry*, byte*, void>)funcTable[1180])(entry, label);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1180])((nint)entry, (nint)label);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(SDLTrayEntry* entry, byte* label)
+		{
+			SetTrayEntryLabelNative(entry, label);
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(ref SDLTrayEntry entry, byte* label)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				SetTrayEntryLabelNative((SDLTrayEntry*)pentry, label);
+			}
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(SDLTrayEntry* entry, ref byte label)
+		{
+			fixed (byte* plabel = &label)
+			{
+				SetTrayEntryLabelNative(entry, (byte*)plabel);
+			}
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(SDLTrayEntry* entry, ReadOnlySpan<byte> label)
+		{
+			fixed (byte* plabel = label)
+			{
+				SetTrayEntryLabelNative(entry, (byte*)plabel);
+			}
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(SDLTrayEntry* entry, string label)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (label != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(label);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(label, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SetTrayEntryLabelNative(entry, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(ref SDLTrayEntry entry, ref byte label)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				fixed (byte* plabel = &label)
+				{
+					SetTrayEntryLabelNative((SDLTrayEntry*)pentry, (byte*)plabel);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(ref SDLTrayEntry entry, ReadOnlySpan<byte> label)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				fixed (byte* plabel = label)
+				{
+					SetTrayEntryLabelNative((SDLTrayEntry*)pentry, (byte*)plabel);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the label of an entry.<br/>
+		/// An entry cannot change between a separator and an ordinary entry; that is,<br/>
+		/// it is not possible to set a non-NULL label on an entry that has a NULL<br/>
+		/// label (separators), or to set a NULL label to an entry that has a non-NULL<br/>
+		/// label. The function will silently fail if that happens.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryLabel(ref SDLTrayEntry entry, string label)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (label != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(label);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(label, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SetTrayEntryLabelNative((SDLTrayEntry*)pentry, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets the label of an entry.<br/>
+		/// If the returned value is NULL, the entry is a separator.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetTrayEntryLabelNative(SDLTrayEntry* entry)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, byte*>)funcTable[1181])(entry);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1181])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets the label of an entry.<br/>
+		/// If the returned value is NULL, the entry is a separator.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetTrayEntryLabel(SDLTrayEntry* entry)
+		{
+			byte* ret = GetTrayEntryLabelNative(entry);
+			return ret;
+		}
+
+		/// <summary>
+		/// Gets the label of an entry.<br/>
+		/// If the returned value is NULL, the entry is a separator.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetTrayEntryLabelS(SDLTrayEntry* entry)
+		{
+			string ret = Utils.DecodeStringUTF8(GetTrayEntryLabelNative(entry));
+			return ret;
+		}
+
+		/// <summary>
+		/// Gets the label of an entry.<br/>
+		/// If the returned value is NULL, the entry is a separator.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetTrayEntryLabel(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				byte* ret = GetTrayEntryLabelNative((SDLTrayEntry*)pentry);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Gets the label of an entry.<br/>
+		/// If the returned value is NULL, the entry is a separator.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetTrayEntryLabelS(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				string ret = Utils.DecodeStringUTF8(GetTrayEntryLabelNative((SDLTrayEntry*)pentry));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Sets whether or not an entry is checked.<br/>
+		/// The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTrayEntryCheckedNative(SDLTrayEntry* entry, byte @checked)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTrayEntry*, byte, void>)funcTable[1182])(entry, @checked);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, byte, void>)funcTable[1182])((nint)entry, @checked);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets whether or not an entry is checked.<br/>
+		/// The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryChecked(SDLTrayEntry* entry, bool @checked)
+		{
+			SetTrayEntryCheckedNative(entry, @checked ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Sets whether or not an entry is checked.<br/>
+		/// The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryChecked(ref SDLTrayEntry entry, bool @checked)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				SetTrayEntryCheckedNative((SDLTrayEntry*)pentry, @checked ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Gets whether or not an entry is checked.<br/>
+		/// The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTrayEntryCheckedNative(SDLTrayEntry* entry)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, byte>)funcTable[1183])(entry);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1183])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets whether or not an entry is checked.<br/>
+		/// The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTrayEntryChecked(SDLTrayEntry* entry)
+		{
+			byte ret = GetTrayEntryCheckedNative(entry);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Gets whether or not an entry is checked.<br/>
+		/// The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTrayEntryChecked(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
+			{
+				byte ret = GetTrayEntryCheckedNative((SDLTrayEntry*)pentry);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Sets whether or not an entry is enabled.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTrayEntryEnabledNative(SDLTrayEntry* entry, byte enabled)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTrayEntry*, byte, void>)funcTable[1184])(entry, enabled);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, byte, void>)funcTable[1184])((nint)entry, enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets whether or not an entry is enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryEnabled(SDLTrayEntry* entry, bool enabled)
+		{
+			SetTrayEntryEnabledNative(entry, enabled ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Sets whether or not an entry is enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryEnabled(ref SDLTrayEntry entry, bool enabled)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
 			{
-				fixed (int* pindices = &indices)
-				{
-					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, (int*)pindices, numIndices);
-					return ret != 0;
-				}
+				SetTrayEntryEnabledNative((SDLTrayEntry*)pentry, enabled ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Gets whether or not an entry is enabled.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTrayEntryEnabledNative(SDLTrayEntry* entry)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTrayEntry*, byte>)funcTable[1185])(entry);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1185])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Gets whether or not an entry is enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTrayEntryEnabled(SDLTrayEntry* entry)
+		{
+			byte ret = GetTrayEntryEnabledNative(entry);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Gets whether or not an entry is enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTrayEntryEnabled(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
 			{
-				fixed (int* pindices = &indices)
-				{
-					byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
-					return ret != 0;
-				}
+				byte ret = GetTrayEntryEnabledNative((SDLTrayEntry*)pentry);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Sets a callback to be invoked when the entry is selected.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTrayEntryCallbackNative(SDLTrayEntry* entry, SDLTrayCallback callback, void* userdata)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTrayEntry*, delegate*<void*, SDLTrayEntry*, void>, void*, void>)funcTable[1186])(entry, (delegate*<void*, SDLTrayEntry*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1186])((nint)entry, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets a callback to be invoked when the entry is selected.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryCallback(SDLTrayEntry* entry, SDLTrayCallback callback, void* userdata)
+		{
+			SetTrayEntryCallbackNative(entry, callback, userdata);
+		}
+
+		/// <summary>
+		/// Sets a callback to be invoked when the entry is selected.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTrayEntryCallback(ref SDLTrayEntry entry, SDLTrayCallback callback, void* userdata)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
 			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (int* pindices = &indices)
-					{
-						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
-						return ret != 0;
-					}
-				}
+				SetTrayEntryCallbackNative((SDLTrayEntry*)pentry, callback, userdata);
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Simulate a click on a tray entry.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer *")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture *")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "SDL_Vertex const *")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "int const *")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ClickTrayEntryNative(SDLTrayEntry* entry)
 		{
-			fixed (SDLVertex* pvertices = &vertices)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTrayEntry*, void>)funcTable[1187])(entry);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1187])((nint)entry);
+			#endif
+		}
+
+		/// <summary>
+		/// Simulate a click on a tray entry.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// </summary>
+		public static void ClickTrayEntry(SDLTrayEntry* entry)
+		{
+			ClickTrayEntryNative(entry);
+		}
+
+		/// <summary>
+		/// Simulate a click on a tray entry.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called on the thread that created the<br/>
+		/// tray.<br/>
+		/// <br/>
+		/// </summary>
+		public static void ClickTrayEntry(ref SDLTrayEntry entry)
+		{
+			fixed (SDLTrayEntry* pentry = &entry)
 			{
-				fixed (int* pindices = &indices)
-				{
-					byte ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
-					return ret != 0;
-				}
+				ClickTrayEntryNative((SDLTrayEntry*)pentry);
 			}
 		}
 	}

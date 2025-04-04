@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// The opaque structure used to identify an opened SDL sensor.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Sensor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensor
 	{

@@ -25,32 +25,23 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GamepadDeviceEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepadDeviceEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_GAMEPAD_ADDED, SDL_EVENT_GAMEPAD_REMOVED, or SDL_EVENT_GAMEPAD_REMAPPED, SDL_EVENT_GAMEPAD_UPDATE_COMPLETE or SDL_EVENT_GAMEPAD_STEAM_HANDLE_UPDATED <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 

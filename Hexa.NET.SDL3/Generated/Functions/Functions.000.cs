@@ -21,18 +21,19 @@ namespace Hexa.NET.SDL3
 		/// The allocated memory returned by this function must be freed with<br/>
 		/// SDL_free().<br/>
 		/// If `size` is 0, it will be set to 1.<br/>
-		/// If you want to allocate memory aligned to a specific alignment, consider<br/>
-		/// using SDL_aligned_alloc().<br/>
+		/// If the allocation is successful, the returned pointer is guaranteed to be<br/>
+		/// aligned to either the *fundamental alignment* (`alignof(max_align_t)` in<br/>
+		/// C11 and later) or `2 * sizeof(void *)`, whichever is smaller. Use<br/>
+		/// SDL_aligned_alloc() if you need to allocate memory aligned to an alignment<br/>
+		/// greater than this guarantee.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_malloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MallocNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		internal static void* MallocNative(nuint size)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<nuint, void*>)funcTable[0])(size);
@@ -46,17 +47,18 @@ namespace Hexa.NET.SDL3
 		/// The allocated memory returned by this function must be freed with<br/>
 		/// SDL_free().<br/>
 		/// If `size` is 0, it will be set to 1.<br/>
-		/// If you want to allocate memory aligned to a specific alignment, consider<br/>
-		/// using SDL_aligned_alloc().<br/>
+		/// If the allocation is successful, the returned pointer is guaranteed to be<br/>
+		/// aligned to either the *fundamental alignment* (`alignof(max_align_t)` in<br/>
+		/// C11 and later) or `2 * sizeof(void *)`, whichever is smaller. Use<br/>
+		/// SDL_aligned_alloc() if you need to allocate memory aligned to an alignment<br/>
+		/// greater than this guarantee.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_malloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Malloc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		public static void* Malloc(nuint size)
 		{
 			void* ret = MallocNative(size);
 			return ret;
@@ -66,16 +68,17 @@ namespace Hexa.NET.SDL3
 		/// Allocate a zero-initialized array.<br/>
 		/// The memory returned by this function must be freed with SDL_free().<br/>
 		/// If either of `nmemb` or `size` is 0, they will both be set to 1.<br/>
+		/// If the allocation is successful, the returned pointer is guaranteed to be<br/>
+		/// aligned to either the *fundamental alignment* (`alignof(max_align_t)` in<br/>
+		/// C11 and later) or `2 * sizeof(void *)`, whichever is smaller.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_calloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* CallocNative([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		internal static void* CallocNative(nuint nmemb, nuint size)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<nuint, nuint, void*>)funcTable[1])(nmemb, size);
@@ -88,15 +91,16 @@ namespace Hexa.NET.SDL3
 		/// Allocate a zero-initialized array.<br/>
 		/// The memory returned by this function must be freed with SDL_free().<br/>
 		/// If either of `nmemb` or `size` is 0, they will both be set to 1.<br/>
+		/// If the allocation is successful, the returned pointer is guaranteed to be<br/>
+		/// aligned to either the *fundamental alignment* (`alignof(max_align_t)` in<br/>
+		/// C11 and later) or `2 * sizeof(void *)`, whichever is smaller.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_calloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Calloc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		public static void* Calloc(nuint nmemb, nuint size)
 		{
 			void* ret = CallocNative(nmemb, size);
 			return ret;
@@ -117,16 +121,18 @@ namespace Hexa.NET.SDL3
 		/// and cannot be dereferenced anymore.<br/>
 		/// - If it returns NULL (indicating failure), then `mem` will remain valid and<br/>
 		/// must still be freed with SDL_free().<br/>
+		/// If the allocation is successfully resized, the returned pointer is<br/>
+		/// guaranteed to be aligned to either the *fundamental alignment*<br/>
+		/// (`alignof(max_align_t)` in C11 and later) or `2 * sizeof(void *)`,<br/>
+		/// whichever is smaller.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_realloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* ReallocNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		internal static void* ReallocNative(void* mem, nuint size)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, nuint, void*>)funcTable[2])(mem, size);
@@ -150,15 +156,17 @@ namespace Hexa.NET.SDL3
 		/// and cannot be dereferenced anymore.<br/>
 		/// - If it returns NULL (indicating failure), then `mem` will remain valid and<br/>
 		/// must still be freed with SDL_free().<br/>
+		/// If the allocation is successfully resized, the returned pointer is<br/>
+		/// guaranteed to be aligned to either the *fundamental alignment*<br/>
+		/// (`alignof(max_align_t)` in C11 and later) or `2 * sizeof(void *)`,<br/>
+		/// whichever is smaller.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_realloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Realloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		public static void* Realloc(void* mem, nuint size)
 		{
 			void* ret = ReallocNative(mem, size);
 			return ret;
@@ -175,10 +183,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_free")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem)
+		internal static void FreeNative(void* mem)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[3])(mem);
@@ -198,9 +204,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_free")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Free([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem)
+		public static void Free(void* mem)
 		{
 			FreeNative(mem);
 		}
@@ -216,10 +220,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetOriginalMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetOriginalMemoryFunctionsNative([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func *")] delegate*<nuint, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func *")] delegate*<nuint, nuint, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func *")] delegate*<void*, nuint, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func *")] delegate*<void*, void>* freeFunc)
+		internal static void GetOriginalMemoryFunctionsNative(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>*, delegate*<nuint, nuint, void*>*, delegate*<void*, nuint, void*>*, delegate*<void*, void>*, void>)funcTable[4])(mallocFunc, callocFunc, reallocFunc, freeFunc);
@@ -239,9 +241,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetOriginalMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetOriginalMemoryFunctions([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func *")] delegate*<nuint, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func *")] delegate*<nuint, nuint, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func *")] delegate*<void*, nuint, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func *")] delegate*<void*, void>* freeFunc)
+		public static void GetOriginalMemoryFunctions(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			GetOriginalMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
 		}
@@ -256,10 +256,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetMemoryFunctionsNative([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func *")] delegate*<nuint, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func *")] delegate*<nuint, nuint, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func *")] delegate*<void*, nuint, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func *")] delegate*<void*, void>* freeFunc)
+		internal static void GetMemoryFunctionsNative(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>*, delegate*<nuint, nuint, void*>*, delegate*<void*, nuint, void*>*, delegate*<void*, void>*, void>)funcTable[5])(mallocFunc, callocFunc, reallocFunc, freeFunc);
@@ -278,9 +276,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetMemoryFunctions([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func *")] delegate*<nuint, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func *")] delegate*<nuint, nuint, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func *")] delegate*<void*, nuint, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func *")] delegate*<void*, void>* freeFunc)
+		public static void GetMemoryFunctions(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			GetMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
 		}
@@ -300,10 +296,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetMemoryFunctionsNative([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func")] SDLMallocFunc mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func")] SDLCallocFunc callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func")] SDLReallocFunc reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func")] SDLFreeFunc freeFunc)
+		internal static byte SetMemoryFunctionsNative(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>, delegate*<nuint, nuint, void*>, delegate*<void*, nuint, void*>, delegate*<void*, void>, byte>)funcTable[6])((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
@@ -327,9 +321,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetMemoryFunctions([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func")] SDLMallocFunc mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func")] SDLCallocFunc callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func")] SDLReallocFunc reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func")] SDLFreeFunc freeFunc)
+		public static bool SetMemoryFunctions(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
 		{
 			byte ret = SetMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
 			return ret != 0;
@@ -349,10 +341,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_aligned_alloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* AlignedAllocNative([NativeName(NativeNameType.Param, "alignment")] [NativeName(NativeNameType.Type, "size_t")] nuint alignment, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		internal static void* AlignedAllocNative(nuint alignment, nuint size)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<nuint, nuint, void*>)funcTable[7])(alignment, size);
@@ -375,9 +365,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_aligned_alloc")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* AlignedAlloc([NativeName(NativeNameType.Param, "alignment")] [NativeName(NativeNameType.Type, "size_t")] nuint alignment, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		public static void* AlignedAlloc(nuint alignment, nuint size)
 		{
 			void* ret = AlignedAllocNative(alignment, size);
 			return ret;
@@ -394,10 +382,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_aligned_free")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AlignedFreeNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem)
+		internal static void AlignedFreeNative(void* mem)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[8])(mem);
@@ -417,9 +403,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_aligned_free")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void AlignedFree([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem)
+		public static void AlignedFree(void* mem)
 		{
 			AlignedFreeNative(mem);
 		}
@@ -431,8 +415,6 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAllocations")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumAllocationsNative()
 		{
@@ -450,8 +432,6 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAllocations")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		public static int GetNumAllocations()
 		{
 			int ret = GetNumAllocationsNative();
@@ -471,8 +451,6 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironment")]
-		[return: NativeName(NativeNameType.Type, "SDL_Environment *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLEnvironment* GetEnvironmentNative()
 		{
@@ -496,8 +474,6 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironment")]
-		[return: NativeName(NativeNameType.Type, "SDL_Environment *")]
 		public static SDLEnvironment* GetEnvironment()
 		{
 			SDLEnvironment* ret = GetEnvironmentNative();
@@ -514,10 +490,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateEnvironment")]
-		[return: NativeName(NativeNameType.Type, "SDL_Environment *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLEnvironment* CreateEnvironmentNative([NativeName(NativeNameType.Param, "populated")] [NativeName(NativeNameType.Type, "bool")] byte populated)
+		internal static SDLEnvironment* CreateEnvironmentNative(byte populated)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte, SDLEnvironment*>)funcTable[11])(populated);
@@ -536,9 +510,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateEnvironment")]
-		[return: NativeName(NativeNameType.Type, "SDL_Environment *")]
-		public static SDLEnvironment* CreateEnvironment([NativeName(NativeNameType.Param, "populated")] [NativeName(NativeNameType.Type, "bool")] bool populated)
+		public static SDLEnvironment* CreateEnvironment(bool populated)
 		{
 			SDLEnvironment* ret = CreateEnvironmentNative(populated ? (byte)1 : (byte)0);
 			return ret;
@@ -552,10 +524,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetEnvironmentVariableNative([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static byte* GetEnvironmentVariableNative(SDLEnvironment* env, byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEnvironment*, byte*, byte*>)funcTable[12])(env, name);
@@ -572,9 +542,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static byte* GetEnvironmentVariable(SDLEnvironment* env, byte* name)
 		{
 			byte* ret = GetEnvironmentVariableNative(env, name);
 			return ret;
@@ -588,9 +556,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static string GetEnvironmentVariableS(SDLEnvironment* env, byte* name)
 		{
 			string ret = Utils.DecodeStringUTF8(GetEnvironmentVariableNative(env, name));
 			return ret;
@@ -604,9 +570,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static byte* GetEnvironmentVariable(ref SDLEnvironment env, byte* name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -623,9 +587,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static string GetEnvironmentVariableS(ref SDLEnvironment env, byte* name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -642,9 +604,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static byte* GetEnvironmentVariable(SDLEnvironment* env, ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -661,9 +621,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static string GetEnvironmentVariableS(SDLEnvironment* env, ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -680,9 +638,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static byte* GetEnvironmentVariable(SDLEnvironment* env, ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -699,9 +655,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static string GetEnvironmentVariableS(SDLEnvironment* env, ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -718,9 +672,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static byte* GetEnvironmentVariable(SDLEnvironment* env, string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -755,9 +707,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static string GetEnvironmentVariableS(SDLEnvironment* env, string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -792,9 +742,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static byte* GetEnvironmentVariable(ref SDLEnvironment env, ref byte name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -814,9 +762,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static string GetEnvironmentVariableS(ref SDLEnvironment env, ref byte name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -836,9 +782,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static byte* GetEnvironmentVariable(ref SDLEnvironment env, ReadOnlySpan<byte> name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -858,9 +802,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static string GetEnvironmentVariableS(ref SDLEnvironment env, ReadOnlySpan<byte> name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -880,9 +822,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static byte* GetEnvironmentVariable(ref SDLEnvironment env, string name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -920,9 +860,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetEnvironmentVariableS([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static string GetEnvironmentVariableS(ref SDLEnvironment env, string name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -960,10 +898,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariables")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte** GetEnvironmentVariablesNative([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env)
+		internal static byte** GetEnvironmentVariablesNative(SDLEnvironment* env)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEnvironment*, byte**>)funcTable[13])(env);
@@ -980,9 +916,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariables")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GetEnvironmentVariables([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env)
+		public static byte** GetEnvironmentVariables(SDLEnvironment* env)
 		{
 			byte** ret = GetEnvironmentVariablesNative(env);
 			return ret;
@@ -996,9 +930,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEnvironmentVariables")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GetEnvironmentVariables([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env)
+		public static byte** GetEnvironmentVariables(ref SDLEnvironment env)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1015,10 +947,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetEnvironmentVariableNative([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] byte overwrite)
+		internal static byte SetEnvironmentVariableNative(SDLEnvironment* env, byte* name, byte* value, byte overwrite)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEnvironment*, byte*, byte*, byte, byte>)funcTable[14])(env, name, value, overwrite);
@@ -1035,9 +965,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, byte* name, byte* value, bool overwrite)
 		{
 			byte ret = SetEnvironmentVariableNative(env, name, value, overwrite ? (byte)1 : (byte)0);
 			return ret != 0;
@@ -1051,9 +979,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, byte* name, byte* value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1070,9 +996,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, ref byte name, byte* value, bool overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -1089,9 +1013,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, ReadOnlySpan<byte> name, byte* value, bool overwrite)
 		{
 			fixed (byte* pname = name)
 			{
@@ -1108,9 +1030,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, string name, byte* value, bool overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1145,9 +1065,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, ref byte name, byte* value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1167,9 +1085,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, ReadOnlySpan<byte> name, byte* value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1189,9 +1105,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, string name, byte* value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1229,9 +1143,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, byte* name, ref byte value, bool overwrite)
 		{
 			fixed (byte* pvalue = &value)
 			{
@@ -1248,9 +1160,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, byte* name, ReadOnlySpan<byte> value, bool overwrite)
 		{
 			fixed (byte* pvalue = value)
 			{
@@ -1267,9 +1177,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, byte* name, string value, bool overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1304,9 +1212,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, byte* name, ref byte value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1326,9 +1232,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, byte* name, ReadOnlySpan<byte> value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1348,9 +1252,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, byte* name, string value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1388,9 +1290,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, ref byte name, ref byte value, bool overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -1410,9 +1310,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, ReadOnlySpan<byte> name, ReadOnlySpan<byte> value, bool overwrite)
 		{
 			fixed (byte* pname = name)
 			{
@@ -1432,9 +1330,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(SDLEnvironment* env, string name, string value, bool overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1490,9 +1386,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, ref byte name, ref byte value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1515,9 +1409,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, ReadOnlySpan<byte> name, ReadOnlySpan<byte> value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1540,9 +1432,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "bool")] bool overwrite)
+		public static bool SetEnvironmentVariable(ref SDLEnvironment env, string name, string value, bool overwrite)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1601,10 +1491,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte UnsetEnvironmentVariableNative([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static byte UnsetEnvironmentVariableNative(SDLEnvironment* env, byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEnvironment*, byte*, byte>)funcTable[15])(env, name);
@@ -1621,9 +1509,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static bool UnsetEnvironmentVariable(SDLEnvironment* env, byte* name)
 		{
 			byte ret = UnsetEnvironmentVariableNative(env, name);
 			return ret != 0;
@@ -1637,9 +1523,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static bool UnsetEnvironmentVariable(ref SDLEnvironment env, byte* name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1656,9 +1540,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static bool UnsetEnvironmentVariable(SDLEnvironment* env, ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -1675,9 +1557,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static bool UnsetEnvironmentVariable(SDLEnvironment* env, ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -1694,9 +1574,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static bool UnsetEnvironmentVariable(SDLEnvironment* env, string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1731,9 +1609,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static bool UnsetEnvironmentVariable(ref SDLEnvironment env, ref byte name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1753,9 +1629,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static bool UnsetEnvironmentVariable(ref SDLEnvironment env, ReadOnlySpan<byte> name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1775,9 +1649,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnsetEnvironmentVariable")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool UnsetEnvironmentVariable([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static bool UnsetEnvironmentVariable(ref SDLEnvironment env, string name)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1816,10 +1688,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyEnvironment")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyEnvironmentNative([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env)
+		internal static void DestroyEnvironmentNative(SDLEnvironment* env)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLEnvironment*, void>)funcTable[16])(env);
@@ -1837,9 +1707,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyEnvironment")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyEnvironment([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] SDLEnvironment* env)
+		public static void DestroyEnvironment(SDLEnvironment* env)
 		{
 			DestroyEnvironmentNative(env);
 		}
@@ -1853,9 +1721,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyEnvironment")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyEnvironment([NativeName(NativeNameType.Param, "env")] [NativeName(NativeNameType.Type, "SDL_Environment *")] ref SDLEnvironment env)
+		public static void DestroyEnvironment(ref SDLEnvironment env)
 		{
 			fixed (SDLEnvironment* penv = &env)
 			{
@@ -1871,10 +1737,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetenvNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static byte* GetenvNative(byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[17])(name);
@@ -1891,9 +1755,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static byte* Getenv(byte* name)
 		{
 			byte* ret = GetenvNative(name);
 			return ret;
@@ -1907,9 +1769,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static string GetenvS(byte* name)
 		{
 			string ret = Utils.DecodeStringUTF8(GetenvNative(name));
 			return ret;
@@ -1923,9 +1783,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static byte* Getenv(ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -1942,9 +1800,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static string GetenvS(ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -1961,9 +1817,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static byte* Getenv(ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -1980,9 +1834,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static string GetenvS(ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -1999,9 +1851,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static byte* Getenv(string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2036,9 +1886,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static string GetenvS(string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2076,10 +1924,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetenvUnsafeNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static byte* GetenvUnsafeNative(byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[18])(name);
@@ -2099,9 +1945,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static byte* GetenvUnsafe(byte* name)
 		{
 			byte* ret = GetenvUnsafeNative(name);
 			return ret;
@@ -2118,9 +1962,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvUnsafeS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static string GetenvUnsafeS(byte* name)
 		{
 			string ret = Utils.DecodeStringUTF8(GetenvUnsafeNative(name));
 			return ret;
@@ -2137,9 +1979,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static byte* GetenvUnsafe(ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -2159,9 +1999,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvUnsafeS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static string GetenvUnsafeS(ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -2181,9 +2019,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static byte* GetenvUnsafe(ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -2203,9 +2039,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvUnsafeS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static string GetenvUnsafeS(ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -2225,9 +2059,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static byte* GetenvUnsafe(string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2265,9 +2097,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_getenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetenvUnsafeS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static string GetenvUnsafeS(string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2303,10 +2133,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetenvUnsafeNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		internal static int SetenvUnsafeNative(byte* name, byte* value, int overwrite)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int>)funcTable[19])(name, value, overwrite);
@@ -2324,9 +2152,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(byte* name, byte* value, int overwrite)
 		{
 			int ret = SetenvUnsafeNative(name, value, overwrite);
 			return ret;
@@ -2341,9 +2167,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(ref byte name, byte* value, int overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -2361,9 +2185,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(ReadOnlySpan<byte> name, byte* value, int overwrite)
 		{
 			fixed (byte* pname = name)
 			{
@@ -2381,9 +2203,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(string name, byte* value, int overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2419,9 +2239,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(byte* name, ref byte value, int overwrite)
 		{
 			fixed (byte* pvalue = &value)
 			{
@@ -2439,9 +2257,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(byte* name, ReadOnlySpan<byte> value, int overwrite)
 		{
 			fixed (byte* pvalue = value)
 			{
@@ -2459,9 +2275,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(byte* name, string value, int overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2497,9 +2311,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(ref byte name, ref byte value, int overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -2520,9 +2332,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(ReadOnlySpan<byte> name, ReadOnlySpan<byte> value, int overwrite)
 		{
 			fixed (byte* pname = name)
 			{
@@ -2543,9 +2353,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_setenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int SetenvUnsafe(string name, string value, int overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2602,10 +2410,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_unsetenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UnsetenvUnsafeNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static int UnsetenvUnsafeNative(byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[20])(name);
@@ -2623,9 +2429,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_unsetenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UnsetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static int UnsetenvUnsafe(byte* name)
 		{
 			int ret = UnsetenvUnsafeNative(name);
 			return ret;
@@ -2640,9 +2444,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_unsetenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UnsetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static int UnsetenvUnsafe(ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -2660,9 +2462,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_unsetenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UnsetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static int UnsetenvUnsafe(ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -2680,9 +2480,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_unsetenv_unsafe")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UnsetenvUnsafe([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static int UnsetenvUnsafe(string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2744,10 +2542,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_qsort")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QsortNative([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback")] SDLCompareCallback compare)
+		internal static void QsortNative(void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void*, nuint, nuint, delegate*<void*, void*, int>, void>)funcTable[21])(baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
@@ -2791,9 +2587,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_qsort")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Qsort([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback")] SDLCompareCallback compare)
+		public static void Qsort(void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			QsortNative(baseValue, nmemb, size, compare);
 		}
@@ -2836,10 +2630,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_bsearch")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* BsearchNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void const *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback")] SDLCompareCallback compare)
+		internal static void* BsearchNative(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, nuint, delegate*<void*, void*, int>, void*>)funcTable[22])(key, baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
@@ -2886,9 +2678,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_bsearch")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Bsearch([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void const *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback")] SDLCompareCallback compare)
+		public static void* Bsearch(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
 			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
 			return ret;
@@ -2934,10 +2724,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_qsort_r")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QsortRNative([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback_r")] SDLCompareCallbackR compare, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		internal static void QsortRNative(void* baseValue, nuint nmemb, nuint size, SDLCompareCallbackR compare, void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void*, nuint, nuint, delegate*<void*, void*, void*, int>, void*, void>)funcTable[23])(baseValue, nmemb, size, (delegate*<void*, void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare), userdata);
@@ -2986,9 +2774,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_qsort_r")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void QsortR([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback_r")] SDLCompareCallbackR compare, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		public static void QsortR(void* baseValue, nuint nmemb, nuint size, SDLCompareCallbackR compare, void* userdata)
 		{
 			QsortRNative(baseValue, nmemb, size, compare, userdata);
 		}
@@ -3037,10 +2823,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_bsearch_r")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* BsearchRNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void const *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback_r")] SDLCompareCallbackR compare, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		internal static void* BsearchRNative(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallbackR compare, void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, nuint, delegate*<void*, void*, void*, int>, void*, void*>)funcTable[24])(key, baseValue, nmemb, size, (delegate*<void*, void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare), userdata);
@@ -3093,9 +2877,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_bsearch_r")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* BsearchR([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void const *")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "SDL_CompareCallback_r")] SDLCompareCallbackR compare, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		public static void* BsearchR(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallbackR compare, void* userdata)
 		{
 			void* ret = BsearchRNative(key, baseValue, nmemb, size, compare, userdata);
 			return ret;
@@ -3108,10 +2890,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_abs")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AbsNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int AbsNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[25])(x);
@@ -3127,9 +2907,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_abs")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Abs([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Abs(int x)
 		{
 			int ret = AbsNative(x);
 			return ret;
@@ -3144,10 +2922,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isalpha")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsalphaNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsalphaNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[26])(x);
@@ -3165,9 +2941,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isalpha")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isalpha([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isalpha(int x)
 		{
 			int ret = IsalphaNative(x);
 			return ret;
@@ -3182,10 +2956,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isalnum")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsalnumNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsalnumNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[27])(x);
@@ -3203,9 +2975,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isalnum")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isalnum([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isalnum(int x)
 		{
 			int ret = IsalnumNative(x);
 			return ret;
@@ -3220,10 +2990,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isblank")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsblankNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsblankNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[28])(x);
@@ -3241,9 +3009,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isblank")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isblank([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isblank(int x)
 		{
 			int ret = IsblankNative(x);
 			return ret;
@@ -3258,10 +3024,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_iscntrl")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IscntrlNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IscntrlNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[29])(x);
@@ -3279,9 +3043,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_iscntrl")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Iscntrl([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Iscntrl(int x)
 		{
 			int ret = IscntrlNative(x);
 			return ret;
@@ -3296,10 +3058,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsdigitNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsdigitNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[30])(x);
@@ -3317,9 +3077,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isdigit([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isdigit(int x)
 		{
 			int ret = IsdigitNative(x);
 			return ret;
@@ -3334,10 +3092,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isxdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsxdigitNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsxdigitNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[31])(x);
@@ -3355,9 +3111,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isxdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isxdigit([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isxdigit(int x)
 		{
 			int ret = IsxdigitNative(x);
 			return ret;
@@ -3376,10 +3130,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ispunct")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IspunctNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IspunctNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[32])(x);
@@ -3401,9 +3153,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ispunct")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Ispunct([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Ispunct(int x)
 		{
 			int ret = IspunctNative(x);
 			return ret;
@@ -3424,10 +3174,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isspace")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsspaceNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsspaceNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[33])(x);
@@ -3451,9 +3199,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isspace")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isspace([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isspace(int x)
 		{
 			int ret = IsspaceNative(x);
 			return ret;
@@ -3468,10 +3214,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsupperNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsupperNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[34])(x);
@@ -3489,9 +3233,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isupper([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isupper(int x)
 		{
 			int ret = IsupperNative(x);
 			return ret;
@@ -3506,10 +3248,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_islower")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IslowerNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IslowerNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[35])(x);
@@ -3527,9 +3267,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_islower")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Islower([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Islower(int x)
 		{
 			int ret = IslowerNative(x);
 			return ret;
@@ -3547,10 +3285,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isprint")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsprintNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsprintNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[36])(x);
@@ -3571,9 +3307,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isprint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isprint([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isprint(int x)
 		{
 			int ret = IsprintNative(x);
 			return ret;
@@ -3595,10 +3329,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isgraph")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsgraphNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsgraphNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[37])(x);
@@ -3623,9 +3355,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_isgraph")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isgraph([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isgraph(int x)
 		{
 			int ret = IsgraphNative(x);
 			return ret;
@@ -3642,10 +3372,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_toupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ToupperNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int ToupperNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[38])(x);
@@ -3665,9 +3393,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_toupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Toupper([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Toupper(int x)
 		{
 			int ret = ToupperNative(x);
 			return ret;
@@ -3684,10 +3410,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_tolower")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TolowerNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int TolowerNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[39])(x);
@@ -3707,9 +3431,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_tolower")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Tolower([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Tolower(int x)
 		{
 			int ret = TolowerNative(x);
 			return ret;
@@ -3727,10 +3449,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_crc16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort Crc16Native([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint16")] ushort crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		internal static ushort Crc16Native(ushort crc, void* data, nuint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ushort, void*, nuint, ushort>)funcTable[40])(crc, data, len);
@@ -3751,9 +3471,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_crc16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort Crc16([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint16")] ushort crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		public static ushort Crc16(ushort crc, void* data, nuint len)
 		{
 			ushort ret = Crc16Native(crc, data, len);
 			return ret;
@@ -3771,10 +3489,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_crc32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint Crc32Native([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint32")] uint crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		internal static uint Crc32Native(uint crc, void* data, nuint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, void*, nuint, uint>)funcTable[41])(crc, data, len);
@@ -3795,9 +3511,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_crc32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint Crc32([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint32")] uint crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		public static uint Crc32(uint crc, void* data, nuint len)
 		{
 			uint ret = Crc32Native(crc, data, len);
 			return ret;
@@ -3819,10 +3533,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_murmur3_32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint Murmur332Native([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len, [NativeName(NativeNameType.Param, "seed")] [NativeName(NativeNameType.Type, "Uint32")] uint seed)
+		internal static uint Murmur332Native(void* data, nuint len, uint seed)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, nuint, uint, uint>)funcTable[42])(data, len, seed);
@@ -3847,9 +3559,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_murmur3_32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint Murmur332([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len, [NativeName(NativeNameType.Param, "seed")] [NativeName(NativeNameType.Type, "Uint32")] uint seed)
+		public static uint Murmur332(void* data, nuint len, uint seed)
 		{
 			uint ret = Murmur332Native(data, len, seed);
 			return ret;
@@ -3864,10 +3574,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memcpy")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MemcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		internal static void* MemcpyNative(void* dst, void* src, nuint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, void*>)funcTable[43])(dst, src, len);
@@ -3885,9 +3593,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memcpy")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Memcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		public static void* Memcpy(void* dst, void* src, nuint len)
 		{
 			void* ret = MemcpyNative(dst, src, len);
 			return ret;
@@ -3903,10 +3609,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memmove")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MemmoveNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		internal static void* MemmoveNative(void* dst, void* src, nuint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, void*>)funcTable[44])(dst, src, len);
@@ -3925,9 +3629,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memmove")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Memmove([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "void const *")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		public static void* Memmove(void* dst, void* src, nuint len)
 		{
 			void* ret = MemmoveNative(dst, src, len);
 			return ret;
@@ -3944,10 +3646,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memset")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MemsetNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		internal static void* MemsetNative(void* dst, int c, nuint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, int, nuint, void*>)funcTable[45])(dst, c, len);
@@ -3967,9 +3667,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memset")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Memset([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		public static void* Memset(void* dst, int c, nuint len)
 		{
 			void* ret = MemsetNative(dst, c, len);
 			return ret;
@@ -3986,10 +3684,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memset4")]
-		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* Memset4Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "val")] [NativeName(NativeNameType.Type, "Uint32")] uint val, [NativeName(NativeNameType.Param, "dwords")] [NativeName(NativeNameType.Type, "size_t")] nuint dwords)
+		internal static void* Memset4Native(void* dst, uint val, nuint dwords)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, uint, nuint, void*>)funcTable[46])(dst, val, dwords);
@@ -4009,9 +3705,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memset4")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* Memset4([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void *")] void* dst, [NativeName(NativeNameType.Param, "val")] [NativeName(NativeNameType.Type, "Uint32")] uint val, [NativeName(NativeNameType.Param, "dwords")] [NativeName(NativeNameType.Type, "size_t")] nuint dwords)
+		public static void* Memset4(void* dst, uint val, nuint dwords)
 		{
 			void* ret = Memset4Native(dst, val, dwords);
 			return ret;
@@ -4024,10 +3718,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memcmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int MemcmpNative([NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "void const *")] void* s1, [NativeName(NativeNameType.Param, "s2")] [NativeName(NativeNameType.Type, "void const *")] void* s2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		internal static int MemcmpNative(void* s1, void* s2, nuint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, int>)funcTable[47])(s1, s2, len);
@@ -4043,9 +3735,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_memcmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Memcmp([NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "void const *")] void* s1, [NativeName(NativeNameType.Param, "s2")] [NativeName(NativeNameType.Type, "void const *")] void* s2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
+		public static int Memcmp(void* s1, void* s2, nuint len)
 		{
 			int ret = MemcmpNative(s1, s2, len);
 			return ret;
@@ -4066,10 +3756,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WcslenNative([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] char* wstr)
+		internal static nuint WcslenNative(char* wstr)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, nuint>)funcTable[48])(wstr);
@@ -4093,9 +3781,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] char* wstr)
+		public static nuint Wcslen(char* wstr)
 		{
 			nuint ret = WcslenNative(wstr);
 			return ret;
@@ -4116,9 +3802,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ref char wstr)
+		public static nuint Wcslen(ref char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -4142,9 +3826,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> wstr)
+		public static nuint Wcslen(ReadOnlySpan<char> wstr)
 		{
 			fixed (char* pwstr = wstr)
 			{
@@ -4168,9 +3850,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] string wstr)
+		public static nuint Wcslen(string wstr)
 		{
 			fixed (char* pwstr = wstr)
 			{
@@ -4196,10 +3876,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WcsnlenNative([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] char* wstr, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static nuint WcsnlenNative(char* wstr, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, nuint, nuint>)funcTable[49])(wstr, maxlen);
@@ -4225,9 +3903,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcsnlen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] char* wstr, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcsnlen(char* wstr, nuint maxlen)
 		{
 			nuint ret = WcsnlenNative(wstr, maxlen);
 			return ret;
@@ -4250,9 +3926,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcsnlen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ref char wstr, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcsnlen(ref char wstr, nuint maxlen)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -4278,9 +3952,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcsnlen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> wstr, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcsnlen(ReadOnlySpan<char> wstr, nuint maxlen)
 		{
 			fixed (char* pwstr = wstr)
 			{
@@ -4306,9 +3978,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcsnlen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] string wstr, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcsnlen(string wstr, nuint maxlen)
 		{
 			fixed (char* pwstr = wstr)
 			{
@@ -4330,10 +4000,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WcslcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static nuint WcslcpyNative(char* dst, char* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, nuint>)funcTable[50])(dst, src, maxlen);
@@ -4355,9 +4023,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(char* dst, char* src, nuint maxlen)
 		{
 			nuint ret = WcslcpyNative(dst, src, maxlen);
 			return ret;
@@ -4376,9 +4042,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(ref char dst, char* src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -4400,9 +4064,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(ref string dst, char* src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4443,9 +4105,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(char* dst, ref char src, nuint maxlen)
 		{
 			fixed (char* psrc = &src)
 			{
@@ -4467,9 +4127,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(char* dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* psrc = src)
 			{
@@ -4491,9 +4149,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(char* dst, string src, nuint maxlen)
 		{
 			fixed (char* psrc = src)
 			{
@@ -4515,9 +4171,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(ref char dst, ref char src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -4542,9 +4196,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(ref char dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -4569,9 +4221,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcpy(ref string dst, string src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4616,10 +4266,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WcslcatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static nuint WcslcatNative(char* dst, char* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, nuint>)funcTable[51])(dst, src, maxlen);
@@ -4642,9 +4290,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(char* dst, char* src, nuint maxlen)
 		{
 			nuint ret = WcslcatNative(dst, src, maxlen);
 			return ret;
@@ -4664,9 +4310,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(ref char dst, char* src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -4689,9 +4333,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(ref string dst, char* src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4733,9 +4375,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(char* dst, ref char src, nuint maxlen)
 		{
 			fixed (char* psrc = &src)
 			{
@@ -4758,9 +4398,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(char* dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* psrc = src)
 			{
@@ -4783,9 +4421,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(char* dst, string src, nuint maxlen)
 		{
 			fixed (char* psrc = src)
 			{
@@ -4808,9 +4444,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(ref char dst, ref char src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -4836,9 +4470,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(ref char dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -4864,9 +4496,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "wchar const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Wcslcat(ref string dst, string src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4908,10 +4538,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static char* WcsdupNative([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] char* wstr)
+		internal static char* WcsdupNative(char* wstr)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*>)funcTable[52])(wstr);
@@ -4931,9 +4559,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] char* wstr)
+		public static char* Wcsdup(char* wstr)
 		{
 			char* ret = WcsdupNative(wstr);
 			return ret;
@@ -4950,9 +4576,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] char* wstr)
+		public static string WcsdupS(char* wstr)
 		{
 			string ret = Utils.DecodeStringUTF16(WcsdupNative(wstr));
 			return ret;
@@ -4969,9 +4593,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ref char wstr)
+		public static char* Wcsdup(ref char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -4991,9 +4613,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ref char wstr)
+		public static string WcsdupS(ref char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -5013,14 +4633,390 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> wstr)
+		public static char* Wcsdup(ReadOnlySpan<char> wstr)
 		{
 			fixed (char* pwstr = wstr)
 			{
 				char* ret = WcsdupNative((char*)pwstr);
 				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a wide string.<br/>
+		/// This allocates enough space for a null-terminated copy of `wstr`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsdupS(ReadOnlySpan<char> wstr)
+		{
+			fixed (char* pwstr = wstr)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsdupNative((char*)pwstr));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a wide string.<br/>
+		/// This allocates enough space for a null-terminated copy of `wstr`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsdup(string wstr)
+		{
+			fixed (char* pwstr = wstr)
+			{
+				char* ret = WcsdupNative(pwstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a wide string.<br/>
+		/// This allocates enough space for a null-terminated copy of `wstr`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsdupS(string wstr)
+		{
+			fixed (char* pwstr = wstr)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsdupNative(pwstr));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static char* WcsstrNative(char* haystack, char* needle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<char*, char*, char*>)funcTable[53])(haystack, needle);
+			#else
+			return (char*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[53])((nint)haystack, (nint)needle);
+			#endif
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(char* haystack, char* needle)
+		{
+			char* ret = WcsstrNative(haystack, needle);
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsstrS(char* haystack, char* needle)
+		{
+			string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, needle));
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(ref char haystack, char* needle)
+		{
+			fixed (char* phaystack = &haystack)
+			{
+				char* ret = WcsstrNative((char*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsstrS(ref char haystack, char* needle)
+		{
+			fixed (char* phaystack = &haystack)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsstrNative((char*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(ReadOnlySpan<char> haystack, char* needle)
+		{
+			fixed (char* phaystack = haystack)
+			{
+				char* ret = WcsstrNative((char*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsstrS(ReadOnlySpan<char> haystack, char* needle)
+		{
+			fixed (char* phaystack = haystack)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsstrNative((char*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(string haystack, char* needle)
+		{
+			fixed (char* phaystack = haystack)
+			{
+				char* ret = WcsstrNative(phaystack, needle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsstrS(string haystack, char* needle)
+		{
+			fixed (char* phaystack = haystack)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsstrNative(phaystack, needle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(char* haystack, ref char needle)
+		{
+			fixed (char* pneedle = &needle)
+			{
+				char* ret = WcsstrNative(haystack, (char*)pneedle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsstrS(char* haystack, ref char needle)
+		{
+			fixed (char* pneedle = &needle)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, (char*)pneedle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(char* haystack, ReadOnlySpan<char> needle)
+		{
+			fixed (char* pneedle = needle)
+			{
+				char* ret = WcsstrNative(haystack, (char*)pneedle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsstrS(char* haystack, ReadOnlySpan<char> needle)
+		{
+			fixed (char* pneedle = needle)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, (char*)pneedle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(char* haystack, string needle)
+		{
+			fixed (char* pneedle = needle)
+			{
+				char* ret = WcsstrNative(haystack, pneedle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string WcsstrS(char* haystack, string needle)
+		{
+			fixed (char* pneedle = needle)
+			{
+				string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, pneedle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a wide string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
+		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static char* Wcsstr(ref char haystack, ref char needle)
+		{
+			fixed (char* phaystack = &haystack)
+			{
+				fixed (char* pneedle = &needle)
+				{
+					char* ret = WcsstrNative((char*)phaystack, (char*)pneedle);
+					return ret;
+				}
 			}
 		}
 	}

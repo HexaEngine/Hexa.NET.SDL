@@ -18,21 +18,12 @@ namespace Hexa.NET.SDL3
 	/// connected to the system.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_JoystickConnectionState")]
 	[Flags]
 	public enum SDLJoystickConnectionState : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_CONNECTION_INVALID")]
-		[NativeName(NativeNameType.Value, "-1")]
 		Invalid = unchecked(-1),
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_CONNECTION_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_CONNECTION_WIRED")]
-		[NativeName(NativeNameType.Value, "1")]
 		Wired = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_CONNECTION_WIRELESS")]
-		[NativeName(NativeNameType.Value, "2")]
 		Wireless = unchecked(2),
 	}
 }

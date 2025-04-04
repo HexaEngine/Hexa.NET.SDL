@@ -24,22 +24,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Locale")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLLocale
 	{
 		/// <summary>
 		/// A language name, like "en" for English. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "language")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Language;
 
 		/// <summary>
 		/// A country, like "US" for America. Can be NULL. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "country")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Country;
 
 

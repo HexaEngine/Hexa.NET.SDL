@@ -17,81 +17,56 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_AudioFormat")]
 	[Flags]
 	public enum SDLAudioFormat : int
 	{
 		/// <summary>
 		/// Unspecified audio format <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0x0000u")]
 		Unknown = unchecked((int)0x0000u),
 
 		/// <summary>
 		/// Unsigned 8-bit samples <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_U8")]
-		[NativeName(NativeNameType.Value, "0x0008u")]
 		U8 = unchecked((int)0x0008u),
 
 		/// <summary>
 		/// Signed 8-bit samples <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S8")]
-		[NativeName(NativeNameType.Value, "0x8008u")]
 		S8 = unchecked((int)0x8008u),
 
 		/// <summary>
 		/// Signed 16-bit samples <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S16LE")]
-		[NativeName(NativeNameType.Value, "0x8010u")]
 		S16Le = unchecked((int)0x8010u),
 
 		/// <summary>
 		/// As above, but big-endian byte order <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S16BE")]
-		[NativeName(NativeNameType.Value, "0x9010u")]
 		S16Be = unchecked((int)0x9010u),
 
 		/// <summary>
 		/// 32-bit integer samples <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S32LE")]
-		[NativeName(NativeNameType.Value, "0x8020u")]
 		S32Le = unchecked((int)0x8020u),
 
 		/// <summary>
 		/// As above, but big-endian byte order <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S32BE")]
-		[NativeName(NativeNameType.Value, "0x9020u")]
 		S32Be = unchecked((int)0x9020u),
 
 		/// <summary>
 		/// 32-bit floating point samples <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_F32LE")]
-		[NativeName(NativeNameType.Value, "0x8120u")]
 		F32Le = unchecked((int)0x8120u),
 
 		/// <summary>
 		/// As above, but big-endian byte order <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_F32BE")]
-		[NativeName(NativeNameType.Value, "0x9120u")]
 		F32Be = unchecked((int)0x9120u),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S16")]
-		[NativeName(NativeNameType.Value, "SDL_AUDIO_S16LE")]
 		S16 = S16Le,
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S32")]
-		[NativeName(NativeNameType.Value, "SDL_AUDIO_S32LE")]
 		S32 = S32Le,
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_F32")]
-		[NativeName(NativeNameType.Value, "SDL_AUDIO_F32LE")]
 		F32 = F32Le,
 	}
 }

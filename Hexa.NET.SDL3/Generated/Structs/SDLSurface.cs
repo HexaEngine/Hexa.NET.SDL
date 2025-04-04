@@ -36,64 +36,47 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Surface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSurface
 	{
 		/// <summary>
 		/// The flags of the surface, read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "flags")]
-		[NativeName(NativeNameType.Type, "SDL_SurfaceFlags")]
 		public SDLSurfaceFlags Flags;
 
 		/// <summary>
 		/// The format of the surface, read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
 
 		/// <summary>
 		/// The width of the surface, read-only. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int W;
 
 		/// <summary>
 		/// The height of the surface, read-only. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		/// <summary>
 		/// The distance in bytes between rows of pixels, read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pitch")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Pitch;
 
 		/// <summary>
 		/// A pointer to the pixels of the surface, the pixels are writeable if non-NULL <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pixels")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Pixels;
 
 		/// <summary>
 		/// Application reference count, used when freeing surface <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "refcount")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Refcount;
 
 		/// <summary>
 		/// Reserved for internal use <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Reserved;
 
 

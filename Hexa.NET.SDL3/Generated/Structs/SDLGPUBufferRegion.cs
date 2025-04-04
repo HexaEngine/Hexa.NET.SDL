@@ -21,29 +21,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBufferRegion")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBufferRegion
 	{
 		/// <summary>
 		/// The buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "buffer")]
-		[NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
 		public unsafe SDLGPUBuffer* Buffer;
 
 		/// <summary>
 		/// The starting byte within the buffer. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "offset")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 		/// <summary>
 		/// The size in bytes of the region. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "size")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Size;
 
 

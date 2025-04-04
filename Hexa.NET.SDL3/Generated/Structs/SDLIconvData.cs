@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	[NativeName(NativeNameType.StructOrClass, "SDL_iconv_data_t")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLIconvData
 	{

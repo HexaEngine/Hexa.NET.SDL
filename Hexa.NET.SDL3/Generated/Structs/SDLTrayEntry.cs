@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// An opaque handle representing an entry on a system tray object.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_TrayEntry")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTrayEntry
 	{

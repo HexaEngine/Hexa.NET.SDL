@@ -20,36 +20,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Palette")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPalette
 	{
 		/// <summary>
 		/// number of elements in `colors`. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "ncolors")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Ncolors;
 
 		/// <summary>
 		/// an array of colors, `ncolors` long. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "colors")]
-		[NativeName(NativeNameType.Type, "SDL_Color *")]
 		public unsafe SDLColor* Colors;
 
 		/// <summary>
 		/// internal use only, do not touch. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "version")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
 
 		/// <summary>
 		/// internal use only, do not touch. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "refcount")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Refcount;
 
 

@@ -26,26 +26,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GamepadBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepadBinding
 	{
-		[NativeName(NativeNameType.StructOrClass, "SDL_GamepadBinding::")]
 		[StructLayout(LayoutKind.Explicit)]
 		public partial struct InputUnion
 		{
-			[NativeName(NativeNameType.StructOrClass, "SDL_GamepadBinding::::")]
 			[StructLayout(LayoutKind.Sequential)]
 			public partial struct AxisUnion
 			{
-				[NativeName(NativeNameType.Field, "axis")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int Axis;
-				[NativeName(NativeNameType.Field, "axis_min")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int AxisMin;
-				[NativeName(NativeNameType.Field, "axis_max")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int AxisMax;
 
 				public unsafe AxisUnion(int axis = default, int axisMin = default, int axisMax = default)
@@ -58,15 +49,10 @@ namespace Hexa.NET.SDL3
 
 			}
 
-			[NativeName(NativeNameType.StructOrClass, "SDL_GamepadBinding::::")]
 			[StructLayout(LayoutKind.Sequential)]
 			public partial struct HatUnion
 			{
-				[NativeName(NativeNameType.Field, "hat")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int Hat;
-				[NativeName(NativeNameType.Field, "hat_mask")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int HatMask;
 
 				public unsafe HatUnion(int hat = default, int hatMask = default)
@@ -78,16 +64,10 @@ namespace Hexa.NET.SDL3
 
 			}
 
-			[NativeName(NativeNameType.Field, "button")]
-			[NativeName(NativeNameType.Type, "int")]
 			[FieldOffset(0)]
 			public int Button;
-			[NativeName(NativeNameType.Field, "axis")]
-			[NativeName(NativeNameType.Type, "")]
 			[FieldOffset(0)]
 			public AxisUnion Axis;
-			[NativeName(NativeNameType.Field, "hat")]
-			[NativeName(NativeNameType.Type, "")]
 			[FieldOffset(0)]
 			public HatUnion Hat;
 
@@ -101,22 +81,14 @@ namespace Hexa.NET.SDL3
 
 		}
 
-		[NativeName(NativeNameType.StructOrClass, "SDL_GamepadBinding::")]
 		[StructLayout(LayoutKind.Explicit)]
 		public partial struct OutputUnion
 		{
-			[NativeName(NativeNameType.StructOrClass, "SDL_GamepadBinding::::")]
 			[StructLayout(LayoutKind.Sequential)]
 			public partial struct AxisUnion
 			{
-				[NativeName(NativeNameType.Field, "axis")]
-				[NativeName(NativeNameType.Type, "SDL_GamepadAxis")]
 				public SDLGamepadAxis Axis;
-				[NativeName(NativeNameType.Field, "axis_min")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int AxisMin;
-				[NativeName(NativeNameType.Field, "axis_max")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int AxisMax;
 
 				public unsafe AxisUnion(SDLGamepadAxis axis = default, int axisMin = default, int axisMax = default)
@@ -129,12 +101,8 @@ namespace Hexa.NET.SDL3
 
 			}
 
-			[NativeName(NativeNameType.Field, "button")]
-			[NativeName(NativeNameType.Type, "SDL_GamepadButton")]
 			[FieldOffset(0)]
 			public SDLGamepadButton Button;
-			[NativeName(NativeNameType.Field, "axis")]
-			[NativeName(NativeNameType.Type, "")]
 			[FieldOffset(0)]
 			public AxisUnion Axis;
 
@@ -147,17 +115,9 @@ namespace Hexa.NET.SDL3
 
 		}
 
-		[NativeName(NativeNameType.Field, "input_type")]
-		[NativeName(NativeNameType.Type, "SDL_GamepadBindingType")]
 		public SDLGamepadBindingType InputType;
-		[NativeName(NativeNameType.Field, "input")]
-		[NativeName(NativeNameType.Type, "")]
 		public InputUnion Union0;
-		[NativeName(NativeNameType.Field, "output_type")]
-		[NativeName(NativeNameType.Type, "SDL_GamepadBindingType")]
 		public SDLGamepadBindingType OutputType;
-		[NativeName(NativeNameType.Field, "output")]
-		[NativeName(NativeNameType.Type, "")]
 		public OutputUnion Union1;
 
 		public unsafe SDLGamepadBinding(SDLGamepadBindingType inputType = default, InputUnion union0 = default, SDLGamepadBindingType outputType = default, OutputUnion union1 = default)

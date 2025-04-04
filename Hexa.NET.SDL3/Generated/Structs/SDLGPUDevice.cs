@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// An opaque handle representing the SDL_GPU context.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUDevice")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUDevice
 	{

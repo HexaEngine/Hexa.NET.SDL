@@ -17,22 +17,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_TimeFormat")]
 	[Flags]
 	public enum SDLTimeFormat : int
 	{
 		/// <summary>
 		/// 24 hour time <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TIME_FORMAT_24HR")]
-		[NativeName(NativeNameType.Value, "0")]
 		Format24Hr = unchecked(0),
 
 		/// <summary>
 		/// 12 hour time <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TIME_FORMAT_12HR")]
-		[NativeName(NativeNameType.Value, "1")]
 		Format12Hr = unchecked(1),
 	}
 }

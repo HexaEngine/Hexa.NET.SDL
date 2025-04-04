@@ -20,43 +20,32 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_PathInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPathInfo
 	{
 		/// <summary>
 		/// the path type <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_PathType")]
 		public SDLPathType Type;
 
 		/// <summary>
 		/// the file size in bytes <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "size")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Size;
 
 		/// <summary>
 		/// the time when the path was created <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "create_time")]
-		[NativeName(NativeNameType.Type, "SDL_Time")]
 		public long CreateTime;
 
 		/// <summary>
 		/// the last time the path was modified <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "modify_time")]
-		[NativeName(NativeNameType.Type, "SDL_Time")]
 		public long ModifyTime;
 
 		/// <summary>
 		/// the last time the path was read <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "access_time")]
-		[NativeName(NativeNameType.Type, "SDL_Time")]
 		public long AccessTime;
 
 

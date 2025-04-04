@@ -20,95 +20,68 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_Colorspace")]
 	[Flags]
 	public enum SDLColorspace : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_SRGB")]
-		[NativeName(NativeNameType.Value, "0x120005a0u")]
 		Srgb = unchecked((int)0x120005a0u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_RGB_FULL_G10_NONE_P709  <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_SRGB_LINEAR")]
-		[NativeName(NativeNameType.Value, "0x12000500u")]
 		SrgbLinear = unchecked((int)0x12000500u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_RGB_FULL_G2084_NONE_P2020  <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_HDR10")]
-		[NativeName(NativeNameType.Value, "0x12002600u")]
 		Hdr10 = unchecked((int)0x12002600u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_YCBCR_FULL_G22_NONE_P709_X601 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_JPEG")]
-		[NativeName(NativeNameType.Value, "0x220004c6u")]
 		Jpeg = unchecked((int)0x220004c6u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P601 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_BT601_LIMITED")]
-		[NativeName(NativeNameType.Value, "0x211018c6u")]
 		Bt601Limited = unchecked((int)0x211018c6u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P601 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_BT601_FULL")]
-		[NativeName(NativeNameType.Value, "0x221018c6u")]
 		Bt601Full = unchecked((int)0x221018c6u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P709 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_BT709_LIMITED")]
-		[NativeName(NativeNameType.Value, "0x21100421u")]
 		Bt709Limited = unchecked((int)0x21100421u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P709 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_BT709_FULL")]
-		[NativeName(NativeNameType.Value, "0x22100421u")]
 		Bt709Full = unchecked((int)0x22100421u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P2020 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_BT2020_LIMITED")]
-		[NativeName(NativeNameType.Value, "0x21102609u")]
 		Bt2020Limited = unchecked((int)0x21102609u),
 
 		/// <summary>
 		/// Equivalent to DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P2020 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_BT2020_FULL")]
-		[NativeName(NativeNameType.Value, "0x22102609u")]
 		Bt2020Full = unchecked((int)0x22102609u),
 
 		/// <summary>
 		/// The default colorspace for RGB surfaces if no colorspace is specified <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_RGB_DEFAULT")]
-		[NativeName(NativeNameType.Value, "SDL_COLORSPACE_SRGB")]
 		RgbDefault = Srgb,
 
 		/// <summary>
 		/// The default colorspace for YUV surfaces if no colorspace is specified <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_YUV_DEFAULT")]
-		[NativeName(NativeNameType.Value, "SDL_COLORSPACE_JPEG")]
 		YuvDefault = Jpeg,
 	}
 }

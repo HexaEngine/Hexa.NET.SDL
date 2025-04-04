@@ -21,36 +21,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUVertexInputState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUVertexInputState
 	{
 		/// <summary>
 		/// A pointer to an array of vertex buffer descriptions. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "vertex_buffer_descriptions")]
-		[NativeName(NativeNameType.Type, "SDL_GPUVertexBufferDescription const *")]
 		public unsafe SDLGPUVertexBufferDescription* VertexBufferDescriptions;
 
 		/// <summary>
 		/// The number of vertex buffer descriptions in the above array. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_vertex_buffers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumVertexBuffers;
 
 		/// <summary>
 		/// A pointer to an array of vertex attribute descriptions. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "vertex_attributes")]
-		[NativeName(NativeNameType.Type, "SDL_GPUVertexAttribute const *")]
 		public unsafe SDLGPUVertexAttribute* VertexAttributes;
 
 		/// <summary>
 		/// The number of vertex attribute descriptions in the above array. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_vertex_attributes")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumVertexAttributes;
 
 

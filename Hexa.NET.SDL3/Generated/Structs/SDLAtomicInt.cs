@@ -34,12 +34,9 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_AtomicInt")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAtomicInt
 	{
-		[NativeName(NativeNameType.Field, "value")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Value;
 
 		public unsafe SDLAtomicInt(int value = default)

@@ -18,36 +18,27 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_ThreadState")]
 	[Flags]
 	public enum SDLThreadState : int
 	{
 		/// <summary>
 		/// The thread is not valid <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
 
 		/// <summary>
 		/// The thread is currently running <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_ALIVE")]
-		[NativeName(NativeNameType.Value, "1")]
 		Alive = unchecked(1),
 
 		/// <summary>
 		/// The thread is detached and can't be waited on <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_DETACHED")]
-		[NativeName(NativeNameType.Value, "2")]
 		Detached = unchecked(2),
 
 		/// <summary>
 		/// The thread has finished and should be cleaned up with SDL_WaitThread() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_COMPLETE")]
-		[NativeName(NativeNameType.Value, "3")]
 		Complete = unchecked(3),
 	}
 }

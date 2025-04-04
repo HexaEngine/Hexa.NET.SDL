@@ -17,29 +17,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_DateFormat")]
 	[Flags]
 	public enum SDLDateFormat : int
 	{
 		/// <summary>
 		/// Year/Month/Day <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_DATE_FORMAT_YYYYMMDD")]
-		[NativeName(NativeNameType.Value, "0")]
 		Yyyymmdd = unchecked(0),
 
 		/// <summary>
 		/// Day/Month/Year <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_DATE_FORMAT_DDMMYYYY")]
-		[NativeName(NativeNameType.Value, "1")]
 		Ddmmyyyy = unchecked(1),
 
 		/// <summary>
 		/// Month/Day/Year <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_DATE_FORMAT_MMDDYYYY")]
-		[NativeName(NativeNameType.Value, "2")]
 		Mmddyyyy = unchecked(2),
 	}
 }

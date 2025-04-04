@@ -16,29 +16,22 @@ namespace Hexa.NET.SDL3
 	/// System theme.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_SystemTheme")]
 	[Flags]
 	public enum SDLSystemTheme : int
 	{
 		/// <summary>
 		/// Unknown system theme <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SYSTEM_THEME_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
 
 		/// <summary>
 		/// Light colored system theme <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SYSTEM_THEME_LIGHT")]
-		[NativeName(NativeNameType.Value, "1")]
 		Light = unchecked(1),
 
 		/// <summary>
 		/// Dark colored system theme <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SYSTEM_THEME_DARK")]
-		[NativeName(NativeNameType.Value, "2")]
 		Dark = unchecked(2),
 	}
 }

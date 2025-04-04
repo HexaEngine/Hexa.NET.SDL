@@ -20,60 +20,43 @@ namespace Hexa.NET.SDL3
 	/// (event.drop.*)<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_DropEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDropEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_DROP_BEGIN or SDL_EVENT_DROP_FILE or SDL_EVENT_DROP_TEXT or SDL_EVENT_DROP_COMPLETE or SDL_EVENT_DROP_POSITION <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The window that was dropped on, if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// X coordinate, relative to window (not on begin) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// Y coordinate, relative to window (not on begin) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// The source app that sent this drop event, or NULL if that isn't available <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "source")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Source;
 
 		/// <summary>
 		/// The text for SDL_EVENT_DROP_TEXT and the file name for SDL_EVENT_DROP_FILE, NULL for other events <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Data;
 
 

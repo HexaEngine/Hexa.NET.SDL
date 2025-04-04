@@ -20,7 +20,6 @@ namespace Hexa.NET.SDL3
 	/// This is opaque data.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Joystick")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoystick
 	{

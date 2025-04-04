@@ -20,19 +20,14 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_VirtualJoystickTouchpadDesc")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVirtualJoystickTouchpadDesc
 	{
 		/// <summary>
 		/// the number of simultaneous fingers on this touchpad <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "nfingers")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Nfingers;
 
-		[NativeName(NativeNameType.Field, "padding")]
-		[NativeName(NativeNameType.Type, "Uint16[3]")]
 		public ushort Padding_0;
 		public ushort Padding_1;
 		public ushort Padding_2;

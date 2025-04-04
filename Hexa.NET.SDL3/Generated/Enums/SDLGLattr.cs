@@ -26,193 +26,136 @@ namespace Hexa.NET.SDL3
 	/// you should check to see exactly what you got.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GLAttr")]
 	[Flags]
 	public enum SDLGLAttr : int
 	{
 		/// <summary>
 		/// the minimum number of bits for the red channel of the color buffer; defaults to 3. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_RED_SIZE")]
-		[NativeName(NativeNameType.Value, "0")]
 		RedSize = unchecked(0),
 
 		/// <summary>
 		/// the minimum number of bits for the green channel of the color buffer; defaults to 3. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_GREEN_SIZE")]
-		[NativeName(NativeNameType.Value, "1")]
 		GreenSize = unchecked(1),
 
 		/// <summary>
 		/// the minimum number of bits for the blue channel of the color buffer; defaults to 2. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_BLUE_SIZE")]
-		[NativeName(NativeNameType.Value, "2")]
 		BlueSize = unchecked(2),
 
 		/// <summary>
 		/// the minimum number of bits for the alpha channel of the color buffer; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_ALPHA_SIZE")]
-		[NativeName(NativeNameType.Value, "3")]
 		AlphaSize = unchecked(3),
 
 		/// <summary>
 		/// the minimum number of bits for frame buffer size; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_BUFFER_SIZE")]
-		[NativeName(NativeNameType.Value, "4")]
 		BufferSize = unchecked(4),
 
 		/// <summary>
 		/// whether the output is single or double buffered; defaults to double buffering on. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_DOUBLEBUFFER")]
-		[NativeName(NativeNameType.Value, "5")]
 		Doublebuffer = unchecked(5),
 
 		/// <summary>
 		/// the minimum number of bits in the depth buffer; defaults to 16. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_DEPTH_SIZE")]
-		[NativeName(NativeNameType.Value, "6")]
 		DepthSize = unchecked(6),
 
 		/// <summary>
 		/// the minimum number of bits in the stencil buffer; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_STENCIL_SIZE")]
-		[NativeName(NativeNameType.Value, "7")]
 		StencilSize = unchecked(7),
 
 		/// <summary>
 		/// the minimum number of bits for the red channel of the accumulation buffer; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_ACCUM_RED_SIZE")]
-		[NativeName(NativeNameType.Value, "8")]
 		AccumRedSize = unchecked(8),
 
 		/// <summary>
 		/// the minimum number of bits for the green channel of the accumulation buffer; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_ACCUM_GREEN_SIZE")]
-		[NativeName(NativeNameType.Value, "9")]
 		AccumGreenSize = unchecked(9),
 
 		/// <summary>
 		/// the minimum number of bits for the blue channel of the accumulation buffer; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_ACCUM_BLUE_SIZE")]
-		[NativeName(NativeNameType.Value, "10")]
 		AccumBlueSize = unchecked(10),
 
 		/// <summary>
 		/// the minimum number of bits for the alpha channel of the accumulation buffer; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_ACCUM_ALPHA_SIZE")]
-		[NativeName(NativeNameType.Value, "11")]
 		AccumAlphaSize = unchecked(11),
 
 		/// <summary>
 		/// whether the output is stereo 3D; defaults to off. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_STEREO")]
-		[NativeName(NativeNameType.Value, "12")]
 		Stereo = unchecked(12),
 
 		/// <summary>
 		/// the number of buffers used for multisample anti-aliasing; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_MULTISAMPLEBUFFERS")]
-		[NativeName(NativeNameType.Value, "13")]
 		Multisamplebuffers = unchecked(13),
 
 		/// <summary>
 		/// the number of samples used around the current pixel used for multisample anti-aliasing. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_MULTISAMPLESAMPLES")]
-		[NativeName(NativeNameType.Value, "14")]
 		Multisamplesamples = unchecked(14),
 
 		/// <summary>
 		/// set to 1 to require hardware acceleration, set to 0 to force software rendering; defaults to allow either. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_ACCELERATED_VISUAL")]
-		[NativeName(NativeNameType.Value, "15")]
 		AcceleratedVisual = unchecked(15),
 
 		/// <summary>
 		/// not used (deprecated). <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_RETAINED_BACKING")]
-		[NativeName(NativeNameType.Value, "16")]
 		RetainedBacking = unchecked(16),
 
 		/// <summary>
 		/// OpenGL context major version. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_MAJOR_VERSION")]
-		[NativeName(NativeNameType.Value, "17")]
 		ContextMajorVersion = unchecked(17),
 
 		/// <summary>
 		/// OpenGL context minor version. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_MINOR_VERSION")]
-		[NativeName(NativeNameType.Value, "18")]
 		ContextMinorVersion = unchecked(18),
 
 		/// <summary>
 		/// some combination of 0 or more of elements of the SDL_GLContextFlag enumeration; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_FLAGS")]
-		[NativeName(NativeNameType.Value, "19")]
 		ContextFlags = unchecked(19),
 
 		/// <summary>
 		/// type of GL context (Core, Compatibility, ES). See SDL_GLProfile; default value depends on platform. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_PROFILE_MASK")]
-		[NativeName(NativeNameType.Value, "20")]
 		ContextProfileMask = unchecked(20),
 
 		/// <summary>
 		/// OpenGL context sharing; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_SHARE_WITH_CURRENT_CONTEXT")]
-		[NativeName(NativeNameType.Value, "21")]
 		ShareWithCurrentContext = unchecked(21),
 
 		/// <summary>
 		/// requests sRGB capable visual; defaults to 0. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_FRAMEBUFFER_SRGB_CAPABLE")]
-		[NativeName(NativeNameType.Value, "22")]
 		FramebufferSrgbCapable = unchecked(22),
 
 		/// <summary>
 		/// sets context the release behavior. See SDL_GLContextReleaseFlag; defaults to FLUSH. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_RELEASE_BEHAVIOR")]
-		[NativeName(NativeNameType.Value, "23")]
 		ContextReleaseBehavior = unchecked(23),
 
 		/// <summary>
 		/// set context reset notification. See SDL_GLContextResetNotification; defaults to NO_NOTIFICATION. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_RESET_NOTIFICATION")]
-		[NativeName(NativeNameType.Value, "24")]
 		ContextResetNotification = unchecked(24),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_NO_ERROR")]
-		[NativeName(NativeNameType.Value, "25")]
 		ContextNoError = unchecked(25),
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_FLOATBUFFERS")]
-		[NativeName(NativeNameType.Value, "26")]
 		Floatbuffers = unchecked(26),
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_EGL_PLATFORM")]
-		[NativeName(NativeNameType.Value, "27")]
 		EglPlatform = unchecked(27),
 	}
 }

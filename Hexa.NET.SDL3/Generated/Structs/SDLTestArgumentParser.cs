@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_ArgumentParser")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestArgumentParser
 	{
@@ -24,24 +23,18 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// Parse an argument. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "parse_arguments")]
-		[NativeName(NativeNameType.Type, "SDLTest_ParseArgumentsFp")]
 		public unsafe void* ParseArguments;
 		/// <summary>
 		/// !<br/>
 		/// <<br/>
 		/// Finalize this argument parser. Called once before parsing the first argument. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "finalize")]
-		[NativeName(NativeNameType.Type, "SDLTest_FinalizeArgumentParserFp")]
 		public unsafe void* Finalize;
 		/// <summary>
 		/// !<br/>
 		/// <<br/>
 		/// Null-terminated array of arguments. Printed when running with --help. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "usage")]
-		[NativeName(NativeNameType.Type, "char const * *")]
 		public unsafe byte** Usage;
 
 		/// <summary>
@@ -49,8 +42,6 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// User data, passed to all callbacks. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Data;
 
 		/// <summary>
@@ -58,8 +49,6 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// Next argument parser. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "next")]
-		[NativeName(NativeNameType.Type, "SDLTest_ArgumentParser *")]
 		public unsafe SDLTestArgumentParser* Next;
 
 

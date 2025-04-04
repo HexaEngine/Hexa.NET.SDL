@@ -19,62 +19,41 @@ namespace Hexa.NET.SDL3
 	/// Joystick trackball motion event structure (event.jball.*)<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_JoyBallEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyBallEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_JOYSTICK_BALL_MOTION <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The joystick trackball index <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "ball")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Ball;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
-		[NativeName(NativeNameType.Field, "padding3")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 		/// <summary>
 		/// The relative motion in the X direction <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "xrel")]
-		[NativeName(NativeNameType.Type, "Sint16")]
 		public short Xrel;
 
 		/// <summary>
 		/// The relative motion in the Y direction <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "yrel")]
-		[NativeName(NativeNameType.Type, "Sint16")]
 		public short Yrel;
 
 

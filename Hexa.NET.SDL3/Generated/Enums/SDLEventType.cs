@@ -16,22 +16,17 @@ namespace Hexa.NET.SDL3
 	/// The types of events that can be delivered.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_EventType")]
 	[Flags]
 	public enum SDLEventType : int
 	{
 		/// <summary>
 		/// Unused (do not remove) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_FIRST")]
-		[NativeName(NativeNameType.Value, "0")]
 		First = unchecked(0),
 
 		/// <summary>
 		/// User-requested quit <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_QUIT")]
-		[NativeName(NativeNameType.Value, "256")]
 		Quit = unchecked(256),
 
 		/// <summary>
@@ -39,8 +34,6 @@ namespace Hexa.NET.SDL3
 		/// Called on iOS in applicationWillTerminate()<br/>
 		/// Called on Android in onDestroy()<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_TERMINATING")]
-		[NativeName(NativeNameType.Value, "257")]
 		Terminating = unchecked(257),
 
 		/// <summary>
@@ -48,8 +41,6 @@ namespace Hexa.NET.SDL3
 		/// Called on iOS in applicationDidReceiveMemoryWarning()<br/>
 		/// Called on Android in onTrimMemory()<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_LOW_MEMORY")]
-		[NativeName(NativeNameType.Value, "258")]
 		LowMemory = unchecked(258),
 
 		/// <summary>
@@ -57,8 +48,6 @@ namespace Hexa.NET.SDL3
 		/// Called on iOS in applicationWillResignActive()<br/>
 		/// Called on Android in onPause()<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WILL_ENTER_BACKGROUND")]
-		[NativeName(NativeNameType.Value, "259")]
 		WillEnterBackground = unchecked(259),
 
 		/// <summary>
@@ -66,8 +55,6 @@ namespace Hexa.NET.SDL3
 		/// Called on iOS in applicationDidEnterBackground()<br/>
 		/// Called on Android in onPause()<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DID_ENTER_BACKGROUND")]
-		[NativeName(NativeNameType.Value, "260")]
 		DidEnterBackground = unchecked(260),
 
 		/// <summary>
@@ -75,8 +62,6 @@ namespace Hexa.NET.SDL3
 		/// Called on iOS in applicationWillEnterForeground()<br/>
 		/// Called on Android in onResume()<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WILL_ENTER_FOREGROUND")]
-		[NativeName(NativeNameType.Value, "261")]
 		WillEnterForeground = unchecked(261),
 
 		/// <summary>
@@ -84,238 +69,168 @@ namespace Hexa.NET.SDL3
 		/// Called on iOS in applicationDidBecomeActive()<br/>
 		/// Called on Android in onResume()<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DID_ENTER_FOREGROUND")]
-		[NativeName(NativeNameType.Value, "262")]
 		DidEnterForeground = unchecked(262),
 
 		/// <summary>
 		/// The user's locale preferences have changed. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_LOCALE_CHANGED")]
-		[NativeName(NativeNameType.Value, "263")]
 		LocaleChanged = unchecked(263),
 
 		/// <summary>
 		/// The system theme changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_SYSTEM_THEME_CHANGED")]
-		[NativeName(NativeNameType.Value, "264")]
 		SystemThemeChanged = unchecked(264),
 
 		/// <summary>
 		/// Display orientation has changed to data1 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_ORIENTATION")]
-		[NativeName(NativeNameType.Value, "337")]
 		DisplayOrientation = unchecked(337),
 
 		/// <summary>
 		/// Display has been added to the system <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_ADDED")]
-		[NativeName(NativeNameType.Value, "338")]
 		DisplayAdded = unchecked(338),
 
 		/// <summary>
 		/// Display has been removed from the system <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_REMOVED")]
-		[NativeName(NativeNameType.Value, "339")]
 		DisplayRemoved = unchecked(339),
 
 		/// <summary>
 		/// Display has changed position <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_MOVED")]
-		[NativeName(NativeNameType.Value, "340")]
 		DisplayMoved = unchecked(340),
 
 		/// <summary>
 		/// Display has changed desktop mode <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED")]
-		[NativeName(NativeNameType.Value, "341")]
 		DisplayDesktopModeChanged = unchecked(341),
 
 		/// <summary>
 		/// Display has changed current mode <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED")]
-		[NativeName(NativeNameType.Value, "342")]
 		DisplayCurrentModeChanged = unchecked(342),
 
 		/// <summary>
 		/// Display has changed content scale <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED")]
-		[NativeName(NativeNameType.Value, "343")]
 		DisplayContentScaleChanged = unchecked(343),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_FIRST")]
-		[NativeName(NativeNameType.Value, "SDL_EVENT_DISPLAY_ORIENTATION")]
 		DisplayFirst = DisplayOrientation,
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DISPLAY_LAST")]
-		[NativeName(NativeNameType.Value, "SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED")]
 		DisplayLast = DisplayContentScaleChanged,
 		/// <summary>
 		/// Window has been shown <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_SHOWN")]
-		[NativeName(NativeNameType.Value, "514")]
 		WindowShown = unchecked(514),
 
 		/// <summary>
 		/// Window has been hidden <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_HIDDEN")]
-		[NativeName(NativeNameType.Value, "515")]
 		WindowHidden = unchecked(515),
 
 		/// <summary>
 		/// Window has been exposed and should be redrawn, and can be redrawn directly from event watchers for this event <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_EXPOSED")]
-		[NativeName(NativeNameType.Value, "516")]
 		WindowExposed = unchecked(516),
 
 		/// <summary>
 		/// Window has been moved to data1, data2 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_MOVED")]
-		[NativeName(NativeNameType.Value, "517")]
 		WindowMoved = unchecked(517),
 
 		/// <summary>
 		/// Window has been resized to data1xdata2 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_RESIZED")]
-		[NativeName(NativeNameType.Value, "518")]
 		WindowResized = unchecked(518),
 
 		/// <summary>
 		/// The pixel size of the window has changed to data1xdata2 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED")]
-		[NativeName(NativeNameType.Value, "519")]
 		WindowPixelSizeChanged = unchecked(519),
 
 		/// <summary>
 		/// The pixel size of a Metal view associated with the window has changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_METAL_VIEW_RESIZED")]
-		[NativeName(NativeNameType.Value, "520")]
 		WindowMetalViewResized = unchecked(520),
 
 		/// <summary>
 		/// Window has been minimized <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_MINIMIZED")]
-		[NativeName(NativeNameType.Value, "521")]
 		WindowMinimized = unchecked(521),
 
 		/// <summary>
 		/// Window has been maximized <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_MAXIMIZED")]
-		[NativeName(NativeNameType.Value, "522")]
 		WindowMaximized = unchecked(522),
 
 		/// <summary>
 		/// Window has been restored to normal size and position <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_RESTORED")]
-		[NativeName(NativeNameType.Value, "523")]
 		WindowRestored = unchecked(523),
 
 		/// <summary>
 		/// Window has gained mouse focus <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_MOUSE_ENTER")]
-		[NativeName(NativeNameType.Value, "524")]
 		WindowMouseEnter = unchecked(524),
 
 		/// <summary>
 		/// Window has lost mouse focus <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_MOUSE_LEAVE")]
-		[NativeName(NativeNameType.Value, "525")]
 		WindowMouseLeave = unchecked(525),
 
 		/// <summary>
 		/// Window has gained keyboard focus <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_FOCUS_GAINED")]
-		[NativeName(NativeNameType.Value, "526")]
 		WindowFocusGained = unchecked(526),
 
 		/// <summary>
 		/// Window has lost keyboard focus <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_FOCUS_LOST")]
-		[NativeName(NativeNameType.Value, "527")]
 		WindowFocusLost = unchecked(527),
 
 		/// <summary>
 		/// The window manager requests that the window be closed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_CLOSE_REQUESTED")]
-		[NativeName(NativeNameType.Value, "528")]
 		WindowCloseRequested = unchecked(528),
 
 		/// <summary>
 		/// Window had a hit test that wasn't SDL_HITTEST_NORMAL <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_HIT_TEST")]
-		[NativeName(NativeNameType.Value, "529")]
 		WindowHitTest = unchecked(529),
 
 		/// <summary>
 		/// The ICC profile of the window's display has changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_ICCPROF_CHANGED")]
-		[NativeName(NativeNameType.Value, "530")]
 		WindowIccprofChanged = unchecked(530),
 
 		/// <summary>
 		/// Window has been moved to display data1 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_DISPLAY_CHANGED")]
-		[NativeName(NativeNameType.Value, "531")]
 		WindowDisplayChanged = unchecked(531),
 
 		/// <summary>
 		/// Window display scale has been changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED")]
-		[NativeName(NativeNameType.Value, "532")]
 		WindowDisplayScaleChanged = unchecked(532),
 
 		/// <summary>
 		/// The window safe area has been changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_SAFE_AREA_CHANGED")]
-		[NativeName(NativeNameType.Value, "533")]
 		WindowSafeAreaChanged = unchecked(533),
 
 		/// <summary>
 		/// The window has been occluded <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_OCCLUDED")]
-		[NativeName(NativeNameType.Value, "534")]
 		WindowOccluded = unchecked(534),
 
 		/// <summary>
 		/// The window has entered fullscreen mode <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_ENTER_FULLSCREEN")]
-		[NativeName(NativeNameType.Value, "535")]
 		WindowEnterFullscreen = unchecked(535),
 
 		/// <summary>
 		/// The window has left fullscreen mode <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_LEAVE_FULLSCREEN")]
-		[NativeName(NativeNameType.Value, "536")]
 		WindowLeaveFullscreen = unchecked(536),
 
 		/// <summary>
@@ -324,527 +239,375 @@ namespace Hexa.NET.SDL3
 		/// associated with the window. Otherwise, the handle has already been destroyed and all resources<br/>
 		/// associated with it are invalid <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_DESTROYED")]
-		[NativeName(NativeNameType.Value, "537")]
 		WindowDestroyed = unchecked(537),
 
 		/// <summary>
 		/// Window HDR properties have changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_HDR_STATE_CHANGED")]
-		[NativeName(NativeNameType.Value, "538")]
 		WindowHdrStateChanged = unchecked(538),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_FIRST")]
-		[NativeName(NativeNameType.Value, "SDL_EVENT_WINDOW_SHOWN")]
 		WindowFirst = WindowShown,
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_WINDOW_LAST")]
-		[NativeName(NativeNameType.Value, "SDL_EVENT_WINDOW_HDR_STATE_CHANGED")]
 		WindowLast = WindowHdrStateChanged,
 		/// <summary>
 		/// Key pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_KEY_DOWN")]
-		[NativeName(NativeNameType.Value, "768")]
 		KeyDown = unchecked(768),
 
 		/// <summary>
 		/// Key released <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_KEY_UP")]
-		[NativeName(NativeNameType.Value, "769")]
 		KeyUp = unchecked(769),
 
 		/// <summary>
 		/// Keyboard text editing (composition) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_TEXT_EDITING")]
-		[NativeName(NativeNameType.Value, "770")]
 		TextEditing = unchecked(770),
 
 		/// <summary>
 		/// Keyboard text input <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_TEXT_INPUT")]
-		[NativeName(NativeNameType.Value, "771")]
 		TextInput = unchecked(771),
 
 		/// <summary>
 		/// Keymap changed due to a system event such as an<br/>
 		/// input language or keyboard layout change. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_KEYMAP_CHANGED")]
-		[NativeName(NativeNameType.Value, "772")]
 		KeymapChanged = unchecked(772),
 
 		/// <summary>
 		/// A new keyboard has been inserted into the system <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_KEYBOARD_ADDED")]
-		[NativeName(NativeNameType.Value, "773")]
 		KeyboardAdded = unchecked(773),
 
 		/// <summary>
 		/// A keyboard has been removed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_KEYBOARD_REMOVED")]
-		[NativeName(NativeNameType.Value, "774")]
 		KeyboardRemoved = unchecked(774),
 
 		/// <summary>
 		/// Keyboard text editing candidates <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_TEXT_EDITING_CANDIDATES")]
-		[NativeName(NativeNameType.Value, "775")]
 		TextEditingCandidates = unchecked(775),
 
 		/// <summary>
 		/// Mouse moved <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_MOUSE_MOTION")]
-		[NativeName(NativeNameType.Value, "1024")]
 		MouseMotion = unchecked(1024),
 
 		/// <summary>
 		/// Mouse button pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_MOUSE_BUTTON_DOWN")]
-		[NativeName(NativeNameType.Value, "1025")]
 		MouseButtonDown = unchecked(1025),
 
 		/// <summary>
 		/// Mouse button released <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_MOUSE_BUTTON_UP")]
-		[NativeName(NativeNameType.Value, "1026")]
 		MouseButtonUp = unchecked(1026),
 
 		/// <summary>
 		/// Mouse wheel motion <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_MOUSE_WHEEL")]
-		[NativeName(NativeNameType.Value, "1027")]
 		MouseWheel = unchecked(1027),
 
 		/// <summary>
 		/// A new mouse has been inserted into the system <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_MOUSE_ADDED")]
-		[NativeName(NativeNameType.Value, "1028")]
 		MouseAdded = unchecked(1028),
 
 		/// <summary>
 		/// A mouse has been removed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_MOUSE_REMOVED")]
-		[NativeName(NativeNameType.Value, "1029")]
 		MouseRemoved = unchecked(1029),
 
 		/// <summary>
 		/// Joystick axis motion <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_AXIS_MOTION")]
-		[NativeName(NativeNameType.Value, "1536")]
 		JoystickAxisMotion = unchecked(1536),
 
 		/// <summary>
 		/// Joystick trackball motion <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_BALL_MOTION")]
-		[NativeName(NativeNameType.Value, "1537")]
 		JoystickBallMotion = unchecked(1537),
 
 		/// <summary>
 		/// Joystick hat position change <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_HAT_MOTION")]
-		[NativeName(NativeNameType.Value, "1538")]
 		JoystickHatMotion = unchecked(1538),
 
 		/// <summary>
 		/// Joystick button pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_BUTTON_DOWN")]
-		[NativeName(NativeNameType.Value, "1539")]
 		JoystickButtonDown = unchecked(1539),
 
 		/// <summary>
 		/// Joystick button released <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_BUTTON_UP")]
-		[NativeName(NativeNameType.Value, "1540")]
 		JoystickButtonUp = unchecked(1540),
 
 		/// <summary>
 		/// A new joystick has been inserted into the system <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_ADDED")]
-		[NativeName(NativeNameType.Value, "1541")]
 		JoystickAdded = unchecked(1541),
 
 		/// <summary>
 		/// An opened joystick has been removed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_REMOVED")]
-		[NativeName(NativeNameType.Value, "1542")]
 		JoystickRemoved = unchecked(1542),
 
 		/// <summary>
 		/// Joystick battery level change <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_BATTERY_UPDATED")]
-		[NativeName(NativeNameType.Value, "1543")]
 		JoystickBatteryUpdated = unchecked(1543),
 
 		/// <summary>
 		/// Joystick update is complete <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_JOYSTICK_UPDATE_COMPLETE")]
-		[NativeName(NativeNameType.Value, "1544")]
 		JoystickUpdateComplete = unchecked(1544),
 
 		/// <summary>
 		/// Gamepad axis motion <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_AXIS_MOTION")]
-		[NativeName(NativeNameType.Value, "1616")]
 		GamepadAxisMotion = unchecked(1616),
 
 		/// <summary>
 		/// Gamepad button pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_BUTTON_DOWN")]
-		[NativeName(NativeNameType.Value, "1617")]
 		GamepadButtonDown = unchecked(1617),
 
 		/// <summary>
 		/// Gamepad button released <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_BUTTON_UP")]
-		[NativeName(NativeNameType.Value, "1618")]
 		GamepadButtonUp = unchecked(1618),
 
 		/// <summary>
 		/// A new gamepad has been inserted into the system <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_ADDED")]
-		[NativeName(NativeNameType.Value, "1619")]
 		GamepadAdded = unchecked(1619),
 
 		/// <summary>
 		/// A gamepad has been removed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_REMOVED")]
-		[NativeName(NativeNameType.Value, "1620")]
 		GamepadRemoved = unchecked(1620),
 
 		/// <summary>
 		/// The gamepad mapping was updated <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_REMAPPED")]
-		[NativeName(NativeNameType.Value, "1621")]
 		GamepadRemapped = unchecked(1621),
 
 		/// <summary>
 		/// Gamepad touchpad was touched <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_TOUCHPAD_DOWN")]
-		[NativeName(NativeNameType.Value, "1622")]
 		GamepadTouchpadDown = unchecked(1622),
 
 		/// <summary>
 		/// Gamepad touchpad finger was moved <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_TOUCHPAD_MOTION")]
-		[NativeName(NativeNameType.Value, "1623")]
 		GamepadTouchpadMotion = unchecked(1623),
 
 		/// <summary>
 		/// Gamepad touchpad finger was lifted <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_TOUCHPAD_UP")]
-		[NativeName(NativeNameType.Value, "1624")]
 		GamepadTouchpadUp = unchecked(1624),
 
 		/// <summary>
 		/// Gamepad sensor was updated <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_SENSOR_UPDATE")]
-		[NativeName(NativeNameType.Value, "1625")]
 		GamepadSensorUpdate = unchecked(1625),
 
 		/// <summary>
 		/// Gamepad update is complete <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_UPDATE_COMPLETE")]
-		[NativeName(NativeNameType.Value, "1626")]
 		GamepadUpdateComplete = unchecked(1626),
 
 		/// <summary>
 		/// Gamepad Steam handle has changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_GAMEPAD_STEAM_HANDLE_UPDATED")]
-		[NativeName(NativeNameType.Value, "1627")]
 		GamepadSteamHandleUpdated = unchecked(1627),
 
 		/// <summary>
 		/// Touch events <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_FINGER_DOWN")]
-		[NativeName(NativeNameType.Value, "1792")]
 		FingerDown = unchecked(1792),
 
 		/// <summary>
 		/// Touch events <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_FINGER_UP")]
-		[NativeName(NativeNameType.Value, "1793")]
 		FingerUp = unchecked(1793),
 
 		/// <summary>
 		/// Touch events <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_FINGER_MOTION")]
-		[NativeName(NativeNameType.Value, "1794")]
 		FingerMotion = unchecked(1794),
 
 		/// <summary>
 		/// Touch events <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_FINGER_CANCELED")]
-		[NativeName(NativeNameType.Value, "1795")]
 		FingerCanceled = unchecked(1795),
 
 		/// <summary>
 		/// The clipboard or primary selection changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_CLIPBOARD_UPDATE")]
-		[NativeName(NativeNameType.Value, "2304")]
 		ClipboardUpdate = unchecked(2304),
 
 		/// <summary>
 		/// The system requests a file open <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DROP_FILE")]
-		[NativeName(NativeNameType.Value, "4096")]
 		DropFile = unchecked(4096),
 
 		/// <summary>
 		/// text/plain drag-and-drop event <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DROP_TEXT")]
-		[NativeName(NativeNameType.Value, "4097")]
 		DropText = unchecked(4097),
 
 		/// <summary>
 		/// A new set of drops is beginning (NULL filename) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DROP_BEGIN")]
-		[NativeName(NativeNameType.Value, "4098")]
 		DropBegin = unchecked(4098),
 
 		/// <summary>
 		/// Current set of drops is now complete (NULL filename) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DROP_COMPLETE")]
-		[NativeName(NativeNameType.Value, "4099")]
 		DropComplete = unchecked(4099),
 
 		/// <summary>
 		/// Position while moving over the window <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_DROP_POSITION")]
-		[NativeName(NativeNameType.Value, "4100")]
 		DropPosition = unchecked(4100),
 
 		/// <summary>
 		/// A new audio device is available <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_AUDIO_DEVICE_ADDED")]
-		[NativeName(NativeNameType.Value, "4352")]
 		AudioDeviceAdded = unchecked(4352),
 
 		/// <summary>
 		/// An audio device has been removed. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_AUDIO_DEVICE_REMOVED")]
-		[NativeName(NativeNameType.Value, "4353")]
 		AudioDeviceRemoved = unchecked(4353),
 
 		/// <summary>
 		/// An audio device's format has been changed by the system. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED")]
-		[NativeName(NativeNameType.Value, "4354")]
 		AudioDeviceFormatChanged = unchecked(4354),
 
 		/// <summary>
 		/// A sensor was updated <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_SENSOR_UPDATE")]
-		[NativeName(NativeNameType.Value, "4608")]
 		SensorUpdate = unchecked(4608),
 
 		/// <summary>
 		/// Pressure-sensitive pen has become available <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_PROXIMITY_IN")]
-		[NativeName(NativeNameType.Value, "4864")]
 		PenProximityIn = unchecked(4864),
 
 		/// <summary>
 		/// Pressure-sensitive pen has become unavailable <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_PROXIMITY_OUT")]
-		[NativeName(NativeNameType.Value, "4865")]
 		PenProximityOut = unchecked(4865),
 
 		/// <summary>
 		/// Pressure-sensitive pen touched drawing surface <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_DOWN")]
-		[NativeName(NativeNameType.Value, "4866")]
 		PenDown = unchecked(4866),
 
 		/// <summary>
 		/// Pressure-sensitive pen stopped touching drawing surface <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_UP")]
-		[NativeName(NativeNameType.Value, "4867")]
 		PenUp = unchecked(4867),
 
 		/// <summary>
 		/// Pressure-sensitive pen button pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_BUTTON_DOWN")]
-		[NativeName(NativeNameType.Value, "4868")]
 		PenButtonDown = unchecked(4868),
 
 		/// <summary>
 		/// Pressure-sensitive pen button released <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_BUTTON_UP")]
-		[NativeName(NativeNameType.Value, "4869")]
 		PenButtonUp = unchecked(4869),
 
 		/// <summary>
 		/// Pressure-sensitive pen is moving on the tablet <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_MOTION")]
-		[NativeName(NativeNameType.Value, "4870")]
 		PenMotion = unchecked(4870),
 
 		/// <summary>
 		/// Pressure-sensitive pen angle/pressure/etc changed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PEN_AXIS")]
-		[NativeName(NativeNameType.Value, "4871")]
 		PenAxis = unchecked(4871),
 
 		/// <summary>
 		/// A new camera device is available <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_CAMERA_DEVICE_ADDED")]
-		[NativeName(NativeNameType.Value, "5120")]
 		CameraDeviceAdded = unchecked(5120),
 
 		/// <summary>
 		/// A camera device has been removed. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_CAMERA_DEVICE_REMOVED")]
-		[NativeName(NativeNameType.Value, "5121")]
 		CameraDeviceRemoved = unchecked(5121),
 
 		/// <summary>
 		/// A camera device has been approved for use by the user. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_CAMERA_DEVICE_APPROVED")]
-		[NativeName(NativeNameType.Value, "5122")]
 		CameraDeviceApproved = unchecked(5122),
 
 		/// <summary>
 		/// A camera device has been denied for use by the user. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_CAMERA_DEVICE_DENIED")]
-		[NativeName(NativeNameType.Value, "5123")]
 		CameraDeviceDenied = unchecked(5123),
 
 		/// <summary>
 		/// The render targets have been reset and their contents need to be updated <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_RENDER_TARGETS_RESET")]
-		[NativeName(NativeNameType.Value, "8192")]
 		RenderTargetsReset = unchecked(8192),
 
 		/// <summary>
 		/// The device has been reset and all textures need to be recreated <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_RENDER_DEVICE_RESET")]
-		[NativeName(NativeNameType.Value, "8193")]
 		RenderDeviceReset = unchecked(8193),
 
 		/// <summary>
 		/// The device has been lost and can't be recovered. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_RENDER_DEVICE_LOST")]
-		[NativeName(NativeNameType.Value, "8194")]
 		RenderDeviceLost = unchecked(8194),
 
 		/// <summary>
 		/// Reserved events for private platforms <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE0")]
-		[NativeName(NativeNameType.Value, "16384")]
 		Private0 = unchecked(16384),
 
 		/// <summary>
 		/// Reserved events for private platforms <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE1")]
-		[NativeName(NativeNameType.Value, "16385")]
 		Private1 = unchecked(16385),
 
 		/// <summary>
 		/// Reserved events for private platforms <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE2")]
-		[NativeName(NativeNameType.Value, "16386")]
 		Private2 = unchecked(16386),
 
 		/// <summary>
 		/// Reserved events for private platforms <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_PRIVATE3")]
-		[NativeName(NativeNameType.Value, "16387")]
 		Private3 = unchecked(16387),
 
 		/// <summary>
 		/// Signals the end of an event poll cycle <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_POLL_SENTINEL")]
-		[NativeName(NativeNameType.Value, "32512")]
 		PollSentinel = unchecked(32512),
 
 		/// <summary>
 		/// Events SDL_EVENT_USER through SDL_EVENT_LAST are for your use,<br/>
 		/// and should be allocated with SDL_RegisterEvents()<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_USER")]
-		[NativeName(NativeNameType.Value, "32768")]
 		User = unchecked(32768),
 
 		/// <summary>
 		/// This last event is only for bounding internal arrays<br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_LAST")]
-		[NativeName(NativeNameType.Value, "65535")]
 		Last = unchecked(65535),
 
 		/// <summary>
 		/// This just makes sure the enum is the size of Uint32 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_EVENT_ENUM_PADDING")]
-		[NativeName(NativeNameType.Value, "2147483647")]
 		EnumPadding = unchecked(2147483647),
 	}
 }

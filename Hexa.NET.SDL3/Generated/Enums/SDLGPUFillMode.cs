@@ -17,22 +17,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUFillMode")]
 	[Flags]
 	public enum SDLGPUFillMode : int
 	{
 		/// <summary>
 		/// Polygons will be rendered via rasterization. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_FILLMODE_FILL")]
-		[NativeName(NativeNameType.Value, "0")]
 		Fill = unchecked(0),
 
 		/// <summary>
 		/// Polygon edges will be drawn as line segments. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_FILLMODE_LINE")]
-		[NativeName(NativeNameType.Value, "1")]
 		Line = unchecked(1),
 	}
 }

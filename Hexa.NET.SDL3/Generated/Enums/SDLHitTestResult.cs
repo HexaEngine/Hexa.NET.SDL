@@ -19,78 +19,57 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_HitTestResult")]
 	[Flags]
 	public enum SDLHitTestResult : int
 	{
 		/// <summary>
 		/// Region is normal. No special properties. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_NORMAL")]
-		[NativeName(NativeNameType.Value, "0")]
 		Normal = unchecked(0),
 
 		/// <summary>
 		/// Region can drag entire window. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_DRAGGABLE")]
-		[NativeName(NativeNameType.Value, "1")]
 		Draggable = unchecked(1),
 
 		/// <summary>
 		/// Region is the resizable top-left corner border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_TOPLEFT")]
-		[NativeName(NativeNameType.Value, "2")]
 		ResizeTopleft = unchecked(2),
 
 		/// <summary>
 		/// Region is the resizable top border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_TOP")]
-		[NativeName(NativeNameType.Value, "3")]
 		ResizeTop = unchecked(3),
 
 		/// <summary>
 		/// Region is the resizable top-right corner border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_TOPRIGHT")]
-		[NativeName(NativeNameType.Value, "4")]
 		ResizeTopright = unchecked(4),
 
 		/// <summary>
 		/// Region is the resizable right border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_RIGHT")]
-		[NativeName(NativeNameType.Value, "5")]
 		ResizeRight = unchecked(5),
 
 		/// <summary>
 		/// Region is the resizable bottom-right corner border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_BOTTOMRIGHT")]
-		[NativeName(NativeNameType.Value, "6")]
 		ResizeBottomright = unchecked(6),
 
 		/// <summary>
 		/// Region is the resizable bottom border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_BOTTOM")]
-		[NativeName(NativeNameType.Value, "7")]
 		ResizeBottom = unchecked(7),
 
 		/// <summary>
 		/// Region is the resizable bottom-left corner border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_BOTTOMLEFT")]
-		[NativeName(NativeNameType.Value, "8")]
 		ResizeBottomleft = unchecked(8),
 
 		/// <summary>
 		/// Region is the resizable left border. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_HITTEST_RESIZE_LEFT")]
-		[NativeName(NativeNameType.Value, "9")]
 		ResizeLeft = unchecked(9),
 	}
 }

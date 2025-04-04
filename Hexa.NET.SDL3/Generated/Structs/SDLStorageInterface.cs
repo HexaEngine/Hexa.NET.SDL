@@ -26,92 +26,67 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_StorageInterface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLStorageInterface
 	{
 		/// <summary>
 		/// The version of this interface <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "version")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
 
 		/// <summary>
 		/// Called when the storage is closed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "close")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Close;
 
 		/// <summary>
 		/// Optional, returns whether the storage is currently ready for access <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "ready")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Ready;
 
 		/// <summary>
 		/// Enumerate a directory, optional for write-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "enumerate")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, SDL_EnumerateDirectoryCallback callback, void * callback_userdata) *")]
 		public unsafe void* Enumerate;
 
 		/// <summary>
 		/// Get path information, optional for write-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "info")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, SDL_PathInfo * info) *")]
 		public unsafe void* Info;
 
 		/// <summary>
 		/// Read a file from storage, optional for write-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "read_file")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, void * destination, Uint64 length) *")]
 		public unsafe void* ReadFile;
 
 		/// <summary>
 		/// Write a file to storage, optional for read-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "write_file")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, void const * source, Uint64 length) *")]
 		public unsafe void* WriteFile;
 
 		/// <summary>
 		/// Create a directory, optional for read-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mkdir")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path) *")]
 		public unsafe void* Mkdir;
 
 		/// <summary>
 		/// Remove a file or empty directory, optional for read-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "remove")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path) *")]
 		public unsafe void* Remove;
 
 		/// <summary>
 		/// Rename a path, optional for read-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "rename")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * oldpath, char const * newpath) *")]
 		public unsafe void* Rename;
 
 		/// <summary>
 		/// Copy a file, optional for read-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "copy")]
-		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * oldpath, char const * newpath) *")]
 		public unsafe void* Copy;
 
 		/// <summary>
 		/// Get the space remaining, optional for read-only storage <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "space_remaining")]
-		[NativeName(NativeNameType.Type, "Uint64 (*)(void * userdata) *")]
 		public unsafe void* SpaceRemaining;
 
 

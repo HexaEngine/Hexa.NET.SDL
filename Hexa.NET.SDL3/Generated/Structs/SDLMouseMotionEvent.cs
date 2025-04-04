@@ -19,74 +19,53 @@ namespace Hexa.NET.SDL3
 	/// Mouse motion event structure (event.motion.*)<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MouseMotionEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMouseMotionEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_MOUSE_MOTION <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The window with mouse focus, if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The mouse instance id in relative mode, SDL_TOUCH_MOUSEID for touch events, or 0 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "SDL_MouseID")]
 		public uint Which;
 
 		/// <summary>
 		/// The current button state <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
 		public SDLMouseButtonFlags State;
 
 		/// <summary>
 		/// X coordinate, relative to window <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// Y coordinate, relative to window <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// The relative motion in the X direction <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "xrel")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Xrel;
 
 		/// <summary>
 		/// The relative motion in the Y direction <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "yrel")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Yrel;
 
 

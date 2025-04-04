@@ -23,21 +23,12 @@ namespace Hexa.NET.SDL3
 	/// SDL_PIXELFORMAT_RGBA8888 on big-endian systems).<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Color")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLColor
 	{
-		[NativeName(NativeNameType.Field, "r")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte R;
-		[NativeName(NativeNameType.Field, "g")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte G;
-		[NativeName(NativeNameType.Field, "b")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte B;
-		[NativeName(NativeNameType.Field, "a")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte A;
 
 		public unsafe SDLColor(byte r = default, byte g = default, byte b = default, byte a = default)

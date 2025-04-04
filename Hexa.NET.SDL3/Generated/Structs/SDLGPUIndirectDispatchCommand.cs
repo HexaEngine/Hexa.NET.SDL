@@ -20,29 +20,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUIndirectDispatchCommand")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUIndirectDispatchCommand
 	{
 		/// <summary>
 		/// The number of local workgroups to dispatch in the X dimension. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "groupcount_x")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint GroupcountX;
 
 		/// <summary>
 		/// The number of local workgroups to dispatch in the Y dimension. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "groupcount_y")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint GroupcountY;
 
 		/// <summary>
 		/// The number of local workgroups to dispatch in the Z dimension. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "groupcount_z")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint GroupcountZ;
 
 

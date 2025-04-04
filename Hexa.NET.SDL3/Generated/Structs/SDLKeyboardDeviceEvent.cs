@@ -19,32 +19,23 @@ namespace Hexa.NET.SDL3
 	/// Keyboard device event structure (event.kdevice.*)<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_KeyboardDeviceEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLKeyboardDeviceEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_KEYBOARD_ADDED or SDL_EVENT_KEYBOARD_REMOVED <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The keyboard instance id <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "SDL_KeyboardID")]
 		public uint Which;
 
 

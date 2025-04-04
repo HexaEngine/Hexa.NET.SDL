@@ -17,22 +17,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUVertexInputRate")]
 	[Flags]
 	public enum SDLGPUVertexInputRate : int
 	{
 		/// <summary>
 		/// Attribute addressing is a function of the vertex index. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_VERTEXINPUTRATE_VERTEX")]
-		[NativeName(NativeNameType.Value, "0")]
 		Vertex = unchecked(0),
 
 		/// <summary>
 		/// Attribute addressing is a function of the instance index. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_VERTEXINPUTRATE_INSTANCE")]
-		[NativeName(NativeNameType.Value, "1")]
 		Instance = unchecked(1),
 	}
 }

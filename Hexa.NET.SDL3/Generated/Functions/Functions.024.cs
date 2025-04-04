@@ -18,2868 +18,285 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
 		{
-			fixed (byte* pname = name)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				delegate*<void> ret = LoadFunctionNative(handle, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* pyplane = &yplane)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			delegate*<void> ret = LoadFunctionNative(handle, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (SDLSharedObject* phandle = &handle)
-			{
-				fixed (byte* pname = &name)
-				{
-					delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (SDLSharedObject* phandle = &handle)
-			{
-				fixed (byte* pname = name)
-				{
-					delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			fixed (SDLSharedObject* phandle = &handle)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (byte* puplane = &uplane)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						fixed (byte* pvplane = &vplane)
+						{
+							byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+							return ret != 0;
+						}
 					}
-					else
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puplane = &uplane)
 					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
+						fixed (byte* pvplane = &vplane)
+						{
+							byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+							return ret != 0;
+						}
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnloadObjectNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSharedObject*, void>)funcTable[996])(handle);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[996])((nint)handle);
-			#endif
-		}
-
-		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnloadObject([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle)
-		{
-			UnloadObjectNative(handle);
-		}
-
-		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnloadObject([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle)
-		{
-			fixed (SDLSharedObject* phandle = &handle)
-			{
-				UnloadObjectNative((SDLSharedObject*)phandle);
-			}
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPreferredLocales")]
-		[return: NativeName(NativeNameType.Type, "SDL_Locale * *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLLocale** GetPreferredLocalesNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, SDLLocale**>)funcTable[997])(count);
-			#else
-			return (SDLLocale**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[997])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPreferredLocales")]
-		[return: NativeName(NativeNameType.Type, "SDL_Locale * *")]
-		public static SDLLocale** GetPreferredLocales([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			SDLLocale** ret = GetPreferredLocalesNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPreferredLocales")]
-		[return: NativeName(NativeNameType.Type, "SDL_Locale * *")]
-		public static SDLLocale** GetPreferredLocales([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				SDLLocale** ret = GetPreferredLocalesNative((int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the priority of all log categories.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorities")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogPrioritiesNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[998])(priority);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[998])(priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the priority of all log categories.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorities")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetLogPriorities([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
-		{
-			SetLogPrioritiesNative(priority);
-		}
-
-		/// <summary>
-		/// Set the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriority")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[999])(category, priority);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[999])(category, priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriority")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetLogPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
-		{
-			SetLogPriorityNative(category, priority);
-		}
-
-		/// <summary>
-		/// Get the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_LogPriority")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLLogPriority GetLogPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[1000])(category);
-			#else
-			return (SDLLogPriority)((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[1000])(category);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_LogPriority")]
-		public static SDLLogPriority GetLogPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
-		{
-			SDLLogPriority ret = GetLogPriorityNative(category);
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset all priorities to default.<br/>
-		/// This is called by SDL_Quit().<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetLogPriorities")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetLogPrioritiesNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1001])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1001])();
-			#endif
-		}
-
-		/// <summary>
-		/// Reset all priorities to default.<br/>
-		/// This is called by SDL_Quit().<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetLogPriorities")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ResetLogPriorities()
-		{
-			ResetLogPrioritiesNative();
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetLogPriorityPrefixNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] byte* prefix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLLogPriority, byte*, byte>)funcTable[1002])(priority, prefix);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLLogPriority, nint, byte>)funcTable[1002])(priority, (nint)prefix);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] byte* prefix)
-		{
-			byte ret = SetLogPriorityPrefixNative(priority, prefix);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] ref byte prefix)
-		{
-			fixed (byte* pprefix = &prefix)
-			{
-				byte ret = SetLogPriorityPrefixNative(priority, (byte*)pprefix);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> prefix)
-		{
-			fixed (byte* pprefix = prefix)
-			{
-				byte ret = SetLogPriorityPrefixNative(priority, (byte*)pprefix);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogPriorityPrefix")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetLogPriorityPrefix([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "prefix")] [NativeName(NativeNameType.Type, "char const *")] string prefix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (prefix != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(prefix);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(prefix, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetLogPriorityPrefixNative(priority, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1003])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1003])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogNative(fmt);
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogTraceNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1004])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1004])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogTraceNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogTraceNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogTraceNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogTrace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogTrace([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogTraceNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogVerboseNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1005])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1005])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogVerboseNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogVerboseNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogVerboseNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogVerboseNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogDebugNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1006])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1006])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogDebugNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogDebugNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogDebugNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogDebugNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogInfoNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1007])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1007])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogInfoNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogInfoNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogInfoNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogInfoNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogWarnNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1008])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1008])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogWarnNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogWarnNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogWarnNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogWarnNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogErrorNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1009])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1009])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogErrorNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogErrorNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogErrorNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogErrorNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogCriticalNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1010])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1010])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogCriticalNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogCriticalNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogCriticalNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogCriticalNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogMessageNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, void>)funcTable[1011])(category, priority, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, void>)funcTable[1011])(category, priority, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
-		{
-			LogMessageNative(category, priority, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogMessageNative(category, priority, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogMessageNative(category, priority, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogMessageNative(category, priority, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogMessageVNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, nint, void>)funcTable[1012])(category, priority, fmt, ap);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, nint, void>)funcTable[1012])(category, priority, (nint)fmt, ap);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			LogMessageVNative(category, priority, fmt, ap);
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogMessageVNative(category, priority, (byte*)pfmt, ap);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogMessageVNative(category, priority, (byte*)pfmt, ap);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogMessageVNative(category, priority, pStr0, ap);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Get the default log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_LogOutputFunction")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static delegate*<void*, int, SDLLogPriority, byte*, void> GetDefaultLogOutputFunctionNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>>)funcTable[1013])();
-			#else
-			return (delegate*<void*, int, SDLLogPriority, byte*, void>)((delegate* unmanaged[Cdecl]<nint>)funcTable[1013])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the default log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_LogOutputFunction")]
-		public static delegate*<void*, int, SDLLogPriority, byte*, void> GetDefaultLogOutputFunction()
-		{
-			delegate*<void*, int, SDLLogPriority, byte*, void> ret = GetDefaultLogOutputFunctionNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetLogOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction *")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>*, void**, void>)funcTable[1014])(callback, userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1014])((nint)callback, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetLogOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction *")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
-		{
-			GetLogOutputFunctionNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Replace the default log output function with one of your own.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>, void*, void>)funcTable[1015])((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1015])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Replace the default log output function with one of your own.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetLogOutputFunction")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetLogOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			SetLogOutputFunctionNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowMessageBoxNative([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] int* buttonid)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxData*, int*, byte>)funcTable[1016])(messageboxdata, buttonid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1016])((nint)messageboxdata, (nint)buttonid);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] int* buttonid)
-		{
-			byte ret = ShowMessageBoxNative(messageboxdata, buttonid);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] int* buttonid)
-		{
-			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
-			{
-				byte ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, buttonid);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] ref int buttonid)
-		{
-			fixed (int* pbuttonid = &buttonid)
-			{
-				byte ret = ShowMessageBoxNative(messageboxdata, (int*)pbuttonid);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "SDL_MessageBoxData const *")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int *")] ref int buttonid)
-		{
-			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
-			{
-				fixed (int* pbuttonid = &buttonid)
-				{
-					byte ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, (int*)pbuttonid);
-					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowSimpleMessageBoxNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxFlags, byte*, byte*, SDLWindow*, byte>)funcTable[1017])(flags, title, message, window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLMessageBoxFlags, nint, nint, nint, byte>)funcTable[1017])(flags, (nint)title, (nint)message, (nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte ret = ShowSimpleMessageBoxNative(flags, title, message, window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* ptitle = &title)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLRect* prect = &rect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, pStr0, message, window);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* pmessage = &message)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* pmessage = message)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (message != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(message);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, title, pStr0, window);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (byte* pmessage = &message)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (byte* pmessage = message)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (message != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(message);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, window);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, message, (SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, pStr0, message, (SDLWindow*)pwindow);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* pmessage = &message)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* pmessage = message)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (message != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(message);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, pStr0, (SDLWindow*)pwindow);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (byte* pmessage = &message)
-				{
-					fixed (SDLWindow* pwindow = &window)
+					fixed (byte* pyplane = &yplane)
 					{
-						byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						fixed (byte* puplane = &uplane)
+						{
+							fixed (byte* pvplane = &vplane)
+							{
+								byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte UpdateNVTextureNative(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, byte>)funcTable[1064])(texture, rect, yplane, ypitch, uVplane, uVpitch);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, byte>)funcTable[1064])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uVplane, uVpitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			byte ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, uVplane, uVpitch);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uVplane, uVpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				byte ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					byte ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
 						return ret != 0;
 					}
 				}
@@ -2887,41 +304,91 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		public static bool UpdateNVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
 		{
-			fixed (byte* ptitle = title)
+			fixed (byte* puVplane = &uVplane)
 			{
-				fixed (byte* pmessage = message)
+				byte ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* puVplane = &uVplane)
 				{
-					fixed (SDLWindow* pwindow = &window)
+					byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* puVplane = &uVplane)
+				{
+					byte ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* puVplane = &uVplane)
 					{
-						byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
 						return ret != 0;
 					}
 				}
@@ -2929,1862 +396,48 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")] SDLMessageBoxFlags flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		public static bool UpdateNVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
+			fixed (byte* pyplane = &yplane)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* puVplane = &uVplane)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (message != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(message);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, (SDLWindow*)pwindow);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
-		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMetalView MetalCreateViewNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLMetalView>)funcTable[1018])(window);
-			#else
-			return (SDLMetalView)((delegate* unmanaged[Cdecl]<nint, SDLMetalView>)funcTable[1018])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
-		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		public static SDLMetalView MetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
-		{
-			SDLMetalView ret = MetalCreateViewNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
-		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		public static SDLMetalView MetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLMetalView ret = MetalCreateViewNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Destroy an existing SDL_MetalView object.<br/>
-		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
-		/// called after SDL_CreateWindow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MetalDestroyViewNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[1019])(view);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[1019])(view);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy an existing SDL_MetalView object.<br/>
-		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
-		/// called after SDL_CreateWindow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MetalDestroyView([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			MetalDestroyViewNative(view);
-		}
-
-		/// <summary>
-		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MetalGetLayerNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMetalView, void*>)funcTable[1020])(view);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<SDLMetalView, nint>)funcTable[1020])(view);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* MetalGetLayer([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
-		{
-			void* ret = MetalGetLayerNative(view);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte OpenURLNative([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] byte* url)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[1021])(url);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1021])((nint)url);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] byte* url)
-		{
-			byte ret = OpenURLNative(url);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] ref byte url)
-		{
-			fixed (byte* purl = &url)
-			{
-				byte ret = OpenURLNative((byte*)purl);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> url)
-		{
-			fixed (byte* purl = url)
-			{
-				byte ret = OpenURLNative((byte*)purl);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool OpenURL([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "char const *")] string url)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (url != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(url);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(url, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = OpenURLNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetPlatformNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[1022])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1022])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetPlatform()
-		{
-			byte* ret = GetPlatformNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetPlatformS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetPlatformNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcess")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLProcess* CreateProcessNative([NativeName(NativeNameType.Param, "args")] [NativeName(NativeNameType.Type, "char const * const *")] byte** args, [NativeName(NativeNameType.Param, "pipe_stdio")] [NativeName(NativeNameType.Type, "bool")] byte pipeStdio)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, byte, SDLProcess*>)funcTable[1023])(args, pipeStdio);
-			#else
-			return (SDLProcess*)((delegate* unmanaged[Cdecl]<nint, byte, nint>)funcTable[1023])((nint)args, pipeStdio);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcess")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		public static SDLProcess* CreateProcess([NativeName(NativeNameType.Param, "args")] [NativeName(NativeNameType.Type, "char const * const *")] byte** args, [NativeName(NativeNameType.Param, "pipe_stdio")] [NativeName(NativeNameType.Type, "bool")] bool pipeStdio)
-		{
-			SDLProcess* ret = CreateProcessNative(args, pipeStdio ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcess")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		public static SDLProcess* CreateProcess([NativeName(NativeNameType.Param, "args")] [NativeName(NativeNameType.Type, "char const * const *")] ref byte* args, [NativeName(NativeNameType.Param, "pipe_stdio")] [NativeName(NativeNameType.Type, "bool")] bool pipeStdio)
-		{
-			fixed (byte** pargs = &args)
-			{
-				SDLProcess* ret = CreateProcessNative((byte**)pargs, pipeStdio ? (byte)1 : (byte)0);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new process with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ARGS_POINTER`: an array of strings containing<br/>
-		/// the program to run, any arguments, and a NULL pointer, e.g. const char<br/>
-		/// *args[] = { "myprogram", "argument", NULL }. This is a required property.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment<br/>
-		/// pointer. If this property is set, it will be the entire environment for<br/>
-		/// the process, otherwise the current environment is used.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing<br/>
-		/// where standard input for the process comes from, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_NULL`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`: an SDL_IOStream pointer used for<br/>
-		/// standard input when `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard output for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard output when `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` is set<br/>
-		/// to `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard error for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard error when `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN`: true if the error<br/>
-		/// output of the process should be redirected into the standard output of<br/>
-		/// the process. This property has no effect if<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN`: true if the process should<br/>
-		/// run in the background. In this case the default input and output is<br/>
-		/// `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not<br/>
-		/// available, and will always be 0.<br/>
-		/// On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and<br/>
-		/// SIGCHLD should not be ignored or handled because those would prevent SDL<br/>
-		/// from properly tracking the lifetime of the underlying process. You should<br/>
-		/// use SDL_WaitProcess() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcessWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLProcess* CreateProcessWithPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLProcess*>)funcTable[1024])(props);
-			#else
-			return (SDLProcess*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[1024])(props);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new process with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ARGS_POINTER`: an array of strings containing<br/>
-		/// the program to run, any arguments, and a NULL pointer, e.g. const char<br/>
-		/// *args[] = { "myprogram", "argument", NULL }. This is a required property.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment<br/>
-		/// pointer. If this property is set, it will be the entire environment for<br/>
-		/// the process, otherwise the current environment is used.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing<br/>
-		/// where standard input for the process comes from, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_NULL`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`: an SDL_IOStream pointer used for<br/>
-		/// standard input when `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard output for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard output when `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` is set<br/>
-		/// to `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard error for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard error when `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN`: true if the error<br/>
-		/// output of the process should be redirected into the standard output of<br/>
-		/// the process. This property has no effect if<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN`: true if the process should<br/>
-		/// run in the background. In this case the default input and output is<br/>
-		/// `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not<br/>
-		/// available, and will always be 0.<br/>
-		/// On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and<br/>
-		/// SIGCHLD should not be ignored or handled because those would prevent SDL<br/>
-		/// from properly tracking the lifetime of the underlying process. You should<br/>
-		/// use SDL_WaitProcess() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateProcessWithProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_Process *")]
-		public static SDLProcess* CreateProcessWithProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			SDLProcess* ret = CreateProcessWithPropertiesNative(props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetProcessPropertiesNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, uint>)funcTable[1025])(process);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1025])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetProcessProperties([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			uint ret = GetProcessPropertiesNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessProperties")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
-		public static uint GetProcessProperties([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				uint ret = GetProcessPropertiesNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* ReadProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, nuint*, int*, void*>)funcTable[1026])(process, datasize, exitcode);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)funcTable[1026])((nint)process, (nint)datasize, (nint)exitcode);
-			#endif
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			void* ret = ReadProcessNative(process, datasize, exitcode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				void* ret = ReadProcessNative((SDLProcess*)pprocess, datasize, exitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = ReadProcessNative(process, (nuint*)pdatasize, exitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = ReadProcessNative((SDLProcess*)pprocess, (nuint*)pdatasize, exitcode);
-					return ret;
+					byte ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
+		public static bool UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
 		{
-			fixed (int* pexitcode = &exitcode)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				void* ret = ReadProcessNative(process, datasize, (int*)pexitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] nuint* datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (int* pexitcode = &exitcode)
+				fixed (byte* pyplane = &yplane)
 				{
-					void* ret = ReadProcessNative((SDLProcess*)pprocess, datasize, (int*)pexitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					void* ret = ReadProcessNative(process, (nuint*)pdatasize, (int*)pexitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadProcess")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* ReadProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint datasize, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					fixed (int* pexitcode = &exitcode)
+					fixed (byte* puVplane = &uVplane)
 					{
-						void* ret = ReadProcessNative((SDLProcess*)pprocess, (nuint*)pdatasize, (int*)pexitcode);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// if so you may need to call SDL_GetProcessOutput() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessInput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* GetProcessInputNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, SDLIOStream*>)funcTable[1027])(process);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1027])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// if so you may need to call SDL_GetProcessOutput() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessInput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessInput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			SDLIOStream* ret = GetProcessInputNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// if so you may need to call SDL_GetProcessOutput() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessInput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessInput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				SDLIOStream* ret = GetProcessInputNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessOutput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* GetProcessOutputNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, SDLIOStream*>)funcTable[1028])(process);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1028])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessOutput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessOutput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			SDLIOStream* ret = GetProcessOutputNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetProcessOutput")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* GetProcessOutput([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				SDLIOStream* ret = GetProcessOutputNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_KillProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte KillProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "force")] [NativeName(NativeNameType.Type, "bool")] byte force)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, byte, byte>)funcTable[1029])(process, force);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[1029])((nint)process, force);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_KillProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool KillProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "force")] [NativeName(NativeNameType.Type, "bool")] bool force)
-		{
-			byte ret = KillProcessNative(process, force ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_KillProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool KillProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "force")] [NativeName(NativeNameType.Type, "bool")] bool force)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				byte ret = KillProcessNative((SDLProcess*)pprocess, force ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] byte block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, byte, int*, byte>)funcTable[1030])(process, block, exitcode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, byte>)funcTable[1030])((nint)process, block, (nint)exitcode);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			byte ret = WaitProcessNative(process, block ? (byte)1 : (byte)0, exitcode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				byte ret = WaitProcessNative((SDLProcess*)pprocess, block ? (byte)1 : (byte)0, exitcode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (int* pexitcode = &exitcode)
-			{
-				byte ret = WaitProcessNative(process, block ? (byte)1 : (byte)0, (int*)pexitcode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitProcess")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process, [NativeName(NativeNameType.Param, "block")] [NativeName(NativeNameType.Type, "bool")] bool block, [NativeName(NativeNameType.Param, "exitcode")] [NativeName(NativeNameType.Type, "int *")] ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					byte ret = WaitProcessNative((SDLProcess*)pprocess, block ? (byte)1 : (byte)0, (int*)pexitcode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProcess")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyProcessNative([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLProcess*, void>)funcTable[1031])(process);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProcess")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] SDLProcess* process)
-		{
-			DestroyProcessNative(process);
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProcess")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyProcess([NativeName(NativeNameType.Param, "process")] [NativeName(NativeNameType.Type, "SDL_Process *")] ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				DestroyProcessNative((SDLProcess*)pprocess);
-			}
-		}
-
-		/// <summary>
-		/// Get the number of 2D rendering drivers available for the current display.<br/>
-		/// A render driver is a set of code that handles rendering and texture<br/>
-		/// management on a particular display. Normally there is only one, but some<br/>
-		/// drivers may have several available with different capabilities.<br/>
-		/// There may be none if SDL was compiled without render support.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumRenderDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumRenderDriversNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1032])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1032])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of 2D rendering drivers available for the current display.<br/>
-		/// A render driver is a set of code that handles rendering and texture<br/>
-		/// management on a particular display. Normally there is only one, but some<br/>
-		/// drivers may have several available with different capabilities.<br/>
-		/// There may be none if SDL was compiled without render support.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumRenderDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumRenderDrivers()
-		{
-			int ret = GetNumRenderDriversNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetRenderDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1033])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1033])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetRenderDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			byte* ret = GetRenderDriverNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDriver")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetRenderDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetRenderDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CreateWindowAndRendererNative([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, int, SDLWindowFlags, SDLWindow**, SDLRenderer**, byte>)funcTable[1034])(title, width, height, windowFlags, window, renderer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, SDLWindowFlags, nint, nint, byte>)funcTable[1034])((nint)title, width, height, windowFlags, (nint)window, (nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, renderer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, renderer);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (SDLWindow** pwindow = &window)
-			{
-				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] SDLRenderer** renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow** pwindow = &window)
-			{
-				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (SDLRenderer** prenderer = &renderer)
-			{
-				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLRenderer** prenderer = &renderer)
-			{
-				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] byte* title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (SDLWindow** pwindow = &window)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ref byte title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					fixed (SDLRenderer** prenderer = &renderer)
-					{
-						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
+						byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
 						return ret != 0;
 					}
 				}
@@ -4792,24 +445,25 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Create a window and default renderer.<br/>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
+		public static bool UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
 		{
-			fixed (byte* ptitle = title)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (SDLWindow** pwindow = &window)
+				fixed (byte* pyplane = &yplane)
 				{
-					fixed (SDLRenderer** prenderer = &renderer)
+					fixed (byte* puVplane = &uVplane)
 					{
-						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
+						byte ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
 						return ret != 0;
 					}
 				}
@@ -4817,236 +471,4560 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Create a window and default renderer.<br/>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateWindowAndRenderer([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "char const *")] string title, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "SDL_WindowFlags")] SDLWindowFlags windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window * *")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer * *")] ref SDLRenderer* renderer)
+		public static bool UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLRect* prect = &rect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow** pwindow = &window)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (byte* pyplane = &yplane)
 					{
-						Utils.Free(pStr0);
+						fixed (byte* puVplane = &uVplane)
+						{
+							byte ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+							return ret != 0;
+						}
 					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte LockTextureNative(SDLTexture* texture, SDLRect* rect, void** pixels, int* pitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void**, int*, byte>)funcTable[1065])(texture, rect, pixels, pitch);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1065])((nint)texture, (nint)rect, (nint)pixels, (nint)pitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTexture(SDLTexture* texture, SDLRect* rect, void** pixels, int* pitch)
+		{
+			byte ret = LockTextureNative(texture, rect, pixels, pitch);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTexture(ref SDLTexture texture, SDLRect* rect, void** pixels, int* pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTexture(SDLTexture* texture, ref SDLRect rect, void** pixels, int* pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = LockTextureNative(texture, (SDLRect*)prect, pixels, pitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTexture(ref SDLTexture texture, ref SDLRect rect, void** pixels, int* pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
+		public static bool LockTexture(SDLTexture* texture, SDLRect* rect, void** pixels, ref int pitch)
+		{
+			fixed (int* ppitch = &pitch)
+			{
+				byte ret = LockTextureNative(texture, rect, pixels, (int*)ppitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTexture(ref SDLTexture texture, SDLRect* rect, void** pixels, ref int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* ppitch = &pitch)
+				{
+					byte ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, (int*)ppitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTexture(SDLTexture* texture, ref SDLRect rect, void** pixels, ref int pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* ppitch = &pitch)
+				{
+					byte ret = LockTextureNative(texture, (SDLRect*)prect, pixels, (int*)ppitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTexture(ref SDLTexture texture, ref SDLRect rect, void** pixels, ref int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (int* ppitch = &pitch)
+					{
+						byte ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, (int*)ppitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* CreateRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static byte LockTextureToSurfaceNative(SDLTexture* texture, SDLRect* rect, SDLSurface** surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, SDLRenderer*>)funcTable[1035])(window, name);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, SDLSurface**, byte>)funcTable[1066])(texture, rect, surface);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1035])((nint)window, (nint)name);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1066])((nint)texture, (nint)rect, (nint)surface);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static bool LockTextureToSurface(SDLTexture* texture, SDLRect* rect, SDLSurface** surface)
 		{
-			SDLRenderer* ret = CreateRendererNative(window, name);
+			byte ret = LockTextureToSurfaceNative(texture, rect, surface);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTextureToSurface(ref SDLTexture texture, SDLRect* rect, SDLSurface** surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, surface);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTextureToSurface(SDLTexture* texture, ref SDLRect rect, SDLSurface** surface)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, surface);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTextureToSurface(ref SDLTexture texture, ref SDLRect rect, SDLSurface** surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, surface);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTextureToSurface(SDLTexture* texture, SDLRect* rect, ref SDLSurface* surface)
+		{
+			fixed (SDLSurface** psurface = &surface)
+			{
+				byte ret = LockTextureToSurfaceNative(texture, rect, (SDLSurface**)psurface);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTextureToSurface(ref SDLTexture texture, SDLRect* rect, ref SDLSurface* surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLSurface** psurface = &surface)
+				{
+					byte ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, (SDLSurface**)psurface);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTextureToSurface(SDLTexture* texture, ref SDLRect rect, ref SDLSurface* surface)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (SDLSurface** psurface = &surface)
+				{
+					byte ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, (SDLSurface**)psurface);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool LockTextureToSurface(ref SDLTexture texture, ref SDLRect rect, ref SDLSurface* surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (SDLSurface** psurface = &surface)
+					{
+						byte ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, (SDLSurface**)psurface);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
+		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
+		/// write-only; it will not guarantee the previous contents of the texture will<br/>
+		/// be provided. You must fully initialize any area of a texture that you lock<br/>
+		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
+		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
+		/// corrupted textures, depending on the renderer in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockTextureNative(SDLTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[1067])(texture);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1067])((nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
+		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
+		/// write-only; it will not guarantee the previous contents of the texture will<br/>
+		/// be provided. You must fully initialize any area of a texture that you lock<br/>
+		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
+		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
+		/// corrupted textures, depending on the renderer in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnlockTexture(SDLTexture* texture)
+		{
+			UnlockTextureNative(texture);
+		}
+
+		/// <summary>
+		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
+		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
+		/// write-only; it will not guarantee the previous contents of the texture will<br/>
+		/// be provided. You must fully initialize any area of a texture that you lock<br/>
+		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
+		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
+		/// corrupted textures, depending on the renderer in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnlockTexture(ref SDLTexture texture)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				UnlockTextureNative((SDLTexture*)ptexture);
+			}
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderTargetNative(SDLRenderer* renderer, SDLTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, byte>)funcTable[1068])(renderer, texture);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1068])((nint)renderer, (nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderTarget(SDLRenderer* renderer, SDLTexture* texture)
+		{
+			byte ret = SetRenderTargetNative(renderer, texture);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderTarget(ref SDLRenderer renderer, SDLTexture* texture)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = SetRenderTargetNative((SDLRenderer*)prenderer, texture);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderTarget(SDLRenderer* renderer, ref SDLTexture texture)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = SetRenderTargetNative(renderer, (SDLTexture*)ptexture);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// Viewport, cliprect, scale, and logical presentation are unique to each<br/>
+		/// render target. Get and set functions for these states apply to the current<br/>
+		/// render target set by this function, and those states persist on each target<br/>
+		/// when the current render target changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderTarget(ref SDLRenderer renderer, ref SDLTexture texture)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					byte ret = SetRenderTargetNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current render target.<br/>
+		/// The default render target is the window for which the renderer was created,<br/>
+		/// and is reported a NULL here.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTexture* GetRenderTargetNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*>)funcTable[1069])(renderer);
+			#else
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1069])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current render target.<br/>
+		/// The default render target is the window for which the renderer was created,<br/>
+		/// and is reported a NULL here.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexture* GetRenderTarget(SDLRenderer* renderer)
+		{
+			SDLTexture* ret = GetRenderTargetNative(renderer);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Get the current render target.<br/>
+		/// The default render target is the window for which the renderer was created,<br/>
+		/// and is reported a NULL here.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static SDLTexture* GetRenderTarget(ref SDLRenderer renderer)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, name);
+				SDLTexture* ret = GetRenderTargetNative((SDLRenderer*)prenderer);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Set a device-independent resolution and presentation mode for rendering.<br/>
+		/// This function sets the width and height of the logical rendering output.<br/>
+		/// The renderer will act as if the current render target is always the<br/>
+		/// requested dimensions, scaling to the actual resolution as necessary.<br/>
+		/// This can be useful for games that expect a fixed size, but would like to<br/>
+		/// scale the output to whatever is available, regardless of how a user resizes<br/>
+		/// a window, or if the display is high DPI.<br/>
+		/// Logical presentation can be used with both render target textures and the<br/>
+		/// renderer's window; the state is unique to each render target, and this<br/>
+		/// function sets the state for the current render target. It might be useful<br/>
+		/// to draw to a texture that matches the window dimensions with logical<br/>
+		/// presentation enabled, and then draw that texture across the entire window<br/>
+		/// with logical presentation disabled. Be careful not to render both with<br/>
+		/// logical presentation enabled, however, as this could produce<br/>
+		/// double-letterboxing, etc.<br/>
+		/// You can disable logical coordinates by setting the mode to<br/>
+		/// SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel<br/>
+		/// resolution of the render target; it is safe to toggle logical presentation<br/>
+		/// during the rendering of a frame: perhaps most of the rendering is done to<br/>
+		/// specific dimensions but to make fonts look sharp, the app turns off logical<br/>
+		/// presentation while drawing text, for example.<br/>
+		/// For the renderer's window, letterboxing is drawn into the framebuffer if<br/>
+		/// logical presentation is enabled during SDL_RenderPresent; be sure to<br/>
+		/// reenable it before presenting if you were toggling it, otherwise the<br/>
+		/// letterbox areas might have artifacts from previous frames (or artifacts<br/>
+		/// from external overlays, etc). Letterboxing is never drawn into texture<br/>
+		/// render targets; be sure to call SDL_RenderClear() before drawing into the<br/>
+		/// texture so the letterboxing areas are cleared, if appropriate.<br/>
+		/// You can convert coordinates in an event into rendering coordinates using<br/>
+		/// SDL_ConvertEventToRenderCoordinates().<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderLogicalPresentationNative(SDLRenderer* renderer, int w, int h, SDLRendererLogicalPresentation mode)
 		{
-			fixed (byte* pname = &name)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, SDLRendererLogicalPresentation, byte>)funcTable[1070])(renderer, w, h, mode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, SDLRendererLogicalPresentation, byte>)funcTable[1070])((nint)renderer, w, h, mode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a device-independent resolution and presentation mode for rendering.<br/>
+		/// This function sets the width and height of the logical rendering output.<br/>
+		/// The renderer will act as if the current render target is always the<br/>
+		/// requested dimensions, scaling to the actual resolution as necessary.<br/>
+		/// This can be useful for games that expect a fixed size, but would like to<br/>
+		/// scale the output to whatever is available, regardless of how a user resizes<br/>
+		/// a window, or if the display is high DPI.<br/>
+		/// Logical presentation can be used with both render target textures and the<br/>
+		/// renderer's window; the state is unique to each render target, and this<br/>
+		/// function sets the state for the current render target. It might be useful<br/>
+		/// to draw to a texture that matches the window dimensions with logical<br/>
+		/// presentation enabled, and then draw that texture across the entire window<br/>
+		/// with logical presentation disabled. Be careful not to render both with<br/>
+		/// logical presentation enabled, however, as this could produce<br/>
+		/// double-letterboxing, etc.<br/>
+		/// You can disable logical coordinates by setting the mode to<br/>
+		/// SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel<br/>
+		/// resolution of the render target; it is safe to toggle logical presentation<br/>
+		/// during the rendering of a frame: perhaps most of the rendering is done to<br/>
+		/// specific dimensions but to make fonts look sharp, the app turns off logical<br/>
+		/// presentation while drawing text, for example.<br/>
+		/// For the renderer's window, letterboxing is drawn into the framebuffer if<br/>
+		/// logical presentation is enabled during SDL_RenderPresent; be sure to<br/>
+		/// reenable it before presenting if you were toggling it, otherwise the<br/>
+		/// letterbox areas might have artifacts from previous frames (or artifacts<br/>
+		/// from external overlays, etc). Letterboxing is never drawn into texture<br/>
+		/// render targets; be sure to call SDL_RenderClear() before drawing into the<br/>
+		/// texture so the letterboxing areas are cleared, if appropriate.<br/>
+		/// You can convert coordinates in an event into rendering coordinates using<br/>
+		/// SDL_ConvertEventToRenderCoordinates().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderLogicalPresentation(SDLRenderer* renderer, int w, int h, SDLRendererLogicalPresentation mode)
+		{
+			byte ret = SetRenderLogicalPresentationNative(renderer, w, h, mode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a device-independent resolution and presentation mode for rendering.<br/>
+		/// This function sets the width and height of the logical rendering output.<br/>
+		/// The renderer will act as if the current render target is always the<br/>
+		/// requested dimensions, scaling to the actual resolution as necessary.<br/>
+		/// This can be useful for games that expect a fixed size, but would like to<br/>
+		/// scale the output to whatever is available, regardless of how a user resizes<br/>
+		/// a window, or if the display is high DPI.<br/>
+		/// Logical presentation can be used with both render target textures and the<br/>
+		/// renderer's window; the state is unique to each render target, and this<br/>
+		/// function sets the state for the current render target. It might be useful<br/>
+		/// to draw to a texture that matches the window dimensions with logical<br/>
+		/// presentation enabled, and then draw that texture across the entire window<br/>
+		/// with logical presentation disabled. Be careful not to render both with<br/>
+		/// logical presentation enabled, however, as this could produce<br/>
+		/// double-letterboxing, etc.<br/>
+		/// You can disable logical coordinates by setting the mode to<br/>
+		/// SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel<br/>
+		/// resolution of the render target; it is safe to toggle logical presentation<br/>
+		/// during the rendering of a frame: perhaps most of the rendering is done to<br/>
+		/// specific dimensions but to make fonts look sharp, the app turns off logical<br/>
+		/// presentation while drawing text, for example.<br/>
+		/// For the renderer's window, letterboxing is drawn into the framebuffer if<br/>
+		/// logical presentation is enabled during SDL_RenderPresent; be sure to<br/>
+		/// reenable it before presenting if you were toggling it, otherwise the<br/>
+		/// letterbox areas might have artifacts from previous frames (or artifacts<br/>
+		/// from external overlays, etc). Letterboxing is never drawn into texture<br/>
+		/// render targets; be sure to call SDL_RenderClear() before drawing into the<br/>
+		/// texture so the letterboxing areas are cleared, if appropriate.<br/>
+		/// You can convert coordinates in an event into rendering coordinates using<br/>
+		/// SDL_ConvertEventToRenderCoordinates().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderLogicalPresentation(ref SDLRenderer renderer, int w, int h, SDLRendererLogicalPresentation mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
-				return ret;
+				byte ret = SetRenderLogicalPresentationNative((SDLRenderer*)prenderer, w, h, mode);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderLogicalPresentationNative(SDLRenderer* renderer, int* w, int* h, SDLRendererLogicalPresentation* mode)
 		{
-			fixed (byte* pname = name)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, SDLRendererLogicalPresentation*, byte>)funcTable[1071])(renderer, w, h, mode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1071])((nint)renderer, (nint)w, (nint)h, (nint)mode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, int* w, int* h, SDLRendererLogicalPresentation* mode)
+		{
+			byte ret = GetRenderLogicalPresentationNative(renderer, w, h, mode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, int* w, int* h, SDLRendererLogicalPresentation* mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
-				return ret;
+				byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, w, h, mode);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
 		/// <br/>
 		/// <br/>
 		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
-		[return: NativeName(NativeNameType.Type, "SDL_Renderer *")]
-		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, ref int w, int* h, SDLRendererLogicalPresentation* mode)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (int* pw = &w)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				byte ret = GetRenderLogicalPresentationNative(renderer, (int*)pw, h, mode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, ref int w, int* h, SDLRendererLogicalPresentation* mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, (int*)pw, h, mode);
+					return ret != 0;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			SDLRenderer* ret = CreateRendererNative(window, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, int* w, ref int h, SDLRendererLogicalPresentation* mode)
+		{
+			fixed (int* ph = &h)
 			{
-				Utils.Free(pStr0);
+				byte ret = GetRenderLogicalPresentationNative(renderer, w, (int*)ph, mode);
+				return ret != 0;
 			}
-			return ret;
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, int* w, ref int h, SDLRendererLogicalPresentation* mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* ph = &h)
+				{
+					byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, w, (int*)ph, mode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, ref int w, ref int h, SDLRendererLogicalPresentation* mode)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					byte ret = GetRenderLogicalPresentationNative(renderer, (int*)pw, (int*)ph, mode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, ref int w, ref int h, SDLRendererLogicalPresentation* mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph, mode);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, int* w, int* h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (SDLRendererLogicalPresentation* pmode = &mode)
+			{
+				byte ret = GetRenderLogicalPresentationNative(renderer, w, h, (SDLRendererLogicalPresentation*)pmode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, int* w, int* h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRendererLogicalPresentation* pmode = &mode)
+				{
+					byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, w, h, (SDLRendererLogicalPresentation*)pmode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, ref int w, int* h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (SDLRendererLogicalPresentation* pmode = &mode)
+				{
+					byte ret = GetRenderLogicalPresentationNative(renderer, (int*)pw, h, (SDLRendererLogicalPresentation*)pmode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, ref int w, int* h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (SDLRendererLogicalPresentation* pmode = &mode)
+					{
+						byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, (int*)pw, h, (SDLRendererLogicalPresentation*)pmode);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, int* w, ref int h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (int* ph = &h)
+			{
+				fixed (SDLRendererLogicalPresentation* pmode = &mode)
+				{
+					byte ret = GetRenderLogicalPresentationNative(renderer, w, (int*)ph, (SDLRendererLogicalPresentation*)pmode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, int* w, ref int h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* ph = &h)
+				{
+					fixed (SDLRendererLogicalPresentation* pmode = &mode)
+					{
+						byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, w, (int*)ph, (SDLRendererLogicalPresentation*)pmode);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(SDLRenderer* renderer, ref int w, ref int h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					fixed (SDLRendererLogicalPresentation* pmode = &mode)
+					{
+						byte ret = GetRenderLogicalPresentationNative(renderer, (int*)pw, (int*)ph, (SDLRendererLogicalPresentation*)pmode);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution and presentation mode for rendering.<br/>
+		/// This function gets the width and height of the logical rendering output, or<br/>
+		/// the output size in pixels if a logical resolution is not enabled.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the state for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentation(ref SDLRenderer renderer, ref int w, ref int h, ref SDLRendererLogicalPresentation mode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						fixed (SDLRendererLogicalPresentation* pmode = &mode)
+						{
+							byte ret = GetRenderLogicalPresentationNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph, (SDLRendererLogicalPresentation*)pmode);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the final presentation rectangle for rendering.<br/>
+		/// This function returns the calculated rectangle used for logical<br/>
+		/// presentation, based on the presentation mode and output size. If logical<br/>
+		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
+		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderLogicalPresentationRectNative(SDLRenderer* renderer, SDLFRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, byte>)funcTable[1072])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1072])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the final presentation rectangle for rendering.<br/>
+		/// This function returns the calculated rectangle used for logical<br/>
+		/// presentation, based on the presentation mode and output size. If logical<br/>
+		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
+		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentationRect(SDLRenderer* renderer, SDLFRect* rect)
+		{
+			byte ret = GetRenderLogicalPresentationRectNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the final presentation rectangle for rendering.<br/>
+		/// This function returns the calculated rectangle used for logical<br/>
+		/// presentation, based on the presentation mode and output size. If logical<br/>
+		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
+		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentationRect(ref SDLRenderer renderer, SDLFRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderLogicalPresentationRectNative((SDLRenderer*)prenderer, rect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the final presentation rectangle for rendering.<br/>
+		/// This function returns the calculated rectangle used for logical<br/>
+		/// presentation, based on the presentation mode and output size. If logical<br/>
+		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
+		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentationRect(SDLRenderer* renderer, ref SDLFRect rect)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				byte ret = GetRenderLogicalPresentationRectNative(renderer, (SDLFRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the final presentation rectangle for rendering.<br/>
+		/// This function returns the calculated rectangle used for logical<br/>
+		/// presentation, based on the presentation mode and output size. If logical<br/>
+		/// presentation is disabled, it will fill the rectangle with the output size,<br/>
+		/// in pixels.<br/>
+		/// Each render target has its own logical presentation state. This function<br/>
+		/// gets the rectangle for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderLogicalPresentationRect(ref SDLRenderer renderer, ref SDLFRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prect = &rect)
+				{
+					byte ret = GetRenderLogicalPresentationRectNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderCoordinatesFromWindowNative(SDLRenderer* renderer, float windowX, float windowY, float* x, float* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float*, float*, byte>)funcTable[1073])(renderer, windowX, windowY, x, y);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, nint, nint, byte>)funcTable[1073])((nint)renderer, windowX, windowY, (nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(SDLRenderer* renderer, float windowX, float windowY, float* x, float* y)
+		{
+			byte ret = RenderCoordinatesFromWindowNative(renderer, windowX, windowY, x, y);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(ref SDLRenderer renderer, float windowX, float windowY, float* x, float* y)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderCoordinatesFromWindowNative((SDLRenderer*)prenderer, windowX, windowY, x, y);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(SDLRenderer* renderer, float windowX, float windowY, ref float x, float* y)
+		{
+			fixed (float* px = &x)
+			{
+				byte ret = RenderCoordinatesFromWindowNative(renderer, windowX, windowY, (float*)px, y);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(ref SDLRenderer renderer, float windowX, float windowY, ref float x, float* y)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* px = &x)
+				{
+					byte ret = RenderCoordinatesFromWindowNative((SDLRenderer*)prenderer, windowX, windowY, (float*)px, y);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(SDLRenderer* renderer, float windowX, float windowY, float* x, ref float y)
+		{
+			fixed (float* py = &y)
+			{
+				byte ret = RenderCoordinatesFromWindowNative(renderer, windowX, windowY, x, (float*)py);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(ref SDLRenderer renderer, float windowX, float windowY, float* x, ref float y)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* py = &y)
+				{
+					byte ret = RenderCoordinatesFromWindowNative((SDLRenderer*)prenderer, windowX, windowY, x, (float*)py);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(SDLRenderer* renderer, float windowX, float windowY, ref float x, ref float y)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
+				{
+					byte ret = RenderCoordinatesFromWindowNative(renderer, windowX, windowY, (float*)px, (float*)py);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in render coordinates when given a point in window coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesFromWindow(ref SDLRenderer renderer, float windowX, float windowY, ref float x, ref float y)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						byte ret = RenderCoordinatesFromWindowNative((SDLRenderer*)prenderer, windowX, windowY, (float*)px, (float*)py);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderCoordinatesToWindowNative(SDLRenderer* renderer, float x, float y, float* windowX, float* windowY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float*, float*, byte>)funcTable[1074])(renderer, x, y, windowX, windowY);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, nint, nint, byte>)funcTable[1074])((nint)renderer, x, y, (nint)windowX, (nint)windowY);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(SDLRenderer* renderer, float x, float y, float* windowX, float* windowY)
+		{
+			byte ret = RenderCoordinatesToWindowNative(renderer, x, y, windowX, windowY);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(ref SDLRenderer renderer, float x, float y, float* windowX, float* windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderCoordinatesToWindowNative((SDLRenderer*)prenderer, x, y, windowX, windowY);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(SDLRenderer* renderer, float x, float y, ref float windowX, float* windowY)
+		{
+			fixed (float* pwindowX = &windowX)
+			{
+				byte ret = RenderCoordinatesToWindowNative(renderer, x, y, (float*)pwindowX, windowY);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(ref SDLRenderer renderer, float x, float y, ref float windowX, float* windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pwindowX = &windowX)
+				{
+					byte ret = RenderCoordinatesToWindowNative((SDLRenderer*)prenderer, x, y, (float*)pwindowX, windowY);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(SDLRenderer* renderer, float x, float y, float* windowX, ref float windowY)
+		{
+			fixed (float* pwindowY = &windowY)
+			{
+				byte ret = RenderCoordinatesToWindowNative(renderer, x, y, windowX, (float*)pwindowY);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(ref SDLRenderer renderer, float x, float y, float* windowX, ref float windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pwindowY = &windowY)
+				{
+					byte ret = RenderCoordinatesToWindowNative((SDLRenderer*)prenderer, x, y, windowX, (float*)pwindowY);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(SDLRenderer* renderer, float x, float y, ref float windowX, ref float windowY)
+		{
+			fixed (float* pwindowX = &windowX)
+			{
+				fixed (float* pwindowY = &windowY)
+				{
+					byte ret = RenderCoordinatesToWindowNative(renderer, x, y, (float*)pwindowX, (float*)pwindowY);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a point in window coordinates when given a point in render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderCoordinatesToWindow(ref SDLRenderer renderer, float x, float y, ref float windowX, ref float windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pwindowX = &windowX)
+				{
+					fixed (float* pwindowY = &windowY)
+					{
+						byte ret = RenderCoordinatesToWindowNative((SDLRenderer*)prenderer, x, y, (float*)pwindowX, (float*)pwindowY);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert the coordinates in an event to render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// Various event types are converted with this function: mouse, touch, pen,<br/>
+		/// etc.<br/>
+		/// Touch coordinates are converted from normalized coordinates in the window<br/>
+		/// to non-normalized rendering coordinates.<br/>
+		/// Relative mouse coordinates (xrel and yrel event fields) are _also_<br/>
+		/// converted. Applications that do not want these fields converted should use<br/>
+		/// SDL_RenderCoordinatesFromWindow() on the specific event fields instead of<br/>
+		/// converting the entire event structure.<br/>
+		/// Once converted, coordinates may be outside the rendering area.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ConvertEventToRenderCoordinatesNative(SDLRenderer* renderer, SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLEvent*, byte>)funcTable[1075])(renderer, evnt);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1075])((nint)renderer, (nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert the coordinates in an event to render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// Various event types are converted with this function: mouse, touch, pen,<br/>
+		/// etc.<br/>
+		/// Touch coordinates are converted from normalized coordinates in the window<br/>
+		/// to non-normalized rendering coordinates.<br/>
+		/// Relative mouse coordinates (xrel and yrel event fields) are _also_<br/>
+		/// converted. Applications that do not want these fields converted should use<br/>
+		/// SDL_RenderCoordinatesFromWindow() on the specific event fields instead of<br/>
+		/// converting the entire event structure.<br/>
+		/// Once converted, coordinates may be outside the rendering area.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool ConvertEventToRenderCoordinates(SDLRenderer* renderer, SDLEvent* evnt)
+		{
+			byte ret = ConvertEventToRenderCoordinatesNative(renderer, evnt);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Convert the coordinates in an event to render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// Various event types are converted with this function: mouse, touch, pen,<br/>
+		/// etc.<br/>
+		/// Touch coordinates are converted from normalized coordinates in the window<br/>
+		/// to non-normalized rendering coordinates.<br/>
+		/// Relative mouse coordinates (xrel and yrel event fields) are _also_<br/>
+		/// converted. Applications that do not want these fields converted should use<br/>
+		/// SDL_RenderCoordinatesFromWindow() on the specific event fields instead of<br/>
+		/// converting the entire event structure.<br/>
+		/// Once converted, coordinates may be outside the rendering area.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool ConvertEventToRenderCoordinates(ref SDLRenderer renderer, SDLEvent* evnt)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = ConvertEventToRenderCoordinatesNative((SDLRenderer*)prenderer, evnt);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert the coordinates in an event to render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// Various event types are converted with this function: mouse, touch, pen,<br/>
+		/// etc.<br/>
+		/// Touch coordinates are converted from normalized coordinates in the window<br/>
+		/// to non-normalized rendering coordinates.<br/>
+		/// Relative mouse coordinates (xrel and yrel event fields) are _also_<br/>
+		/// converted. Applications that do not want these fields converted should use<br/>
+		/// SDL_RenderCoordinatesFromWindow() on the specific event fields instead of<br/>
+		/// converting the entire event structure.<br/>
+		/// Once converted, coordinates may be outside the rendering area.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool ConvertEventToRenderCoordinates(SDLRenderer* renderer, ref SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				byte ret = ConvertEventToRenderCoordinatesNative(renderer, (SDLEvent*)pevnt);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert the coordinates in an event to render coordinates.<br/>
+		/// This takes into account several states:<br/>
+		/// - The window dimensions.<br/>
+		/// - The logical presentation settings (SDL_SetRenderLogicalPresentation)<br/>
+		/// - The scale (SDL_SetRenderScale)<br/>
+		/// - The viewport (SDL_SetRenderViewport)<br/>
+		/// Various event types are converted with this function: mouse, touch, pen,<br/>
+		/// etc.<br/>
+		/// Touch coordinates are converted from normalized coordinates in the window<br/>
+		/// to non-normalized rendering coordinates.<br/>
+		/// Relative mouse coordinates (xrel and yrel event fields) are _also_<br/>
+		/// converted. Applications that do not want these fields converted should use<br/>
+		/// SDL_RenderCoordinatesFromWindow() on the specific event fields instead of<br/>
+		/// converting the entire event structure.<br/>
+		/// Once converted, coordinates may be outside the rendering area.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool ConvertEventToRenderCoordinates(ref SDLRenderer renderer, ref SDLEvent evnt)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLEvent* pevnt = &evnt)
+				{
+					byte ret = ConvertEventToRenderCoordinatesNative((SDLRenderer*)prenderer, (SDLEvent*)pevnt);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// Drawing will clip to this area (separately from any clipping done with<br/>
+		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
+		/// (0, 0) for future drawing commands.<br/>
+		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderViewportNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, byte>)funcTable[1076])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1076])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// Drawing will clip to this area (separately from any clipping done with<br/>
+		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
+		/// (0, 0) for future drawing commands.<br/>
+		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderViewport(SDLRenderer* renderer, SDLRect* rect)
+		{
+			byte ret = SetRenderViewportNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// Drawing will clip to this area (separately from any clipping done with<br/>
+		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
+		/// (0, 0) for future drawing commands.<br/>
+		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderViewport(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = SetRenderViewportNative((SDLRenderer*)prenderer, rect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// Drawing will clip to this area (separately from any clipping done with<br/>
+		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
+		/// (0, 0) for future drawing commands.<br/>
+		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderViewport(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = SetRenderViewportNative(renderer, (SDLRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// Drawing will clip to this area (separately from any clipping done with<br/>
+		/// SDL_SetRenderClipRect), and the top left of the area will become coordinate<br/>
+		/// (0, 0) for future drawing commands.<br/>
+		/// The area's width and height must be >= 0.<br/>
+		/// Each render target has its own viewport. This function sets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderViewport(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = SetRenderViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderViewportNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, byte>)funcTable[1077])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1077])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderViewport(SDLRenderer* renderer, SDLRect* rect)
+		{
+			byte ret = GetRenderViewportNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderViewport(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderViewportNative((SDLRenderer*)prenderer, rect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderViewport(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = GetRenderViewportNative(renderer, (SDLRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// Each render target has its own viewport. This function gets the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderViewport(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = GetRenderViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return whether an explicit rectangle was set as the viewport.<br/>
+		/// This is useful if you're saving and restoring the viewport and want to know<br/>
+		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
+		/// viewport is always reset when changing rendering targets.<br/>
+		/// Each render target has its own viewport. This function checks the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderViewportSetNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte>)funcTable[1078])(renderer);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1078])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether an explicit rectangle was set as the viewport.<br/>
+		/// This is useful if you're saving and restoring the viewport and want to know<br/>
+		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
+		/// viewport is always reset when changing rendering targets.<br/>
+		/// Each render target has its own viewport. This function checks the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderViewportSet(SDLRenderer* renderer)
+		{
+			byte ret = RenderViewportSetNative(renderer);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Return whether an explicit rectangle was set as the viewport.<br/>
+		/// This is useful if you're saving and restoring the viewport and want to know<br/>
+		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
+		/// viewport is always reset when changing rendering targets.<br/>
+		/// Each render target has its own viewport. This function checks the viewport<br/>
+		/// for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderViewportSet(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderViewportSetNative((SDLRenderer*)prenderer);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the safe area for rendering within the current viewport.<br/>
+		/// Some devices have portions of the screen which are partially obscured or<br/>
+		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
+		/// notches, TV overscan, etc. This function provides the area of the current<br/>
+		/// viewport which is safe to have interactible content. You should continue<br/>
+		/// rendering into the rest of the render target, but it should not contain<br/>
+		/// visually important or interactible content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderSafeAreaNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, byte>)funcTable[1079])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1079])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the safe area for rendering within the current viewport.<br/>
+		/// Some devices have portions of the screen which are partially obscured or<br/>
+		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
+		/// notches, TV overscan, etc. This function provides the area of the current<br/>
+		/// viewport which is safe to have interactible content. You should continue<br/>
+		/// rendering into the rest of the render target, but it should not contain<br/>
+		/// visually important or interactible content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderSafeArea(SDLRenderer* renderer, SDLRect* rect)
+		{
+			byte ret = GetRenderSafeAreaNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the safe area for rendering within the current viewport.<br/>
+		/// Some devices have portions of the screen which are partially obscured or<br/>
+		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
+		/// notches, TV overscan, etc. This function provides the area of the current<br/>
+		/// viewport which is safe to have interactible content. You should continue<br/>
+		/// rendering into the rest of the render target, but it should not contain<br/>
+		/// visually important or interactible content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderSafeArea(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderSafeAreaNative((SDLRenderer*)prenderer, rect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the safe area for rendering within the current viewport.<br/>
+		/// Some devices have portions of the screen which are partially obscured or<br/>
+		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
+		/// notches, TV overscan, etc. This function provides the area of the current<br/>
+		/// viewport which is safe to have interactible content. You should continue<br/>
+		/// rendering into the rest of the render target, but it should not contain<br/>
+		/// visually important or interactible content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderSafeArea(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = GetRenderSafeAreaNative(renderer, (SDLRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the safe area for rendering within the current viewport.<br/>
+		/// Some devices have portions of the screen which are partially obscured or<br/>
+		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
+		/// notches, TV overscan, etc. This function provides the area of the current<br/>
+		/// viewport which is safe to have interactible content. You should continue<br/>
+		/// rendering into the rest of the render target, but it should not contain<br/>
+		/// visually important or interactible content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderSafeArea(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = GetRenderSafeAreaNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderClipRectNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, byte>)funcTable[1080])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1080])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderClipRect(SDLRenderer* renderer, SDLRect* rect)
+		{
+			byte ret = SetRenderClipRectNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderClipRect(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = SetRenderClipRectNative((SDLRenderer*)prenderer, rect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderClipRect(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = SetRenderClipRectNative(renderer, (SDLRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// Each render target has its own clip rectangle. This function sets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderClipRect(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = SetRenderClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderClipRectNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, byte>)funcTable[1081])(renderer, rect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1081])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderClipRect(SDLRenderer* renderer, SDLRect* rect)
+		{
+			byte ret = GetRenderClipRectNative(renderer, rect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderClipRect(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderClipRectNative((SDLRenderer*)prenderer, rect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderClipRect(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = GetRenderClipRectNative(renderer, (SDLRect*)prect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// Each render target has its own clip rectangle. This function gets the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderClipRect(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = GetRenderClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get whether clipping is enabled on the given render target.<br/>
+		/// Each render target has its own clip rectangle. This function checks the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenderClipEnabledNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte>)funcTable[1082])(renderer);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1082])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get whether clipping is enabled on the given render target.<br/>
+		/// Each render target has its own clip rectangle. This function checks the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderClipEnabled(SDLRenderer* renderer)
+		{
+			byte ret = RenderClipEnabledNative(renderer);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get whether clipping is enabled on the given render target.<br/>
+		/// Each render target has its own clip rectangle. This function checks the<br/>
+		/// cliprect for the current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool RenderClipEnabled(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = RenderClipEnabledNative((SDLRenderer*)prenderer);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing scale for rendering on the current target.<br/>
+		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
+		/// are used by the renderer. This allows resolution independent drawing with a<br/>
+		/// single coordinate system.<br/>
+		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
+		/// will be handled using the appropriate quality hints. For best results use<br/>
+		/// integer scaling factors.<br/>
+		/// Each render target has its own scale. This function sets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderScaleNative(SDLRenderer* renderer, float scaleX, float scaleY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, byte>)funcTable[1083])(renderer, scaleX, scaleY);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, byte>)funcTable[1083])((nint)renderer, scaleX, scaleY);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the drawing scale for rendering on the current target.<br/>
+		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
+		/// are used by the renderer. This allows resolution independent drawing with a<br/>
+		/// single coordinate system.<br/>
+		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
+		/// will be handled using the appropriate quality hints. For best results use<br/>
+		/// integer scaling factors.<br/>
+		/// Each render target has its own scale. This function sets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderScale(SDLRenderer* renderer, float scaleX, float scaleY)
+		{
+			byte ret = SetRenderScaleNative(renderer, scaleX, scaleY);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the drawing scale for rendering on the current target.<br/>
+		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
+		/// are used by the renderer. This allows resolution independent drawing with a<br/>
+		/// single coordinate system.<br/>
+		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
+		/// will be handled using the appropriate quality hints. For best results use<br/>
+		/// integer scaling factors.<br/>
+		/// Each render target has its own scale. This function sets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderScale(ref SDLRenderer renderer, float scaleX, float scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = SetRenderScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderScaleNative(SDLRenderer* renderer, float* scaleX, float* scaleY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, float*, byte>)funcTable[1084])(renderer, scaleX, scaleY);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1084])((nint)renderer, (nint)scaleX, (nint)scaleY);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(SDLRenderer* renderer, float* scaleX, float* scaleY)
+		{
+			byte ret = GetRenderScaleNative(renderer, scaleX, scaleY);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(ref SDLRenderer renderer, float* scaleX, float* scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(SDLRenderer* renderer, ref float scaleX, float* scaleY)
+		{
+			fixed (float* pscaleX = &scaleX)
+			{
+				byte ret = GetRenderScaleNative(renderer, (float*)pscaleX, scaleY);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(ref SDLRenderer renderer, ref float scaleX, float* scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pscaleX = &scaleX)
+				{
+					byte ret = GetRenderScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, scaleY);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(SDLRenderer* renderer, float* scaleX, ref float scaleY)
+		{
+			fixed (float* pscaleY = &scaleY)
+			{
+				byte ret = GetRenderScaleNative(renderer, scaleX, (float*)pscaleY);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(ref SDLRenderer renderer, float* scaleX, ref float scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pscaleY = &scaleY)
+				{
+					byte ret = GetRenderScaleNative((SDLRenderer*)prenderer, scaleX, (float*)pscaleY);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(SDLRenderer* renderer, ref float scaleX, ref float scaleY)
+		{
+			fixed (float* pscaleX = &scaleX)
+			{
+				fixed (float* pscaleY = &scaleY)
+				{
+					byte ret = GetRenderScaleNative(renderer, (float*)pscaleX, (float*)pscaleY);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// Each render target has its own scale. This function gets the scale for the<br/>
+		/// current render target.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderScale(ref SDLRenderer renderer, ref float scaleX, ref float scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pscaleX = &scaleX)
+				{
+					fixed (float* pscaleY = &scaleY)
+					{
+						byte ret = GetRenderScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, (float*)pscaleY);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations.<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderDrawColorNative(SDLRenderer* renderer, byte r, byte g, byte b, byte a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte, byte, byte, byte, byte>)funcTable[1085])(renderer, r, g, b, a);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, byte>)funcTable[1085])((nint)renderer, r, g, b, a);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations.<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderDrawColor(SDLRenderer* renderer, byte r, byte g, byte b, byte a)
+		{
+			byte ret = SetRenderDrawColorNative(renderer, r, g, b, a);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations.<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderDrawColor(ref SDLRenderer renderer, byte r, byte g, byte b, byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = SetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderDrawColorFloatNative(SDLRenderer* renderer, float r, float g, float b, float a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float, float, byte>)funcTable[1086])(renderer, r, g, b, a);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, byte>)funcTable[1086])((nint)renderer, r, g, b, a);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderDrawColorFloat(SDLRenderer* renderer, float r, float g, float b, float a)
+		{
+			byte ret = SetRenderDrawColorFloatNative(renderer, r, g, b, a);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderDrawColorFloat(ref SDLRenderer renderer, float r, float g, float b, float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = SetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderDrawColorNative(SDLRenderer* renderer, byte* r, byte* g, byte* b, byte* a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*, byte*, byte*, byte*, byte>)funcTable[1087])(renderer, r, g, b, a);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[1087])((nint)renderer, (nint)r, (nint)g, (nint)b, (nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, byte* b, byte* a)
+		{
+			byte ret = GetRenderDrawColorNative(renderer, r, g, b, a);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				byte ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pb = &b)
+			{
+				byte ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pb = &b)
+				{
+					byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					byte ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pa = &a)
+			{
+				byte ret = GetRenderDrawColorNative(renderer, r, g, b, (byte*)pa);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pa = &a)
+				{
+					byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, (byte*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pa = &a)
+				{
+					byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, (byte*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pa = &a)
+				{
+					byte ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, (byte*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
+						{
+							byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pb = &b)
+			{
+				fixed (byte* pa = &a)
+				{
+					byte ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, (byte*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							byte ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								byte ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderDrawColorFloatNative(SDLRenderer* renderer, float* r, float* g, float* b, float* a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, float*, float*, float*, byte>)funcTable[1088])(renderer, r, g, b, a);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[1088])((nint)renderer, (nint)r, (nint)g, (nint)b, (nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, float* g, float* b, float* a)
+		{
+			byte ret = GetRenderDrawColorFloatNative(renderer, r, g, b, a);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, float* g, float* b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, float* g, float* b, float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, float* g, float* b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, g, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, ref float g, float* b, float* a)
+		{
+			fixed (float* pg = &g)
+			{
+				byte ret = GetRenderDrawColorFloatNative(renderer, r, (float*)pg, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, ref float g, float* b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pg = &g)
+				{
+					byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, (float*)pg, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, ref float g, float* b, float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, (float*)pg, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, ref float g, float* b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, (float*)pg, b, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, float* g, ref float b, float* a)
+		{
+			fixed (float* pb = &b)
+			{
+				byte ret = GetRenderDrawColorFloatNative(renderer, r, g, (float*)pb, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, float* g, ref float b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, g, (float*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, float* g, ref float b, float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, g, (float*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, float* g, ref float b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, g, (float*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, ref float g, ref float b, float* a)
+		{
+			fixed (float* pg = &g)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = GetRenderDrawColorFloatNative(renderer, r, (float*)pg, (float*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, ref float g, ref float b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, (float*)pg, (float*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, ref float g, ref float b, float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, (float*)pg, (float*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, ref float g, ref float b, float* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						fixed (float* pb = &b)
+						{
+							byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, (float*)pg, (float*)pb, a);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, float* g, float* b, ref float a)
+		{
+			fixed (float* pa = &a)
+			{
+				byte ret = GetRenderDrawColorFloatNative(renderer, r, g, b, (float*)pa);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, float* g, float* b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, g, b, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, float* g, float* b, ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, g, b, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, float* g, float* b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, g, b, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, ref float g, float* b, ref float a)
+		{
+			fixed (float* pg = &g)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = GetRenderDrawColorFloatNative(renderer, r, (float*)pg, b, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, ref float g, float* b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, (float*)pg, b, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, ref float g, float* b, ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, (float*)pg, b, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, ref float g, float* b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, (float*)pg, b, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, float* g, ref float b, ref float a)
+		{
+			fixed (float* pb = &b)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = GetRenderDrawColorFloatNative(renderer, r, g, (float*)pb, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, float* g, ref float b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pb = &b)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, g, (float*)pb, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, float* g, ref float b, ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pb = &b)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, g, (float*)pb, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, float* g, ref float b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pb = &b)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, g, (float*)pb, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, float* r, ref float g, ref float b, ref float a)
+		{
+			fixed (float* pg = &g)
+			{
+				fixed (float* pb = &b)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = GetRenderDrawColorFloatNative(renderer, r, (float*)pg, (float*)pb, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, float* r, ref float g, ref float b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, r, (float*)pg, (float*)pb, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(SDLRenderer* renderer, ref float r, ref float g, ref float b, ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = GetRenderDrawColorFloatNative(renderer, (float*)pr, (float*)pg, (float*)pb, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderDrawColorFloat(ref SDLRenderer renderer, ref float r, ref float g, ref float b, ref float a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						fixed (float* pb = &b)
+						{
+							fixed (float* pa = &a)
+							{
+								byte ret = GetRenderDrawColorFloatNative((SDLRenderer*)prenderer, (float*)pr, (float*)pg, (float*)pb, (float*)pa);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the color scale used for render operations.<br/>
+		/// The color scale is an additional scale multiplied into the pixel color<br/>
+		/// value while rendering. This can be used to adjust the brightness of colors<br/>
+		/// during HDR rendering, or changing HDR video brightness when playing on an<br/>
+		/// SDR display.<br/>
+		/// The color scale does not affect the alpha channel, only the color<br/>
+		/// brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRenderColorScaleNative(SDLRenderer* renderer, float scale)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, byte>)funcTable[1089])(renderer, scale);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, byte>)funcTable[1089])((nint)renderer, scale);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the color scale used for render operations.<br/>
+		/// The color scale is an additional scale multiplied into the pixel color<br/>
+		/// value while rendering. This can be used to adjust the brightness of colors<br/>
+		/// during HDR rendering, or changing HDR video brightness when playing on an<br/>
+		/// SDR display.<br/>
+		/// The color scale does not affect the alpha channel, only the color<br/>
+		/// brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderColorScale(SDLRenderer* renderer, float scale)
+		{
+			byte ret = SetRenderColorScaleNative(renderer, scale);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the color scale used for render operations.<br/>
+		/// The color scale is an additional scale multiplied into the pixel color<br/>
+		/// value while rendering. This can be used to adjust the brightness of colors<br/>
+		/// during HDR rendering, or changing HDR video brightness when playing on an<br/>
+		/// SDR display.<br/>
+		/// The color scale does not affect the alpha channel, only the color<br/>
+		/// brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetRenderColorScale(ref SDLRenderer renderer, float scale)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = SetRenderColorScaleNative((SDLRenderer*)prenderer, scale);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color scale used for render operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderColorScaleNative(SDLRenderer* renderer, float* scale)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, byte>)funcTable[1090])(renderer, scale);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1090])((nint)renderer, (nint)scale);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the color scale used for render operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderColorScale(SDLRenderer* renderer, float* scale)
+		{
+			byte ret = GetRenderColorScaleNative(renderer, scale);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the color scale used for render operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderColorScale(ref SDLRenderer renderer, float* scale)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderColorScaleNative((SDLRenderer*)prenderer, scale);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color scale used for render operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderColorScale(SDLRenderer* renderer, ref float scale)
+		{
+			fixed (float* pscale = &scale)
+			{
+				byte ret = GetRenderColorScaleNative(renderer, (float*)pscale);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color scale used for render operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderColorScale(ref SDLRenderer renderer, ref float scale)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pscale = &scale)
+				{
+					byte ret = GetRenderColorScaleNative((SDLRenderer*)prenderer, (float*)pscale);
+					return ret != 0;
+				}
+			}
 		}
 	}
 }

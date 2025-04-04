@@ -24,7 +24,6 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_AsyncIOQueue")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAsyncIOQueue
 	{

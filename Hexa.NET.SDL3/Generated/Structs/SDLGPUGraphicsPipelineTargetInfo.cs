@@ -21,46 +21,31 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUGraphicsPipelineTargetInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUGraphicsPipelineTargetInfo
 	{
 		/// <summary>
 		/// A pointer to an array of color target descriptions. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "color_target_descriptions")]
-		[NativeName(NativeNameType.Type, "SDL_GPUColorTargetDescription const *")]
 		public unsafe SDLGPUColorTargetDescription* ColorTargetDescriptions;
 
 		/// <summary>
 		/// The number of color target descriptions in the above array. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_color_targets")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumColorTargets;
 
 		/// <summary>
 		/// The pixel format of the depth-stencil target. Ignored if has_depth_stencil_target is false. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "depth_stencil_format")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
 		public SDLGPUTextureFormat DepthStencilFormat;
 
 		/// <summary>
 		/// true specifies that the pipeline uses a depth-stencil target. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "has_depth_stencil_target")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte HasDepthStencilTarget;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
-		[NativeName(NativeNameType.Field, "padding3")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
 		public unsafe SDLGPUGraphicsPipelineTargetInfo(SDLGPUColorTargetDescription* colorTargetDescriptions = default, uint numColorTargets = default, SDLGPUTextureFormat depthStencilFormat = default, bool hasDepthStencilTarget = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)

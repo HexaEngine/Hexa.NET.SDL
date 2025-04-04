@@ -19,45 +19,30 @@ namespace Hexa.NET.SDL3
 	/// MessageBox structure containing title, text, window, etc.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MessageBoxData")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMessageBoxData
 	{
-		[NativeName(NativeNameType.Field, "flags")]
-		[NativeName(NativeNameType.Type, "SDL_MessageBoxFlags")]
 		public SDLMessageBoxFlags Flags;
 		/// <summary>
 		/// Parent window, can be NULL <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "window")]
-		[NativeName(NativeNameType.Type, "SDL_Window *")]
 		public unsafe SDLWindow* Window;
 
 		/// <summary>
 		/// UTF-8 title <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "title")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Title;
 
 		/// <summary>
 		/// UTF-8 message text <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "message")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Message;
 
-		[NativeName(NativeNameType.Field, "numbuttons")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Numbuttons;
-		[NativeName(NativeNameType.Field, "buttons")]
-		[NativeName(NativeNameType.Type, "SDL_MessageBoxButtonData const *")]
 		public unsafe SDLMessageBoxButtonData* Buttons;
 		/// <summary>
 		/// SDL_MessageBoxColorScheme, can be NULL to use system settings <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "colorScheme")]
-		[NativeName(NativeNameType.Type, "SDL_MessageBoxColorScheme const *")]
 		public unsafe SDLMessageBoxColorScheme* ColorScheme;
 
 

@@ -22,7 +22,6 @@ namespace Hexa.NET.SDL3
 	/// an object with a custom implementation using SDL_OpenStorage.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Storage")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLStorage
 	{

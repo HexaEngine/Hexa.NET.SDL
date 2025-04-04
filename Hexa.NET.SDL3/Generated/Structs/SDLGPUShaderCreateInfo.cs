@@ -20,78 +20,57 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUShaderCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUShaderCreateInfo
 	{
 		/// <summary>
 		/// The size in bytes of the code pointed to. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "code_size")]
-		[NativeName(NativeNameType.Type, "size_t")]
 		public nuint CodeSize;
 
 		/// <summary>
 		/// A pointer to shader code. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "code")]
-		[NativeName(NativeNameType.Type, "Uint8 const *")]
 		public unsafe byte* Code;
 
 		/// <summary>
 		/// A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "entrypoint")]
-		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Entrypoint;
 
 		/// <summary>
 		/// The format of the shader code. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
 		public SDLGPUShaderFormat Format;
 
 		/// <summary>
 		/// The stage the shader program corresponds to. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "stage")]
-		[NativeName(NativeNameType.Type, "SDL_GPUShaderStage")]
 		public SDLGPUShaderStage Stage;
 
 		/// <summary>
 		/// The number of samplers defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_samplers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumSamplers;
 
 		/// <summary>
 		/// The number of storage textures defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_storage_textures")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumStorageTextures;
 
 		/// <summary>
 		/// The number of storage buffers defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_storage_buffers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumStorageBuffers;
 
 		/// <summary>
 		/// The number of uniform buffers defined in the shader. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_uniform_buffers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumUniformBuffers;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "props")]
-		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 

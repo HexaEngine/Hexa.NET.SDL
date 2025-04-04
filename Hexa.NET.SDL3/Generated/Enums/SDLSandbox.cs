@@ -16,24 +16,13 @@ namespace Hexa.NET.SDL3
 	/// Application sandbox environment.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_Sandbox")]
 	[Flags]
 	public enum SDLSandbox : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_SANDBOX_NONE")]
-		[NativeName(NativeNameType.Value, "0")]
 		None = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_SANDBOX_UNKNOWN_CONTAINER")]
-		[NativeName(NativeNameType.Value, "1")]
 		UnknownContainer = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_SANDBOX_FLATPAK")]
-		[NativeName(NativeNameType.Value, "2")]
 		Flatpak = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_SANDBOX_SNAP")]
-		[NativeName(NativeNameType.Value, "3")]
 		Snap = unchecked(3),
-		[NativeName(NativeNameType.EnumItem, "SDL_SANDBOX_MACOS")]
-		[NativeName(NativeNameType.Value, "4")]
 		Macos = unchecked(4),
 	}
 }

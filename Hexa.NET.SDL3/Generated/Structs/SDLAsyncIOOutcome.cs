@@ -19,64 +19,47 @@ namespace Hexa.NET.SDL3
 	/// Information about a completed asynchronous I/O request.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_AsyncIOOutcome")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAsyncIOOutcome
 	{
 		/// <summary>
 		/// what generated this task. This pointer will be invalid if it was closed! <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "asyncio")]
-		[NativeName(NativeNameType.Type, "SDL_AsyncIO *")]
 		public unsafe SDLAsyncIO* Asyncio;
 
 		/// <summary>
 		/// What sort of task was this? Read, write, etc? <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_AsyncIOTaskType")]
 		public SDLAsyncIOTaskType Type;
 
 		/// <summary>
 		/// the result of the work (success, failure, cancellation). <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "result")]
-		[NativeName(NativeNameType.Type, "SDL_AsyncIOResult")]
 		public SDLAsyncIOResult Result;
 
 		/// <summary>
 		/// buffer where data was read/written. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "buffer")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Buffer;
 
 		/// <summary>
 		/// offset in the SDL_AsyncIO where data was read/written. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "offset")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Offset;
 
 		/// <summary>
 		/// number of bytes the task was to read/write. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "bytes_requested")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong BytesRequested;
 
 		/// <summary>
 		/// actual number of bytes that were read/written. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "bytes_transferred")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong BytesTransferred;
 
 		/// <summary>
 		/// pointer provided by the app when starting the task <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "userdata")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Userdata;
 
 

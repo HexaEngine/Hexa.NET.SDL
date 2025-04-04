@@ -21,311 +21,234 @@ namespace Hexa.NET.SDL3
 	/// is a union of all event structures used in SDL.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Event")]
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct SDLEvent
 	{
 		/// <summary>
 		/// Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		[FieldOffset(0)]
 		public uint Type;
 
 		/// <summary>
 		/// Common event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "common")]
-		[NativeName(NativeNameType.Type, "SDL_CommonEvent")]
 		[FieldOffset(0)]
 		public SDLCommonEvent Common;
 
 		/// <summary>
 		/// Display event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "display")]
-		[NativeName(NativeNameType.Type, "SDL_DisplayEvent")]
 		[FieldOffset(0)]
 		public SDLDisplayEvent Display;
 
 		/// <summary>
 		/// Window event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "window")]
-		[NativeName(NativeNameType.Type, "SDL_WindowEvent")]
 		[FieldOffset(0)]
 		public SDLWindowEvent Window;
 
 		/// <summary>
 		/// Keyboard device change event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "kdevice")]
-		[NativeName(NativeNameType.Type, "SDL_KeyboardDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLKeyboardDeviceEvent Kdevice;
 
 		/// <summary>
 		/// Keyboard event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "key")]
-		[NativeName(NativeNameType.Type, "SDL_KeyboardEvent")]
 		[FieldOffset(0)]
 		public SDLKeyboardEvent Key;
 
 		/// <summary>
 		/// Text editing event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "edit")]
-		[NativeName(NativeNameType.Type, "SDL_TextEditingEvent")]
 		[FieldOffset(0)]
 		public SDLTextEditingEvent Edit;
 
 		/// <summary>
 		/// Text editing candidates event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "edit_candidates")]
-		[NativeName(NativeNameType.Type, "SDL_TextEditingCandidatesEvent")]
 		[FieldOffset(0)]
 		public SDLTextEditingCandidatesEvent EditCandidates;
 
 		/// <summary>
 		/// Text input event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "text")]
-		[NativeName(NativeNameType.Type, "SDL_TextInputEvent")]
 		[FieldOffset(0)]
 		public SDLTextInputEvent Text;
 
 		/// <summary>
 		/// Mouse device change event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mdevice")]
-		[NativeName(NativeNameType.Type, "SDL_MouseDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLMouseDeviceEvent Mdevice;
 
 		/// <summary>
 		/// Mouse motion event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "motion")]
-		[NativeName(NativeNameType.Type, "SDL_MouseMotionEvent")]
 		[FieldOffset(0)]
 		public SDLMouseMotionEvent Motion;
 
 		/// <summary>
 		/// Mouse button event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "button")]
-		[NativeName(NativeNameType.Type, "SDL_MouseButtonEvent")]
 		[FieldOffset(0)]
 		public SDLMouseButtonEvent Button;
 
 		/// <summary>
 		/// Mouse wheel event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "wheel")]
-		[NativeName(NativeNameType.Type, "SDL_MouseWheelEvent")]
 		[FieldOffset(0)]
 		public SDLMouseWheelEvent Wheel;
 
 		/// <summary>
 		/// Joystick device change event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "jdevice")]
-		[NativeName(NativeNameType.Type, "SDL_JoyDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLJoyDeviceEvent Jdevice;
 
 		/// <summary>
 		/// Joystick axis event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "jaxis")]
-		[NativeName(NativeNameType.Type, "SDL_JoyAxisEvent")]
 		[FieldOffset(0)]
 		public SDLJoyAxisEvent Jaxis;
 
 		/// <summary>
 		/// Joystick ball event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "jball")]
-		[NativeName(NativeNameType.Type, "SDL_JoyBallEvent")]
 		[FieldOffset(0)]
 		public SDLJoyBallEvent Jball;
 
 		/// <summary>
 		/// Joystick hat event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "jhat")]
-		[NativeName(NativeNameType.Type, "SDL_JoyHatEvent")]
 		[FieldOffset(0)]
 		public SDLJoyHatEvent Jhat;
 
 		/// <summary>
 		/// Joystick button event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "jbutton")]
-		[NativeName(NativeNameType.Type, "SDL_JoyButtonEvent")]
 		[FieldOffset(0)]
 		public SDLJoyButtonEvent Jbutton;
 
 		/// <summary>
 		/// Joystick battery event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "jbattery")]
-		[NativeName(NativeNameType.Type, "SDL_JoyBatteryEvent")]
 		[FieldOffset(0)]
 		public SDLJoyBatteryEvent Jbattery;
 
 		/// <summary>
 		/// Gamepad device event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "gdevice")]
-		[NativeName(NativeNameType.Type, "SDL_GamepadDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadDeviceEvent Gdevice;
 
 		/// <summary>
 		/// Gamepad axis event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "gaxis")]
-		[NativeName(NativeNameType.Type, "SDL_GamepadAxisEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadAxisEvent Gaxis;
 
 		/// <summary>
 		/// Gamepad button event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "gbutton")]
-		[NativeName(NativeNameType.Type, "SDL_GamepadButtonEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadButtonEvent Gbutton;
 
 		/// <summary>
 		/// Gamepad touchpad event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "gtouchpad")]
-		[NativeName(NativeNameType.Type, "SDL_GamepadTouchpadEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadTouchpadEvent Gtouchpad;
 
 		/// <summary>
 		/// Gamepad sensor event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "gsensor")]
-		[NativeName(NativeNameType.Type, "SDL_GamepadSensorEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadSensorEvent Gsensor;
 
 		/// <summary>
 		/// Audio device event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "adevice")]
-		[NativeName(NativeNameType.Type, "SDL_AudioDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLAudioDeviceEvent Adevice;
 
 		/// <summary>
 		/// Camera device event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "cdevice")]
-		[NativeName(NativeNameType.Type, "SDL_CameraDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLCameraDeviceEvent Cdevice;
 
 		/// <summary>
 		/// Sensor event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "sensor")]
-		[NativeName(NativeNameType.Type, "SDL_SensorEvent")]
 		[FieldOffset(0)]
 		public SDLSensorEvent Sensor;
 
 		/// <summary>
 		/// Quit request event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "quit")]
-		[NativeName(NativeNameType.Type, "SDL_QuitEvent")]
 		[FieldOffset(0)]
 		public SDLQuitEvent Quit;
 
 		/// <summary>
 		/// Custom event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "user")]
-		[NativeName(NativeNameType.Type, "SDL_UserEvent")]
 		[FieldOffset(0)]
 		public SDLUserEvent User;
 
 		/// <summary>
 		/// Touch finger event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "tfinger")]
-		[NativeName(NativeNameType.Type, "SDL_TouchFingerEvent")]
 		[FieldOffset(0)]
 		public SDLTouchFingerEvent Tfinger;
 
 		/// <summary>
 		/// Pen proximity event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pproximity")]
-		[NativeName(NativeNameType.Type, "SDL_PenProximityEvent")]
 		[FieldOffset(0)]
 		public SDLPenProximityEvent Pproximity;
 
 		/// <summary>
 		/// Pen tip touching event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "ptouch")]
-		[NativeName(NativeNameType.Type, "SDL_PenTouchEvent")]
 		[FieldOffset(0)]
 		public SDLPenTouchEvent Ptouch;
 
 		/// <summary>
 		/// Pen motion event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pmotion")]
-		[NativeName(NativeNameType.Type, "SDL_PenMotionEvent")]
 		[FieldOffset(0)]
 		public SDLPenMotionEvent Pmotion;
 
 		/// <summary>
 		/// Pen button event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pbutton")]
-		[NativeName(NativeNameType.Type, "SDL_PenButtonEvent")]
 		[FieldOffset(0)]
 		public SDLPenButtonEvent Pbutton;
 
 		/// <summary>
 		/// Pen axis event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "paxis")]
-		[NativeName(NativeNameType.Type, "SDL_PenAxisEvent")]
 		[FieldOffset(0)]
 		public SDLPenAxisEvent Paxis;
 
 		/// <summary>
 		/// Render event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "render")]
-		[NativeName(NativeNameType.Type, "SDL_RenderEvent")]
 		[FieldOffset(0)]
 		public SDLRenderEvent Render;
 
 		/// <summary>
 		/// Drag and drop event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "drop")]
-		[NativeName(NativeNameType.Type, "SDL_DropEvent")]
 		[FieldOffset(0)]
 		public SDLDropEvent Drop;
 
 		/// <summary>
 		/// Clipboard event data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "clipboard")]
-		[NativeName(NativeNameType.Type, "SDL_ClipboardEvent")]
 		[FieldOffset(0)]
 		public SDLClipboardEvent Clipboard;
 
@@ -341,8 +264,6 @@ namespace Hexa.NET.SDL3
 		/// the next multiple of 16, 64, and on architectures where pointers are<br/>
 		/// even larger the size of SDL_UserEvent will dominate as being 3 pointers.<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "padding")]
-		[NativeName(NativeNameType.Type, "Uint8[128]")]
 		[FieldOffset(0)]
 		public byte Padding_0;
 		[FieldOffset(128)]

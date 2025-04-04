@@ -28,43 +28,32 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUPrimitiveType")]
 	[Flags]
 	public enum SDLGPUPrimitiveType : int
 	{
 		/// <summary>
 		/// A series of separate triangles. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRIMITIVETYPE_TRIANGLELIST")]
-		[NativeName(NativeNameType.Value, "0")]
 		Trianglelist = unchecked(0),
 
 		/// <summary>
 		/// A series of connected triangles. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRIMITIVETYPE_TRIANGLESTRIP")]
-		[NativeName(NativeNameType.Value, "1")]
 		Trianglestrip = unchecked(1),
 
 		/// <summary>
 		/// A series of separate lines. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRIMITIVETYPE_LINELIST")]
-		[NativeName(NativeNameType.Value, "2")]
 		Linelist = unchecked(2),
 
 		/// <summary>
 		/// A series of connected lines. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRIMITIVETYPE_LINESTRIP")]
-		[NativeName(NativeNameType.Value, "3")]
 		Linestrip = unchecked(3),
 
 		/// <summary>
 		/// A series of separate points. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_PRIMITIVETYPE_POINTLIST")]
-		[NativeName(NativeNameType.Value, "4")]
 		Pointlist = unchecked(4),
 	}
 }

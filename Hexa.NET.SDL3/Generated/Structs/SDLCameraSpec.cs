@@ -22,50 +22,37 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_CameraSpec")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCameraSpec
 	{
 		/// <summary>
 		/// Frame format <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
 
 		/// <summary>
 		/// Frame colorspace <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "colorspace")]
-		[NativeName(NativeNameType.Type, "SDL_Colorspace")]
 		public SDLColorspace Colorspace;
 
 		/// <summary>
 		/// Frame width <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "width")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Width;
 
 		/// <summary>
 		/// Frame height <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "height")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Height;
 
 		/// <summary>
 		/// Frame rate numerator ((num / denom) == FPS, (denom / num) == duration in seconds) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "framerate_numerator")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int FramerateNumerator;
 
 		/// <summary>
 		/// Frame rate demoninator ((num / denom) == FPS, (denom / num) == duration in seconds) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "framerate_denominator")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int FramerateDenominator;
 
 

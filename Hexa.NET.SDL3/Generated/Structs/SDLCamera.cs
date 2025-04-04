@@ -19,7 +19,6 @@ namespace Hexa.NET.SDL3
 	/// The opaque structure used to identify an opened SDL camera.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Camera")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCamera
 	{

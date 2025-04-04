@@ -20,22 +20,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_VirtualJoystickSensorDesc")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVirtualJoystickSensorDesc
 	{
 		/// <summary>
 		/// the type of this sensor <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "SDL_SensorType")]
 		public SDLSensorType Type;
 
 		/// <summary>
 		/// the update frequency of this sensor, may be 0.0f <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "rate")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Rate;
 
 

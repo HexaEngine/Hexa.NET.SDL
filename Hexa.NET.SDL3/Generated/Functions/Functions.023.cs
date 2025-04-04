@@ -18,3674 +18,548 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// Wait for a process to finish.<br/>
+		/// This can be called multiple times to get the status of a process.<br/>
+		/// The exit code will be the exit code of the process if it terminates<br/>
+		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
+		/// otherwise. It will not be changed if the process is still running.<br/>
+		/// If you create a process with standard output piped to the application<br/>
+		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
+		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
+		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
+		/// will never return true;<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static bool WaitProcess(SDLProcess* process, bool block, ref int exitcode)
 		{
-			fixed (byte* pdata = &data)
+			fixed (int* pexitcode = &exitcode)
 			{
-				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
+				byte ret = WaitProcessNative(process, block ? (byte)1 : (byte)0, (int*)pexitcode);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// Wait for a process to finish.<br/>
+		/// This can be called multiple times to get the status of a process.<br/>
+		/// The exit code will be the exit code of the process if it terminates<br/>
+		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
+		/// otherwise. It will not be changed if the process is still running.<br/>
+		/// If you create a process with standard output piped to the application<br/>
+		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
+		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
+		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
+		/// will never return true;<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static bool WaitProcess(ref SDLProcess process, bool block, ref int exitcode)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLProcess* pprocess = &process)
 			{
-				fixed (byte* pdata = &data)
+				fixed (int* pexitcode = &exitcode)
 				{
-					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
+					byte ret = WaitProcessNative((SDLProcess*)pprocess, block ? (byte)1 : (byte)0, (int*)pexitcode);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
+		/// Destroy a previously created process object.<br/>
+		/// Note that this does not stop the process, just destroys the SDL object used<br/>
+		/// to track it. If you want to stop the process you should use<br/>
+		/// SDL_KillProcess().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		internal static void DestroyProcessNative(SDLProcess* process)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[966])(dev, data, length);
+			((delegate* unmanaged[Cdecl]<SDLProcess*, void>)funcTable[1031])(process);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[966])((nint)dev, (nint)data, length);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)process);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
+		/// Destroy a previously created process object.<br/>
+		/// Note that this does not stop the process, just destroys the SDL object used<br/>
+		/// to track it. If you want to stop the process you should use<br/>
+		/// SDL_KillProcess().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static void DestroyProcess(SDLProcess* process)
 		{
-			int ret = HidGetFeatureReportNative(dev, data, length);
-			return ret;
+			DestroyProcessNative(process);
 		}
 
 		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
+		/// Destroy a previously created process object.<br/>
+		/// Note that this does not stop the process, just destroys the SDL object used<br/>
+		/// to track it. If you want to stop the process you should use<br/>
+		/// SDL_KillProcess().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static void DestroyProcess(ref SDLProcess process)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLProcess* pprocess = &process)
 			{
-				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
+				DestroyProcessNative((SDLProcess*)pprocess);
 			}
 		}
 
 		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
+		/// Get the number of 2D rendering drivers available for the current display.<br/>
+		/// A render driver is a set of code that handles rendering and texture<br/>
+		/// management on a particular display. Normally there is only one, but some<br/>
+		/// drivers may have several available with different capabilities.<br/>
+		/// There may be none if SDL was compiled without render support.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidGetFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetInputReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		internal static int GetNumRenderDriversNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[967])(dev, data, length);
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1032])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[967])((nint)dev, (nint)data, length);
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1032])();
 			#endif
 		}
 
 		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
+		/// Get the number of 2D rendering drivers available for the current display.<br/>
+		/// A render driver is a set of code that handles rendering and texture<br/>
+		/// management on a particular display. Normally there is only one, but some<br/>
+		/// drivers may have several available with different capabilities.<br/>
+		/// There may be none if SDL was compiled without render support.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int GetNumRenderDrivers()
 		{
-			int ret = HidGetInputReportNative(dev, data, length);
+			int ret = GetNumRenderDriversNative();
 			return ret;
 		}
 
 		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
+		/// Use this function to get the name of a built in 2D rendering driver.<br/>
+		/// The list of rendering drivers is given in the order that they are normally<br/>
+		/// initialized by default; the drivers that seem more reasonable to choose<br/>
+		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
+		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetInputReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidGetInputReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidGetInputReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidCloseNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
+		internal static byte* GetRenderDriverNative(int index)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int>)funcTable[968])(dev);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1033])(index);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[968])((nint)dev);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1033])(index);
 			#endif
 		}
 
 		/// <summary>
-		/// Close a HID device.<br/>
+		/// Use this function to get the name of a built in 2D rendering driver.<br/>
+		/// The list of rendering drivers is given in the order that they are normally<br/>
+		/// initialized by default; the drivers that seem more reasonable to choose<br/>
+		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
+		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
+		public static byte* GetRenderDriver(int index)
 		{
-			int ret = HidCloseNative(dev);
+			byte* ret = GetRenderDriverNative(index);
 			return ret;
 		}
 
 		/// <summary>
-		/// Close a HID device.<br/>
+		/// Use this function to get the name of a built in 2D rendering driver.<br/>
+		/// The list of rendering drivers is given in the order that they are normally<br/>
+		/// initialized by default; the drivers that seem more reasonable to choose<br/>
+		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
+		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev)
+		public static string GetRenderDriverS(int index)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidCloseNative((SDLHidDevice*)pdev);
-				return ret;
-			}
+			string ret = Utils.DecodeStringUTF8(GetRenderDriverNative(index));
+			return ret;
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetManufacturerStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static byte CreateWindowAndRendererNative(byte* title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[969])(dev, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<byte*, int, int, SDLWindowFlags, SDLWindow**, SDLRenderer**, byte>)funcTable[1034])(title, width, height, windowFlags, window, renderer);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[969])((nint)dev, (nint)str, maxlen);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, SDLWindowFlags, nint, nint, byte>)funcTable[1034])((nint)title, width, height, windowFlags, (nint)window, (nint)renderer);
 			#endif
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
 		{
-			int ret = HidGetManufacturerStringNative(dev, str, maxlen);
-			return ret;
+			byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, renderer);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (byte* ptitle = &title)
 			{
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
+				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
 		{
-			fixed (char* pstr = &str)
+			fixed (byte* ptitle = title)
 			{
-				int ret = HidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
-				return ret;
+				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
 		{
-			char* pStr0 = null;
+			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (str != null)
+			if (title != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
+				pStrSize0 = Utils.GetByteCountUTF8(title);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
 				else
 				{
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
+					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-			int ret = HidGetManufacturerStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
+			byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, renderer);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLWindow** pwindow = &window)
 			{
-				fixed (char* pstr = &str)
+				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				fixed (SDLWindow** pwindow = &window)
 				{
-					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
+					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (byte* ptitle = title)
 			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
+				fixed (SDLWindow** pwindow = &window)
 				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
+					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
+					return ret != 0;
 				}
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLWindow** pwindow = &window)
+			{
+				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
 				}
-				return ret;
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get The Product String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetProductStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[970])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[970])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetProductStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLRenderer** prenderer = &renderer)
 			{
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
+				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, (SDLRenderer**)prenderer);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get The Product String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
 		{
-			fixed (char* pstr = &str)
+			fixed (byte* ptitle = &title)
 			{
-				int ret = HidGetProductStringNative(dev, (char*)pstr, maxlen);
-				return ret;
+				fixed (SDLRenderer** prenderer = &renderer)
+				{
+					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
+					return ret != 0;
+				}
 			}
 		}
 
 		/// <summary>
-		/// Get The Product String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
 		{
-			char* pStr0 = null;
+			fixed (byte* ptitle = title)
+			{
+				fixed (SDLRenderer** prenderer = &renderer)
+				{
+					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
+		{
+			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (str != null)
+			if (title != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
+				pStrSize0 = Utils.GetByteCountUTF8(title);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
 				else
 				{
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
+					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-			int ret = HidGetProductStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
+			fixed (SDLRenderer** prenderer = &renderer)
 			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
+				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, (SDLRenderer**)prenderer);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
 				}
-				return ret;
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetSerialNumberStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[971])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[971])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetSerialNumberStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLWindow** pwindow = &window)
 			{
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLRenderer** prenderer = &renderer)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetSerialNumberStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
+					byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (byte* ptitle = &title)
 			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
+				fixed (SDLWindow** pwindow = &window)
 				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (SDLRenderer** prenderer = &renderer)
 					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetIndexedStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, char*, nuint, int>)funcTable[972])(dev, stringIndex, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, nuint, int>)funcTable[972])((nint)dev, stringIndex, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetIndexedStringNative(dev, stringIndex, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the device info from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_device_info")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDeviceInfo* HidGetDeviceInfoNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, SDLHidDeviceInfo*>)funcTable[973])(dev);
-			#else
-			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[973])((nint)dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the device info from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_device_info")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
-		public static SDLHidDeviceInfo* HidGetDeviceInfo([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
-		{
-			SDLHidDeviceInfo* ret = HidGetDeviceInfoNative(dev);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the device info from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_device_info")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
-		public static SDLHidDeviceInfo* HidGetDeviceInfo([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				SDLHidDeviceInfo* ret = HidGetDeviceInfoNative((SDLHidDevice*)pdev);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetReportDescriptorNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[974])(dev, buf, bufSize);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[974])((nint)dev, (nint)buf, bufSize);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			int ret = HidGetReportDescriptorNative(dev, buf, bufSize);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetReportDescriptorNative((SDLHidDevice*)pdev, buf, bufSize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			fixed (byte* pbuf = &buf)
-			{
-				int ret = HidGetReportDescriptorNative(dev, (byte*)pbuf, bufSize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pbuf = &buf)
-				{
-					int ret = HidGetReportDescriptorNative((SDLHidDevice*)pdev, (byte*)pbuf, bufSize);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidBleScanNative([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "bool")] byte active)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[975])(active);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[975])(active);
-			#endif
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidBleScan([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "bool")] bool active)
-		{
-			HidBleScanNative(active ? (byte)1 : (byte)0);
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetHintWithPriorityNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLHintPriority, byte>)funcTable[976])(name, value, priority);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLHintPriority, byte>)funcTable[976])((nint)name, (nint)value, priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			byte ret = SetHintWithPriorityNative(name, value, priority);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetHintWithPriorityNative(pStr0, value, priority);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				byte ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pvalue = value)
-			{
-				byte ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetHintWithPriorityNative(name, pStr0, priority);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					byte ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pvalue = value)
-				{
-					byte ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = SetHintWithPriorityNative(pStr0, pStr1, priority);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[977])(name, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[977])((nint)name, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			byte ret = SetHintNative(name, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = SetHintNative((byte*)pname, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = SetHintNative((byte*)pname, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetHintNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				byte ret = SetHintNative(name, (byte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pvalue = value)
-			{
-				byte ret = SetHintNative(name, (byte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetHintNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					byte ret = SetHintNative((byte*)pname, (byte*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pvalue = value)
-				{
-					byte ret = SetHintNative((byte*)pname, (byte*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = SetHintNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ResetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[978])(name);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[978])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			byte ret = ResetHintNative(name);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = ResetHintNative((byte*)pname);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = ResetHintNative((byte*)pname);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ResetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHints")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetHintsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[979])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[979])();
-			#endif
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHints")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ResetHints()
-		{
-			ResetHintsNative();
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[980])(name);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[980])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			byte* ret = GetHintNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			string ret = Utils.DecodeStringUTF8(GetHintNative(name));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetHintNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetHintBooleanNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] byte defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte, byte>)funcTable[981])(name, defaultValue);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[981])((nint)name, defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
-		{
-			byte ret = GetHintBooleanNative(name, defaultValue ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = GetHintBooleanNative((byte*)pname, defaultValue ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = GetHintBooleanNative((byte*)pname, defaultValue ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = GetHintBooleanNative(pStr0, defaultValue ? (byte)1 : (byte)0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte AddHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, byte>)funcTable[982])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[982])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte ret = AddHintCallbackNative(name, callback, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = AddHintCallbackNative((byte*)pname, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = AddHintCallbackNative((byte*)pname, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = AddHintCallbackNative(pStr0, callback, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RemoveHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)funcTable[983])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[983])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RemoveHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			RemoveHintCallbackNative(name, callback, userdata);
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RemoveHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = &name)
-			{
-				RemoveHintCallbackNative((byte*)pname, callback, userdata);
-			}
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RemoveHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = name)
-			{
-				RemoveHintCallbackNative((byte*)pname, callback, userdata);
-			}
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RemoveHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			RemoveHintCallbackNative(pStr0, callback, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Initialize the SDL library.<br/>
-		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
-		/// two may be used interchangeably. Though for readability of your code<br/>
-		/// SDL_InitSubSystem() might be preferred.<br/>
-		/// The file I/O (for example: SDL_IOFromFile) and threading (SDL_CreateThread)<br/>
-		/// subsystems are initialized by default. Message boxes<br/>
-		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
-		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
-		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
-		/// use them in your application.<br/>
-		/// Logging (such as SDL_Log) works without initialization, too.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_INIT_AUDIO`: audio subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
-		/// subsystem, should be initialized on the main thread.<br/>
-		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
-		/// events subsystem<br/>
-		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
-		/// - `SDL_INIT_GAMEPAD`: gamepad subsystem; automatically initializes the<br/>
-		/// joystick subsystem<br/>
-		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
-		/// - `SDL_INIT_SENSOR`: sensor subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_CAMERA`: camera subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
-		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
-		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
-		/// this call will increase the ref-count and return.<br/>
-		/// Consider reporting some basic metadata about your application before<br/>
-		/// calling SDL_Init, using either SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Init")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte InitNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLInitFlags, byte>)funcTable[984])(flags);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLInitFlags, byte>)funcTable[984])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize the SDL library.<br/>
-		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
-		/// two may be used interchangeably. Though for readability of your code<br/>
-		/// SDL_InitSubSystem() might be preferred.<br/>
-		/// The file I/O (for example: SDL_IOFromFile) and threading (SDL_CreateThread)<br/>
-		/// subsystems are initialized by default. Message boxes<br/>
-		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
-		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
-		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
-		/// use them in your application.<br/>
-		/// Logging (such as SDL_Log) works without initialization, too.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_INIT_AUDIO`: audio subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
-		/// subsystem, should be initialized on the main thread.<br/>
-		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
-		/// events subsystem<br/>
-		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
-		/// - `SDL_INIT_GAMEPAD`: gamepad subsystem; automatically initializes the<br/>
-		/// joystick subsystem<br/>
-		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
-		/// - `SDL_INIT_SENSOR`: sensor subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_CAMERA`: camera subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
-		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
-		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
-		/// this call will increase the ref-count and return.<br/>
-		/// Consider reporting some basic metadata about your application before<br/>
-		/// calling SDL_Init, using either SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Init")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool Init([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			byte ret = InitNative(flags);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Compatibility function to initialize the SDL library.<br/>
-		/// This function and SDL_Init() are interchangeable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte InitSubSystemNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLInitFlags, byte>)funcTable[985])(flags);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLInitFlags, byte>)funcTable[985])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Compatibility function to initialize the SDL library.<br/>
-		/// This function and SDL_Init() are interchangeable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool InitSubSystem([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			byte ret = InitSubSystemNative(flags);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Shut down specific SDL subsystems.<br/>
-		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
-		/// with SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QuitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QuitSubSystemNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLInitFlags, void>)funcTable[986])(flags);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLInitFlags, void>)funcTable[986])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Shut down specific SDL subsystems.<br/>
-		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
-		/// with SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QuitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void QuitSubSystem([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			QuitSubSystemNative(flags);
-		}
-
-		/// <summary>
-		/// Get a mask of the specified subsystems which are currently initialized.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WasInit")]
-		[return: NativeName(NativeNameType.Type, "SDL_InitFlags")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLInitFlags WasInitNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLInitFlags, SDLInitFlags>)funcTable[987])(flags);
-			#else
-			return (SDLInitFlags)((delegate* unmanaged[Cdecl]<SDLInitFlags, SDLInitFlags>)funcTable[987])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a mask of the specified subsystems which are currently initialized.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WasInit")]
-		[return: NativeName(NativeNameType.Type, "SDL_InitFlags")]
-		public static SDLInitFlags WasInit([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			SDLInitFlags ret = WasInitNative(flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Clean up all initialized subsystems.<br/>
-		/// You should call this function even if you have already shutdown each<br/>
-		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
-		/// function even in the case of errors in initialization.<br/>
-		/// You can use this function with atexit() to ensure that it is run when your<br/>
-		/// application is shutdown, but it is not wise to do this from a library or<br/>
-		/// other dynamically loaded code.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Quit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QuitNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[988])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[988])();
-			#endif
-		}
-
-		/// <summary>
-		/// Clean up all initialized subsystems.<br/>
-		/// You should call this function even if you have already shutdown each<br/>
-		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
-		/// function even in the case of errors in initialization.<br/>
-		/// You can use this function with atexit() to ensure that it is run when your<br/>
-		/// application is shutdown, but it is not wise to do this from a library or<br/>
-		/// other dynamically loaded code.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Quit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Quit()
-		{
-			QuitNative();
-		}
-
-		/// <summary>
-		/// Return whether this is the main thread.<br/>
-		/// On Apple platforms, the main thread is the thread that runs your program's<br/>
-		/// main() entry point. On other platforms, the main thread is the one that<br/>
-		/// calls SDL_Init(SDL_INIT_VIDEO), which should usually be the one that runs<br/>
-		/// your program's main() entry point. If you are using the main callbacks,<br/>
-		/// SDL_AppInit(), SDL_AppIterate(), and SDL_AppQuit() are all called on the<br/>
-		/// main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IsMainThread")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsMainThreadNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[989])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[989])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether this is the main thread.<br/>
-		/// On Apple platforms, the main thread is the thread that runs your program's<br/>
-		/// main() entry point. On other platforms, the main thread is the one that<br/>
-		/// calls SDL_Init(SDL_INIT_VIDEO), which should usually be the one that runs<br/>
-		/// your program's main() entry point. If you are using the main callbacks,<br/>
-		/// SDL_AppInit(), SDL_AppIterate(), and SDL_AppQuit() are all called on the<br/>
-		/// main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IsMainThread")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool IsMainThread()
-		{
-			byte ret = IsMainThreadNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Call a function on the main thread during event processing.<br/>
-		/// If this is called on the main thread, the callback is executed immediately.<br/>
-		/// If this is called on another thread, this callback is queued for execution<br/>
-		/// on the main thread during event processing.<br/>
-		/// Be careful of deadlocks when using this functionality. You should not have<br/>
-		/// the main thread wait for the current thread while this function is being<br/>
-		/// called with `wait_complete` true.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RunOnMainThread")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RunOnMainThreadNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_MainThreadCallback")] SDLMainThreadCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "wait_complete")] [NativeName(NativeNameType.Type, "bool")] byte waitComplete)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, void>, void*, byte, byte>)funcTable[990])((delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, waitComplete);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte, byte>)funcTable[990])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, waitComplete);
-			#endif
-		}
-
-		/// <summary>
-		/// Call a function on the main thread during event processing.<br/>
-		/// If this is called on the main thread, the callback is executed immediately.<br/>
-		/// If this is called on another thread, this callback is queued for execution<br/>
-		/// on the main thread during event processing.<br/>
-		/// Be careful of deadlocks when using this functionality. You should not have<br/>
-		/// the main thread wait for the current thread while this function is being<br/>
-		/// called with `wait_complete` true.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RunOnMainThread")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RunOnMainThread([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_MainThreadCallback")] SDLMainThreadCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "wait_complete")] [NativeName(NativeNameType.Type, "bool")] bool waitComplete)
-		{
-			byte ret = RunOnMainThreadNative(callback, userdata, waitComplete ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAppMetadataNative([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*, byte>)funcTable[991])(appname, appversion, appidentifier);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[991])((nint)appname, (nint)appversion, (nint)appidentifier);
-			#endif
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			byte ret = SetAppMetadataNative(appname, appversion, appidentifier);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ref byte appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = &appname)
-			{
-				byte ret = SetAppMetadataNative((byte*)pappname, appversion, appidentifier);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = appname)
-			{
-				byte ret = SetAppMetadataNative((byte*)pappname, appversion, appidentifier);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] string appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appname != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appname);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appname, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataNative(pStr0, appversion, appidentifier);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappversion = &appversion)
-			{
-				byte ret = SetAppMetadataNative(appname, (byte*)pappversion, appidentifier);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappversion = appversion)
-			{
-				byte ret = SetAppMetadataNative(appname, (byte*)pappversion, appidentifier);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appversion != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appversion);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appversion, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataNative(appname, pStr0, appidentifier);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ref byte appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = &appname)
-			{
-				fixed (byte* pappversion = &appversion)
-				{
-					byte ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, appidentifier);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = appname)
-			{
-				fixed (byte* pappversion = appversion)
-				{
-					byte ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, appidentifier);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] string appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appname != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appname);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appname, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (appversion != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(appversion);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(appversion, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = SetAppMetadataNative(pStr0, pStr1, appidentifier);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ref byte appidentifier)
-		{
-			fixed (byte* pappidentifier = &appidentifier)
-			{
-				byte ret = SetAppMetadataNative(appname, appversion, (byte*)pappidentifier);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appidentifier)
-		{
-			fixed (byte* pappidentifier = appidentifier)
-			{
-				byte ret = SetAppMetadataNative(appname, appversion, (byte*)pappidentifier);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] string appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appidentifier != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appidentifier);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appidentifier, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataNative(appname, appversion, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ref byte appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ref byte appidentifier)
-		{
-			fixed (byte* pappname = &appname)
-			{
-				fixed (byte* pappidentifier = &appidentifier)
-				{
-					byte ret = SetAppMetadataNative((byte*)pappname, appversion, (byte*)pappidentifier);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appidentifier)
-		{
-			fixed (byte* pappname = appname)
-			{
-				fixed (byte* pappidentifier = appidentifier)
-				{
-					byte ret = SetAppMetadataNative((byte*)pappname, appversion, (byte*)pappidentifier);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] string appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] string appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appname != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appname);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appname, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (appidentifier != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(appidentifier);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(appidentifier, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = SetAppMetadataNative(pStr0, appversion, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ref byte appidentifier)
-		{
-			fixed (byte* pappversion = &appversion)
-			{
-				fixed (byte* pappidentifier = &appidentifier)
-				{
-					byte ret = SetAppMetadataNative(appname, (byte*)pappversion, (byte*)pappidentifier);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appidentifier)
-		{
-			fixed (byte* pappversion = appversion)
-			{
-				fixed (byte* pappidentifier = appidentifier)
-				{
-					byte ret = SetAppMetadataNative(appname, (byte*)pappversion, (byte*)pappidentifier);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] string appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appversion != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appversion);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appversion, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (appidentifier != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(appidentifier);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(appidentifier, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = SetAppMetadataNative(appname, pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ref byte appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ref byte appidentifier)
-		{
-			fixed (byte* pappname = &appname)
-			{
-				fixed (byte* pappversion = &appversion)
-				{
-					fixed (byte* pappidentifier = &appidentifier)
-					{
-						byte ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, (byte*)pappidentifier);
+						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
 						return ret != 0;
 					}
 				}
@@ -3693,37 +567,22 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
+		/// Create a window and default renderer.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appidentifier)
+		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
 		{
-			fixed (byte* pappname = appname)
+			fixed (byte* ptitle = title)
 			{
-				fixed (byte* pappversion = appversion)
+				fixed (SDLWindow** pwindow = &window)
 				{
-					fixed (byte* pappidentifier = appidentifier)
+					fixed (SDLRenderer** prenderer = &renderer)
 					{
-						byte ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, (byte*)pappidentifier);
+						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
 						return ret != 0;
 					}
 				}
@@ -3731,35 +590,20 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
+		/// Create a window and default renderer.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] string appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] string appidentifier)
+		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (appname != null)
+			if (title != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(appname);
+				pStrSize0 = Utils.GetByteCountUTF8(title);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -3769,1257 +613,4413 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appname, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (appversion != null)
+			fixed (SDLWindow** pwindow = &window)
 			{
-				pStrSize1 = Utils.GetByteCountUTF8(appversion);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
+				fixed (SDLRenderer** prenderer = &renderer)
 				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(appversion, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* pStr2 = null;
-			int pStrSize2 = 0;
-			if (appidentifier != null)
-			{
-				pStrSize2 = Utils.GetByteCountUTF8(appidentifier);
-				if (pStrSize2 >= Utils.MaxStackallocSize)
-				{
-					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
-				}
-				else
-				{
-					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
-					pStr2 = pStrStack2;
-				}
-				int pStrOffset2 = Utils.EncodeStringUTF8(appidentifier, pStr2, pStrSize2);
-				pStr2[pStrOffset2] = 0;
-			}
-			byte ret = SetAppMetadataNative(pStr0, pStr1, pStr2);
-			if (pStrSize2 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr2);
-			}
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAppMetadataPropertyNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[992])(name, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[992])((nint)name, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			byte ret = SetAppMetadataPropertyNative(name, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte ret = SetAppMetadataPropertyNative((byte*)pname, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			fixed (byte* pname = name)
-			{
-				byte ret = SetAppMetadataPropertyNative((byte*)pname, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataPropertyNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				byte ret = SetAppMetadataPropertyNative(name, (byte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pvalue = value)
-			{
-				byte ret = SetAppMetadataPropertyNative(name, (byte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataPropertyNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					byte ret = SetAppMetadataPropertyNative((byte*)pname, (byte*)pvalue);
+					byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* CreateRendererNative(SDLWindow* window, byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, SDLRenderer*>)funcTable[1035])(window, name);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1035])((nint)window, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(SDLWindow* window, byte* name)
+		{
+			SDLRenderer* ret = CreateRendererNative(window, name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(ref SDLWindow window, byte* name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, name);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(SDLWindow* window, ref byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(SDLWindow* window, ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(SDLWindow* window, string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLRenderer* ret = CreateRendererNative(window, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(ref SDLWindow window, ref byte name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = &name)
+				{
+					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(ref SDLWindow window, ReadOnlySpan<byte> name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = name)
+				{
+					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// If you want a specific renderer, you can specify its name here. A list of<br/>
+		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
+		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
+		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
+		/// the best option for you, based on what is available on the user's system.<br/>
+		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
+		/// listed, until one succeeds or all of them fail.<br/>
+		/// By default the rendering size matches the window size in pixels, but you<br/>
+		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
+		/// scaling options.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRenderer(ref SDLWindow window, string name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (name != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(name);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window, with the specified properties.<br/>
 		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_NAME_STRING`: the name of the rendering driver<br/>
+		/// to use, if a specific one is desired<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_WINDOW_POINTER`: the window where rendering is<br/>
+		/// displayed, required if this isn't a software renderer using a surface<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_SURFACE_POINTER`: the surface where rendering<br/>
+		/// is displayed, if you want a software renderer without a window<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace<br/>
+		/// value describing the colorspace for output to the display, defaults to<br/>
+		/// SDL_COLORSPACE_SRGB. The direct3d11, direct3d12, and metal renderers<br/>
+		/// support SDL_COLORSPACE_SRGB_LINEAR, which is a linear color space and<br/>
+		/// supports HDR output. If you select SDL_COLORSPACE_SRGB_LINEAR, drawing<br/>
+		/// still uses the sRGB colorspace, but values can go beyond 1.0 and float<br/>
+		/// (linear) format textures can be used for HDR content.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER`: non-zero if you want<br/>
+		/// present synchronized with the refresh rate. This property can take any<br/>
+		/// value that is supported by SDL_SetRenderVSync() for the renderer.<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER`: the VkInstance to use<br/>
+		/// with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR to use<br/>
+		/// with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER`: the<br/>
+		/// VkPhysicalDevice to use with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER`: the VkDevice to use<br/>
+		/// with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
+		/// queue family index used for rendering.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
+		/// queue family index used for presentation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* CreateRendererWithPropertiesNative(uint props)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLRenderer*>)funcTable[1036])(props);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[1036])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window, with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_NAME_STRING`: the name of the rendering driver<br/>
+		/// to use, if a specific one is desired<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_WINDOW_POINTER`: the window where rendering is<br/>
+		/// displayed, required if this isn't a software renderer using a surface<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_SURFACE_POINTER`: the surface where rendering<br/>
+		/// is displayed, if you want a software renderer without a window<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace<br/>
+		/// value describing the colorspace for output to the display, defaults to<br/>
+		/// SDL_COLORSPACE_SRGB. The direct3d11, direct3d12, and metal renderers<br/>
+		/// support SDL_COLORSPACE_SRGB_LINEAR, which is a linear color space and<br/>
+		/// supports HDR output. If you select SDL_COLORSPACE_SRGB_LINEAR, drawing<br/>
+		/// still uses the sRGB colorspace, but values can go beyond 1.0 and float<br/>
+		/// (linear) format textures can be used for HDR content.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER`: non-zero if you want<br/>
+		/// present synchronized with the refresh rate. This property can take any<br/>
+		/// value that is supported by SDL_SetRenderVSync() for the renderer.<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER`: the VkInstance to use<br/>
+		/// with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR to use<br/>
+		/// with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER`: the<br/>
+		/// VkPhysicalDevice to use with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER`: the VkDevice to use<br/>
+		/// with the renderer, optional.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
+		/// queue family index used for rendering.<br/>
+		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
+		/// queue family index used for presentation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateRendererWithProperties(uint props)
+		{
+			SDLRenderer* ret = CreateRendererWithPropertiesNative(props);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a 2D software rendering context for a surface.<br/>
+		/// Two other API which can be used to create SDL_Renderer:<br/>
+		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
+		/// create a software renderer, but they are intended to be used with an<br/>
+		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* CreateSoftwareRendererNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRenderer*>)funcTable[1037])(surface);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1037])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a 2D software rendering context for a surface.<br/>
+		/// Two other API which can be used to create SDL_Renderer:<br/>
+		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
+		/// create a software renderer, but they are intended to be used with an<br/>
+		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateSoftwareRenderer(SDLSurface* surface)
+		{
+			SDLRenderer* ret = CreateSoftwareRendererNative(surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a 2D software rendering context for a surface.<br/>
+		/// Two other API which can be used to create SDL_Renderer:<br/>
+		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
+		/// create a software renderer, but they are intended to be used with an<br/>
+		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* CreateSoftwareRenderer(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLRenderer* ret = CreateSoftwareRendererNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the renderer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* GetRendererNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRenderer*>)funcTable[1038])(window);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1038])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the renderer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* GetRenderer(SDLWindow* window)
+		{
+			SDLRenderer* ret = GetRendererNative(window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the renderer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* GetRenderer(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLRenderer* ret = GetRendererNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the window associated with a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetRenderWindowNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*>)funcTable[1039])(renderer);
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1039])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window associated with a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindow* GetRenderWindow(SDLRenderer* renderer)
+		{
+			SDLWindow* ret = GetRenderWindowNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window associated with a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindow* GetRenderWindow(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLWindow* ret = GetRenderWindowNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the name of a renderer.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetRendererNameNative(SDLRenderer* renderer)
 		{
-			fixed (byte* pname = name)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*>)funcTable[1040])(renderer);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1040])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the name of a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetRendererName(SDLRenderer* renderer)
+		{
+			byte* ret = GetRendererNameNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetRendererNameS(SDLRenderer* renderer)
+		{
+			string ret = Utils.DecodeStringUTF8(GetRendererNameNative(renderer));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetRendererName(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (byte* pvalue = value)
+				byte* ret = GetRendererNameNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the name of a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetRendererNameS(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				string ret = Utils.DecodeStringUTF8(GetRendererNameNative((SDLRenderer*)prenderer));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the properties associated with a renderer.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
+		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
+		/// displayed, if any<br/>
+		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
+		/// displayed, if this is a software renderer without a window<br/>
+		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
+		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
+		/// and height<br/>
+		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
+		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
+		/// representing the available texture formats for this renderer.<br/>
+		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
+		/// describing the colorspace for output to the display, defaults to<br/>
+		/// SDL_COLORSPACE_SRGB.<br/>
+		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
+		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
+		/// HDR enabled. This property can change dynamically when<br/>
+		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
+		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
+		/// automatically multiplied into the color scale. This property can change<br/>
+		/// dynamically when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
+		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
+		/// enabled, this will be 1.0. This property can change dynamically when<br/>
+		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// With the direct3d renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
+		/// with the renderer<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
+		/// associated with the renderer. This may change when the window is resized.<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
+		/// associated with the renderer.<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
+		/// associated with the renderer<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
+		/// associated with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
+		/// the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
+		/// family index used for rendering<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
+		/// family index used for presentation<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
+		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
+		/// renderer<br/>
+		/// With the gpu renderer:<br/>
+		/// - `SDL_PROP_RENDERER_GPU_DEVICE_POINTER`: the SDL_GPUDevice associated with<br/>
+		/// the renderer<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetRendererPropertiesNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint>)funcTable[1041])(renderer);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1041])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with a renderer.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
+		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
+		/// displayed, if any<br/>
+		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
+		/// displayed, if this is a software renderer without a window<br/>
+		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
+		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
+		/// and height<br/>
+		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
+		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
+		/// representing the available texture formats for this renderer.<br/>
+		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
+		/// describing the colorspace for output to the display, defaults to<br/>
+		/// SDL_COLORSPACE_SRGB.<br/>
+		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
+		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
+		/// HDR enabled. This property can change dynamically when<br/>
+		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
+		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
+		/// automatically multiplied into the color scale. This property can change<br/>
+		/// dynamically when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
+		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
+		/// enabled, this will be 1.0. This property can change dynamically when<br/>
+		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// With the direct3d renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
+		/// with the renderer<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
+		/// associated with the renderer. This may change when the window is resized.<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
+		/// associated with the renderer.<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
+		/// associated with the renderer<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
+		/// associated with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
+		/// the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
+		/// family index used for rendering<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
+		/// family index used for presentation<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
+		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
+		/// renderer<br/>
+		/// With the gpu renderer:<br/>
+		/// - `SDL_PROP_RENDERER_GPU_DEVICE_POINTER`: the SDL_GPUDevice associated with<br/>
+		/// the renderer<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetRendererProperties(SDLRenderer* renderer)
+		{
+			uint ret = GetRendererPropertiesNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a renderer.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
+		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
+		/// displayed, if any<br/>
+		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
+		/// displayed, if this is a software renderer without a window<br/>
+		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
+		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
+		/// and height<br/>
+		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
+		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
+		/// representing the available texture formats for this renderer.<br/>
+		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
+		/// describing the colorspace for output to the display, defaults to<br/>
+		/// SDL_COLORSPACE_SRGB.<br/>
+		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
+		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
+		/// HDR enabled. This property can change dynamically when<br/>
+		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
+		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
+		/// automatically multiplied into the color scale. This property can change<br/>
+		/// dynamically when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
+		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
+		/// enabled, this will be 1.0. This property can change dynamically when<br/>
+		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
+		/// With the direct3d renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
+		/// with the renderer<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
+		/// associated with the renderer. This may change when the window is resized.<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
+		/// associated with the renderer.<br/>
+		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
+		/// associated with the renderer<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
+		/// with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
+		/// associated with the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
+		/// the renderer<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
+		/// family index used for rendering<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
+		/// family index used for presentation<br/>
+		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
+		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
+		/// renderer<br/>
+		/// With the gpu renderer:<br/>
+		/// - `SDL_PROP_RENDERER_GPU_DEVICE_POINTER`: the SDL_GPUDevice associated with<br/>
+		/// the renderer<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetRendererProperties(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				uint ret = GetRendererPropertiesNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRenderOutputSizeNative(SDLRenderer* renderer, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, byte>)funcTable[1042])(renderer, w, h);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1042])((nint)renderer, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderOutputSize(SDLRenderer* renderer, int* w, int* h)
+		{
+			byte ret = GetRenderOutputSizeNative(renderer, w, h);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderOutputSize(ref SDLRenderer renderer, int* w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, w, h);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderOutputSize(SDLRenderer* renderer, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				byte ret = GetRenderOutputSizeNative(renderer, (int*)pw, h);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderOutputSize(ref SDLRenderer renderer, ref int w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
 				{
-					byte ret = SetAppMetadataPropertyNative((byte*)pname, (byte*)pvalue);
+					byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool SetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
+		public static bool GetRenderOutputSize(SDLRenderer* renderer, int* w, ref int h)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (int* ph = &h)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
+				byte ret = GetRenderOutputSizeNative(renderer, w, (int*)ph);
+				return ret != 0;
 			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderOutputSize(ref SDLRenderer renderer, int* w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
+				fixed (int* ph = &h)
 				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+					byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
+					return ret != 0;
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderOutputSize(SDLRenderer* renderer, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
 				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
+					byte ret = GetRenderOutputSizeNative(renderer, (int*)pw, (int*)ph);
+					return ret != 0;
 				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
 			}
-			byte ret = SetAppMetadataPropertyNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// This returns the true output size in pixels, ignoring any render targets or<br/>
+		/// logical size and presentation.<br/>
+		/// For the output size of the current rendering target, with logical size<br/>
+		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetRenderOutputSize(ref SDLRenderer renderer, ref int w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				Utils.Free(pStr1);
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
+						return ret != 0;
+					}
+				}
 			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetCurrentRenderOutputSizeNative(SDLRenderer* renderer, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, byte>)funcTable[1043])(renderer, w, h);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1043])((nint)renderer, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, int* w, int* h)
+		{
+			byte ret = GetCurrentRenderOutputSizeNative(renderer, w, h);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, int* w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, w, h);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				byte ret = GetCurrentRenderOutputSizeNative(renderer, (int*)pw, h);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, ref int w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				byte ret = GetCurrentRenderOutputSizeNative(renderer, w, (int*)ph);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, int* w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* ph = &h)
+				{
+					byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					byte ret = GetCurrentRenderOutputSizeNative(renderer, (int*)pw, (int*)ph);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current output size in pixels of a rendering context.<br/>
+		/// If a rendering target is active, this will return the size of the rendering<br/>
+		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
+		/// Rendering target or not, the output will be adjusted by the current logical<br/>
+		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, ref int w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a texture for a rendering context.<br/>
+		/// The contents of a texture when first created are not defined.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetAppMetadataPropertyNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static SDLTexture* CreateTextureNative(SDLRenderer* renderer, SDLPixelFormat format, SDLTextureAccess access, int w, int h)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[993])(name);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPixelFormat, SDLTextureAccess, int, int, SDLTexture*>)funcTable[1044])(renderer, format, access, w, h);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[993])((nint)name);
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat, SDLTextureAccess, int, int, nint>)funcTable[1044])((nint)renderer, format, access, w, h);
 			#endif
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Create a texture for a rendering context.<br/>
+		/// The contents of a texture when first created are not defined.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static SDLTexture* CreateTexture(SDLRenderer* renderer, SDLPixelFormat format, SDLTextureAccess access, int w, int h)
 		{
-			byte* ret = GetAppMetadataPropertyNative(name);
+			SDLTexture* ret = CreateTextureNative(renderer, format, access, w, h);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Create a texture for a rendering context.<br/>
+		/// The contents of a texture when first created are not defined.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static SDLTexture* CreateTexture(ref SDLRenderer renderer, SDLPixelFormat format, SDLTextureAccess access, int w, int h)
 		{
-			string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative(name));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				byte* ret = GetAppMetadataPropertyNative((byte*)pname);
+				SDLTexture* ret = CreateTextureNative((SDLRenderer*)prenderer, format, access, w, h);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface, and can be queried using the<br/>
+		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte* ret = GetAppMetadataPropertyNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetAppMetadataProperty([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetAppMetadataPropertyNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAppMetadataProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetAppMetadataPropertyS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Dynamically load a shared object.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSharedObject* LoadObjectNative([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] byte* sofile)
+		internal static SDLTexture* CreateTextureFromSurfaceNative(SDLRenderer* renderer, SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLSharedObject*>)funcTable[994])(sofile);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLSurface*, SDLTexture*>)funcTable[1045])(renderer, surface);
 			#else
-			return (SDLSharedObject*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[994])((nint)sofile);
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1045])((nint)renderer, (nint)surface);
 			#endif
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface, and can be queried using the<br/>
+		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] byte* sofile)
+		public static SDLTexture* CreateTextureFromSurface(SDLRenderer* renderer, SDLSurface* surface)
 		{
-			SDLSharedObject* ret = LoadObjectNative(sofile);
+			SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, surface);
 			return ret;
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface, and can be queried using the<br/>
+		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] ref byte sofile)
+		public static SDLTexture* CreateTextureFromSurface(ref SDLRenderer renderer, SDLSurface* surface)
 		{
-			fixed (byte* psofile = &sofile)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				SDLSharedObject* ret = LoadObjectNative((byte*)psofile);
+				SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface, and can be queried using the<br/>
+		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> sofile)
+		public static SDLTexture* CreateTextureFromSurface(SDLRenderer* renderer, ref SDLSurface surface)
 		{
-			fixed (byte* psofile = sofile)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLSharedObject* ret = LoadObjectNative((byte*)psofile);
+				SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface, and can be queried using the<br/>
+		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
-		[return: NativeName(NativeNameType.Type, "SDL_SharedObject *")]
-		public static SDLSharedObject* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "char const *")] string sofile)
+		public static SDLTexture* CreateTextureFromSurface(ref SDLRenderer renderer, ref SDLSurface surface)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (sofile != null)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(sofile);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLSurface* psurface = &surface)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
+					return ret;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(sofile, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
 			}
-			SDLSharedObject* ret = LoadObjectNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Create a texture for a rendering context with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
+		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
+		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
+		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
+		/// YUV textures.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
+		/// pixels, required<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
+		/// pixels, required<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
+		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
+		/// point textures, this defines the maximum dynamic range used by the<br/>
+		/// content, in terms of the SDR white point. This would be equivalent to<br/>
+		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
+		/// If this is defined, any values outside the range supported by the display<br/>
+		/// will be scaled into the available HDR headroom, otherwise they are<br/>
+		/// clipped.<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the metal renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
+		/// associated with the texture, if you want to create a texture from an<br/>
+		/// existing pixel buffer.<br/>
+		/// With the opengl renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the opengles2 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
+		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
+		/// you want to wrap an existing texture.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static delegate*<void> LoadFunctionNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		internal static SDLTexture* CreateTextureWithPropertiesNative(SDLRenderer* renderer, uint props)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSharedObject*, byte*, delegate*<void>>)funcTable[995])(handle, name);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, SDLTexture*>)funcTable[1046])(renderer, props);
 			#else
-			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[995])((nint)handle, (nint)name);
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, uint, nint>)funcTable[1046])((nint)renderer, props);
 			#endif
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Create a texture for a rendering context with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
+		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
+		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
+		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
+		/// YUV textures.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
+		/// pixels, required<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
+		/// pixels, required<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
+		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
+		/// point textures, this defines the maximum dynamic range used by the<br/>
+		/// content, in terms of the SDR white point. This would be equivalent to<br/>
+		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
+		/// If this is defined, any values outside the range supported by the display<br/>
+		/// will be scaled into the available HDR headroom, otherwise they are<br/>
+		/// clipped.<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the metal renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
+		/// associated with the texture, if you want to create a texture from an<br/>
+		/// existing pixel buffer.<br/>
+		/// With the opengl renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the opengles2 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
+		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
+		/// you want to wrap an existing texture.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static SDLTexture* CreateTextureWithProperties(SDLRenderer* renderer, uint props)
 		{
-			delegate*<void> ret = LoadFunctionNative(handle, name);
+			SDLTexture* ret = CreateTextureWithPropertiesNative(renderer, props);
 			return ret;
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Create a texture for a rendering context with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
+		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
+		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
+		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
+		/// YUV textures.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
+		/// pixels, required<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
+		/// pixels, required<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
+		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
+		/// point textures, this defines the maximum dynamic range used by the<br/>
+		/// content, in terms of the SDR white point. This would be equivalent to<br/>
+		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
+		/// If this is defined, any values outside the range supported by the display<br/>
+		/// will be scaled into the available HDR headroom, otherwise they are<br/>
+		/// clipped.<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the metal renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
+		/// associated with the texture, if you want to create a texture from an<br/>
+		/// existing pixel buffer.<br/>
+		/// With the opengl renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the opengles2 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture, if you want to wrap an existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
+		/// existing texture.<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
+		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
+		/// you want to wrap an existing texture.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] ref SDLSharedObject handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		public static SDLTexture* CreateTextureWithProperties(ref SDLRenderer renderer, uint props)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, name);
+				SDLTexture* ret = CreateTextureWithPropertiesNative((SDLRenderer*)prenderer, props);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Get the properties associated with a texture.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_Colorspace value describing<br/>
+		/// the texture colorspace.<br/>
+		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_PixelFormat.<br/>
+		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_TextureAccess.<br/>
+		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
+		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
+		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
+		/// textures, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
+		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
+		/// textures, this defines the maximum dynamic range used by the content, in<br/>
+		/// terms of the SDR white point. If this is defined, any values outside the<br/>
+		/// range supported by the display will be scaled into the available HDR<br/>
+		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
+		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
+		/// textures.<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the V plane of a YUV texture<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
+		/// with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
+		/// with the V plane of a YUV texture<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
+		/// texture<br/>
+		/// With the opengl renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
+		/// with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
+		/// with the V plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
+		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
+		/// the texture (0.0 - 1.0)<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
+		/// the texture (0.0 - 1.0)<br/>
+		/// With the opengles2 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
+		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetTexturePropertiesNative(SDLTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint>)funcTable[1047])(texture);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1047])((nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with a texture.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_Colorspace value describing<br/>
+		/// the texture colorspace.<br/>
+		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_PixelFormat.<br/>
+		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_TextureAccess.<br/>
+		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
+		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
+		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
+		/// textures, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
+		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
+		/// textures, this defines the maximum dynamic range used by the content, in<br/>
+		/// terms of the SDR white point. If this is defined, any values outside the<br/>
+		/// range supported by the display will be scaled into the available HDR<br/>
+		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
+		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
+		/// textures.<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the V plane of a YUV texture<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
+		/// with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
+		/// with the V plane of a YUV texture<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
+		/// texture<br/>
+		/// With the opengl renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
+		/// with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
+		/// with the V plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
+		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
+		/// the texture (0.0 - 1.0)<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
+		/// the texture (0.0 - 1.0)<br/>
+		/// With the opengles2 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
+		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
-		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
-		public static delegate*<void> LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "SDL_SharedObject *")] SDLSharedObject* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		public static uint GetTextureProperties(SDLTexture* texture)
 		{
-			fixed (byte* pname = &name)
+			uint ret = GetTexturePropertiesNative(texture);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a texture.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_Colorspace value describing<br/>
+		/// the texture colorspace.<br/>
+		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_PixelFormat.<br/>
+		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
+		/// SDL_TextureAccess.<br/>
+		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
+		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
+		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
+		/// textures, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
+		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
+		/// textures, this defines the maximum dynamic range used by the content, in<br/>
+		/// terms of the SDR white point. If this is defined, any values outside the<br/>
+		/// range supported by the display will be scaled into the available HDR<br/>
+		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
+		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
+		/// textures.<br/>
+		/// With the direct3d11 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
+		/// associated with the V plane of a YUV texture<br/>
+		/// With the direct3d12 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
+		/// with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
+		/// with the V plane of a YUV texture<br/>
+		/// With the vulkan renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
+		/// texture<br/>
+		/// With the opengl renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
+		/// with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
+		/// with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
+		/// with the V plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
+		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
+		/// the texture (0.0 - 1.0)<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
+		/// the texture (0.0 - 1.0)<br/>
+		/// With the opengles2 renderer:<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
+		/// associated with the texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
+		/// associated with the UV plane of an NV12 texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
+		/// associated with the U plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
+		/// associated with the V plane of a YUV texture<br/>
+		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
+		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetTextureProperties(ref SDLTexture texture)
+		{
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				delegate*<void> ret = LoadFunctionNative(handle, (byte*)pname);
+				uint ret = GetTexturePropertiesNative((SDLTexture*)ptexture);
 				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the renderer that created an SDL_Texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* GetRendererFromTextureNative(SDLTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRenderer*>)funcTable[1048])(texture);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1048])((nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the renderer that created an SDL_Texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* GetRendererFromTexture(SDLTexture* texture)
+		{
+			SDLRenderer* ret = GetRendererFromTextureNative(texture);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the renderer that created an SDL_Texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRenderer* GetRendererFromTexture(ref SDLTexture texture)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				SDLRenderer* ret = GetRendererFromTextureNative((SDLTexture*)ptexture);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextureSizeNative(SDLTexture* texture, float* w, float* h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, byte>)funcTable[1049])(texture, w, h);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1049])((nint)texture, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(SDLTexture* texture, float* w, float* h)
+		{
+			byte ret = GetTextureSizeNative(texture, w, h);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(ref SDLTexture texture, float* w, float* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = GetTextureSizeNative((SDLTexture*)ptexture, w, h);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(SDLTexture* texture, ref float w, float* h)
+		{
+			fixed (float* pw = &w)
+			{
+				byte ret = GetTextureSizeNative(texture, (float*)pw, h);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(ref SDLTexture texture, ref float w, float* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pw = &w)
+				{
+					byte ret = GetTextureSizeNative((SDLTexture*)ptexture, (float*)pw, h);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(SDLTexture* texture, float* w, ref float h)
+		{
+			fixed (float* ph = &h)
+			{
+				byte ret = GetTextureSizeNative(texture, w, (float*)ph);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(ref SDLTexture texture, float* w, ref float h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* ph = &h)
+				{
+					byte ret = GetTextureSizeNative((SDLTexture*)ptexture, w, (float*)ph);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(SDLTexture* texture, ref float w, ref float h)
+		{
+			fixed (float* pw = &w)
+			{
+				fixed (float* ph = &h)
+				{
+					byte ret = GetTextureSizeNative(texture, (float*)pw, (float*)ph);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a texture, as floating point values.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureSize(ref SDLTexture texture, ref float w, ref float h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pw = &w)
+				{
+					fixed (float* ph = &h)
+					{
+						byte ret = GetTextureSizeNative((SDLTexture*)ptexture, (float*)pw, (float*)ph);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// Color modulation is not always supported by the renderer; it will return<br/>
+		/// false if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextureColorModNative(SDLTexture* texture, byte r, byte g, byte b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte, byte, byte>)funcTable[1050])(texture, r, g, b);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[1050])((nint)texture, r, g, b);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// Color modulation is not always supported by the renderer; it will return<br/>
+		/// false if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureColorMod(SDLTexture* texture, byte r, byte g, byte b)
+		{
+			byte ret = SetTextureColorModNative(texture, r, g, b);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// Color modulation is not always supported by the renderer; it will return<br/>
+		/// false if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureColorMod(ref SDLTexture texture, byte r, byte g, byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = SetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * color`<br/>
+		/// Color modulation is not always supported by the renderer; it will return<br/>
+		/// false if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextureColorModFloatNative(SDLTexture* texture, float r, float g, float b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float, float, float, byte>)funcTable[1051])(texture, r, g, b);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, byte>)funcTable[1051])((nint)texture, r, g, b);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * color`<br/>
+		/// Color modulation is not always supported by the renderer; it will return<br/>
+		/// false if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureColorModFloat(SDLTexture* texture, float r, float g, float b)
+		{
+			byte ret = SetTextureColorModFloatNative(texture, r, g, b);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * color`<br/>
+		/// Color modulation is not always supported by the renderer; it will return<br/>
+		/// false if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureColorModFloat(ref SDLTexture texture, float r, float g, float b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = SetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextureColorModNative(SDLTexture* texture, byte* r, byte* g, byte* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte*, byte*, byte>)funcTable[1052])(texture, r, g, b);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1052])((nint)texture, (nint)r, (nint)g, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, byte* g, byte* b)
+		{
+			byte ret = GetTextureColorModNative(texture, r, g, b);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, byte* g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				byte ret = GetTextureColorModNative(texture, (byte*)pr, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, ref byte g, byte* b)
+		{
+			fixed (byte* pg = &g)
+			{
+				byte ret = GetTextureColorModNative(texture, r, (byte*)pg, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pg = &g)
+				{
+					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					byte ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, byte* g, ref byte b)
+		{
+			fixed (byte* pb = &b)
+			{
+				byte ret = GetTextureColorModNative(texture, r, g, (byte*)pb);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pb = &b)
+				{
+					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, byte* g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					byte ret = GetTextureColorModNative(texture, (byte*)pr, g, (byte*)pb);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					byte ret = GetTextureColorModNative(texture, r, (byte*)pg, (byte*)pb);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						byte ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, (byte*)pb);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextureColorModFloatNative(SDLTexture* texture, float* r, float* g, float* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, float*, byte>)funcTable[1053])(texture, r, g, b);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1053])((nint)texture, (nint)r, (nint)g, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, float* g, float* b)
+		{
+			byte ret = GetTextureColorModFloatNative(texture, r, g, b);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, float* g, float* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, float* g, float* b)
+		{
+			fixed (float* pr = &r)
+			{
+				byte ret = GetTextureColorModFloatNative(texture, (float*)pr, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, float* g, float* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pr = &r)
+				{
+					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, g, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, ref float g, float* b)
+		{
+			fixed (float* pg = &g)
+			{
+				byte ret = GetTextureColorModFloatNative(texture, r, (float*)pg, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, ref float g, float* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pg = &g)
+				{
+					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, (float*)pg, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, ref float g, float* b)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					byte ret = GetTextureColorModFloatNative(texture, (float*)pr, (float*)pg, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, ref float g, float* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, (float*)pg, b);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, float* g, ref float b)
+		{
+			fixed (float* pb = &b)
+			{
+				byte ret = GetTextureColorModFloatNative(texture, r, g, (float*)pb);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, float* g, ref float b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, (float*)pb);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, float* g, ref float b)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = GetTextureColorModFloatNative(texture, (float*)pr, g, (float*)pb);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, float* g, ref float b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, g, (float*)pb);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, ref float g, ref float b)
+		{
+			fixed (float* pg = &g)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = GetTextureColorModFloatNative(texture, r, (float*)pg, (float*)pb);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, ref float g, ref float b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, (float*)pg, (float*)pb);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, ref float g, ref float b)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = GetTextureColorModFloatNative(texture, (float*)pr, (float*)pg, (float*)pb);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, ref float g, ref float b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						fixed (float* pb = &b)
+						{
+							byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, (float*)pg, (float*)pb);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return<br/>
+		/// false if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextureAlphaModNative(SDLTexture* texture, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte>)funcTable[1054])(texture, alpha);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[1054])((nint)texture, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return<br/>
+		/// false if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureAlphaMod(SDLTexture* texture, byte alpha)
+		{
+			byte ret = SetTextureAlphaModNative(texture, alpha);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return<br/>
+		/// false if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureAlphaMod(ref SDLTexture texture, byte alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * alpha`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return<br/>
+		/// false if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextureAlphaModFloatNative(SDLTexture* texture, float alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float, byte>)funcTable[1055])(texture, alpha);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, byte>)funcTable[1055])((nint)texture, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * alpha`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return<br/>
+		/// false if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureAlphaModFloat(SDLTexture* texture, float alpha)
+		{
+			byte ret = SetTextureAlphaModFloatNative(texture, alpha);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * alpha`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return<br/>
+		/// false if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureAlphaModFloat(ref SDLTexture texture, float alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = SetTextureAlphaModFloatNative((SDLTexture*)ptexture, alpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextureAlphaModNative(SDLTexture* texture, byte* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte>)funcTable[1056])(texture, alpha);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1056])((nint)texture, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaMod(SDLTexture* texture, byte* alpha)
+		{
+			byte ret = GetTextureAlphaModNative(texture, alpha);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaMod(ref SDLTexture texture, byte* alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaMod(SDLTexture* texture, ref byte alpha)
+		{
+			fixed (byte* palpha = &alpha)
+			{
+				byte ret = GetTextureAlphaModNative(texture, (byte*)palpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaMod(ref SDLTexture texture, ref byte alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* palpha = &alpha)
+				{
+					byte ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextureAlphaModFloatNative(SDLTexture* texture, float* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, byte>)funcTable[1057])(texture, alpha);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1057])((nint)texture, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaModFloat(SDLTexture* texture, float* alpha)
+		{
+			byte ret = GetTextureAlphaModFloatNative(texture, alpha);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaModFloat(ref SDLTexture texture, float* alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = GetTextureAlphaModFloatNative((SDLTexture*)ptexture, alpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaModFloat(SDLTexture* texture, ref float alpha)
+		{
+			fixed (float* palpha = &alpha)
+			{
+				byte ret = GetTextureAlphaModFloatNative(texture, (float*)palpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureAlphaModFloat(ref SDLTexture texture, ref float alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* palpha = &alpha)
+				{
+					byte ret = GetTextureAlphaModFloatNative((SDLTexture*)ptexture, (float*)palpha);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, byte>)funcTable[1058])(texture, blendMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, byte>)funcTable[1058])((nint)texture, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureBlendMode(SDLTexture* texture, SDLBlendMode blendMode)
+		{
+			byte ret = SetTextureBlendModeNative(texture, blendMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureBlendMode(ref SDLTexture texture, SDLBlendMode blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, byte>)funcTable[1059])(texture, blendMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1059])((nint)texture, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureBlendMode(SDLTexture* texture, SDLBlendMode* blendMode)
+		{
+			byte ret = GetTextureBlendModeNative(texture, blendMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureBlendMode(ref SDLTexture texture, SDLBlendMode* blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureBlendMode(SDLTexture* texture, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLBlendMode* pblendMode = &blendMode)
+			{
+				byte ret = GetTextureBlendModeNative(texture, (SDLBlendMode*)pblendMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureBlendMode(ref SDLTexture texture, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLBlendMode* pblendMode = &blendMode)
+				{
+					byte ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode scaleMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, byte>)funcTable[1060])(texture, scaleMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, byte>)funcTable[1060])((nint)texture, scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
+		{
+			byte ret = SetTextureScaleModeNative(texture, scaleMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SetTextureScaleMode(ref SDLTexture texture, SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode* scaleMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, byte>)funcTable[1061])(texture, scaleMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1061])((nint)texture, (nint)scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
+		{
+			byte ret = GetTextureScaleModeNative(texture, scaleMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureScaleMode(ref SDLTexture texture, SDLScaleMode* scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLScaleMode* pscaleMode = &scaleMode)
+			{
+				byte ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool GetTextureScaleMode(ref SDLTexture texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLScaleMode* pscaleMode = &scaleMode)
+				{
+					byte ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture, which can be<br/>
+		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte UpdateTextureNative(SDLTexture* texture, SDLRect* rect, void* pixels, int pitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void*, int, byte>)funcTable[1062])(texture, rect, pixels, pitch);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, byte>)funcTable[1062])((nint)texture, (nint)rect, (nint)pixels, pitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture, which can be<br/>
+		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateTexture(SDLTexture* texture, SDLRect* rect, void* pixels, int pitch)
+		{
+			byte ret = UpdateTextureNative(texture, rect, pixels, pitch);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture, which can be<br/>
+		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateTexture(ref SDLTexture texture, SDLRect* rect, void* pixels, int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = UpdateTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture, which can be<br/>
+		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateTexture(SDLTexture* texture, ref SDLRect rect, void* pixels, int pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = UpdateTextureNative(texture, (SDLRect*)prect, pixels, pitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture, which can be<br/>
+		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateTexture(ref SDLTexture texture, ref SDLRect rect, void* pixels, int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte UpdateYUVTextureNative(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, byte*, int, byte>)funcTable[1063])(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, byte>)funcTable[1063])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uplane, upitch, (nint)vplane, vpitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (byte* puplane = &uplane)
+			{
+				byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						fixed (byte* puplane = &uplane)
+						{
+							byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* pvplane = &vplane)
+			{
+				byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						fixed (byte* pvplane = &vplane)
+						{
+							byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* puplane = &uplane)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						fixed (byte* pvplane = &vplane)
+						{
+							byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+						return ret != 0;
+					}
+				}
 			}
 		}
 	}

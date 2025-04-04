@@ -20,36 +20,17 @@ namespace Hexa.NET.SDL3
 	/// a set of symbols that work well with your art style.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GamepadButtonLabel")]
 	[Flags]
 	public enum SDLGamepadButtonLabel : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_A")]
-		[NativeName(NativeNameType.Value, "1")]
 		A = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_B")]
-		[NativeName(NativeNameType.Value, "2")]
 		B = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_X")]
-		[NativeName(NativeNameType.Value, "3")]
 		X = unchecked(3),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_Y")]
-		[NativeName(NativeNameType.Value, "4")]
 		Y = unchecked(4),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_CROSS")]
-		[NativeName(NativeNameType.Value, "5")]
 		Cross = unchecked(5),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_CIRCLE")]
-		[NativeName(NativeNameType.Value, "6")]
 		Circle = unchecked(6),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_SQUARE")]
-		[NativeName(NativeNameType.Value, "7")]
 		Square = unchecked(7),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LABEL_TRIANGLE")]
-		[NativeName(NativeNameType.Value, "8")]
 		Triangle = unchecked(8),
 	}
 }

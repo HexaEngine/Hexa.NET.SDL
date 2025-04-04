@@ -18,22 +18,17 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUFrontFace")]
 	[Flags]
 	public enum SDLGPUFrontFace : int
 	{
 		/// <summary>
 		/// A triangle with counter-clockwise vertex winding will be considered front-facing. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE")]
-		[NativeName(NativeNameType.Value, "0")]
 		CounterClockwise = unchecked(0),
 
 		/// <summary>
 		/// A triangle with clockwise vertex winding will be considered front-facing. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_FRONTFACE_CLOCKWISE")]
-		[NativeName(NativeNameType.Value, "1")]
 		Clockwise = unchecked(1),
 	}
 }

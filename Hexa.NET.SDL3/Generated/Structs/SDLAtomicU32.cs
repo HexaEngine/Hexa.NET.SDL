@@ -34,12 +34,9 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_AtomicU32")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAtomicU32
 	{
-		[NativeName(NativeNameType.Field, "value")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Value;
 
 		public unsafe SDLAtomicU32(uint value = default)

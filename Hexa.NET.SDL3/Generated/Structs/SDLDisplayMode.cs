@@ -20,71 +20,52 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_DisplayMode")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDisplayMode
 	{
 		/// <summary>
 		/// the display this mode is associated with <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "displayID")]
-		[NativeName(NativeNameType.Type, "SDL_DisplayID")]
 		public uint DisplayID;
 
 		/// <summary>
 		/// pixel format <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
 
 		/// <summary>
 		/// width <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int W;
 
 		/// <summary>
 		/// height <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		/// <summary>
 		/// scale converting size to pixels (e.g. a 1920x1080 mode with 2.0 scale would have 3840x2160 pixels) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pixel_density")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float PixelDensity;
 
 		/// <summary>
 		/// refresh rate (or 0.0f for unspecified) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "refresh_rate")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float RefreshRate;
 
 		/// <summary>
 		/// precise refresh rate numerator (or 0 for unspecified) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "refresh_rate_numerator")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int RefreshRateNumerator;
 
 		/// <summary>
 		/// precise refresh rate denominator <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "refresh_rate_denominator")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int RefreshRateDenominator;
 
 		/// <summary>
 		/// Private <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "internal")]
-		[NativeName(NativeNameType.Type, "SDL_DisplayModeData *")]
 		public unsafe SDLDisplayModeData* Internal;
 
 

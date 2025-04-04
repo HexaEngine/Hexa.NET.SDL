@@ -44,92 +44,65 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUColorTargetInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUColorTargetInfo
 	{
 		/// <summary>
 		/// The texture that will be used as a color target by a render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "texture")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The mip level to use as a color target. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mip_level")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint MipLevel;
 
 		/// <summary>
 		/// The layer index or depth plane to use as a color target. This value is treated as a layer index on 2D array and cube textures, and as a depth plane on 3D textures. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "layer_or_depth_plane")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint LayerOrDepthPlane;
 
 		/// <summary>
 		/// The color to clear the color target to at the start of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "clear_color")]
-		[NativeName(NativeNameType.Type, "SDL_FColor")]
 		public SDLFColor ClearColor;
 
 		/// <summary>
 		/// What is done with the contents of the color target at the beginning of the render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "load_op")]
-		[NativeName(NativeNameType.Type, "SDL_GPULoadOp")]
 		public SDLGPULoadOp LoadOp;
 
 		/// <summary>
 		/// What is done with the results of the render pass. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "store_op")]
-		[NativeName(NativeNameType.Type, "SDL_GPUStoreOp")]
 		public SDLGPUStoreOp StoreOp;
 
 		/// <summary>
 		/// The texture that will receive the results of a multisample resolve operation. Ignored if a RESOLVE* store_op is not used. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "resolve_texture")]
-		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* ResolveTexture;
 
 		/// <summary>
 		/// The mip level of the resolve texture to use for the resolve operation. Ignored if a RESOLVE* store_op is not used. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "resolve_mip_level")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ResolveMipLevel;
 
 		/// <summary>
 		/// The layer index of the resolve texture to use for the resolve operation. Ignored if a RESOLVE* store_op is not used. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "resolve_layer")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ResolveLayer;
 
 		/// <summary>
 		/// true cycles the texture if the texture is bound and load_op is not LOAD <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "cycle")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
 		/// <summary>
 		/// true cycles the resolve texture if the resolve texture is bound. Ignored if a RESOLVE* store_op is not used. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "cycle_resolve_texture")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte CycleResolveTexture;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
 
 		public unsafe SDLGPUColorTargetInfo(SDLGPUTexture* texture = default, uint mipLevel = default, uint layerOrDepthPlane = default, SDLFColor clearColor = default, SDLGPULoadOp loadOp = default, SDLGPUStoreOp storeOp = default, SDLGPUTexture* resolveTexture = default, uint resolveMipLevel = default, uint resolveLayer = default, bool cycle = default, bool cycleResolveTexture = default, byte padding1 = default, byte padding2 = default)

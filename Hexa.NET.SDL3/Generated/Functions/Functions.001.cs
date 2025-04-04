@@ -18,72 +18,6 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Allocate a copy of a wide string.<br/>
-		/// This allocates enough space for a null-terminated copy of `wstr`, using<br/>
-		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> wstr)
-		{
-			fixed (char* pwstr = wstr)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsdupNative((char*)pwstr));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Allocate a copy of a wide string.<br/>
-		/// This allocates enough space for a null-terminated copy of `wstr`, using<br/>
-		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] string wstr)
-		{
-			fixed (char* pwstr = wstr)
-			{
-				char* ret = WcsdupNative(pwstr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Allocate a copy of a wide string.<br/>
-		/// This allocates enough space for a null-terminated copy of `wstr`, using<br/>
-		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "wchar const *")] string wstr)
-		{
-			fixed (char* pwstr = wstr)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsdupNative(pwstr));
-				return ret;
-			}
-		}
-
-		/// <summary>
 		/// Search a wide string for the first instance of a specific substring.<br/>
 		/// The search ends once it finds the requested substring, or a null terminator<br/>
 		/// byte to end the string.<br/>
@@ -94,359 +28,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static char* WcsstrNative([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<char*, char*, char*>)funcTable[53])(haystack, needle);
-			#else
-			return (char*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[53])((nint)haystack, (nint)needle);
-			#endif
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			char* ret = WcsstrNative(haystack, needle);
-			return ret;
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, needle));
-			return ret;
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			fixed (char* phaystack = &haystack)
-			{
-				char* ret = WcsstrNative((char*)phaystack, needle);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			fixed (char* phaystack = &haystack)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsstrNative((char*)phaystack, needle));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			fixed (char* phaystack = haystack)
-			{
-				char* ret = WcsstrNative((char*)phaystack, needle);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			fixed (char* phaystack = haystack)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsstrNative((char*)phaystack, needle));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			fixed (char* phaystack = haystack)
-			{
-				char* ret = WcsstrNative(phaystack, needle);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle)
-		{
-			fixed (char* phaystack = haystack)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsstrNative(phaystack, needle));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle)
-		{
-			fixed (char* pneedle = &needle)
-			{
-				char* ret = WcsstrNative(haystack, (char*)pneedle);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle)
-		{
-			fixed (char* pneedle = &needle)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, (char*)pneedle));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle)
-		{
-			fixed (char* pneedle = needle)
-			{
-				char* ret = WcsstrNative(haystack, (char*)pneedle);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle)
-		{
-			fixed (char* pneedle = needle)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, (char*)pneedle));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle)
-		{
-			fixed (char* pneedle = needle)
-			{
-				char* ret = WcsstrNative(haystack, pneedle);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle)
-		{
-			fixed (char* pneedle = needle)
-			{
-				string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, pneedle));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle)
-		{
-			fixed (char* phaystack = &haystack)
-			{
-				fixed (char* pneedle = &needle)
-				{
-					char* ret = WcsstrNative((char*)phaystack, (char*)pneedle);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Search a wide string for the first instance of a specific substring.<br/>
-		/// The search ends once it finds the requested substring, or a null terminator<br/>
-		/// byte to end the string.<br/>
-		/// Note that this looks for strings of _wide characters_, not _codepoints_, so<br/>
-		/// it's legal to search for malformed and incomplete UTF-16 sequences.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle)
+		public static string WcsstrS(ref char haystack, ref char needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -469,9 +51,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle)
+		public static char* Wcsstr(ReadOnlySpan<char> haystack, ReadOnlySpan<char> needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -494,9 +74,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle)
+		public static string WcsstrS(ReadOnlySpan<char> haystack, ReadOnlySpan<char> needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -519,9 +97,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle)
+		public static char* Wcsstr(string haystack, string needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -544,9 +120,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle)
+		public static string WcsstrS(string haystack, string needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -572,10 +146,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static char* WcsnstrNative([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static char* WcsnstrNative(char* haystack, char* needle, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, char*>)funcTable[54])(haystack, needle, maxlen);
@@ -598,9 +170,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(char* haystack, char* needle, nuint maxlen)
 		{
 			char* ret = WcsnstrNative(haystack, needle, maxlen);
 			return ret;
@@ -620,9 +190,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(char* haystack, char* needle, nuint maxlen)
 		{
 			string ret = Utils.DecodeStringUTF16(WcsnstrNative(haystack, needle, maxlen));
 			return ret;
@@ -642,9 +210,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(ref char haystack, char* needle, nuint maxlen)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -667,9 +233,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(ref char haystack, char* needle, nuint maxlen)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -692,9 +256,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(ReadOnlySpan<char> haystack, char* needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -717,9 +279,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(ReadOnlySpan<char> haystack, char* needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -742,9 +302,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(string haystack, char* needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -767,9 +325,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] char* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(string haystack, char* needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -792,9 +348,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(char* haystack, ref char needle, nuint maxlen)
 		{
 			fixed (char* pneedle = &needle)
 			{
@@ -817,9 +371,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(char* haystack, ref char needle, nuint maxlen)
 		{
 			fixed (char* pneedle = &needle)
 			{
@@ -842,9 +394,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(char* haystack, ReadOnlySpan<char> needle, nuint maxlen)
 		{
 			fixed (char* pneedle = needle)
 			{
@@ -867,9 +417,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(char* haystack, ReadOnlySpan<char> needle, nuint maxlen)
 		{
 			fixed (char* pneedle = needle)
 			{
@@ -892,9 +440,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(char* haystack, string needle, nuint maxlen)
 		{
 			fixed (char* pneedle = needle)
 			{
@@ -917,9 +463,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(char* haystack, string needle, nuint maxlen)
 		{
 			fixed (char* pneedle = needle)
 			{
@@ -942,9 +486,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(ref char haystack, ref char needle, nuint maxlen)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -970,9 +512,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ref char needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(ref char haystack, ref char needle, nuint maxlen)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -998,9 +538,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(ReadOnlySpan<char> haystack, ReadOnlySpan<char> needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -1026,9 +564,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(ReadOnlySpan<char> haystack, ReadOnlySpan<char> needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -1054,9 +590,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static char* Wcsnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static char* Wcsnstr(string haystack, string needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -1082,9 +616,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsnstr")]
-		[return: NativeName(NativeNameType.Type, "wchar *")]
-		public static string WcsnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "wchar const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "wchar const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string WcsnstrS(string haystack, string needle, nuint maxlen)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -1106,10 +638,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcscmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		internal static int WcscmpNative(char* str1, char* str2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, int>)funcTable[55])(str1, str2);
@@ -1128,9 +658,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscmp(char* str1, char* str2)
 		{
 			int ret = WcscmpNative(str1, str2);
 			return ret;
@@ -1146,9 +674,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscmp(ref char str1, char* str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1167,9 +693,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscmp(ReadOnlySpan<char> str1, char* str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1188,9 +712,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscmp(string str1, char* str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1209,9 +731,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2)
+		public static int Wcscmp(char* str1, ref char str2)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -1230,9 +750,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2)
+		public static int Wcscmp(char* str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -1251,9 +769,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2)
+		public static int Wcscmp(char* str1, string str2)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -1272,9 +788,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2)
+		public static int Wcscmp(ref char str1, ref char str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1296,9 +810,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2)
+		public static int Wcscmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1320,9 +832,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2)
+		public static int Wcscmp(string str1, string str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1353,10 +863,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcsncmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static int WcsncmpNative(char* str1, char* str2, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, int>)funcTable[56])(str1, str2, maxlen);
@@ -1384,9 +892,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(char* str1, char* str2, nuint maxlen)
 		{
 			int ret = WcsncmpNative(str1, str2, maxlen);
 			return ret;
@@ -1411,9 +917,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(ref char str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1441,9 +945,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(ReadOnlySpan<char> str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1471,9 +973,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(string str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1501,9 +1001,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(char* str1, ref char str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -1531,9 +1029,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(char* str1, ReadOnlySpan<char> str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -1561,9 +1057,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(char* str1, string str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -1591,9 +1085,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(ref char str1, ref char str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1624,9 +1116,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1657,9 +1147,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncmp(string str1, string str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1691,10 +1179,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcscasecmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		internal static int WcscasecmpNative(char* str1, char* str2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, int>)funcTable[57])(str1, str2);
@@ -1723,9 +1209,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscasecmp(char* str1, char* str2)
 		{
 			int ret = WcscasecmpNative(str1, str2);
 			return ret;
@@ -1751,9 +1235,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscasecmp(ref char str1, char* str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1782,9 +1264,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscasecmp(ReadOnlySpan<char> str1, char* str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1813,9 +1293,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2)
+		public static int Wcscasecmp(string str1, char* str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -1844,9 +1322,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2)
+		public static int Wcscasecmp(char* str1, ref char str2)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -1875,9 +1351,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2)
+		public static int Wcscasecmp(char* str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -1906,9 +1380,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2)
+		public static int Wcscasecmp(char* str1, string str2)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -1937,9 +1409,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2)
+		public static int Wcscasecmp(ref char str1, ref char str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1971,9 +1441,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2)
+		public static int Wcscasecmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2005,9 +1473,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2)
+		public static int Wcscasecmp(string str1, string str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2048,10 +1514,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcsncasecmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static int WcsncasecmpNative(char* str1, char* str2, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, int>)funcTable[58])(str1, str2, maxlen);
@@ -2089,9 +1553,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(char* str1, char* str2, nuint maxlen)
 		{
 			int ret = WcsncasecmpNative(str1, str2, maxlen);
 			return ret;
@@ -2126,9 +1588,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(ref char str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -2166,9 +1626,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(ReadOnlySpan<char> str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2206,9 +1664,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(string str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2246,9 +1702,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(char* str1, ref char str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -2286,9 +1740,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(char* str1, ReadOnlySpan<char> str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -2326,9 +1778,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(char* str1, string str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -2366,9 +1816,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(ref char str1, ref char str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -2409,9 +1857,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2452,9 +1898,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "wchar const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "wchar const *")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int Wcsncasecmp(string str1, string str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2478,10 +1922,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcstolNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] char* str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] char** endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		internal static int WcstolNative(char* str, char** endp, int baseValue)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char**, int, int>)funcTable[59])(str, endp, baseValue);
@@ -2502,9 +1944,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] char* str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] char** endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(char* str, char** endp, int baseValue)
 		{
 			int ret = WcstolNative(str, endp, baseValue);
 			return ret;
@@ -2522,9 +1962,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] char** endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(ref char str, char** endp, int baseValue)
 		{
 			fixed (char* pstr = &str)
 			{
@@ -2545,9 +1983,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] char** endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(ReadOnlySpan<char> str, char** endp, int baseValue)
 		{
 			fixed (char* pstr = str)
 			{
@@ -2568,9 +2004,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] string str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] char** endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(string str, char** endp, int baseValue)
 		{
 			fixed (char* pstr = str)
 			{
@@ -2591,9 +2025,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] char* str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] ref char* endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(char* str, ref char* endp, int baseValue)
 		{
 			fixed (char** pendp = &endp)
 			{
@@ -2614,9 +2046,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] ref char str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] ref char* endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(ref char str, ref char* endp, int baseValue)
 		{
 			fixed (char* pstr = &str)
 			{
@@ -2640,9 +2070,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] ref char* endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(ReadOnlySpan<char> str, ref char* endp, int baseValue)
 		{
 			fixed (char* pstr = str)
 			{
@@ -2666,9 +2094,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_wcstol")]
-		[return: NativeName(NativeNameType.Type, "long")]
-		public static int Wcstol([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "wchar const *")] string str, [NativeName(NativeNameType.Param, "endp")] [NativeName(NativeNameType.Type, "wchar * *")] ref char* endp, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "int")] int baseValue)
+		public static int Wcstol(string str, ref char* endp, int baseValue)
 		{
 			fixed (char* pstr = str)
 			{
@@ -2690,10 +2116,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint StrlenNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		internal static nuint StrlenNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, nuint>)funcTable[60])(str);
@@ -2712,9 +2136,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		public static nuint Strlen(byte* str)
 		{
 			nuint ret = StrlenNative(str);
 			return ret;
@@ -2730,9 +2152,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ref byte str)
+		public static nuint Strlen(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -2751,9 +2171,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str)
+		public static nuint Strlen(ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -2772,9 +2190,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str)
+		public static nuint Strlen(string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2813,10 +2229,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint StrnlenNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static nuint StrnlenNative(byte* str, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, nuint, nuint>)funcTable[61])(str, maxlen);
@@ -2837,9 +2251,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strnlen(byte* str, nuint maxlen)
 		{
 			nuint ret = StrnlenNative(str, maxlen);
 			return ret;
@@ -2857,9 +2269,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ref byte str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strnlen(ref byte str, nuint maxlen)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -2880,9 +2290,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strnlen(ReadOnlySpan<byte> str, nuint maxlen)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -2903,9 +2311,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strnlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strnlen(string str, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2946,10 +2352,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint StrlcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static nuint StrlcpyNative(byte* dst, byte* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[62])(dst, src, maxlen);
@@ -2972,9 +2376,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(byte* dst, byte* src, nuint maxlen)
 		{
 			nuint ret = StrlcpyNative(dst, src, maxlen);
 			return ret;
@@ -2994,9 +2396,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(ref byte dst, byte* src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3019,9 +2419,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(ref string dst, byte* src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3063,9 +2461,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(byte* dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* psrc = &src)
 			{
@@ -3088,9 +2484,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(byte* dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* psrc = src)
 			{
@@ -3113,9 +2507,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(byte* dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3156,9 +2548,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(ref byte dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3184,9 +2574,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(ref byte dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3212,9 +2600,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcpy(ref string dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3277,10 +2663,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint Utf8StrlcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		internal static nuint Utf8StrlcpyNative(byte* dst, byte* src, nuint dstBytes)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[63])(dst, src, dstBytes);
@@ -3303,9 +2687,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, byte* src, nuint dstBytes)
 		{
 			nuint ret = Utf8StrlcpyNative(dst, src, dstBytes);
 			return ret;
@@ -3325,9 +2707,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(ref byte dst, byte* src, nuint dstBytes)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3350,9 +2730,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(ref string dst, byte* src, nuint dstBytes)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3394,9 +2772,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ref byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, ref byte src, nuint dstBytes)
 		{
 			fixed (byte* psrc = &src)
 			{
@@ -3419,9 +2795,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, ReadOnlySpan<byte> src, nuint dstBytes)
 		{
 			fixed (byte* psrc = src)
 			{
@@ -3444,9 +2818,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, string src, nuint dstBytes)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3487,9 +2859,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ref byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(ref byte dst, ref byte src, nuint dstBytes)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3515,9 +2885,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(ref byte dst, ReadOnlySpan<byte> src, nuint dstBytes)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3543,9 +2911,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		public static nuint Utf8Strlcpy(ref string dst, string src, nuint dstBytes)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3607,10 +2973,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint StrlcatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static nuint StrlcatNative(byte* dst, byte* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[64])(dst, src, maxlen);
@@ -3632,9 +2996,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(byte* dst, byte* src, nuint maxlen)
 		{
 			nuint ret = StrlcatNative(dst, src, maxlen);
 			return ret;
@@ -3653,9 +3015,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(ref byte dst, byte* src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3677,9 +3037,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(ref string dst, byte* src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3720,9 +3078,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(byte* dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* psrc = &src)
 			{
@@ -3744,9 +3100,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(byte* dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* psrc = src)
 			{
@@ -3768,9 +3122,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(byte* dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3810,9 +3162,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(ref byte dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3837,9 +3187,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(ref byte dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -3864,9 +3212,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static nuint Strlcat(ref string dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3926,10 +3272,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrdupNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		internal static byte* StrdupNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[65])(str);
@@ -3949,9 +3293,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		public static byte* Strdup(byte* str)
 		{
 			byte* ret = StrdupNative(str);
 			return ret;
@@ -3968,9 +3310,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		public static string StrdupS(byte* str)
 		{
 			string ret = Utils.DecodeStringUTF8(StrdupNative(str));
 			return ret;
@@ -3987,9 +3327,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ref byte str)
+		public static byte* Strdup(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4009,9 +3347,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ref byte str)
+		public static string StrdupS(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4031,9 +3367,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str)
+		public static byte* Strdup(ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -4053,9 +3387,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str)
+		public static string StrdupS(ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -4075,9 +3407,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str)
+		public static byte* Strdup(string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4115,9 +3445,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str)
+		public static string StrdupS(string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4159,10 +3487,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrndupNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		internal static byte* StrndupNative(byte* str, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, nuint, byte*>)funcTable[66])(str, maxlen);
@@ -4186,9 +3512,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static byte* Strndup(byte* str, nuint maxlen)
 		{
 			byte* ret = StrndupNative(str, maxlen);
 			return ret;
@@ -4209,9 +3533,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string StrndupS(byte* str, nuint maxlen)
 		{
 			string ret = Utils.DecodeStringUTF8(StrndupNative(str, maxlen));
 			return ret;
@@ -4232,9 +3554,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ref byte str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static byte* Strndup(ref byte str, nuint maxlen)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4258,9 +3578,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ref byte str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string StrndupS(ref byte str, nuint maxlen)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4284,9 +3602,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static byte* Strndup(ReadOnlySpan<byte> str, nuint maxlen)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -4310,9 +3626,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string StrndupS(ReadOnlySpan<byte> str, nuint maxlen)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -4336,9 +3650,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static byte* Strndup(string str, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4380,9 +3692,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strndup")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static string StrndupS(string str, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4423,10 +3733,8 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrrevNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		internal static byte* StrrevNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[67])(str);
@@ -4449,9 +3757,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strrev([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		public static byte* Strrev(byte* str)
 		{
 			byte* ret = StrrevNative(str);
 			return ret;
@@ -4471,9 +3777,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrrevS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		public static string StrrevS(byte* str)
 		{
 			string ret = Utils.DecodeStringUTF8(StrrevNative(str));
 			return ret;
@@ -4493,9 +3797,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strrev([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		public static byte* Strrev(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4518,9 +3820,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrrevS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		public static string StrrevS(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4543,9 +3843,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strrev([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		public static byte* Strrev(ref string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4587,9 +3885,7 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrrevS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		public static string StrrevS(ref string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4630,10 +3926,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strupr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StruprNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		internal static byte* StruprNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[68])(str);
@@ -4655,9 +3949,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strupr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strupr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		public static byte* Strupr(byte* str)
 		{
 			byte* ret = StruprNative(str);
 			return ret;
@@ -4676,9 +3968,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strupr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StruprS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		public static string StruprS(byte* str)
 		{
 			string ret = Utils.DecodeStringUTF8(StruprNative(str));
 			return ret;
@@ -4697,9 +3987,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strupr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strupr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		public static byte* Strupr(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4721,9 +4009,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strupr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StruprS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		public static string StruprS(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4745,9 +4031,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strupr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strupr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		public static byte* Strupr(ref string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4788,9 +4072,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strupr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StruprS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		public static string StruprS(ref string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4831,10 +4113,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlwr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrlwrNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		internal static byte* StrlwrNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[69])(str);
@@ -4856,9 +4136,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlwr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strlwr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		public static byte* Strlwr(byte* str)
 		{
 			byte* ret = StrlwrNative(str);
 			return ret;
@@ -4877,9 +4155,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlwr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrlwrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		public static string StrlwrS(byte* str)
 		{
 			string ret = Utils.DecodeStringUTF8(StrlwrNative(str));
 			return ret;
@@ -4898,9 +4174,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlwr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strlwr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		public static byte* Strlwr(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4922,9 +4196,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlwr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrlwrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		public static string StrlwrS(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4946,9 +4218,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlwr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* Strlwr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		public static byte* Strlwr(ref string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4989,9 +4259,7 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_strlwr")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string StrlwrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		public static string StrlwrS(ref string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -5012,6 +4280,748 @@ namespace Hexa.NET.SDL3
 			}
 			string ret = Utils.DecodeStringUTF8(StrlwrNative(pStr0));
 			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrchrNative(byte* str, int c)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[70])(str, c);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[70])((nint)str, c);
+			#endif
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strchr(byte* str, int c)
+		{
+			byte* ret = StrchrNative(str, c);
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrchrS(byte* str, int c)
+		{
+			string ret = Utils.DecodeStringUTF8(StrchrNative(str, c));
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strchr(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrchrS(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strchr(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrchrS(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strchr(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrchrNative(pStr0, c);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrchrS(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrchrNative(pStr0, c));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrrchrNative(byte* str, int c)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[71])(str, c);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[71])((nint)str, c);
+			#endif
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strrchr(byte* str, int c)
+		{
+			byte* ret = StrrchrNative(str, c);
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrrchrS(byte* str, int c)
+		{
+			string ret = Utils.DecodeStringUTF8(StrrchrNative(str, c));
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strrchr(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrrchrS(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strrchr(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrrchrS(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strrchr(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrrchrNative(pStr0, c);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrrchrS(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrrchrNative(pStr0, c));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrstrNative(byte* haystack, byte* needle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[72])(haystack, needle);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[72])((nint)haystack, (nint)needle);
+			#endif
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strstr(byte* haystack, byte* needle)
+		{
+			byte* ret = StrstrNative(haystack, needle);
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrstrS(byte* haystack, byte* needle)
+		{
+			string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, needle));
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strstr(ref byte haystack, byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				byte* ret = StrstrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrstrS(ref byte haystack, byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strstr(ReadOnlySpan<byte> haystack, byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				byte* ret = StrstrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrstrS(ReadOnlySpan<byte> haystack, byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strstr(string haystack, byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrstrNative(pStr0, needle);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrstrS(string haystack, byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrstrNative(pStr0, needle));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strstr(byte* haystack, ref byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				byte* ret = StrstrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrstrS(byte* haystack, ref byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strstr(byte* haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				byte* ret = StrstrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static string StrstrS(byte* haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* Strstr(byte* haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (needle != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(needle, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrstrNative(haystack, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);

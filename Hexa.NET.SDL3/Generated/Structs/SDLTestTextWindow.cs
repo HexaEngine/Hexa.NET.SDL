@@ -18,21 +18,12 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Data used for multi-line text output<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_TextWindow")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestTextWindow
 	{
-		[NativeName(NativeNameType.Field, "rect")]
-		[NativeName(NativeNameType.Type, "SDL_FRect")]
 		public SDLFRect Rect;
-		[NativeName(NativeNameType.Field, "current")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Current;
-		[NativeName(NativeNameType.Field, "numlines")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Numlines;
-		[NativeName(NativeNameType.Field, "lines")]
-		[NativeName(NativeNameType.Type, "char * *")]
 		public unsafe byte** Lines;
 
 		public unsafe SDLTestTextWindow(SDLFRect rect = default, int current = default, int numlines = default, byte** lines = default)

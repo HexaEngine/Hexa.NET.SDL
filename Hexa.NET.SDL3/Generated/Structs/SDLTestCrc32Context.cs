@@ -18,15 +18,12 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Data structure for CRC32 (checksum) computation<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_Crc32Context")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestCrc32Context
 	{
 		/// <summary>
 		/// CRC table <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "crc32_table")]
-		[NativeName(NativeNameType.Type, "unsigned int[256]")]
 		public uint Crc32Table_0;
 		public uint Crc32Table_1;
 		public uint Crc32Table_2;

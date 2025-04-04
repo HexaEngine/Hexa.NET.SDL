@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	[NativeName(NativeNameType.StructOrClass, "_XEvent")]
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct XEvent
 	{

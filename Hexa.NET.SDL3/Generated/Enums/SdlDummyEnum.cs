@@ -15,12 +15,9 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// TODO: include/SDL_stdinc.h:390: error: size of array 'SDL_dummy_enum' is negative <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_DUMMY_ENUM")]
 	[Flags]
 	public enum SdlDummyEnum : int
 	{
-		[NativeName(NativeNameType.EnumItem, "DUMMY_ENUM_VALUE")]
-		[NativeName(NativeNameType.Value, "0")]
 		Value = unchecked(0),
 	}
 }

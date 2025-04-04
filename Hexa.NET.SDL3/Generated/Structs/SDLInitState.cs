@@ -70,18 +70,11 @@ namespace Hexa.NET.SDL3
 	/// code.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_InitState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLInitState
 	{
-		[NativeName(NativeNameType.Field, "status")]
-		[NativeName(NativeNameType.Type, "SDL_AtomicInt")]
 		public SDLAtomicInt Status;
-		[NativeName(NativeNameType.Field, "thread")]
-		[NativeName(NativeNameType.Type, "SDL_ThreadID")]
 		public ulong Thread;
-		[NativeName(NativeNameType.Field, "reserved")]
-		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Reserved;
 
 		public unsafe SDLInitState(SDLAtomicInt status = default, ulong thread = default, void* reserved = default)

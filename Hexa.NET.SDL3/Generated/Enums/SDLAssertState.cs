@@ -22,43 +22,32 @@ namespace Hexa.NET.SDL3
 	/// problem).<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_AssertState")]
 	[Flags]
 	public enum SDLAssertState : int
 	{
 		/// <summary>
 		/// Retry the assert immediately. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASSERTION_RETRY")]
-		[NativeName(NativeNameType.Value, "0")]
 		AssertionRetry = unchecked(0),
 
 		/// <summary>
 		/// Make the debugger trigger a breakpoint. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASSERTION_BREAK")]
-		[NativeName(NativeNameType.Value, "1")]
 		AssertionBreak = unchecked(1),
 
 		/// <summary>
 		/// Terminate the program. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASSERTION_ABORT")]
-		[NativeName(NativeNameType.Value, "2")]
 		AssertionAbort = unchecked(2),
 
 		/// <summary>
 		/// Ignore the assert. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASSERTION_IGNORE")]
-		[NativeName(NativeNameType.Value, "3")]
 		AssertionIgnore = unchecked(3),
 
 		/// <summary>
 		/// Ignore the assert from now on. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ASSERTION_ALWAYS_IGNORE")]
-		[NativeName(NativeNameType.Value, "4")]
 		AssertionAlwaysIgnore = unchecked(4),
 	}
 }

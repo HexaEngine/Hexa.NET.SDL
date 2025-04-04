@@ -19,29 +19,22 @@ namespace Hexa.NET.SDL3
 	/// Vertex structure.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Vertex")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVertex
 	{
 		/// <summary>
 		/// Vertex position, in SDL_Renderer coordinates  <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "position")]
-		[NativeName(NativeNameType.Type, "SDL_FPoint")]
 		public SDLFPoint Position;
 
 		/// <summary>
 		/// Vertex color <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "color")]
-		[NativeName(NativeNameType.Type, "SDL_FColor")]
 		public SDLFColor Color;
 
 		/// <summary>
 		/// Normalized texture coordinates, if needed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "tex_coord")]
-		[NativeName(NativeNameType.Type, "SDL_FPoint")]
 		public SDLFPoint TexCoord;
 
 

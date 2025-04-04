@@ -23,7 +23,6 @@ namespace Hexa.NET.SDL3
 	/// https://en.wikipedia.org/wiki/Mutex<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Mutex")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMutex
 	{

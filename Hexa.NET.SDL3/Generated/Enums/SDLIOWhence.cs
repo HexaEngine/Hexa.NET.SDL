@@ -18,29 +18,22 @@ namespace Hexa.NET.SDL3
 	/// standard C runtime.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_IOWhence")]
 	[Flags]
 	public enum SDLIOWhence : int
 	{
 		/// <summary>
 		/// Seek from the beginning of data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_IO_SEEK_SET")]
-		[NativeName(NativeNameType.Value, "0")]
 		SeekSet = unchecked(0),
 
 		/// <summary>
 		/// Seek relative to current read point <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_IO_SEEK_CUR")]
-		[NativeName(NativeNameType.Value, "1")]
 		SeekCur = unchecked(1),
 
 		/// <summary>
 		/// Seek relative to the end of data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_IO_SEEK_END")]
-		[NativeName(NativeNameType.Value, "2")]
 		SeekEnd = unchecked(2),
 	}
 }

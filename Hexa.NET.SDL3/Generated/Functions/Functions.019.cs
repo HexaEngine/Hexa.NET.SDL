@@ -18,5009 +18,5011 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Show the cursor.<br/>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool ShowCursor()
-		{
-			byte ret = ShowCursorNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Hide the cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HideCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HideCursorNative()
+		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, ref byte text)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[795])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[795])();
-			#endif
-		}
-
-		/// <summary>
-		/// Hide the cursor.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HideCursor")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HideCursor()
-		{
-			byte ret = HideCursorNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Return whether the cursor is currently being shown.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CursorVisible")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CursorVisibleNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[796])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[796])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether the cursor is currently being shown.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CursorVisible")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CursorVisible()
-		{
-			byte ret = CursorVisibleNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get a list of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore the returned list might be empty, although devices are available.<br/>
-		/// After using all devices at least once the number will be correct.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long* GetTouchDevicesNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, long*>)funcTable[797])(count);
-			#else
-			return (long*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[797])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore the returned list might be empty, although devices are available.<br/>
-		/// After using all devices at least once the number will be correct.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
-		public static long* GetTouchDevices([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			long* ret = GetTouchDevicesNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore the returned list might be empty, although devices are available.<br/>
-		/// After using all devices at least once the number will be correct.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
-		public static long* GetTouchDevices([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				long* ret = GetTouchDevicesNative((int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetTouchDeviceNameNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, byte*>)funcTable[798])(touchID);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<long, nint>)funcTable[798])(touchID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetTouchDeviceName([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			byte* ret = GetTouchDeviceNameNative(touchID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetTouchDeviceNameS([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			string ret = Utils.DecodeStringUTF8(GetTouchDeviceNameNative(touchID));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of the given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTouchDeviceType GetTouchDeviceTypeNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[799])(touchID);
-			#else
-			return (SDLTouchDeviceType)((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[799])(touchID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of the given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
-		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
-		public static SDLTouchDeviceType GetTouchDeviceType([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
-		{
-			SDLTouchDeviceType ret = GetTouchDeviceTypeNative(touchID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
-		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLFinger** GetTouchFingersNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, int*, SDLFinger**>)funcTable[800])(touchID, count);
-			#else
-			return (SDLFinger**)((delegate* unmanaged[Cdecl]<long, nint, nint>)funcTable[800])(touchID, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
-		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
-		public static SDLFinger** GetTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			SDLFinger** ret = GetTouchFingersNative(touchID, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
-		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
-		public static SDLFinger** GetTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				SDLFinger** ret = GetTouchFingersNative(touchID, (int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pump the event loop, gathering events from the input devices.<br/>
-		/// This function updates the event queue and internal input device state.<br/>
-		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
-		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
-		/// would ever be placed on the queue. Often the need for calls to<br/>
-		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
-		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
-		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
-		/// call SDL_PumpEvents() to force an event queue update.<br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PumpEventsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[801])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[801])();
-			#endif
-		}
-
-		/// <summary>
-		/// Pump the event loop, gathering events from the input devices.<br/>
-		/// This function updates the event queue and internal input device state.<br/>
-		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
-		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
-		/// would ever be placed on the queue. Often the need for calls to<br/>
-		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
-		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
-		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
-		/// call SDL_PumpEvents() to force an event queue update.<br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PumpEvents()
-		{
-			PumpEventsNative();
-		}
-
-		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
-		/// `events`, then `numevents` is ignored and the total number of matching<br/>
-		/// events will be returned.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PeepEventsNative([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, SDLEventAction, uint, uint, int>)funcTable[802])(events, numevents, action, minType, maxType);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, SDLEventAction, uint, uint, int>)funcTable[802])((nint)events, numevents, action, minType, maxType);
-			#endif
-		}
-
-		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
-		/// `events`, then `numevents` is ignored and the total number of matching<br/>
-		/// events will be returned.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			int ret = PeepEventsNative(events, numevents, action, minType, maxType);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
-		/// `events`, then `numevents` is ignored and the total number of matching<br/>
-		/// events will be returned.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			fixed (SDLEvent* pevents = &events)
-			{
-				int ret = PeepEventsNative((SDLEvent*)pevents, numevents, action, minType, maxType);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check for the existence of a certain event type in the event queue.<br/>
-		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[803])(type);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[803])(type);
-			#endif
-		}
-
-		/// <summary>
-		/// Check for the existence of a certain event type in the event queue.<br/>
-		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			byte ret = HasEventNative(type);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check for the existence of certain event types in the event queue.<br/>
-		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[804])(minType, maxType);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[804])(minType, maxType);
-			#endif
-		}
-
-		/// <summary>
-		/// Check for the existence of certain event types in the event queue.<br/>
-		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool HasEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			byte ret = HasEventsNative(minType, maxType);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Clear events of a specific type from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that match<br/>
-		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
-		/// instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// If you have user events with custom data that needs to be freed, you should<br/>
-		/// use SDL_PeepEvents() to remove and clean up those events before calling<br/>
-		/// this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FlushEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[805])(type);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[805])(type);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear events of a specific type from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that match<br/>
-		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
-		/// instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// If you have user events with custom data that needs to be freed, you should<br/>
-		/// use SDL_PeepEvents() to remove and clean up those events before calling<br/>
-		/// this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FlushEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			FlushEventNative(type);
-		}
-
-		/// <summary>
-		/// Clear events of a range of types from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that are in the<br/>
-		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
-		/// event type, use SDL_FlushEvent() instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FlushEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[806])(minType, maxType);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[806])(minType, maxType);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear events of a range of types from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that are in the<br/>
-		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
-		/// event type, use SDL_FlushEvent() instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FlushEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
-		{
-			FlushEventsNative(minType, maxType);
-		}
-
-		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PollEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[807])(evnt);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[807])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
-		{
-			byte ret = PollEventNative(evnt);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				byte ret = PollEventNative((SDLEvent*)pevnt);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait indefinitely for the next available event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[808])(evnt);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[808])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait indefinitely for the next available event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
-		{
-			byte ret = WaitEventNative(evnt);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Wait indefinitely for the next available event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				byte ret = WaitEventNative((SDLEvent*)pevnt);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
-		/// event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
-		/// system scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitEventTimeoutNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, byte>)funcTable[809])(evnt, timeoutMS);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[809])((nint)evnt, timeoutMS);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
-		/// event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
-		/// system scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
-		{
-			byte ret = WaitEventTimeoutNative(evnt, timeoutMS);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
-		/// event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
-		/// system scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				byte ret = WaitEventTimeoutNative((SDLEvent*)pevnt, timeoutMS);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Add an event to the event queue.<br/>
-		/// The event queue can actually be used as a two way communication channel.<br/>
-		/// Not only can events be read from the queue, but the user can also push<br/>
-		/// their own events onto it. `event` is a pointer to the event structure you<br/>
-		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
-		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
-		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
-		/// of the device within SDL.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
-		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
-		/// get an event type that does not conflict with other code that also wants<br/>
-		/// its own custom event types.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PushEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[810])(evnt);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[810])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Add an event to the event queue.<br/>
-		/// The event queue can actually be used as a two way communication channel.<br/>
-		/// Not only can events be read from the queue, but the user can also push<br/>
-		/// their own events onto it. `event` is a pointer to the event structure you<br/>
-		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
-		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
-		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
-		/// of the device within SDL.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
-		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
-		/// get an event type that does not conflict with other code that also wants<br/>
-		/// its own custom event types.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
-		{
-			byte ret = PushEventNative(evnt);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Add an event to the event queue.<br/>
-		/// The event queue can actually be used as a two way communication channel.<br/>
-		/// Not only can events be read from the queue, but the user can also push<br/>
-		/// their own events onto it. `event` is a pointer to the event structure you<br/>
-		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
-		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
-		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
-		/// of the device within SDL.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
-		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
-		/// get an event type that does not conflict with other code that also wants<br/>
-		/// its own custom event types.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				byte ret = PushEventNative((SDLEvent*)pevnt);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set up a filter to process all events before they are added to the internal<br/>
-		/// event queue.<br/>
-		/// If you just want to see events without modifying them or preventing them<br/>
-		/// from being queued, you should use SDL_AddEventWatch() instead.<br/>
-		/// If the filter function returns true when called, then the event will be<br/>
-		/// added to the internal queue. If it returns false, then the event will be<br/>
-		/// dropped from the queue, but the internal state will still be updated. This<br/>
-		/// allows selective filtering of dynamically arriving events.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// On platforms that support it, if the quit event is generated by an<br/>
-		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
-		/// application at the next event poll.<br/>
-		/// Note: Disabled events never make it to the event filter function; see<br/>
-		/// SDL_SetEventEnabled().<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
-		/// not.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[811])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[811])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set up a filter to process all events before they are added to the internal<br/>
-		/// event queue.<br/>
-		/// If you just want to see events without modifying them or preventing them<br/>
-		/// from being queued, you should use SDL_AddEventWatch() instead.<br/>
-		/// If the filter function returns true when called, then the event will be<br/>
-		/// added to the internal queue. If it returns false, then the event will be<br/>
-		/// dropped from the queue, but the internal state will still be updated. This<br/>
-		/// allows selective filtering of dynamically arriving events.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// On platforms that support it, if the quit event is generated by an<br/>
-		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
-		/// application at the next event poll.<br/>
-		/// Note: Disabled events never make it to the event filter function; see<br/>
-		/// SDL_SetEventEnabled().<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
-		/// not.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			SetEventFilterNative(filter, userdata);
-		}
-
-		/// <summary>
-		/// Query the current event filter.<br/>
-		/// This function can be used to "chain" filters, by saving the existing filter<br/>
-		/// before replacing it with a function that will call that saved filter.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter *")] delegate*<void*, SDLEvent*, bool>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>*, void**, byte>)funcTable[812])(filter, userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[812])((nint)filter, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the current event filter.<br/>
-		/// This function can be used to "chain" filters, by saving the existing filter<br/>
-		/// before replacing it with a function that will call that saved filter.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter *")] delegate*<void*, SDLEvent*, bool>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
-		{
-			byte ret = GetEventFilterNative(filter, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Add a callback to be triggered when an event is added to the event queue.<br/>
-		/// `filter` will be called when an event happens, and its return value is<br/>
-		/// ignored.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
-		/// the internal queue and be delivered to the watch callback immediately, and<br/>
-		/// arrive at the next event poll.<br/>
-		/// Note: the callback is called for events posted by the user through<br/>
-		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
-		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
-		/// through SDL_PeepEvents().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte AddEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, byte>)funcTable[813])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[813])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Add a callback to be triggered when an event is added to the event queue.<br/>
-		/// `filter` will be called when an event happens, and its return value is<br/>
-		/// ignored.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
-		/// the internal queue and be delivered to the watch callback immediately, and<br/>
-		/// arrive at the next event poll.<br/>
-		/// Note: the callback is called for events posted by the user through<br/>
-		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
-		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
-		/// through SDL_PeepEvents().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool AddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte ret = AddEventWatchNative(filter, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
-		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
-		/// delete the corresponding callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RemoveEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[814])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[814])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
-		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
-		/// delete the corresponding callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RemoveEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			RemoveEventWatchNative(filter, userdata);
-		}
-
-		/// <summary>
-		/// Run a specific filter function on the current event queue, removing any<br/>
-		/// events for which the filter returns false.<br/>
-		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
-		/// this function does not change the filter permanently, it only uses the<br/>
-		/// supplied filter until this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FilterEventsNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[815])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[815])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Run a specific filter function on the current event queue, removing any<br/>
-		/// events for which the filter returns false.<br/>
-		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
-		/// this function does not change the filter permanently, it only uses the<br/>
-		/// supplied filter until this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			FilterEventsNative(filter, userdata);
-		}
-
-		/// <summary>
-		/// Set the state of processing events by type.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEventEnabled")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetEventEnabledNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, byte, void>)funcTable[816])(type, enabled);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, byte, void>)funcTable[816])(type, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the state of processing events by type.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetEventEnabled")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetEventEnabled([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
-		{
-			SetEventEnabledNative(type, enabled ? (byte)1 : (byte)0);
-		}
-
-		/// <summary>
-		/// Query the state of processing events by type.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EventEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte EventEnabledNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[817])(type);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[817])(type);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the state of processing events by type.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EventEnabled")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool EventEnabled([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
-		{
-			byte ret = EventEnabledNative(type);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Allocate a set of user-defined events, and return the beginning event<br/>
-		/// number for that set of events.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint RegisterEventsNative([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[818])(numevents);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[818])(numevents);
-			#endif
-		}
-
-		/// <summary>
-		/// Allocate a set of user-defined events, and return the beginning event<br/>
-		/// number for that set of events.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint RegisterEvents([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
-		{
-			uint ret = RegisterEventsNative(numevents);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get window associated with an event.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetWindowFromEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, SDLWindow*>)funcTable[819])(evnt);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[819])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Get window associated with an event.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetWindowFromEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
-		{
-			SDLWindow* ret = GetWindowFromEventNative(evnt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get window associated with an event.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
-		public static SDLWindow* GetWindowFromEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				SDLWindow* ret = GetWindowFromEventNative((SDLEvent*)pevnt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the directory where the application was run from.<br/>
-		/// SDL caches the result of this call internally, but the first call to this<br/>
-		/// function is not necessarily fast, so plan accordingly.<br/>
-		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
-		/// bundle, this function returns the Resource directory (e.g.<br/>
-		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
-		/// a property to the Info.plist file. Adding a string key with the name<br/>
-		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
-		/// behaviour.<br/>
-		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
-		/// application in /Applications/SDLApp/MyApp.app):<br/>
-		/// - `resource`: bundle resource directory (the default). For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
-		/// - `bundle`: the Bundle directory. For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/`<br/>
-		/// - `parent`: the containing directory of the bundle. For example:<br/>
-		/// `/Applications/SDLApp/`<br/>
-		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
-		/// directory of the application as it is uncommon to store resources outside<br/>
-		/// the executable. As such it is not a writable directory.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetBasePathNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[820])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[820])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the directory where the application was run from.<br/>
-		/// SDL caches the result of this call internally, but the first call to this<br/>
-		/// function is not necessarily fast, so plan accordingly.<br/>
-		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
-		/// bundle, this function returns the Resource directory (e.g.<br/>
-		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
-		/// a property to the Info.plist file. Adding a string key with the name<br/>
-		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
-		/// behaviour.<br/>
-		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
-		/// application in /Applications/SDLApp/MyApp.app):<br/>
-		/// - `resource`: bundle resource directory (the default). For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
-		/// - `bundle`: the Bundle directory. For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/`<br/>
-		/// - `parent`: the containing directory of the bundle. For example:<br/>
-		/// `/Applications/SDLApp/`<br/>
-		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
-		/// directory of the application as it is uncommon to store resources outside<br/>
-		/// the executable. As such it is not a writable directory.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetBasePath()
-		{
-			byte* ret = GetBasePathNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the directory where the application was run from.<br/>
-		/// SDL caches the result of this call internally, but the first call to this<br/>
-		/// function is not necessarily fast, so plan accordingly.<br/>
-		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
-		/// bundle, this function returns the Resource directory (e.g.<br/>
-		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
-		/// a property to the Info.plist file. Adding a string key with the name<br/>
-		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
-		/// behaviour.<br/>
-		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
-		/// application in /Applications/SDLApp/MyApp.app):<br/>
-		/// - `resource`: bundle resource directory (the default). For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
-		/// - `bundle`: the Bundle directory. For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/`<br/>
-		/// - `parent`: the containing directory of the bundle. For example:<br/>
-		/// `/Applications/SDLApp/`<br/>
-		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
-		/// directory of the application as it is uncommon to store resources outside<br/>
-		/// the executable. As such it is not a writable directory.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetBasePathS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetBasePathNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetPrefPathNative([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[821])(org, app);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[821])((nint)org, (nint)app);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			byte* ret = GetPrefPathNative(org, app);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			fixed (byte* porg = &org)
-			{
-				byte* ret = GetPrefPathNative((byte*)porg, app);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			fixed (byte* porg = &org)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			fixed (byte* porg = org)
-			{
-				byte* ret = GetPrefPathNative((byte*)porg, app);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			fixed (byte* porg = org)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* ptext = &text)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetPrefPathNative(pStr0, app);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, app));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
-		{
-			fixed (byte* papp = &app)
-			{
-				byte* ret = GetPrefPathNative(org, (byte*)papp);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
-		{
-			fixed (byte* papp = &app)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
-		{
-			fixed (byte* papp = app)
-			{
-				byte* ret = GetPrefPathNative(org, (byte*)papp);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
-		{
-			fixed (byte* papp = app)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (app != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(app);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetPrefPathNative(org, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (app != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(app);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
-		{
-			fixed (byte* porg = &org)
-			{
-				fixed (byte* papp = &app)
-				{
-					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
-					return ret;
+					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
+		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, ReadOnlySpan<byte> text)
 		{
-			fixed (byte* porg = &org)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				fixed (byte* papp = &app)
+				fixed (byte* ptext = text)
 				{
-					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
-					return ret;
+					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, string text)
 		{
-			fixed (byte* porg = org)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				fixed (byte* papp = app)
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (text != null)
 				{
-					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
-					return ret;
+					pStrSize0 = Utils.GetByteCountUTF8(text);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
 				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
-		{
-			fixed (byte* porg = org)
-			{
-				fixed (byte* papp = app)
-				{
-					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (app != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(app);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* ret = GetPrefPathNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char *")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (app != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(app);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, pStr1));
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Finds the most suitable user folder for a specific purpose.<br/>
-		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
-		/// storing pictures, music or videos for a certain user. This function gives<br/>
-		/// the path for many of those special locations.<br/>
-		/// This function is specifically for _user_ folders, which are meant for the<br/>
-		/// user to access and manage. For application-specific folders, meant to hold<br/>
-		/// data for the application to manage, see SDL_GetBasePath() and<br/>
-		/// SDL_GetPrefPath().<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetUserFolderNative([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFolder, byte*>)funcTable[822])(folder);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<SDLFolder, nint>)funcTable[822])(folder);
-			#endif
-		}
-
-		/// <summary>
-		/// Finds the most suitable user folder for a specific purpose.<br/>
-		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
-		/// storing pictures, music or videos for a certain user. This function gives<br/>
-		/// the path for many of those special locations.<br/>
-		/// This function is specifically for _user_ folders, which are meant for the<br/>
-		/// user to access and manage. For application-specific folders, meant to hold<br/>
-		/// data for the application to manage, see SDL_GetBasePath() and<br/>
-		/// SDL_GetPrefPath().<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetUserFolder([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
-		{
-			byte* ret = GetUserFolderNative(folder);
-			return ret;
-		}
-
-		/// <summary>
-		/// Finds the most suitable user folder for a specific purpose.<br/>
-		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
-		/// storing pictures, music or videos for a certain user. This function gives<br/>
-		/// the path for many of those special locations.<br/>
-		/// This function is specifically for _user_ folders, which are meant for the<br/>
-		/// user to access and manage. For application-specific folders, meant to hold<br/>
-		/// data for the application to manage, see SDL_GetBasePath() and<br/>
-		/// SDL_GetPrefPath().<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetUserFolderS([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
-		{
-			string ret = Utils.DecodeStringUTF8(GetUserFolderNative(folder));
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CreateDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[823])(path);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[823])((nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
-		{
-			byte ret = CreateDirectoryNative(path);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = CreateDirectoryNative((byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = CreateDirectoryNative((byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CreateDirectoryNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte EnumerateDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, byte>)funcTable[824])(path, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[824])((nint)path, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte ret = EnumerateDirectoryNative(path, callback, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = EnumerateDirectoryNative(pStr0, callback, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RemovePathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[825])(path);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[825])((nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
-		{
-			byte ret = RemovePathNative(path);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = RemovePathNative((byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = RemovePathNative((byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RemovePathNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenamePathNative([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[826])(oldpath, newpath);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[826])((nint)oldpath, (nint)newpath);
-			#endif
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			byte ret = RenamePathNative(oldpath, newpath);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				byte ret = RenamePathNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				byte ret = RenamePathNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RenamePathNative(pStr0, newpath);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (byte* pnewpath = &newpath)
-			{
-				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* pnewpath = newpath)
-			{
-				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (newpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RenamePathNative(oldpath, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (newpath != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = RenamePathNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CopyFileNative([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[827])(oldpath, newpath);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[827])((nint)oldpath, (nint)newpath);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			byte ret = CopyFileNative(oldpath, newpath);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				byte ret = CopyFileNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				byte ret = CopyFileNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyFileNative(pStr0, newpath);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (byte* pnewpath = &newpath)
-			{
-				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* pnewpath = newpath)
-			{
-				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (newpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyFileNative(oldpath, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (newpath != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = CopyFileNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetPathInfoNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLPathInfo*, byte>)funcTable[828])(path, info);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[828])((nint)path, (nint)info);
-			#endif
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
-		{
-			byte ret = GetPathInfoNative(path, info);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = GetPathInfoNative((byte*)ppath, info);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = GetPathInfoNative((byte*)ppath, info);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = GetPathInfoNative(pStr0, info);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			fixed (SDLPathInfo* pinfo = &info)
-			{
-				byte ret = GetPathInfoNative(path, (SDLPathInfo*)pinfo);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (SDLPathInfo* pinfo = &info)
-				{
-					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (SDLPathInfo* pinfo = &info)
-				{
-					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
-		[return: NativeName(NativeNameType.Type, "bool")]
-		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLPathInfo* pinfo = &info)
-			{
-				byte ret = GetPathInfoNative(pStr0, (SDLPathInfo*)pinfo);
+				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
 				}
-				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte** GlobDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, ref byte text)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLGlobFlags, int*, byte**>)funcTable[829])(path, pattern, flags, count);
-			#else
-			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint, SDLGlobFlags, nint, nint>)funcTable[829])((nint)path, (nint)pattern, flags, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			byte** ret = GlobDirectoryNative(path, pattern, flags, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppath = &path)
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
 			{
-				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* ptext = &text)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte** ret = GlobDirectoryNative(pStr0, pattern, flags, count);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppattern = &pattern)
-			{
-				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppattern = pattern)
-			{
-				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pattern != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte** ret = GlobDirectoryNative(path, pStr0, flags, count);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (byte* ppattern = &pattern)
-				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
-					return ret;
+					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, ReadOnlySpan<byte> text)
 		{
-			fixed (byte* ppath = path)
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
 			{
-				fixed (byte* ppattern = pattern)
+				fixed (byte* ptext = text)
 				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
-					return ret;
+					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, string text)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (text != null)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					pStrSize0 = Utils.GetByteCountUTF8(text);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (pattern != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, count);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobDirectoryNative(path, pattern, flags, (int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobDirectoryNative(pStr0, pattern, flags, (int*)pcount);
+				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
 				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, ref byte text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					fixed (byte* ptext = &text)
+					{
+						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, ReadOnlySpan<byte> text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					fixed (byte* ptext = text)
+					{
+						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a buffer.<br/>
+		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// buffer is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, string text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (text != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(text);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, pStr0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetGPUTextureNameNative(SDLGPUDevice* device, SDLGPUTexture* texture, byte* text)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, byte*, void>)funcTable[848])(device, texture, text);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[848])((nint)device, (nint)texture, (nint)text);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, byte* text)
+		{
+			SetGPUTextureNameNative(device, texture, text);
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, byte* text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, text);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, byte* text)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, text);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, byte* text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, text);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, ref byte text)
+		{
+			fixed (byte* ptext = &text)
+			{
+				SetGPUTextureNameNative(device, texture, (byte*)ptext);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, ReadOnlySpan<byte> text)
+		{
+			fixed (byte* ptext = text)
+			{
+				SetGPUTextureNameNative(device, texture, (byte*)ptext);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, string text)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SetGPUTextureNameNative(device, texture, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, ref byte text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (byte* ptext = &text)
+				{
+					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, ReadOnlySpan<byte> text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (byte* ptext = text)
+				{
+					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, string text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (text != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(text);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, ref byte text)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				fixed (byte* ptext = &text)
+				{
+					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, ReadOnlySpan<byte> text)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				fixed (byte* ptext = text)
+				{
+					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, string text)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (text != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(text);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, ref byte text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					fixed (byte* ptext = &text)
+					{
+						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, ReadOnlySpan<byte> text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					fixed (byte* ptext = text)
+					{
+						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets an arbitrary string constant to label a texture.<br/>
+		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
+		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
+		/// issues.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe, you must make sure the<br/>
+		/// texture is not simultaneously used by any other thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, string text)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (text != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(text);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, pStr0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void InsertGPUDebugLabelNative(SDLGPUCommandBuffer* commandBuffer, byte* text)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[849])(commandBuffer, text);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[849])((nint)commandBuffer, (nint)text);
+			#endif
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, byte* text)
+		{
+			InsertGPUDebugLabelNative(commandBuffer, text);
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, byte* text)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, text);
+			}
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, ref byte text)
+		{
+			fixed (byte* ptext = &text)
+			{
+				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
+			}
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, ReadOnlySpan<byte> text)
+		{
+			fixed (byte* ptext = text)
+			{
+				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
+			}
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, string text)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			InsertGPUDebugLabelNative(commandBuffer, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, ref byte text)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (byte* ptext = &text)
+				{
+					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, ReadOnlySpan<byte> text)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (byte* ptext = text)
+				{
+					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
+		/// Useful for debugging.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, string text)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (text != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(text);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void PushGPUDebugGroupNative(SDLGPUCommandBuffer* commandBuffer, byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[850])(commandBuffer, name);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[850])((nint)commandBuffer, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, byte* name)
+		{
+			PushGPUDebugGroupNative(commandBuffer, name);
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, byte* name)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, name);
+			}
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, ref byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
+			}
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
+			}
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			PushGPUDebugGroupNative(commandBuffer, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, ref byte name)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (byte* pname = &name)
+				{
+					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, ReadOnlySpan<byte> name)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (byte* pname = name)
+				{
+					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a debug group with an arbitary name.<br/>
+		/// Used for denoting groups of calls when viewing the command buffer<br/>
+		/// callstream in a graphics debugging tool.<br/>
+		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
+		/// SDL_PopGPUDebugGroup.<br/>
+		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
+		/// render/blit/compute pass will create a group that is scoped to the native<br/>
+		/// pass rather than the command buffer. For best results, if you push a debug<br/>
+		/// group during a pass, always pop it in the same pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, string name)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (name != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(name);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the most-recently pushed debug group.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void PopGPUDebugGroupNative(SDLGPUCommandBuffer* commandBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, void>)funcTable[851])(commandBuffer);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[851])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the most-recently pushed debug group.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PopGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer)
+		{
+			PopGPUDebugGroupNative(commandBuffer);
+		}
+
+		/// <summary>
+		/// Ends the most-recently pushed debug group.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PopGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				PopGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given texture as soon as it is safe to do so.<br/>
+		/// You must not reference the texture after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUTextureNative(SDLGPUDevice* device, SDLGPUTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, void>)funcTable[852])(device, texture);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[852])((nint)device, (nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Frees the given texture as soon as it is safe to do so.<br/>
+		/// You must not reference the texture after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTexture(SDLGPUDevice* device, SDLGPUTexture* texture)
+		{
+			ReleaseGPUTextureNative(device, texture);
+		}
+
+		/// <summary>
+		/// Frees the given texture as soon as it is safe to do so.<br/>
+		/// You must not reference the texture after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTexture(ref SDLGPUDevice device, SDLGPUTexture* texture)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, texture);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given texture as soon as it is safe to do so.<br/>
+		/// You must not reference the texture after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTexture(SDLGPUDevice* device, ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				ReleaseGPUTextureNative(device, (SDLGPUTexture*)ptexture);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given texture as soon as it is safe to do so.<br/>
+		/// You must not reference the texture after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTexture(ref SDLGPUDevice device, ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Frees the given sampler as soon as it is safe to do so.<br/>
+		/// You must not reference the sampler after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUSamplerNative(SDLGPUDevice* device, SDLGPUSampler* sampler)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSampler*, void>)funcTable[853])(device, sampler);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[853])((nint)device, (nint)sampler);
+			#endif
+		}
+
+		/// <summary>
+		/// Frees the given sampler as soon as it is safe to do so.<br/>
+		/// You must not reference the sampler after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUSampler(SDLGPUDevice* device, SDLGPUSampler* sampler)
+		{
+			ReleaseGPUSamplerNative(device, sampler);
+		}
+
+		/// <summary>
+		/// Frees the given sampler as soon as it is safe to do so.<br/>
+		/// You must not reference the sampler after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUSampler(ref SDLGPUDevice device, SDLGPUSampler* sampler)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, sampler);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given sampler as soon as it is safe to do so.<br/>
+		/// You must not reference the sampler after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUSampler(SDLGPUDevice* device, ref SDLGPUSampler sampler)
+		{
+			fixed (SDLGPUSampler* psampler = &sampler)
+			{
+				ReleaseGPUSamplerNative(device, (SDLGPUSampler*)psampler);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given sampler as soon as it is safe to do so.<br/>
+		/// You must not reference the sampler after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUSampler(ref SDLGPUDevice device, ref SDLGPUSampler sampler)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUSampler* psampler = &sampler)
+				{
+					ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSampler*)psampler);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Frees the given buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUBufferNative(SDLGPUDevice* device, SDLGPUBuffer* buffer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, void>)funcTable[854])(device, buffer);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[854])((nint)device, (nint)buffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Frees the given buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUBuffer(SDLGPUDevice* device, SDLGPUBuffer* buffer)
+		{
+			ReleaseGPUBufferNative(device, buffer);
+		}
+
+		/// <summary>
+		/// Frees the given buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUBuffer(ref SDLGPUDevice device, SDLGPUBuffer* buffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, buffer);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUBuffer(SDLGPUDevice* device, ref SDLGPUBuffer buffer)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				ReleaseGPUBufferNative(device, (SDLGPUBuffer*)pbuffer);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUBuffer(ref SDLGPUDevice device, ref SDLGPUBuffer buffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the transfer buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[855])(device, transferBuffer);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[855])((nint)device, (nint)transferBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the transfer buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
+		{
+			ReleaseGPUTransferBufferNative(device, transferBuffer);
+		}
+
+		/// <summary>
+		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the transfer buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBuffer* transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the transfer buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+			{
+				ReleaseGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
+		/// You must not reference the transfer buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				{
+					ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the compute pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUComputePipelineNative(SDLGPUDevice* device, SDLGPUComputePipeline* computePipeline)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipeline*, void>)funcTable[856])(device, computePipeline);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[856])((nint)device, (nint)computePipeline);
+			#endif
+		}
+
+		/// <summary>
+		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the compute pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUComputePipeline(SDLGPUDevice* device, SDLGPUComputePipeline* computePipeline)
+		{
+			ReleaseGPUComputePipelineNative(device, computePipeline);
+		}
+
+		/// <summary>
+		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the compute pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUComputePipeline(ref SDLGPUDevice device, SDLGPUComputePipeline* computePipeline)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, computePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the compute pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUComputePipeline(SDLGPUDevice* device, ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+			{
+				ReleaseGPUComputePipelineNative(device, (SDLGPUComputePipeline*)pcomputePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the compute pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUComputePipeline(ref SDLGPUDevice device, ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+				{
+					ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipeline*)pcomputePipeline);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Frees the given shader as soon as it is safe to do so.<br/>
+		/// You must not reference the shader after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUShaderNative(SDLGPUDevice* device, SDLGPUShader* shader)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShader*, void>)funcTable[857])(device, shader);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[857])((nint)device, (nint)shader);
+			#endif
+		}
+
+		/// <summary>
+		/// Frees the given shader as soon as it is safe to do so.<br/>
+		/// You must not reference the shader after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUShader(SDLGPUDevice* device, SDLGPUShader* shader)
+		{
+			ReleaseGPUShaderNative(device, shader);
+		}
+
+		/// <summary>
+		/// Frees the given shader as soon as it is safe to do so.<br/>
+		/// You must not reference the shader after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUShader(ref SDLGPUDevice device, SDLGPUShader* shader)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, shader);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given shader as soon as it is safe to do so.<br/>
+		/// You must not reference the shader after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUShader(SDLGPUDevice* device, ref SDLGPUShader shader)
+		{
+			fixed (SDLGPUShader* pshader = &shader)
+			{
+				ReleaseGPUShaderNative(device, (SDLGPUShader*)pshader);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given shader as soon as it is safe to do so.<br/>
+		/// You must not reference the shader after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUShader(ref SDLGPUDevice device, ref SDLGPUShader shader)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUShader* pshader = &shader)
+				{
+					ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShader*)pshader);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the graphics pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUGraphicsPipelineNative(SDLGPUDevice* device, SDLGPUGraphicsPipeline* graphicsPipeline)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipeline*, void>)funcTable[858])(device, graphicsPipeline);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[858])((nint)device, (nint)graphicsPipeline);
+			#endif
+		}
+
+		/// <summary>
+		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the graphics pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUGraphicsPipeline(SDLGPUDevice* device, SDLGPUGraphicsPipeline* graphicsPipeline)
+		{
+			ReleaseGPUGraphicsPipelineNative(device, graphicsPipeline);
+		}
+
+		/// <summary>
+		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the graphics pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUGraphicsPipeline(ref SDLGPUDevice device, SDLGPUGraphicsPipeline* graphicsPipeline)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, graphicsPipeline);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the graphics pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUGraphicsPipeline(SDLGPUDevice* device, ref SDLGPUGraphicsPipeline graphicsPipeline)
+		{
+			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
+			{
+				ReleaseGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
+			}
+		}
+
+		/// <summary>
+		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
+		/// You must not reference the graphics pipeline after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ReleaseGPUGraphicsPipeline(ref SDLGPUDevice device, ref SDLGPUGraphicsPipeline graphicsPipeline)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
+				{
+					ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a command buffer.<br/>
+		/// This command buffer is managed by the implementation and should not be<br/>
+		/// freed by the user. The command buffer may only be used on the thread it was<br/>
+		/// acquired on. The command buffer should be submitted on the thread it was<br/>
+		/// acquired on.<br/>
+		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
+		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
+		/// where one is dedicated to render and compute passes and the other is<br/>
+		/// dedicated to copy passes and other preparatory work such as generating<br/>
+		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
+		/// total amount of passes overall which improves rendering performance.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUCommandBuffer* AcquireGPUCommandBufferNative(SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUCommandBuffer*>)funcTable[859])(device);
+			#else
+			return (SDLGPUCommandBuffer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[859])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Acquire a command buffer.<br/>
+		/// This command buffer is managed by the implementation and should not be<br/>
+		/// freed by the user. The command buffer may only be used on the thread it was<br/>
+		/// acquired on. The command buffer should be submitted on the thread it was<br/>
+		/// acquired on.<br/>
+		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
+		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
+		/// where one is dedicated to render and compute passes and the other is<br/>
+		/// dedicated to copy passes and other preparatory work such as generating<br/>
+		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
+		/// total amount of passes overall which improves rendering performance.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer(SDLGPUDevice* device)
+		{
+			SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative(device);
+			return ret;
+		}
+
+		/// <summary>
+		/// Acquire a command buffer.<br/>
+		/// This command buffer is managed by the implementation and should not be<br/>
+		/// freed by the user. The command buffer may only be used on the thread it was<br/>
+		/// acquired on. The command buffer should be submitted on the thread it was<br/>
+		/// acquired on.<br/>
+		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
+		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
+		/// where one is dedicated to render and compute passes and the other is<br/>
+		/// dedicated to copy passes and other preparatory work such as generating<br/>
+		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
+		/// total amount of passes overall which improves rendering performance.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer(ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative((SDLGPUDevice*)pdevice);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
-		[return: NativeName(NativeNameType.Type, "char * *")]
-		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void PushGPUVertexUniformDataNative(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
 		{
-			fixed (byte* ppattern = &pattern)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[860])(commandBuffer, slotIndex, data, length);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[860])((nint)commandBuffer, slotIndex, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUVertexUniformData(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			PushGPUVertexUniformDataNative(commandBuffer, slotIndex, data, length);
+		}
+
+		/// <summary>
+		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUVertexUniformData(ref SDLGPUCommandBuffer commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (int* pcount = &count)
+				PushGPUVertexUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
+			}
+		}
+
+		/// <summary>
+		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void PushGPUFragmentUniformDataNative(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[861])(commandBuffer, slotIndex, data, length);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[861])((nint)commandBuffer, slotIndex, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUFragmentUniformData(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			PushGPUFragmentUniformDataNative(commandBuffer, slotIndex, data, length);
+		}
+
+		/// <summary>
+		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUFragmentUniformData(ref SDLGPUCommandBuffer commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				PushGPUFragmentUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
+			}
+		}
+
+		/// <summary>
+		/// Pushes data to a uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void PushGPUComputeUniformDataNative(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[862])(commandBuffer, slotIndex, data, length);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[862])((nint)commandBuffer, slotIndex, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Pushes data to a uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUComputeUniformData(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			PushGPUComputeUniformDataNative(commandBuffer, slotIndex, data, length);
+		}
+
+		/// <summary>
+		/// Pushes data to a uniform slot on the command buffer.<br/>
+		/// Subsequent draw calls will use this uniform data.<br/>
+		/// The data being pushed must respect std140 layout conventions. In practical<br/>
+		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
+		/// aligned.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PushGPUComputeUniformData(ref SDLGPUCommandBuffer commandBuffer, uint slotIndex, void* data, uint length)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				PushGPUComputeUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
+			}
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPURenderPass* BeginGPURenderPassNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUColorTargetInfo*, uint, SDLGPUDepthStencilTargetInfo*, SDLGPURenderPass*>)funcTable[863])(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+			#else
+			return (SDLGPURenderPass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, nint>)funcTable[863])((nint)commandBuffer, (nint)colorTargetInfos, numColorTargets, (nint)depthStencilTargetInfo);
+			#endif
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		{
+			SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+			return ret;
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		{
+			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+			{
+				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
 				{
-					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
+					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
 					return ret;
 				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		{
+			fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+			{
+				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+				{
+					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		{
+			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+			{
+				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+				{
+					SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a render pass on a command buffer.<br/>
+		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
+		/// the 3D texture case) which will be rendered to during the render pass,<br/>
+		/// along with corresponding clear values and load/store operations. All<br/>
+		/// operations related to graphics pipelines must take place inside of a render<br/>
+		/// pass. A default viewport and scissor state are automatically set when this<br/>
+		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
+		/// copy pass until you have ended the render pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
+				{
+					fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+					{
+						SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
+		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUGraphicsPipelineNative(SDLGPURenderPass* renderPass, SDLGPUGraphicsPipeline* graphicsPipeline)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUGraphicsPipeline*, void>)funcTable[864])(renderPass, graphicsPipeline);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[864])((nint)renderPass, (nint)graphicsPipeline);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
+		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUGraphicsPipeline(SDLGPURenderPass* renderPass, SDLGPUGraphicsPipeline* graphicsPipeline)
+		{
+			BindGPUGraphicsPipelineNative(renderPass, graphicsPipeline);
+		}
+
+		/// <summary>
+		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
+		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUGraphicsPipeline(ref SDLGPURenderPass renderPass, SDLGPUGraphicsPipeline* graphicsPipeline)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, graphicsPipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
+		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUGraphicsPipeline(SDLGPURenderPass* renderPass, ref SDLGPUGraphicsPipeline graphicsPipeline)
+		{
+			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
+			{
+				BindGPUGraphicsPipelineNative(renderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
+		/// A graphics pipeline must be bound before making any draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUGraphicsPipeline(ref SDLGPURenderPass renderPass, ref SDLGPUGraphicsPipeline graphicsPipeline)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
+				{
+					BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the current viewport state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetGPUViewportNative(SDLGPURenderPass* renderPass, SDLGPUViewport* viewport)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUViewport*, void>)funcTable[865])(renderPass, viewport);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[865])((nint)renderPass, (nint)viewport);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the current viewport state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUViewport(SDLGPURenderPass* renderPass, SDLGPUViewport* viewport)
+		{
+			SetGPUViewportNative(renderPass, viewport);
+		}
+
+		/// <summary>
+		/// Sets the current viewport state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUViewport(ref SDLGPURenderPass renderPass, SDLGPUViewport* viewport)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				SetGPUViewportNative((SDLGPURenderPass*)prenderPass, viewport);
+			}
+		}
+
+		/// <summary>
+		/// Sets the current viewport state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUViewport(SDLGPURenderPass* renderPass, ref SDLGPUViewport viewport)
+		{
+			fixed (SDLGPUViewport* pviewport = &viewport)
+			{
+				SetGPUViewportNative(renderPass, (SDLGPUViewport*)pviewport);
+			}
+		}
+
+		/// <summary>
+		/// Sets the current viewport state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUViewport(ref SDLGPURenderPass renderPass, ref SDLGPUViewport viewport)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUViewport* pviewport = &viewport)
+				{
+					SetGPUViewportNative((SDLGPURenderPass*)prenderPass, (SDLGPUViewport*)pviewport);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the current scissor state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetGPUScissorNative(SDLGPURenderPass* renderPass, SDLRect* scissor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLRect*, void>)funcTable[866])(renderPass, scissor);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[866])((nint)renderPass, (nint)scissor);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the current scissor state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUScissor(SDLGPURenderPass* renderPass, SDLRect* scissor)
+		{
+			SetGPUScissorNative(renderPass, scissor);
+		}
+
+		/// <summary>
+		/// Sets the current scissor state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUScissor(ref SDLGPURenderPass renderPass, SDLRect* scissor)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				SetGPUScissorNative((SDLGPURenderPass*)prenderPass, scissor);
+			}
+		}
+
+		/// <summary>
+		/// Sets the current scissor state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUScissor(SDLGPURenderPass* renderPass, ref SDLRect scissor)
+		{
+			fixed (SDLRect* pscissor = &scissor)
+			{
+				SetGPUScissorNative(renderPass, (SDLRect*)pscissor);
+			}
+		}
+
+		/// <summary>
+		/// Sets the current scissor state on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUScissor(ref SDLGPURenderPass renderPass, ref SDLRect scissor)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLRect* pscissor = &scissor)
+				{
+					SetGPUScissorNative((SDLGPURenderPass*)prenderPass, (SDLRect*)pscissor);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the current blend constants on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetGPUBlendConstantsNative(SDLGPURenderPass* renderPass, SDLFColor blendConstants)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLFColor, void>)funcTable[867])(renderPass, blendConstants);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, SDLFColor, void>)funcTable[867])((nint)renderPass, blendConstants);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the current blend constants on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBlendConstants(SDLGPURenderPass* renderPass, SDLFColor blendConstants)
+		{
+			SetGPUBlendConstantsNative(renderPass, blendConstants);
+		}
+
+		/// <summary>
+		/// Sets the current blend constants on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUBlendConstants(ref SDLGPURenderPass renderPass, SDLFColor blendConstants)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				SetGPUBlendConstantsNative((SDLGPURenderPass*)prenderPass, blendConstants);
+			}
+		}
+
+		/// <summary>
+		/// Sets the current stencil reference value on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetGPUStencilReferenceNative(SDLGPURenderPass* renderPass, byte reference)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, byte, void>)funcTable[868])(renderPass, reference);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, byte, void>)funcTable[868])((nint)renderPass, reference);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the current stencil reference value on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUStencilReference(SDLGPURenderPass* renderPass, byte reference)
+		{
+			SetGPUStencilReferenceNative(renderPass, reference);
+		}
+
+		/// <summary>
+		/// Sets the current stencil reference value on a command buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetGPUStencilReference(ref SDLGPURenderPass renderPass, byte reference)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				SetGPUStencilReferenceNative((SDLGPURenderPass*)prenderPass, reference);
+			}
+		}
+
+		/// <summary>
+		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUVertexBuffersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBufferBinding* bindings, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBufferBinding*, uint, void>)funcTable[869])(renderPass, firstSlot, bindings, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[869])((nint)renderPass, firstSlot, (nint)bindings, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexBuffers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBufferBinding* bindings, uint numBindings)
+		{
+			BindGPUVertexBuffersNative(renderPass, firstSlot, bindings, numBindings);
+		}
+
+		/// <summary>
+		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUBufferBinding* bindings, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, bindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexBuffers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUBufferBinding bindings, uint numBindings)
+		{
+			fixed (SDLGPUBufferBinding* pbindings = &bindings)
+			{
+				BindGPUVertexBuffersNative(renderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUBufferBinding bindings, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBufferBinding* pbindings = &bindings)
+				{
+					BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUIndexBufferNative(SDLGPURenderPass* renderPass, SDLGPUBufferBinding* binding, SDLGPUIndexElementSize indexElementSize)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBufferBinding*, SDLGPUIndexElementSize, void>)funcTable[870])(renderPass, binding, indexElementSize);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUIndexElementSize, void>)funcTable[870])((nint)renderPass, (nint)binding, indexElementSize);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUIndexBuffer(SDLGPURenderPass* renderPass, SDLGPUBufferBinding* binding, SDLGPUIndexElementSize indexElementSize)
+		{
+			BindGPUIndexBufferNative(renderPass, binding, indexElementSize);
+		}
+
+		/// <summary>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUIndexBuffer(ref SDLGPURenderPass renderPass, SDLGPUBufferBinding* binding, SDLGPUIndexElementSize indexElementSize)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, binding, indexElementSize);
+			}
+		}
+
+		/// <summary>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUIndexBuffer(SDLGPURenderPass* renderPass, ref SDLGPUBufferBinding binding, SDLGPUIndexElementSize indexElementSize)
+		{
+			fixed (SDLGPUBufferBinding* pbinding = &binding)
+			{
+				BindGPUIndexBufferNative(renderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
+			}
+		}
+
+		/// <summary>
+		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
+		/// calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUIndexBuffer(ref SDLGPURenderPass renderPass, ref SDLGPUBufferBinding binding, SDLGPUIndexElementSize indexElementSize)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBufferBinding* pbinding = &binding)
+				{
+					BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUVertexSamplersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[871])(renderPass, firstSlot, textureSamplerBindings, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[871])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexSamplers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			BindGPUVertexSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexSamplers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+			{
+				BindGPUVertexSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+				{
+					BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUVertexStorageTexturesNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[872])(renderPass, firstSlot, storageTextures, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[872])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			BindGPUVertexStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		{
+			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+			{
+				BindGPUVertexStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the vertex shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+				{
+					BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUVertexStorageBuffersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[873])(renderPass, firstSlot, storageBuffers, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[873])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			BindGPUVertexStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			{
+				BindGPUVertexStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the vertex shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUVertexStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				{
+					BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUFragmentSamplersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[874])(renderPass, firstSlot, textureSamplerBindings, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[874])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentSamplers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			BindGPUFragmentSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentSamplers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+			{
+				BindGPUFragmentSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+				{
+					BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUFragmentStorageTexturesNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[875])(renderPass, firstSlot, storageTextures, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[875])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		{
+			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+			{
+				BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures for use on the fragment shader.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+				{
+					BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUFragmentStorageBuffersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[876])(renderPass, firstSlot, storageBuffers, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[876])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			{
+				BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers for use on the fragment shader.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUFragmentStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				{
+					BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// enabled.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUIndexedPrimitivesNative(SDLGPURenderPass* renderPass, uint numIndices, uint numInstances, uint firstIndex, int vertexOffset, uint firstInstance)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, int, uint, void>)funcTable[877])(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, int, uint, void>)funcTable[877])((nint)renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// enabled.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUIndexedPrimitives(SDLGPURenderPass* renderPass, uint numIndices, uint numInstances, uint firstIndex, int vertexOffset, uint firstInstance)
+		{
+			DrawGPUIndexedPrimitivesNative(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// enabled.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUIndexedPrimitives(ref SDLGPURenderPass renderPass, uint numIndices, uint numInstances, uint firstIndex, int vertexOffset, uint firstInstance)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUIndexedPrimitivesNative((SDLGPURenderPass*)prenderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUPrimitivesNative(SDLGPURenderPass* renderPass, uint numVertices, uint numInstances, uint firstVertex, uint firstInstance)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, uint, void>)funcTable[878])(renderPass, numVertices, numInstances, firstVertex, firstInstance);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, void>)funcTable[878])((nint)renderPass, numVertices, numInstances, firstVertex, firstInstance);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUPrimitives(SDLGPURenderPass* renderPass, uint numVertices, uint numInstances, uint firstVertex, uint firstInstance)
+		{
+			DrawGPUPrimitivesNative(renderPass, numVertices, numInstances, firstVertex, firstInstance);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUPrimitives(ref SDLGPURenderPass renderPass, uint numVertices, uint numInstances, uint firstVertex, uint firstInstance)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUPrimitivesNative((SDLGPURenderPass*)prenderPass, numVertices, numInstances, firstVertex, firstInstance);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUPrimitivesIndirectNative(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[879])(renderPass, buffer, offset, drawCount);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[879])((nint)renderPass, (nint)buffer, offset, drawCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUPrimitivesIndirect(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		{
+			DrawGPUPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUPrimitivesIndirect(ref SDLGPURenderPass renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUPrimitivesIndirect(SDLGPURenderPass* renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				DrawGPUPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUPrimitivesIndirect(ref SDLGPURenderPass renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DrawGPUIndexedPrimitivesIndirectNative(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[880])(renderPass, buffer, offset, drawCount);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[880])((nint)renderPass, (nint)buffer, offset, drawCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUIndexedPrimitivesIndirect(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		{
+			DrawGPUIndexedPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUIndexedPrimitivesIndirect(ref SDLGPURenderPass renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUIndexedPrimitivesIndirect(SDLGPURenderPass* renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				DrawGPUIndexedPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+			}
+		}
+
+		/// <summary>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DrawGPUIndexedPrimitivesIndirect(ref SDLGPURenderPass renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EndGPURenderPassNative(SDLGPURenderPass* renderPass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, void>)funcTable[881])(renderPass);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[881])((nint)renderPass);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void EndGPURenderPass(SDLGPURenderPass* renderPass)
+		{
+			EndGPURenderPassNative(renderPass);
+		}
+
+		/// <summary>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void EndGPURenderPass(ref SDLGPURenderPass renderPass)
+		{
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			{
+				EndGPURenderPassNative((SDLGPURenderPass*)prenderPass);
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUComputePass* BeginGPUComputePassNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUStorageTextureReadWriteBinding*, uint, SDLGPUStorageBufferReadWriteBinding*, uint, SDLGPUComputePass*>)funcTable[882])(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+			#else
+			return (SDLGPUComputePass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, uint, nint>)funcTable[882])((nint)commandBuffer, (nint)storageTextureBindings, numStorageTextureBindings, (nint)storageBufferBindings, numStorageBufferBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
+		{
+			SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+			return ret;
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
+			{
+				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
+				{
+					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
+			{
+				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
+				{
+					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
+			{
+				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
+				{
+					SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
+				{
+					fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
+					{
+						SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputePipelineNative(SDLGPUComputePass* computePass, SDLGPUComputePipeline* computePipeline)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUComputePipeline*, void>)funcTable[883])(computePass, computePipeline);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[883])((nint)computePass, (nint)computePipeline);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputePipeline(SDLGPUComputePass* computePass, SDLGPUComputePipeline* computePipeline)
+		{
+			BindGPUComputePipelineNative(computePass, computePipeline);
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputePipeline(ref SDLGPUComputePass computePass, SDLGPUComputePipeline* computePipeline)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, computePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputePipeline(SDLGPUComputePass* computePass, ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+			{
+				BindGPUComputePipelineNative(computePass, (SDLGPUComputePipeline*)pcomputePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputePipeline(ref SDLGPUComputePass computePass, ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+				{
+					BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, (SDLGPUComputePipeline*)pcomputePipeline);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeSamplersNative(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[884])(computePass, firstSlot, textureSamplerBindings, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[884])((nint)computePass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeSamplers(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			BindGPUComputeSamplersNative(computePass, firstSlot, textureSamplerBindings, numBindings);
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeSamplers(ref SDLGPUComputePass computePass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, textureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeSamplers(SDLGPUComputePass* computePass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+			{
+				BindGPUComputeSamplersNative(computePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeSamplers(ref SDLGPUComputePass computePass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+				{
+					BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeStorageTexturesNative(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTexture**, uint, void>)funcTable[885])(computePass, firstSlot, storageTextures, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[885])((nint)computePass, firstSlot, (nint)storageTextures, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageTextures(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			BindGPUComputeStorageTexturesNative(computePass, firstSlot, storageTextures, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageTextures(ref SDLGPUComputePass computePass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, storageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageTextures(SDLGPUComputePass* computePass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		{
+			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+			{
+				BindGPUComputeStorageTexturesNative(computePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageTextures(ref SDLGPUComputePass computePass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+				{
+					BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeStorageBuffersNative(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUBuffer**, uint, void>)funcTable[886])(computePass, firstSlot, storageBuffers, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[886])((nint)computePass, firstSlot, (nint)storageBuffers, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageBuffers(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			BindGPUComputeStorageBuffersNative(computePass, firstSlot, storageBuffers, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageBuffers(ref SDLGPUComputePass computePass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, storageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageBuffers(SDLGPUComputePass* computePass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			{
+				BindGPUComputeStorageBuffersNative(computePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUShader().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void BindGPUComputeStorageBuffers(ref SDLGPUComputePass computePass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				{
+					BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DispatchGPUComputeNative(SDLGPUComputePass* computePass, uint groupcountX, uint groupcountY, uint groupcountZ)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, uint, uint, void>)funcTable[887])(computePass, groupcountX, groupcountY, groupcountZ);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, void>)funcTable[887])((nint)computePass, groupcountX, groupcountY, groupcountZ);
+			#endif
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DispatchGPUCompute(SDLGPUComputePass* computePass, uint groupcountX, uint groupcountY, uint groupcountZ)
+		{
+			DispatchGPUComputeNative(computePass, groupcountX, groupcountY, groupcountZ);
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DispatchGPUCompute(ref SDLGPUComputePass computePass, uint groupcountX, uint groupcountY, uint groupcountZ)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				DispatchGPUComputeNative((SDLGPUComputePass*)pcomputePass, groupcountX, groupcountY, groupcountZ);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DispatchGPUComputeIndirectNative(SDLGPUComputePass* computePass, SDLGPUBuffer* buffer, uint offset)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUBuffer*, uint, void>)funcTable[888])(computePass, buffer, offset);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[888])((nint)computePass, (nint)buffer, offset);
+			#endif
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DispatchGPUComputeIndirect(SDLGPUComputePass* computePass, SDLGPUBuffer* buffer, uint offset)
+		{
+			DispatchGPUComputeIndirectNative(computePass, buffer, offset);
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DispatchGPUComputeIndirect(ref SDLGPUComputePass computePass, SDLGPUBuffer* buffer, uint offset)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, buffer, offset);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DispatchGPUComputeIndirect(SDLGPUComputePass* computePass, ref SDLGPUBuffer buffer, uint offset)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				DispatchGPUComputeIndirectNative(computePass, (SDLGPUBuffer*)pbuffer, offset);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DispatchGPUComputeIndirect(ref SDLGPUComputePass computePass, ref SDLGPUBuffer buffer, uint offset)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, (SDLGPUBuffer*)pbuffer, offset);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EndGPUComputePassNative(SDLGPUComputePass* computePass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, void>)funcTable[889])(computePass);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[889])((nint)computePass);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void EndGPUComputePass(SDLGPUComputePass* computePass)
+		{
+			EndGPUComputePassNative(computePass);
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void EndGPUComputePass(ref SDLGPUComputePass computePass)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				EndGPUComputePassNative((SDLGPUComputePass*)pcomputePass);
+			}
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* MapGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer, byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, byte, void*>)funcTable[890])(device, transferBuffer, cycle);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, byte, nint>)funcTable[890])((nint)device, (nint)transferBuffer, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MapGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer, bool cycle)
+		{
+			void* ret = MapGPUTransferBufferNative(device, transferBuffer, cycle ? (byte)1 : (byte)0);
+			return ret;
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MapGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBuffer* transferBuffer, bool cycle)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer, cycle ? (byte)1 : (byte)0);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MapGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBuffer transferBuffer, bool cycle)
+		{
+			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+			{
+				void* ret = MapGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MapGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBuffer transferBuffer, bool cycle)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				{
+					void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnmapGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[891])(device, transferBuffer);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[891])((nint)device, (nint)transferBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnmapGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
+		{
+			UnmapGPUTransferBufferNative(device, transferBuffer);
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnmapGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBuffer* transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnmapGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+			{
+				UnmapGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnmapGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				{
+					UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUCopyPass* BeginGPUCopyPassNative(SDLGPUCommandBuffer* commandBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUCopyPass*>)funcTable[892])(commandBuffer);
+			#else
+			return (SDLGPUCopyPass*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[892])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUCopyPass* BeginGPUCopyPass(SDLGPUCommandBuffer* commandBuffer)
+		{
+			SDLGPUCopyPass* ret = BeginGPUCopyPassNative(commandBuffer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLGPUCopyPass* BeginGPUCopyPass(ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				SDLGPUCopyPass* ret = BeginGPUCopyPassNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UploadToGPUTextureNative(SDLGPUCopyPass* copyPass, SDLGPUTextureTransferInfo* source, SDLGPUTextureRegion* destination, byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureTransferInfo*, SDLGPUTextureRegion*, byte, void>)funcTable[893])(copyPass, source, destination, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[893])((nint)copyPass, (nint)source, (nint)destination, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureTransferInfo* source, SDLGPUTextureRegion* destination, bool cycle)
+		{
+			UploadToGPUTextureNative(copyPass, source, destination, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureTransferInfo* source, SDLGPUTextureRegion* destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureTransferInfo source, SDLGPUTextureRegion* destination, bool cycle)
+		{
+			fixed (SDLGPUTextureTransferInfo* psource = &source)
+			{
+				UploadToGPUTextureNative(copyPass, (SDLGPUTextureTransferInfo*)psource, destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureTransferInfo source, SDLGPUTextureRegion* destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureTransferInfo* psource = &source)
+				{
+					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, destination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureTransferInfo* source, ref SDLGPUTextureRegion destination, bool cycle)
+		{
+			fixed (SDLGPUTextureRegion* pdestination = &destination)
+			{
+				UploadToGPUTextureNative(copyPass, source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureTransferInfo* source, ref SDLGPUTextureRegion destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* pdestination = &destination)
+				{
+					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureTransferInfo source, ref SDLGPUTextureRegion destination, bool cycle)
+		{
+			fixed (SDLGPUTextureTransferInfo* psource = &source)
+			{
+				fixed (SDLGPUTextureRegion* pdestination = &destination)
+				{
+					UploadToGPUTextureNative(copyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureTransferInfo source, ref SDLGPUTextureRegion destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureTransferInfo* psource = &source)
+				{
+					fixed (SDLGPUTextureRegion* pdestination = &destination)
+					{
+						UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UploadToGPUBufferNative(SDLGPUCopyPass* copyPass, SDLGPUTransferBufferLocation* source, SDLGPUBufferRegion* destination, byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTransferBufferLocation*, SDLGPUBufferRegion*, byte, void>)funcTable[894])(copyPass, source, destination, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[894])((nint)copyPass, (nint)source, (nint)destination, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUTransferBufferLocation* source, SDLGPUBufferRegion* destination, bool cycle)
+		{
+			UploadToGPUBufferNative(copyPass, source, destination, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUTransferBufferLocation* source, SDLGPUBufferRegion* destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUTransferBufferLocation source, SDLGPUBufferRegion* destination, bool cycle)
+		{
+			fixed (SDLGPUTransferBufferLocation* psource = &source)
+			{
+				UploadToGPUBufferNative(copyPass, (SDLGPUTransferBufferLocation*)psource, destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUTransferBufferLocation source, SDLGPUBufferRegion* destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* psource = &source)
+				{
+					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, destination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUTransferBufferLocation* source, ref SDLGPUBufferRegion destination, bool cycle)
+		{
+			fixed (SDLGPUBufferRegion* pdestination = &destination)
+			{
+				UploadToGPUBufferNative(copyPass, source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUTransferBufferLocation* source, ref SDLGPUBufferRegion destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* pdestination = &destination)
+				{
+					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUTransferBufferLocation source, ref SDLGPUBufferRegion destination, bool cycle)
+		{
+			fixed (SDLGPUTransferBufferLocation* psource = &source)
+			{
+				fixed (SDLGPUBufferRegion* pdestination = &destination)
+				{
+					UploadToGPUBufferNative(copyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUTransferBufferLocation source, ref SDLGPUBufferRegion destination, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* psource = &source)
+				{
+					fixed (SDLGPUBufferRegion* pdestination = &destination)
+					{
+						UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CopyGPUTextureToTextureNative(SDLGPUCopyPass* copyPass, SDLGPUTextureLocation* source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureLocation*, SDLGPUTextureLocation*, uint, uint, uint, byte, void>)funcTable[895])(copyPass, source, destination, w, h, d, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, uint, uint, byte, void>)funcTable[895])((nint)copyPass, (nint)source, (nint)destination, w, h, d, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureLocation* source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
+		{
+			CopyGPUTextureToTextureNative(copyPass, source, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureLocation* source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureLocation source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* psource = &source)
+			{
+				CopyGPUTextureToTextureNative(copyPass, (SDLGPUTextureLocation*)psource, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureLocation source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* psource = &source)
+				{
+					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureLocation* source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* pdestination = &destination)
+			{
+				CopyGPUTextureToTextureNative(copyPass, source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureLocation* source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* pdestination = &destination)
+				{
+					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureLocation source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* psource = &source)
+			{
+				fixed (SDLGPUTextureLocation* pdestination = &destination)
+				{
+					CopyGPUTextureToTextureNative(copyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureLocation source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* psource = &source)
+				{
+					fixed (SDLGPUTextureLocation* pdestination = &destination)
+					{
+						CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CopyGPUBufferToBufferNative(SDLGPUCopyPass* copyPass, SDLGPUBufferLocation* source, SDLGPUBufferLocation* destination, uint size, byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferLocation*, SDLGPUBufferLocation*, uint, byte, void>)funcTable[896])(copyPass, source, destination, size, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, byte, void>)funcTable[896])((nint)copyPass, (nint)source, (nint)destination, size, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferLocation* source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		{
+			CopyGPUBufferToBufferNative(copyPass, source, destination, size, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferLocation* source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferLocation source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* psource = &source)
+			{
+				CopyGPUBufferToBufferNative(copyPass, (SDLGPUBufferLocation*)psource, destination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferLocation source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferLocation* psource = &source)
+				{
+					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, destination, size, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferLocation* source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* pdestination = &destination)
+			{
+				CopyGPUBufferToBufferNative(copyPass, source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
 			}
 		}
 	}

@@ -20,15 +20,10 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_FPoint")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLFPoint
 	{
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		public unsafe SDLFPoint(float x = default, float y = default)

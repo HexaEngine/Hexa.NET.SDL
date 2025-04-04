@@ -25,7 +25,6 @@ namespace Hexa.NET.SDL3
 	/// https://en.wikipedia.org/wiki/Semaphore_(programming)<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Semaphore")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSemaphore
 	{

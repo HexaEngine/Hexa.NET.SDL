@@ -17,43 +17,32 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GPUTextureType")]
 	[Flags]
 	public enum SDLGPUTextureType : int
 	{
 		/// <summary>
 		/// The texture is a 2-dimensional image. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTURETYPE_2D")]
-		[NativeName(NativeNameType.Value, "0")]
 		Texturetype2D = unchecked(0),
 
 		/// <summary>
 		/// The texture is a 2-dimensional array image. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTURETYPE_2D_ARRAY")]
-		[NativeName(NativeNameType.Value, "1")]
 		Texturetype2DArray = unchecked(1),
 
 		/// <summary>
 		/// The texture is a 3-dimensional image. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTURETYPE_3D")]
-		[NativeName(NativeNameType.Value, "2")]
 		Texturetype3D = unchecked(2),
 
 		/// <summary>
 		/// The texture is a cube image. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTURETYPE_CUBE")]
-		[NativeName(NativeNameType.Value, "3")]
 		Cube = unchecked(3),
 
 		/// <summary>
 		/// The texture is a cube array image. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GPU_TEXTURETYPE_CUBE_ARRAY")]
-		[NativeName(NativeNameType.Value, "4")]
 		CubeArray = unchecked(4),
 	}
 }

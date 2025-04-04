@@ -2126,7 +2126,7 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Get the current render target.<br/>
 		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported a NULL here.<br/>
+		/// and is reported as NULL here.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -2144,7 +2144,7 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Get the current render target.<br/>
 		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported a NULL here.<br/>
+		/// and is reported as NULL here.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -2158,7 +2158,7 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Get the current render target.<br/>
 		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported a NULL here.<br/>
+		/// and is reported as NULL here.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>

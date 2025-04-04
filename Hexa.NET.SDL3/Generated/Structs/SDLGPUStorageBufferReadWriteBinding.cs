@@ -21,32 +21,21 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GPUStorageBufferReadWriteBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUStorageBufferReadWriteBinding
 	{
 		/// <summary>
 		/// The buffer to bind. Must have been created with SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_WRITE. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "buffer")]
-		[NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
 		public unsafe SDLGPUBuffer* Buffer;
 
 		/// <summary>
 		/// true cycles the buffer if it is already bound. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "cycle")]
-		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
-		[NativeName(NativeNameType.Field, "padding3")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
 		public unsafe SDLGPUStorageBufferReadWriteBinding(SDLGPUBuffer* buffer = default, bool cycle = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)

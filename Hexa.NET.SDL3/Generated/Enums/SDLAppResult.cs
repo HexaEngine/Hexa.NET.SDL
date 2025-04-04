@@ -28,29 +28,22 @@ namespace Hexa.NET.SDL3
 	/// for complete details.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_AppResult")]
 	[Flags]
 	public enum SDLAppResult : int
 	{
 		/// <summary>
 		/// Value that requests that the app continue from the main callbacks. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_APP_CONTINUE")]
-		[NativeName(NativeNameType.Value, "0")]
 		Continue = unchecked(0),
 
 		/// <summary>
 		/// Value that requests termination with success from the main callbacks. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_APP_SUCCESS")]
-		[NativeName(NativeNameType.Value, "1")]
 		Success = unchecked(1),
 
 		/// <summary>
 		/// Value that requests termination with error from the main callbacks. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_APP_FAILURE")]
-		[NativeName(NativeNameType.Value, "2")]
 		Failure = unchecked(2),
 	}
 }
