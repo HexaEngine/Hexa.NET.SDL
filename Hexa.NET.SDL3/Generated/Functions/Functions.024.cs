@@ -2676,8 +2676,7 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Return whether an explicit rectangle was set as the viewport.<br/>
 		/// This is useful if you're saving and restoring the viewport and want to know<br/>
-		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
-		/// viewport is always reset when changing rendering targets.<br/>
+		/// whether you should restore a specific rectangle or NULL.<br/>
 		/// Each render target has its own viewport. This function checks the viewport<br/>
 		/// for the current render target.<br/>
 		/// <br/>
@@ -2699,8 +2698,7 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Return whether an explicit rectangle was set as the viewport.<br/>
 		/// This is useful if you're saving and restoring the viewport and want to know<br/>
-		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
-		/// viewport is always reset when changing rendering targets.<br/>
+		/// whether you should restore a specific rectangle or NULL.<br/>
 		/// Each render target has its own viewport. This function checks the viewport<br/>
 		/// for the current render target.<br/>
 		/// <br/>
@@ -2718,8 +2716,7 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Return whether an explicit rectangle was set as the viewport.<br/>
 		/// This is useful if you're saving and restoring the viewport and want to know<br/>
-		/// whether you should restore a specific rectangle or NULL. Note that the<br/>
-		/// viewport is always reset when changing rendering targets.<br/>
+		/// whether you should restore a specific rectangle or NULL.<br/>
 		/// Each render target has its own viewport. This function checks the viewport<br/>
 		/// for the current render target.<br/>
 		/// <br/>

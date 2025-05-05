@@ -2368,8 +2368,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2431,8 +2429,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2490,8 +2486,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2552,8 +2546,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2614,8 +2606,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2679,8 +2669,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2741,8 +2729,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2806,8 +2792,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2871,8 +2855,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -2939,8 +2921,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -3001,8 +2981,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -3066,8 +3044,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -3131,8 +3107,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -3199,8 +3173,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -3264,8 +3236,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -3332,8 +3302,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -3400,8 +3368,6 @@ namespace Hexa.NET.SDL3
 		/// with clipping.<br/>
 		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
 		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The final blit rectangles are saved in `srcrect` and `dstrect` after all<br/>
-		/// clipping is performed.<br/>
 		/// The blit function should not be called on a locked surface.<br/>
 		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
 		/// defined as follows:<br/>
@@ -5028,6 +4994,27 @@ namespace Hexa.NET.SDL3
 			fixed (SDLSurface* psrc = &src)
 			{
 				byte ret = BlitSurfaceTiledNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Perform a tiled blit to a destination surface, which may be of a different<br/>
+		/// format.<br/>
+		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
+		/// completely fill `dstrect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool BlitSurfaceTiled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				byte ret = BlitSurfaceTiledNative(src, (SDLRect*)psrcrect, dst, dstrect);
 				return ret != 0;
 			}
 		}

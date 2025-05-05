@@ -926,7 +926,7 @@ namespace Hexa.NET.SDL3
 
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT = "SDL.gpu.texture.create.d3d12.clear.depth";
 
-		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8 = "SDL.gpu.texture.create.d3d12.clear.stencil";
+		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER = "SDL.gpu.texture.create.d3d12.clear.stencil";
 
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING = "SDL.gpu.texture.create.name";
 
@@ -1678,7 +1678,7 @@ namespace Hexa.NET.SDL3
 
 		public const int SDL_MINOR_VERSION = 2;
 
-		public const int SDL_MICRO_VERSION = 10;
+		public const int SDL_MICRO_VERSION = 12;
 
 		public const int KHRONOS_SUPPORT_INT64 = 1;
 
@@ -3164,7 +3164,7 @@ namespace Hexa.NET.SDL3
 
 		public const int SDL_SSE4_2_INTRINSICS = 1;
 
-		public const string SDL_REVISION = "release-3.2.10-0-g877399b2b";
+		public const string SDL_REVISION = "release-3.2.12-0-g5ac37a8ff";
 
 		public const int ASSERT_FAIL = 0;
 

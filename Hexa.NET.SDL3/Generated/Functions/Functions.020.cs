@@ -920,7 +920,7 @@ namespace Hexa.NET.SDL3
 		/// composition are unsupported by the device. Check if the parameters are<br/>
 		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
 		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
 		/// supported.<br/>
 		/// <br/>
 		/// <br/>
@@ -942,7 +942,7 @@ namespace Hexa.NET.SDL3
 		/// composition are unsupported by the device. Check if the parameters are<br/>
 		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
 		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
 		/// supported.<br/>
 		/// <br/>
 		/// <br/>
@@ -960,7 +960,7 @@ namespace Hexa.NET.SDL3
 		/// composition are unsupported by the device. Check if the parameters are<br/>
 		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
 		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
 		/// supported.<br/>
 		/// <br/>
 		/// <br/>
@@ -981,7 +981,7 @@ namespace Hexa.NET.SDL3
 		/// composition are unsupported by the device. Check if the parameters are<br/>
 		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
 		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
 		/// supported.<br/>
 		/// <br/>
 		/// <br/>
@@ -1002,7 +1002,7 @@ namespace Hexa.NET.SDL3
 		/// composition are unsupported by the device. Check if the parameters are<br/>
 		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
 		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
 		/// supported.<br/>
 		/// <br/>
 		/// <br/>

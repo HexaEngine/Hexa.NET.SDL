@@ -29,27 +29,6 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceTiled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = BlitSurfaceTiledNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a tiled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		public static bool BlitSurfaceTiled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
@@ -5024,6 +5003,24 @@ namespace Hexa.NET.SDL3
 				Utils.Free(pStr0);
 			}
 			return ret != 0;
+		}
+
+		/// <summary>
+		/// Retrieve the list of mime types available in the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte** GetClipboardMimeTypesNative(nuint* numMimeTypes)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<nuint*, byte**>)funcTable[471])(numMimeTypes);
+			#else
+			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[471])((nint)numMimeTypes);
+			#endif
 		}
 	}
 }

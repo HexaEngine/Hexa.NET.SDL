@@ -18,6 +18,46 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Send a gamepad specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SendGamepadEffectNative(SDLGamepad* gamepad, void* data, int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, void*, int, byte>)funcTable[747])(gamepad, data, size);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[747])((nint)gamepad, (nint)data, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a gamepad specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SendGamepadEffect(SDLGamepad* gamepad, void* data, int size)
+		{
+			byte ret = SendGamepadEffectNative(gamepad, data, size);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Send a gamepad specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static bool SendGamepadEffect(ref SDLGamepad gamepad, void* data, int size)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				byte ret = SendGamepadEffectNative((SDLGamepad*)pgamepad, data, size);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
 		/// Close a gamepad previously opened with SDL_OpenGamepad().<br/>
 		/// <br/>
 		/// <br/>

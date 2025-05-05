@@ -4407,9 +4407,9 @@ namespace Hexa.NET.SDL3
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
 		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
 		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
 		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
 		/// in debugging tools.<br/>
 		/// <br/>
@@ -4452,9 +4452,9 @@ namespace Hexa.NET.SDL3
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
 		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
 		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
 		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
 		/// in debugging tools.<br/>
 		/// <br/>
@@ -4493,9 +4493,9 @@ namespace Hexa.NET.SDL3
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
 		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
 		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
 		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
 		/// in debugging tools.<br/>
 		/// <br/>
@@ -4537,9 +4537,9 @@ namespace Hexa.NET.SDL3
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
 		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
 		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
 		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
 		/// in debugging tools.<br/>
 		/// <br/>
@@ -4581,9 +4581,9 @@ namespace Hexa.NET.SDL3
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
 		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
 		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12<br/>
+		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
 		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this value. Defaults to zero.<br/>
+		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
 		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
 		/// in debugging tools.<br/>
 		/// <br/>

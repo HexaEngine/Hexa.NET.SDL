@@ -18,6 +18,49 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static short GetJoystickAxis(SDLJoystick* joystick, int axis)
+		{
+			short ret = GetJoystickAxisNative(joystick, axis);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static short GetJoystickAxis(ref SDLJoystick joystick, int axis)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				short ret = GetJoystickAxisNative((SDLJoystick*)pjoystick, axis);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Get the initial state of an axis control on a joystick.<br/>
 		/// The state is a value ranging from -32768 to 32767.<br/>
 		/// The axis indices start at index 0.<br/>
@@ -4981,46 +5024,6 @@ namespace Hexa.NET.SDL3
 			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
 				byte ret = SetGamepadLEDNative((SDLGamepad*)pgamepad, red, green, blue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SendGamepadEffectNative(SDLGamepad* gamepad, void* data, int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, void*, int, byte>)funcTable[747])(gamepad, data, size);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[747])((nint)gamepad, (nint)data, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SendGamepadEffect(SDLGamepad* gamepad, void* data, int size)
-		{
-			byte ret = SendGamepadEffectNative(gamepad, data, size);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Send a gamepad specific effect packet.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SendGamepadEffect(ref SDLGamepad gamepad, void* data, int size)
-		{
-			fixed (SDLGamepad* pgamepad = &gamepad)
-			{
-				byte ret = SendGamepadEffectNative((SDLGamepad*)pgamepad, data, size);
 				return ret != 0;
 			}
 		}

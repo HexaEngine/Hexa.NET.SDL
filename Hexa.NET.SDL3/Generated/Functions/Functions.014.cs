@@ -35,6 +35,36 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		public static bool GetWindowBordersSize(ref SDLWindow window, int* top, int* left, ref int bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pbottom = &bottom)
+				{
+					byte ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, right);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns false), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns false if getting the information is not<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		public static bool GetWindowBordersSize(SDLWindow* window, ref int top, int* left, ref int bottom, int* right)
 		{
 			fixed (int* ptop = &top)
@@ -4986,51 +5016,6 @@ namespace Hexa.NET.SDL3
 			((delegate* unmanaged[Cdecl]<delegate*<void*, nint*>, delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>, delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>, void*, void>)funcTable[594])((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (delegate*<void*, SDLEGLDisplay, SDLEGLConfig, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), userdata);
 			#else
 			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, void>)funcTable[594])((nint)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (nint)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (nint)Utils.GetFunctionPointerForDelegate(contextAttribCallback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
-		/// initialization.<br/>
-		/// Callbacks that aren't needed can be set to NULL.<br/>
-		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static void EGLSetAttributeCallbacks(SDLEGLAttribArrayCallback platformAttribCallback, SDLEGLIntArrayCallback surfaceAttribCallback, SDLEGLIntArrayCallback contextAttribCallback, void* userdata)
-		{
-			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, contextAttribCallback, userdata);
-		}
-
-		/// <summary>
-		/// Set the swap interval for the current OpenGL context.<br/>
-		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
-		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
-		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
-		/// might be less jarring for the user during occasional framerate drops. If an<br/>
-		/// application requests adaptive vsync and the system does not support it,<br/>
-		/// this function will fail and return false. In such a case, you should<br/>
-		/// probably retry the call with 1 for the interval.<br/>
-		/// Adaptive vsync is implemented for some glX drivers with<br/>
-		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
-		/// WGL_EXT_swap_control_tear.<br/>
-		/// Read more on the Khronos wiki:<br/>
-		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GLSetSwapIntervalNative(int interval)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
 			#endif
 		}
 	}

@@ -68,8 +68,18 @@ namespace Hexa.NET.SDL3
 		/// </summary>
 		public float MouseY;
 
+		/// <summary>
+		/// The amount scrolled horizontally, accumulated to whole scroll "ticks" (added in 3.2.12) <br/>
+		/// </summary>
+		public int IntegerX;
 
-		public unsafe SDLMouseWheelEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, float x = default, float y = default, SDLMouseWheelDirection direction = default, float mouseX = default, float mouseY = default)
+		/// <summary>
+		/// The amount scrolled vertically, accumulated to whole scroll "ticks" (added in 3.2.12) <br/>
+		/// </summary>
+		public int IntegerY;
+
+
+		public unsafe SDLMouseWheelEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, float x = default, float y = default, SDLMouseWheelDirection direction = default, float mouseX = default, float mouseY = default, int integerX = default, int integerY = default)
 		{
 			Type = type;
 			Reserved = reserved;
@@ -81,6 +91,8 @@ namespace Hexa.NET.SDL3
 			Direction = direction;
 			MouseX = mouseX;
 			MouseY = mouseY;
+			IntegerX = integerX;
+			IntegerY = integerY;
 		}
 
 

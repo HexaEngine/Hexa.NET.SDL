@@ -30,22 +30,22 @@ namespace Hexa.NET.SDL3
 	public enum SDLGLAttr : int
 	{
 		/// <summary>
-		/// the minimum number of bits for the red channel of the color buffer; defaults to 3. <br/>
+		/// the minimum number of bits for the red channel of the color buffer; defaults to 8. <br/>
 		/// </summary>
 		RedSize = unchecked(0),
 
 		/// <summary>
-		/// the minimum number of bits for the green channel of the color buffer; defaults to 3. <br/>
+		/// the minimum number of bits for the green channel of the color buffer; defaults to 8. <br/>
 		/// </summary>
 		GreenSize = unchecked(1),
 
 		/// <summary>
-		/// the minimum number of bits for the blue channel of the color buffer; defaults to 2. <br/>
+		/// the minimum number of bits for the blue channel of the color buffer; defaults to 8. <br/>
 		/// </summary>
 		BlueSize = unchecked(2),
 
 		/// <summary>
-		/// the minimum number of bits for the alpha channel of the color buffer; defaults to 0. <br/>
+		/// the minimum number of bits for the alpha channel of the color buffer; defaults to 8. <br/>
 		/// </summary>
 		AlphaSize = unchecked(3),
 

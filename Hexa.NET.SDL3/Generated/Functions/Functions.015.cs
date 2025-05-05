@@ -18,6 +18,51 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static void EGLSetAttributeCallbacks(SDLEGLAttribArrayCallback platformAttribCallback, SDLEGLIntArrayCallback surfaceAttribCallback, SDLEGLIntArrayCallback contextAttribCallback, void* userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, contextAttribCallback, userdata);
+		}
+
+		/// <summary>
+		/// Set the swap interval for the current OpenGL context.<br/>
+		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
+		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
+		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
+		/// might be less jarring for the user during occasional framerate drops. If an<br/>
+		/// application requests adaptive vsync and the system does not support it,<br/>
+		/// this function will fail and return false. In such a case, you should<br/>
+		/// probably retry the call with 1 for the interval.<br/>
+		/// Adaptive vsync is implemented for some glX drivers with<br/>
+		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
+		/// WGL_EXT_swap_control_tear.<br/>
+		/// Read more on the Khronos wiki:<br/>
+		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLSetSwapIntervalNative(int interval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
+			#endif
+		}
+
+		/// <summary>
 		/// Set the swap interval for the current OpenGL context.<br/>
 		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
 		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
@@ -4989,49 +5034,6 @@ namespace Hexa.NET.SDL3
 			#else
 			return (short)((delegate* unmanaged[Cdecl]<nint, int, short>)funcTable[666])((nint)joystick, axis);
 			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of an axis control on a joystick.<br/>
-		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
-		/// to. Your game should have some sort of configuration UI to let users<br/>
-		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
-		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
-		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
-		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
-		/// 32767) representing the current position of the axis. It may be necessary<br/>
-		/// to impose certain tolerances on these values to account for jitter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static short GetJoystickAxis(SDLJoystick* joystick, int axis)
-		{
-			short ret = GetJoystickAxisNative(joystick, axis);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of an axis control on a joystick.<br/>
-		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
-		/// to. Your game should have some sort of configuration UI to let users<br/>
-		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
-		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
-		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
-		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
-		/// 32767) representing the current position of the axis. It may be necessary<br/>
-		/// to impose certain tolerances on these values to account for jitter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static short GetJoystickAxis(ref SDLJoystick joystick, int axis)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				short ret = GetJoystickAxisNative((SDLJoystick*)pjoystick, axis);
-				return ret;
-			}
 		}
 	}
 }

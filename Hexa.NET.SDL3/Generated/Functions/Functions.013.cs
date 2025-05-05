@@ -25,24 +25,6 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte** GetClipboardMimeTypesNative(nuint* numMimeTypes)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<nuint*, byte**>)funcTable[471])(numMimeTypes);
-			#else
-			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[471])((nint)numMimeTypes);
-			#endif
-		}
-
-		/// <summary>
-		/// Retrieve the list of mime types available in the clipboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		public static byte** GetClipboardMimeTypes(nuint* numMimeTypes)
 		{
 			byte** ret = GetClipboardMimeTypesNative(numMimeTypes);
@@ -2135,6 +2117,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a window with the specified dimensions and flags.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// `flags` may be any of the following OR'd together:<br/>
 		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
 		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
@@ -2208,6 +2193,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a window with the specified dimensions and flags.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// `flags` may be any of the following OR'd together:<br/>
 		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
 		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
@@ -2277,6 +2265,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a window with the specified dimensions and flags.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// `flags` may be any of the following OR'd together:<br/>
 		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
 		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
@@ -2349,6 +2340,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a window with the specified dimensions and flags.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// `flags` may be any of the following OR'd together:<br/>
 		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
 		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
@@ -2421,6 +2415,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a window with the specified dimensions and flags.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// `flags` may be any of the following OR'd together:<br/>
 		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
 		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
@@ -2511,6 +2508,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a child popup window of the specified parent window.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// The flags parameter **must** contain at least one of the following:<br/>
 		/// - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any<br/>
 		/// input events.<br/>
@@ -2555,6 +2555,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a child popup window of the specified parent window.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// The flags parameter **must** contain at least one of the following:<br/>
 		/// - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any<br/>
 		/// input events.<br/>
@@ -2595,6 +2598,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a child popup window of the specified parent window.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// The flags parameter **must** contain at least one of the following:<br/>
 		/// - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any<br/>
 		/// input events.<br/>
@@ -2638,6 +2644,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a window with the specified properties.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// These are the supported properties:<br/>
 		/// - `SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN`: true if the window should<br/>
 		/// be always on top<br/>
@@ -2747,6 +2756,9 @@ namespace Hexa.NET.SDL3
 
 		/// <summary>
 		/// Create a window with the specified properties.<br/>
+		/// The window size is a request and may be different than expected based on<br/>
+		/// the desktop layout and window manager policies. Your application should be<br/>
+		/// prepared to handle a window of any size.<br/>
 		/// These are the supported properties:<br/>
 		/// - `SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN`: true if the window should<br/>
 		/// be always on top<br/>
@@ -5003,36 +5015,6 @@ namespace Hexa.NET.SDL3
 			{
 				byte ret = GetWindowBordersSizeNative(window, top, left, (int*)pbottom, right);
 				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(ref SDLWindow window, int* top, int* left, ref int bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pbottom = &bottom)
-				{
-					byte ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, right);
-					return ret != 0;
-				}
 			}
 		}
 	}
