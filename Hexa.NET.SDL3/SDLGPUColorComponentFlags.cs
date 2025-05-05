@@ -12,6 +12,7 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	[Flags]
 	public enum SDLGPUColorComponentFlags : byte
 	{
 		R = (byte)(1u<<0),

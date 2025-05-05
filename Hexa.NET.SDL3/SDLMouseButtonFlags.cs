@@ -12,7 +12,8 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	public enum SDLMouseButtonFlags : uint
+    [Flags]
+    public enum SDLMouseButtonFlags : uint
 	{
 		Left = 1,
 		Middle = 2,

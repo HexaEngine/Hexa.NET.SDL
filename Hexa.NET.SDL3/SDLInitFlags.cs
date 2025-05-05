@@ -12,7 +12,8 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	public enum SDLInitFlags : uint
+    [Flags]
+    public enum SDLInitFlags : uint
 	{
 		Timer = 0x00000001u,
 		Audio = 0x00000010u,

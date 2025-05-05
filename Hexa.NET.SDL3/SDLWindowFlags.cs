@@ -13,7 +13,8 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	public enum SDLWindowFlags : uint
+    [Flags]
+    public enum SDLWindowFlags : uint
 	{
 		Fullscreen = (0x0000000000000001),
 		Opengl = (0x0000000000000002),

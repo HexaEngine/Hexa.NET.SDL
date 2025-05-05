@@ -12,7 +12,8 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	public enum SDLMessageBoxFlags : uint
+    [Flags]
+    public enum SDLMessageBoxFlags : uint
 	{
 		Error = 0x00000010u,
 		Warning = 0x00000020u,

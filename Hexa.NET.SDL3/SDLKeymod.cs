@@ -12,7 +12,8 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	public enum SDLKeymod : ushort
+    [Flags]
+    public enum SDLKeymod : ushort
 	{
 		None = unchecked((ushort)0x0000u),
 		Lshift = unchecked((ushort)0x0001u),
