@@ -37,31 +37,43 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
+            os-name: linux
             arch: x86_64
             cmake-arch: x64
             rtid: linux-x64
-          - os: linux
+
+          - os: ubuntu-24.04-arm
+            os-name: linux
             arch: arm64
             cmake-arch: aarch64
-            runner-label: self-hosted
             rtid: linux-arm64
+
           - os: windows-latest
+            os-name: windows
             arch: x86_64
             cmake-arch: x64
             rtid: win-x64
+
           - os: windows-latest
+            os-name: windows
             arch: x86
             cmake-arch: win32
             rtid: win-x86
+
           - os: windows-latest
+            os-name: windows
             arch: arm64
             cmake-arch: arm64
             rtid: win-arm64
+
           - os: macos-latest
+            os-name: macos
             arch: x86_64
             cmake-arch: x86_64
             rtid: osx-x64
+
           - os: macos-latest
+            os-name: macos
             arch: arm64
             cmake-arch: arm64
             rtid: osx-arm64
@@ -74,7 +86,7 @@ jobs:
         path: '${{ env.repo-path }}'
 
     - name: Install dependencies on Ubuntu
-      if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'linux'
       run: |
           sudo apt-get update && sudo apt-get install -y \
           build-essential \
@@ -110,20 +122,20 @@ jobs:
           libxkbcommon-dev \
           libsndio-dev
 
-    - name: Configure cimgui with CMake on Linux (x86_64)
-      if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+    - name: Configure with CMake for Linux 
+      if: matrix.os == 'linux'
       run: |
         cd ${{ env.repo-path }}
         cmake -S . -B ./build ${{ env.cmake-flags }}
 
-    - name: Configure with CMake for macOS ARM64
-      if: matrix.os == 'macos-latest'
+    - name: Configure with CMake for macOS
+      if: matrix.os == 'macos'
       run: |
         cd ${{ env.repo-path }}
         cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} ${{ env.cmake-flags }}
 
-    - name: Configure cimgui with CMake for Windows
-      if: matrix.os == 'windows-latest'
+    - name: Configure with CMake for Windows
+      if: matrix.os == 'windows'
       run: |
         cd ${{ env.repo-path }}
         cmake -S . -B ./build -A ${{ matrix.cmake-arch }} ${{ env.cmake-flags }}
@@ -134,7 +146,7 @@ jobs:
         cmake --build ./build --config Release
 
     - name: Normalize binaries for macOS
-      if: matrix.os == 'macos-latest'
+      if: matrix.os == 'macos'
       run: |
         rm -rf ${{ env.build-output-dir }}
         mkdir ${{ env.build-output-dir }}
@@ -142,7 +154,7 @@ jobs:
         ls -lha ${{ env.build-output-dir }}
         
     - name: Normalize binaries for Linux
-      if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'linux'
       run: |
         rm -rf ${{ env.build-output-dir }}
         mkdir ${{ env.build-output-dir }}
@@ -150,7 +162,7 @@ jobs:
         ls -lha ${{ env.build-output-dir }}
 
     - name: Normalize binaries for Windows
-      if: matrix.os == 'windows-latest'
+      if: matrix.os == 'windows'
       run: |
         rm -r ${{ env.build-output-dir }} -ErrorAction SilentlyContinue
         mkdir ${{ env.build-output-dir }}
