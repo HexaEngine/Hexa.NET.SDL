@@ -86,7 +86,7 @@ jobs:
         path: '${{ env.repo-path }}'
 
     - name: Install dependencies on Ubuntu
-      if: matrix.os == 'linux'
+      if: matrix.os-name == 'linux'
       run: |
           sudo apt-get update && sudo apt-get install -y \
           build-essential \
@@ -123,19 +123,19 @@ jobs:
           libsndio-dev
 
     - name: Configure with CMake for Linux 
-      if: matrix.os == 'linux'
+      if: matrix.os-name == 'linux'
       run: |
         cd ${{ env.repo-path }}
         cmake -S . -B ./build ${{ env.cmake-flags }}
 
     - name: Configure with CMake for macOS
-      if: matrix.os == 'macos'
+      if: matrix.os-name == 'macos'
       run: |
         cd ${{ env.repo-path }}
         cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} ${{ env.cmake-flags }}
 
     - name: Configure with CMake for Windows
-      if: matrix.os == 'windows'
+      if: matrix.os-name == 'windows'
       run: |
         cd ${{ env.repo-path }}
         cmake -S . -B ./build -A ${{ matrix.cmake-arch }} ${{ env.cmake-flags }}
@@ -146,7 +146,7 @@ jobs:
         cmake --build ./build --config Release
 
     - name: Normalize binaries for macOS
-      if: matrix.os == 'macos'
+      if: matrix.os-name == 'macos'
       run: |
         rm -rf ${{ env.build-output-dir }}
         mkdir ${{ env.build-output-dir }}
@@ -154,7 +154,7 @@ jobs:
         ls -lha ${{ env.build-output-dir }}
         
     - name: Normalize binaries for Linux
-      if: matrix.os == 'linux'
+      if: matrix.os-name == 'linux'
       run: |
         rm -rf ${{ env.build-output-dir }}
         mkdir ${{ env.build-output-dir }}
@@ -162,7 +162,7 @@ jobs:
         ls -lha ${{ env.build-output-dir }}
 
     - name: Normalize binaries for Windows
-      if: matrix.os == 'windows'
+      if: matrix.os-name == 'windows'
       run: |
         rm -r ${{ env.build-output-dir }} -ErrorAction SilentlyContinue
         mkdir ${{ env.build-output-dir }}
