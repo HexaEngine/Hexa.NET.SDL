@@ -8,7 +8,7 @@ jobs:
     with:
       lib-name: SDL2
       repo: libsdl-org/SDL
-      repo-tag: fb0e03f262c74f025b19f9748fa720e83f04a179
+      repo-tag: 6c7fc09feec2efc4095fcd06330c498dad19974d
       repo-path: SDL
       cmake-flags: "-DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON"
       cmake-flags-windows: "-DCMAKE_SYSTEM_VERSION=10.0.26100.0"
