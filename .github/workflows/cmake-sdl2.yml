@@ -31,7 +31,7 @@ jobs:
     needs: [build]
     with:
       lib-name: SDL2
-      lib-version: release-2.32.6
+      lib-version: release-2.32.8
       pr-branch: sdl2-artifacts-branch
       pr-base-branch: master
       pr-reviewers: JunaMeinhold

@@ -2,302 +2,36 @@ name: Build and Upload SDL3 Artifacts
 
 on: [workflow_dispatch]
 
-env:
-  lib-name: SDL3
-  repo: libsdl-org/SDL
-  repo-tag: release-3.2.12
-  repo-path: SDL
-
-  cmake-flags: "-DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON"
-
-  ndk-version: 26.3.11579264
-  android-api: 21
-
-  build-output-dir: artifacts
-
-  bin-name-osx: libSDL3.dylib
-  bin-name-linux: libSDL3.so
-  bin-name-android: libSDL3.so
-  bin-name-windows: Release/SDL3.dll
-
-  bin-name-osx-normalized: libSDL3.dylib
-  bin-name-linux-normalized: libSDL3.so
-  bin-name-android-normalized: libSDL3.so
-  bin-name-windows-normalized: SDL3.dll
-
-  base: master
-  branch: sdl3-artifacts-branch
-  output-dir: Hexa.NET.SDL3/native
-  reviewers: "JunaMeinhold"
-
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            os-name: linux
-            arch: x86_64
-            cmake-arch: x64
-            rtid: linux-x64
-
-          - os: ubuntu-24.04-arm
-            os-name: linux
-            arch: arm64
-            cmake-arch: aarch64
-            rtid: linux-arm64
-
-          - os: windows-latest
-            os-name: windows
-            arch: x86_64
-            cmake-arch: x64
-            rtid: win-x64
-
-          - os: windows-latest
-            os-name: windows
-            arch: x86
-            cmake-arch: win32
-            rtid: win-x86
-
-          - os: windows-latest
-            os-name: windows
-            arch: arm64
-            cmake-arch: arm64
-            rtid: win-arm64
-
-          - os: macos-latest
-            os-name: macos
-            arch: x86_64
-            cmake-arch: x86_64
-            rtid: osx-x64
-
-          - os: macos-latest
-            os-name: macos
-            arch: arm64
-            cmake-arch: arm64
-            rtid: osx-arm64
-
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        repository: '${{ env.repo }}'
-        ref: '${{ env.repo-tag }}'
-        path: '${{ env.repo-path }}'
-
-    - name: Install dependencies on Ubuntu
-      if: matrix.os-name == 'linux'
-      run: |
-          sudo apt-get update && sudo apt-get install -y \
-          build-essential \
-          cmake \
-          libasound2-dev \
-          libpulse-dev \
-          libaudio-dev \
-          libx11-dev \
-          libxext-dev \
-          libxrandr-dev \
-          libxcursor-dev \
-          libxfixes-dev \
-          libxi-dev \
-          libxinerama-dev \
-          libxss-dev \
-          libwayland-dev \
-          libwayland-egl-backend-dev \
-          libdbus-1-dev \
-          libudev-dev \
-          libgles2-mesa-dev \
-          libegl1-mesa-dev \
-          libgl1-mesa-dev \
-          libibus-1.0-dev \
-          fcitx-libs-dev \
-          libsamplerate0-dev \
-          ccache \
-          libjack-jackd2-dev \
-          libdrm-dev \
-          libpipewire-0.3-dev \
-          libvulkan-dev \
-          libdecor-0-dev \
-          qtwayland5 \
-          libxkbcommon-dev \
-          libsndio-dev
-
-    - name: Configure with CMake on Linux
-      if: matrix.os-name == 'linux'
-      run: |
-        cd ${{ env.repo-path }}
-        cmake -S . -B ./build ${{ env.cmake-flags }}
-
-    - name: Configure with CMake for macOS
-      if: matrix.os-name == 'macos'
-      run: |
-        cd ${{ env.repo-path }}
-        cmake -S . -B ./build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} ${{ env.cmake-flags }}
-
-    - name: Configure with CMake for Windows
-      if: matrix.os-name == 'windows'
-      run: |
-        cd ${{ env.repo-path }}
-        cmake -S . -B ./build -A ${{ matrix.cmake-arch }} ${{ env.cmake-flags }} -DCMAKE_SYSTEM_VERSION=10.0.26100.0
-
-    - name: Build
-      run: |
-        cd ${{ env.repo-path }}
-        cmake --build ./build --config Release
-
-    - name: Normalize binaries for macOS
-      if: matrix.os-name == 'macos'
-      run: |
-        rm -rf ${{ env.build-output-dir }}
-        mkdir ${{ env.build-output-dir }}
-        cp -L ${{ env.repo-path }}/build/${{ env.bin-name-osx }} ${{ env.build-output-dir }}/${{ env.bin-name-osx-normalized }}
-        ls -lha ${{ env.build-output-dir }}
-        
-    - name: Normalize binaries for Linux
-      if: matrix.os-name == 'linux'
-      run: |
-        rm -rf ${{ env.build-output-dir }}
-        mkdir ${{ env.build-output-dir }}
-        cp -L ${{ env.repo-path }}/build/${{ env.bin-name-linux }} ${{ env.build-output-dir }}/${{ env.bin-name-linux-normalized }}
-        ls -lha ${{ env.build-output-dir }}
-
-    - name: Normalize binaries for Windows
-      if: matrix.os-name == 'windows'
-      run: |
-        rm -r ${{ env.build-output-dir }} -ErrorAction SilentlyContinue
-        mkdir ${{ env.build-output-dir }}
-        cp ${{ env.repo-path }}/build/${{ env.bin-name-windows }} ${{ env.build-output-dir }}/${{ env.bin-name-windows-normalized }}
-        ls ${{ env.build-output-dir }}
-      
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ matrix.rtid }}
-        path: |
-          ${{ env.build-output-dir }}/*.dll
-          ${{ env.build-output-dir }}/*.so
-          ${{ env.build-output-dir }}/*.dylib
-        if-no-files-found: error
-
-  build-android:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-            repository: "${{ env.repo }}"
-            ref: "${{ env.repo-tag }}"
-            path: "${{ env.repo-path }}"
-
-      - name: Install dependencies on Ubuntu
-        run: |
-            sudo apt-get update
-            sudo apt-get install -y build-essential cmake ninja-build
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-            distribution: "temurin"
-            java-version: 17
-
-      - name: Install Android SDK Command-Line Tools
-        run: |
-            wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O android-sdk-tools.zip
-            unzip android-sdk-tools.zip -d tools
-            mkdir $HOME/android-sdk/
-            mkdir $HOME/android-sdk/cmdline-tools/
-            mkdir $HOME/android-sdk/cmdline-tools/latest/
-            mv ./tools/cmdline-tools/* $HOME/android-sdk/cmdline-tools/latest/
-            chmod +x $HOME/android-sdk/cmdline-tools/latest/bin/*
-            echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-            echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
-
-      - name: Accept Android SDK Licenses
-        run: |
-            yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
-
-      - name: Install Android NDK
-        run: |
-            yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --install "ndk;${{ env.ndk-version}}"      
-            echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/${{ env.ndk-version}}" >> $GITHUB_ENV
-            echo "PATH=$PATH:$ANDROID_HOME/ndk/${{ env.ndk-version}}" >> $GITHUB_ENV
-
-      - name: Build for arm64-v8a
-        run: |
-            cd ${{ env.repo-path }}
-            cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_SYSTEM_NAME=Android \
-                -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME \
-                -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
-                -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang \
-                -DCMAKE_ANDROID_STL_TYPE=c++_shared \
-                -DCMAKE_ANDROID_API=${{ env.android-api }} \
-                -DANDROID_NDK=$ANDROID_NDK_HOME \
-                ${{ env.cmake-flags }} \
-                -S . \
-                -B ./build/arm64-v8a
-            cmake --build ./build/arm64-v8a  --config Release
-
-      - name: Build for x86_64
-        run: |
-            cd ${{ env.repo-path }}
-            cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_SYSTEM_NAME=Android \
-                -DCMAKE_ANDROID_NDK=$ANDROID_NDK_HOME \
-                -DCMAKE_ANDROID_ARCH_ABI=x86_64 \
-                -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang \
-                -DCMAKE_ANDROID_STL_TYPE=c++_shared \
-                -DCMAKE_ANDROID_API=${{ env.android-api }} \
-                -DANDROID_NDK=$ANDROID_NDK_HOME \
-                ${{ env.cmake-flags }} \
-                -S . \
-                -B ./build/x86_64
-            cmake --build ./build/x86_64 --config Release
-
-      - name: Normalize binaries for Android
-        run: |
-          rm -rf ${{ env.build-output-dir }}
-          mkdir -p ${{ env.build-output-dir }}/arm64-v8a
-          mkdir -p ${{ env.build-output-dir }}/x86_64
-          cp -L ${{ env.repo-path }}/build/arm64-v8a/${{ env.bin-name-android }} ${{ env.build-output-dir }}/arm64-v8a/${{ env.bin-name-android-normalized }}
-          cp -L ${{ env.repo-path }}/build/x86_64/${{ env.bin-name-android }} ${{ env.build-output-dir }}/x86_64/${{ env.bin-name-android-normalized }}
-          ls ${{ env.build-output-dir }}/arm64-v8a
-          ls ${{ env.build-output-dir }}/x86_64
-
-      - name: Upload Artifacts (android-arm64)
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-arm64
-          path: ${{ env.build-output-dir }}/arm64-v8a/*.so
-          if-no-files-found: error
-
-      - name: Upload Artifacts (android-x64)
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-x64
-          path: ${{ env.build-output-dir }}/x86_64/*.so
-          if-no-files-found: error
+    uses: JunaMeinhold/cmake-actions/.github/workflows/cmake.yml@v1.x.x
+    with:
+      lib-name: SDL3
+      repo: libsdl-org/SDL
+      repo-tag: release-3.2.20
+      repo-path: SDL
+      cmake-flags: "-DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON"
+      cmake-flags-windows: "-DCMAKE_SYSTEM_VERSION=10.0.26100.0"
+      ndk-version: "26.3.11579264"
+      android-api: "21"
+      build-output-dir: artifacts
+      bin-name-osx: libSDL3.dylib
+      bin-name-linux: libSDL3.so
+      bin-name-android: libSDL3.so
+      bin-name-windows: Release/SDL3.dll
+      bin-name-osx-normalized: libSDL3.dylib
+      bin-name-linux-normalized: libSDL3.so
+      bin-name-android-normalized: libSDL3.so
+      bin-name-windows-normalized: SDL3.dll
+      linux-deps: "build-essential cmake libasound2-dev libpulse-dev libaudio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxinerama-dev libxss-dev libwayland-dev libwayland-egl-backend-dev libdbus-1-dev libudev-dev libgles2-mesa-dev libegl1-mesa-dev libgl1-mesa-dev libibus-1.0-dev fcitx-libs-dev libsamplerate0-dev ccache libjack-jackd2-dev libdrm-dev libpipewire-0.3-dev libvulkan-dev libdecor-0-dev qtwayland5 libxkbcommon-dev libsndio-dev"
+      android-deps: "build-essential cmake ninja-build"
 
   create-pr:
-    runs-on: ubuntu-latest
-    needs: [build, build-android]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download all dummy artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: ${{ env.output-dir }}
-
-      - name: Create a Pull Request to master
-        uses: peter-evans/create-pull-request@v7
-        with:
-          title: "Update native libraries (DLLs, .so, .dylib) for ${{ env.lib-name }} to version ${{ env.repo-tag }}"
-          body: "This pull request updates the native libraries (DLLs, .so, .dylib) in the ${{ env.output-dir }} folder to version ${{ env.repo-tag }} to support the latest cross-platform builds."
-          commit-message: "chore: update native libraries (DLLs, .so, .dylib) to version ${{ env.repo-tag }}"
-          add-paths: "${{ env.output-dir }}/*"
-          branch: ${{ env.branch }}
-          base: ${{ env.base }}
-          reviewers: ${{ env.reviewers }}
-          sign-commits: true
-          delete-branch: true
+    uses: JunaMeinhold/cmake-actions/.github/workflows/create-pr.yml@v1.x.x
+    needs: [build]
+    with:
+      lib-name: SDL3
+      lib-version: release-3.2.20
+      pr-branch: sdl3-artifacts-branch
+      pr-base-branch: master
+      pr-reviewers: JunaMeinhold
