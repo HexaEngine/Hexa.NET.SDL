@@ -1,0 +1,4 @@
+{
+  "SDL2": "Hexa.NET.SDL2/native",
+  "SDL3": "Hexa.NET.SDL3/native"
+}
