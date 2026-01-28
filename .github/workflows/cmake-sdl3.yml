@@ -8,7 +8,7 @@ jobs:
     with:
       lib-name: SDL3
       repo: libsdl-org/SDL
-      repo-tag: release-3.2.20
+      repo-tag: release-3.4.0
       repo-path: SDL
       cmake-flags: "-DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON"
       cmake-flags-windows: "-DCMAKE_SYSTEM_VERSION=10.0.26100.0"
@@ -31,7 +31,7 @@ jobs:
     needs: [build]
     with:
       lib-name: SDL3
-      lib-version: release-3.2.20
+      lib-version: release-3.4.0
       pr-branch: sdl3-artifacts-branch
       pr-base-branch: master
       pr-reviewers: JunaMeinhold
